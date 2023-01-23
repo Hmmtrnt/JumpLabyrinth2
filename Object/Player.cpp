@@ -117,33 +117,37 @@ void Player::operation(bool colL, bool colR, bool colUp, bool colDown)
 			m_posY = m_flameY / DRAW_WIDTH;
 		}
 	}*/
-	if (Pad::isTrigger(PAD_INPUT_LEFT))
-	{
-		if (!colL || m_speedX == 0)
-		{
-			m_speedX = -40;
-		}
 
-	}
-	if (Pad::isTrigger(PAD_INPUT_RIGHT))
+	if (m_speedX == 0 && m_speedY == 0)
 	{
-		if (!colR || m_speedX == 0)
+		if (Pad::isTrigger(PAD_INPUT_LEFT))
 		{
-			m_speedX = 40;
+			if (!colL)
+			{
+				m_speedX = -40;
+			}
+
 		}
-	}
-	if (Pad::isTrigger(PAD_INPUT_UP))
-	{
-		if (!colUp || m_speedY == 0)
+		if (Pad::isTrigger(PAD_INPUT_RIGHT))
 		{
-			m_speedY = -40;
+			if (!colR)
+			{
+				m_speedX = 40;
+			}
 		}
-	}
-	if (Pad::isTrigger(PAD_INPUT_DOWN))
-	{
-		if (!colDown || m_speedY == 0)
+		if (Pad::isTrigger(PAD_INPUT_UP))
 		{
-			m_speedY = 40;
+			if (!colUp)
+			{
+				m_speedY = -40;
+			}
+		}
+		if (Pad::isTrigger(PAD_INPUT_DOWN))
+		{
+			if (!colDown)
+			{
+				m_speedY = 40;
+			}
 		}
 	}
 }
