@@ -70,6 +70,8 @@ void GameManager::collisionR()
 				if (m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + (x + 1)] != 0)
 				{
 					colR = true;
+					printfDx("‰E\n");
+					//m_pPlayer->m_speedX = 0;
 				}
 			}
 		}
@@ -89,6 +91,8 @@ void GameManager::collisionL()
 				if (m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + (x - 1)] != 0)
 				{
 					colL = true;
+					printfDx("¶\n");
+					//m_pPlayer->m_speedX = 0;
 				}
 			}
 		}
@@ -108,6 +112,8 @@ void GameManager::collisionUP()
 				if (m_pStage->m_stage[m_pPlayer->m_posY + (y - 1)][m_pPlayer->m_posX + x] != 0)
 				{
 					colUp = true;
+					printfDx("ã\n");
+					//m_pPlayer->m_speedY = 0;
 				}
 			}
 		}
@@ -127,6 +133,8 @@ void GameManager::collisionBottom()
 				if (m_pStage->m_stage[m_pPlayer->m_posY + (y + 1)][m_pPlayer->m_posX + x] != 0)
 				{
 					colDown = true;
+					printfDx("‰º\n");
+					//m_pPlayer->m_speedY = 0;
 				}
 			}
 		}
