@@ -22,13 +22,27 @@ public:
 	void collisionL();			// 左
 	void collisionUP();			// 上
 	void collisionBottom();		// 下
+	void collisionGameOver();	// ゲームオーバー
 
 private:
+	// ゲームオーバーのカウントダウン
+	int m_GameOverCount;
 
-	bool colL;
-	bool colR;
-	bool colUp;
-	bool colDown;
+	// ゲームオーバー
+	bool GameOver;
+
+	// 隣を通ったかどうか
+	bool colNextFlag;
+	bool colFlagL;
+	bool colFlagR;
+	bool colFlagUp;
+	bool colFlagDown;
+
+	// 当たり判定
+	bool colL;			// 左
+	bool colR;			// 右
+	bool colUp;			// 上
+	bool colDown;		// 下
 
 	Player* m_pPlayer;
 	Stage* m_pStage;

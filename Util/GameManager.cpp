@@ -2,8 +2,14 @@
 #include "../Object/Player.h"
 #include "../Object/Stage.h"
 
-
 GameManager::GameManager() :
+	m_GameOverCount(0),
+	GameOver(0),
+	colNextFlag(0),
+	colFlagL(0),
+	colFlagR(0),
+	colFlagUp(0),
+	colFlagDown(0),
 	colL(0),
 	colR(0),
 	colUp(0),
@@ -21,6 +27,12 @@ GameManager::~GameManager()
 
 void GameManager::init()
 {
+	m_GameOverCount = 30;
+	GameOver = false;
+	colFlagL = false;
+	colFlagR = false;
+	colFlagUp = false;
+	colFlagDown = false;
 	m_pPlayer->init();
 	m_pStage->init();
 }
@@ -33,16 +45,61 @@ void GameManager::end()
 
 void GameManager::update()
 {
+	/*if (colNextFlag)
+	{
+		m_GameOverCount = 30;
+	}
+
+	if (colNextFlag)
+	{
+		m_GameOverCount--;
+		if (m_GameOverCount <= 0)
+		{
+			m_GameOverCount = 0;
+			GameOver = true;
+			printfDx("ゲームオーバー\n");
+		}
+	}*/
+
 	collision();
-	m_pPlayer->operation(colL, colR, colUp, colDown);
+	/*if (!colL)
+	{
+		colFlagL = false;
+	}
+	if (!colR)
+	{
+		colFlagR = false;
+	}
+	if (!colUp)
+	{
+		colFlagUp = false;
+	}
+	if (!colDown)
+	{
+		colFlagDown = false;
+	}*/
+
+	if (!GameOver)
+	{
+		m_pPlayer->operation(colL, colR, colUp, colDown);
+		
+	}
+	else if (GameOver)
+	{
+		m_pPlayer->m_speedX = 0;
+		m_pPlayer->m_speedY = 0;
+	}
 	m_pPlayer->update();
 	m_pStage->update();
+
+	
 }
 
 void GameManager::draw()
 {
 	m_pStage->draw();
 	m_pPlayer->draw();
+	//printfDx("%d\n", m_GameOverCount);
 }
 
 void GameManager::collision()
@@ -51,6 +108,7 @@ void GameManager::collision()
 	collisionL();
 	collisionUP();
 	collisionBottom();
+	collisionGameOver();
 }
 
 // ----------------------------------------------
@@ -60,18 +118,30 @@ void GameManager::collision()
 // 右
 void GameManager::collisionR()
 {
-	colR = false;
+	//colR = false;
+	//colNextFlag = false;
 	for (int y = 0; y < PLAYER_HEIGHT; y++)
 	{
 		for (int x = 0; x < PLAYER_WIDTH; x++)
 		{
 			if (m_pPlayer->m_player[y][x] != 0)
 			{
-				if (m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + (x + 1)] != 0)
+				if (m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + (x + 1)] == 6)
+				{
+					colR = false;
+				}
+				/*else if (m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + (x + 1)] == 7)
 				{
 					colR = true;
-					printfDx("右\n");
-					//m_pPlayer->m_speedX = 0;
+					colFlagR = true;
+				}*/
+				else if (m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + (x + 1)] != 0)
+				{
+					colR = true;
+				}
+				else
+				{
+					colR = false;
 				}
 			}
 		}
@@ -81,18 +151,30 @@ void GameManager::collisionR()
 // 左
 void GameManager::collisionL()
 {
-	colL = false;
+	//colL = false;
+	//colNextFlag = false;
 	for (int y = 0; y < PLAYER_HEIGHT; y++)
 	{
 		for (int x = 0; x < PLAYER_WIDTH; x++)
 		{
 			if (m_pPlayer->m_player[y][x] != 0)
 			{
-				if (m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + (x - 1)] != 0)
+				if (m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + (x - 1)] == 6)
+				{
+					colL = false;
+				}
+				/*else if (m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + (x - 1)] == 7)
 				{
 					colL = true;
-					printfDx("左\n");
-					//m_pPlayer->m_speedX = 0;
+					colFlagL = true;
+				}*/
+				else if (m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + (x - 1)] != 0)
+				{
+					colL = true; 
+				}
+				else
+				{
+					colL = false;
 				}
 			}
 		}
@@ -102,18 +184,30 @@ void GameManager::collisionL()
 // 上
 void GameManager::collisionUP()
 {
-	colUp = false;
+	//colUp = false;
+	//colNextFlag = false;
 	for (int y = 0; y < PLAYER_HEIGHT; y++)
 	{
 		for (int x = 0; x < PLAYER_WIDTH; x++)
 		{
 			if (m_pPlayer->m_player[y][x] != 0)
 			{
-				if (m_pStage->m_stage[m_pPlayer->m_posY + (y - 1)][m_pPlayer->m_posX + x] != 0)
+				if (m_pStage->m_stage[m_pPlayer->m_posY + (y - 1)][m_pPlayer->m_posX + x] == 6)
+				{
+					colUp = false;
+				}
+				/*else if (m_pStage->m_stage[m_pPlayer->m_posY + (y - 1)][m_pPlayer->m_posX + x] == 7)
 				{
 					colUp = true;
-					printfDx("上\n");
-					//m_pPlayer->m_speedY = 0;
+					colFlagUp = true;
+				}*/
+				else if (m_pStage->m_stage[m_pPlayer->m_posY + (y - 1)][m_pPlayer->m_posX + x] != 0)
+				{
+					colUp = true; 
+				}
+				else
+				{
+					colUp = false;
 				}
 			}
 		}
@@ -123,18 +217,48 @@ void GameManager::collisionUP()
 // 下
 void GameManager::collisionBottom()
 {
-	colDown = false;
+	//colDown = false;
+	//colNextFlag = false;
 	for (int y = 0; y < PLAYER_HEIGHT; y++)
 	{
 		for (int x = 0; x < PLAYER_WIDTH; x++)
 		{
 			if (m_pPlayer->m_player[y][x] != 0)
 			{
-				if (m_pStage->m_stage[m_pPlayer->m_posY + (y + 1)][m_pPlayer->m_posX + x] != 0)
+				if (m_pStage->m_stage[m_pPlayer->m_posY + (y + 1)][m_pPlayer->m_posX + x] == 6)
+				{
+					colDown = false;
+				}
+				/*else if (m_pStage->m_stage[m_pPlayer->m_posY + (y + 1)][m_pPlayer->m_posX + x] == 7)
 				{
 					colDown = true;
-					printfDx("下\n");
-					//m_pPlayer->m_speedY = 0;
+					colFlagDown = true;
+				}*/
+				else if (m_pStage->m_stage[m_pPlayer->m_posY + (y + 1)][m_pPlayer->m_posX + x] != 0)
+				{
+					colDown = true;
+				}
+				else
+				{
+					colDown = false;
+				}
+			}
+		}
+	}
+}
+
+void GameManager::collisionGameOver()
+{
+	for (int y = 0; y < PLAYER_HEIGHT; y++)
+	{
+		for (int x = 0; x < PLAYER_WIDTH; x++)
+		{
+			if (m_pPlayer->m_player[y][x] != 0)
+			{
+				if (m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + x] == 6)
+				{
+					printfDx("ゲームオーバー(即死)\n");
+					GameOver = true;
 				}
 			}
 		}

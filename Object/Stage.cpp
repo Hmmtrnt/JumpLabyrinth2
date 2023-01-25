@@ -21,7 +21,7 @@ void Stage::init()
 	{
 		for (int x = 0; x < STAGE_WIDTH; x++)
 		{
-			m_stage[y][x] = kStage::stage[y][x];
+			m_stage[y][x] = kStage::stage1[y][x];
 		}
 	}
 }
@@ -46,6 +46,20 @@ void Stage::draw()
 						(x * DRAW_WIDTH) + DRAW_WIDTH, 
 						(y * DRAW_WIDTH) + DRAW_WIDTH,
 						GetColor(255, 255, 255), false);
+			}
+			if (m_stage[y][x] == 6)
+			{
+				DrawBox(x * DRAW_WIDTH, y * DRAW_WIDTH,
+					(x * DRAW_WIDTH) + DRAW_WIDTH,
+					(y * DRAW_WIDTH) + DRAW_WIDTH,
+					GetColor(255, 0, 0), true);
+			}
+			if (m_stage[y][x] == 7)
+			{
+				DrawBox(x * DRAW_WIDTH, y * DRAW_WIDTH,
+					(x * DRAW_WIDTH) + DRAW_WIDTH,
+					(y * DRAW_WIDTH) + DRAW_WIDTH,
+					GetColor(0, 0, 255), true);
 			}
 			if (m_stage[y][x] == 8)
 			{

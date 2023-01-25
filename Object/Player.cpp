@@ -24,10 +24,10 @@ Player::~Player()
 
 void Player::init()
 {
-	m_posX = 0;
-	m_posY = 0;
-	m_flameX = 0;
-	m_flameY = 0;
+	m_posX = 11;
+	m_posY = 12;
+	m_flameX = 440;
+	m_flameY = 480;
 	for (int y = 0; y < PLAYER_HEIGHT; y++)
 	{
 		for (int x = 0; x < PLAYER_WIDTH; x++)
@@ -75,6 +75,7 @@ void Player::draw()
 
 void Player::operation(bool colL, bool colR, bool colUp, bool colDown)
 {
+	
 	if (colL || colR)
 	{
 		m_speedX = 0;
@@ -83,40 +84,6 @@ void Player::operation(bool colL, bool colR, bool colUp, bool colDown)
 	{
 		m_speedY = 0;
 	}
-
-	/*if (Pad::isPress(PAD_INPUT_LEFT))
-	{
-		if (!colL)
-		{
-			m_flameX -= 40;
-			m_posX = m_flameX / DRAW_WIDTH;
-		}
-		
-	}
-	if (Pad::isPress(PAD_INPUT_RIGHT))
-	{
-		if (!colR)
-		{
-			m_flameX += 40;
-			m_posX = m_flameX / DRAW_WIDTH;
-		}
-	}
-	if (Pad::isPress(PAD_INPUT_UP))
-	{
-		if (!colUp)
-		{
-			m_flameY -= 40;
-			m_posY = m_flameY / DRAW_WIDTH;
-		}
-	}
-	if (Pad::isPress(PAD_INPUT_DOWN))
-	{
-		if (!colDown)
-		{
-			m_flameY += 40;
-			m_posY = m_flameY / DRAW_WIDTH;
-		}
-	}*/
 
 	if (m_speedX == 0 && m_speedY == 0)
 	{

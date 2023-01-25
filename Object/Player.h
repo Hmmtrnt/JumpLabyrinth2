@@ -22,9 +22,9 @@ public:
 	// プレイヤーの移動フレーム
 	int m_flameX;		// X座標
 	int m_flameY;		// Y座標
-	
-	int m_speedX;
-	int m_speedY;
+	// プレイヤーの移動速度
+	int m_speedX;		// X座標
+	int m_speedY;		// Y座標
 
 	// プレイヤーの配列の受け渡し
 	int m_player[PLAYER_HEIGHT][PLAYER_WIDTH];
