@@ -45,39 +45,26 @@ void GameManager::end()
 
 void GameManager::update()
 {
-	/*if (colNextFlag)
-	{
-		m_GameOverCount = 30;
-	}
+	
 
-	if (colNextFlag)
+	collision();
+	
+	if (colFlagL || colFlagR || colFlagUp || colFlagDown)
 	{
 		m_GameOverCount--;
 		if (m_GameOverCount <= 0)
 		{
 			m_GameOverCount = 0;
-			GameOver = true;
-			printfDx("ゲームオーバー\n");
+			if (m_GameOverCount == 0)
+			{
+				GameOver = true;
+			}
 		}
-	}*/
-
-	collision();
-	/*if (!colL)
-	{
-		colFlagL = false;
 	}
-	if (!colR)
+	if (!colFlagL && !colFlagR && !colFlagUp && !colFlagDown)
 	{
-		colFlagR = false;
+		m_GameOverCount = 30;
 	}
-	if (!colUp)
-	{
-		colFlagUp = false;
-	}
-	if (!colDown)
-	{
-		colFlagDown = false;
-	}*/
 
 	if (!GameOver)
 	{
@@ -88,6 +75,7 @@ void GameManager::update()
 	{
 		m_pPlayer->m_speedX = 0;
 		m_pPlayer->m_speedY = 0;
+		printfDx("ゲームオーバー\n");
 	}
 	m_pPlayer->update();
 	m_pStage->update();
@@ -99,7 +87,7 @@ void GameManager::draw()
 {
 	m_pStage->draw();
 	m_pPlayer->draw();
-	//printfDx("%d\n", m_GameOverCount);
+	printfDx("%d\n", m_GameOverCount);
 }
 
 void GameManager::collision()
@@ -108,6 +96,7 @@ void GameManager::collision()
 	collisionL();
 	collisionUP();
 	collisionBottom();
+	collisionTimeLag();
 	collisionGameOver();
 }
 
@@ -247,6 +236,59 @@ void GameManager::collisionBottom()
 	}
 }
 
+void GameManager::collisionTimeLag()
+{
+	for (int y = 0; y < PLAYER_HEIGHT; y++)
+	{
+		for (int x = 0; x < PLAYER_WIDTH; x++)
+		{
+			if (m_pPlayer->m_player[y][x] != 0)
+			{
+				// 右
+				if (m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + (x + 1)] == 7)
+				{
+					colFlagR = true;
+				}
+				else if (m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + (x + 1)] != 7)
+				{
+					colFlagR = false;
+					//m_GameOverCount = 30;
+				}
+				// 左
+				if (m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + (x - 1)] == 7)
+				{
+					colFlagL = true;
+				}
+				else if (m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + (x - 1)] != 7)
+				{
+					colFlagL = false;
+					//m_GameOverCount = 30;
+				}
+				// 上
+				if (m_pStage->m_stage[m_pPlayer->m_posY + (y - 1)][m_pPlayer->m_posX + x] == 7)
+				{
+					colFlagUp = true;
+				}
+				else if (m_pStage->m_stage[m_pPlayer->m_posY + (y - 1)][m_pPlayer->m_posX + x] != 7)
+				{
+					colFlagUp = false;
+					//m_GameOverCount = 30;
+				}
+				// 下
+				if (m_pStage->m_stage[m_pPlayer->m_posY + (y + 1)][m_pPlayer->m_posX + x] == 7)
+				{
+					colFlagDown = true;
+				}
+				else if (m_pStage->m_stage[m_pPlayer->m_posY + (y + 1)][m_pPlayer->m_posX + x] != 7)
+				{
+					colFlagDown = false;
+					//m_GameOverCount = 30;
+				}
+			}
+		}
+	}
+}
+
 void GameManager::collisionGameOver()
 {
 	for (int y = 0; y < PLAYER_HEIGHT; y++)
@@ -257,7 +299,7 @@ void GameManager::collisionGameOver()
 			{
 				if (m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + x] == 6)
 				{
-					printfDx("ゲームオーバー(即死)\n");
+					
 					GameOver = true;
 				}
 			}

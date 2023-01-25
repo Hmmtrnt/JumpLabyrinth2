@@ -22,6 +22,7 @@ public:
 	void collisionL();			// 左
 	void collisionUP();			// 上
 	void collisionBottom();		// 下
+	void collisionTimeLag();	// 時間差で反応
 	void collisionGameOver();	// ゲームオーバー
 
 private:
