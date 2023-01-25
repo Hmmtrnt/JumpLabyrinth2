@@ -60,7 +60,7 @@ void Player::draw()
 			{
 				DrawBox(m_flameX + x * DRAW_WIDTH, m_flameY + y * DRAW_WIDTH,
 						(m_flameX + x * DRAW_WIDTH) + DRAW_WIDTH, (m_flameY + y * DRAW_WIDTH) + DRAW_WIDTH,
-						GetColor(255, 0, 255), true);
+						kColor::Peach, true);
 					
 			}
 		}

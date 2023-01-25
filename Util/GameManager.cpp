@@ -1,5 +1,6 @@
 #include "GameManager.h"
 #include "../Object/Player.h"
+#include "../Object/Enemy.h"
 #include "../Object/Stage.h"
 
 GameManager::GameManager() :
@@ -20,12 +21,14 @@ GameManager::GameManager() :
 	colDown(0)
 {
 	m_pPlayer = new Player;
+	m_pEnemy = new Enemy;
 	m_pStage = new Stage;
 }
 
 GameManager::~GameManager()
 {
 	delete m_pPlayer;
+	delete m_pEnemy;
 	delete m_pStage;
 }
 
@@ -41,13 +44,16 @@ void GameManager::init()
 	colFlagR = false;
 	colFlagUp = false;
 	colFlagDown = false;
+
 	m_pPlayer->init();
+	m_pEnemy->init();
 	m_pStage->init();
 }
 
 void GameManager::end()
 {
 	m_pPlayer->end();
+	m_pEnemy->end();
 	m_pStage->end();
 }
 
@@ -92,6 +98,7 @@ void GameManager::update()
 	
 	
 	m_pPlayer->update();
+	m_pEnemy->update();
 	m_pStage->update();
 
 	
@@ -100,8 +107,9 @@ void GameManager::update()
 void GameManager::draw()
 {
 	m_pStage->draw();
+	m_pEnemy->draw();
 	m_pPlayer->draw();
-	printfDx("%d\n", m_GameOverCount);
+	//printfDx("%d\n", m_GameOverCount);
 }
 
 void GameManager::collision()
@@ -110,8 +118,7 @@ void GameManager::collision()
 	collisionL();
 	collisionUP();
 	collisionBottom();
-	collisionBulge();
-	collisionTimeLag();
+	collisionEnemy();
 	collisionGameOver();
 	collisionGameClear();
 }
@@ -129,11 +136,11 @@ void GameManager::collisionR()
 		{
 			if (m_pPlayer->m_player[y][x] != 0)
 			{
-				if (m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + (x + 1)] == 6)
+				if (m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + (x + 1)] == 8)
 				{
 					colR = false;
 				}
-				if (m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + (x + 1)] == 8)
+				else if (m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + (x + 1)] == 6)
 				{
 					colR = false;
 				}
@@ -159,11 +166,11 @@ void GameManager::collisionL()
 		{
 			if (m_pPlayer->m_player[y][x] != 0)
 			{
-				if (m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + (x - 1)] == 6)
+				if (m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + (x - 1)] == 8)
 				{
 					colL = false;
 				}
-				if (m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + (x - 1)] == 8)
+				else if (m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + (x - 1)] == 6)
 				{
 					colL = false;
 				}
@@ -189,11 +196,11 @@ void GameManager::collisionUP()
 		{
 			if (m_pPlayer->m_player[y][x] != 0)
 			{
-				if (m_pStage->m_stage[m_pPlayer->m_posY + (y - 1)][m_pPlayer->m_posX + x] == 6)
+				if (m_pStage->m_stage[m_pPlayer->m_posY + (y - 1)][m_pPlayer->m_posX + x] == 8)
 				{
 					colUp = false;
 				}
-				if (m_pStage->m_stage[m_pPlayer->m_posY + (y - 1)][m_pPlayer->m_posX + x] == 8)
+				else if (m_pStage->m_stage[m_pPlayer->m_posY + (y - 1)][m_pPlayer->m_posX + x] == 6)
 				{
 					colUp = false;
 				}
@@ -219,11 +226,11 @@ void GameManager::collisionBottom()
 		{
 			if (m_pPlayer->m_player[y][x] != 0)
 			{
-				if (m_pStage->m_stage[m_pPlayer->m_posY + (y + 1)][m_pPlayer->m_posX + x] == 6)
+				if (m_pStage->m_stage[m_pPlayer->m_posY + (y + 1)][m_pPlayer->m_posX + x] == 8)
 				{
 					colDown = false;
 				}
-				if (m_pStage->m_stage[m_pPlayer->m_posY + (y + 1)][m_pPlayer->m_posX + x] == 8)
+				else if (m_pStage->m_stage[m_pPlayer->m_posY + (y + 1)][m_pPlayer->m_posX + x] == 6)
 				{
 					colDown = false;
 				}
@@ -240,6 +247,7 @@ void GameManager::collisionBottom()
 	}
 }
 
+// ギミック5:膨らんだら即死判定
 void GameManager::collisionBulge()
 {
 	EnemyElasticity();
@@ -294,7 +302,7 @@ void GameManager::collisionBulge()
 				}
 			}
 		}
-		printfDx("当たり判定有り\n");
+		//printfDx("当たり判定有り\n");
 	}
 }
 
@@ -348,9 +356,29 @@ void GameManager::collisionTimeLag()
 	}
 }
 
+// 敵
+void GameManager::collisionEnemy()
+{
+	for (int y = 0; y < PLAYER_HEIGHT; y++)
+	{
+		for (int x = 0; x < PLAYER_WIDTH; x++)
+		{
+			if (m_pPlayer->m_player[y][x] != 0)
+			{
+				if (m_pEnemy->m_enemy[m_pPlayer->m_posY + y][m_pPlayer->m_posX + x] == 1)
+				{
+					GameOver = true;
+				}
+			}
+		}
+	}
+}
+
 // ゲームオーバー
 void GameManager::collisionGameOver()
 {
+	collisionBulge();
+	collisionTimeLag();
 	for (int y = 0; y < PLAYER_HEIGHT; y++)
 	{
 		for (int x = 0; x < PLAYER_WIDTH; x++)

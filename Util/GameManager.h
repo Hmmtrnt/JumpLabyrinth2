@@ -3,6 +3,7 @@
 #include "common.h"
 
 class Player;
+class Enemy;
 class Stage;
 
 class GameManager
@@ -22,8 +23,9 @@ public:
 	void collisionL();			// 左
 	void collisionUP();			// 上
 	void collisionBottom();		// 下
-	void collisionBulge();
+	void collisionBulge();		// 膨らんだら即死判定
 	void collisionTimeLag();	// 時間差で反応
+	void collisionEnemy();		// 敵
 	void collisionGameOver();	// ゲームオーバー
 	void collisionGameClear();	// ゲームクリア
 
@@ -60,6 +62,7 @@ private:
 	bool colDown;		// 下
 
 	Player* m_pPlayer;
+	Enemy* m_pEnemy;
 	Stage* m_pStage;
 };
 
