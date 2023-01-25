@@ -1,4 +1,6 @@
+// エネミー
 #pragma once
+
 class Enemy
 {
 public:
