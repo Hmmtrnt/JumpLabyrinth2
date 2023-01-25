@@ -5,6 +5,7 @@
 GameManager::GameManager() :
 	m_GameOverCount(0),
 	GameOver(0),
+	GameClear(0),
 	colNextFlag(0),
 	colFlagL(0),
 	colFlagR(0),
@@ -29,6 +30,7 @@ void GameManager::init()
 {
 	m_GameOverCount = 30;
 	GameOver = false;
+	GameClear = false;
 	colFlagL = false;
 	colFlagR = false;
 	colFlagUp = false;
@@ -45,8 +47,6 @@ void GameManager::end()
 
 void GameManager::update()
 {
-	
-
 	collision();
 	
 	if (colFlagL || colFlagR || colFlagUp || colFlagDown)
@@ -69,14 +69,22 @@ void GameManager::update()
 	if (!GameOver)
 	{
 		m_pPlayer->operation(colL, colR, colUp, colDown);
-		
 	}
 	else if (GameOver)
 	{
 		m_pPlayer->m_speedX = 0;
 		m_pPlayer->m_speedY = 0;
-		printfDx("ゲームオーバー\n");
+		printfDx("GameOver\n");
 	}
+
+	if (GameClear)
+	{
+		m_pPlayer->m_speedX = 0;
+		m_pPlayer->m_speedY = 0;
+		printfDx("GameClear\n");
+	}
+	
+	
 	m_pPlayer->update();
 	m_pStage->update();
 
@@ -98,6 +106,7 @@ void GameManager::collision()
 	collisionBottom();
 	collisionTimeLag();
 	collisionGameOver();
+	collisionGameClear();
 }
 
 // ----------------------------------------------
@@ -107,8 +116,6 @@ void GameManager::collision()
 // 右
 void GameManager::collisionR()
 {
-	//colR = false;
-	//colNextFlag = false;
 	for (int y = 0; y < PLAYER_HEIGHT; y++)
 	{
 		for (int x = 0; x < PLAYER_WIDTH; x++)
@@ -119,11 +126,10 @@ void GameManager::collisionR()
 				{
 					colR = false;
 				}
-				/*else if (m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + (x + 1)] == 7)
+				if (m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + (x + 1)] == 8)
 				{
-					colR = true;
-					colFlagR = true;
-				}*/
+					colR = false;
+				}
 				else if (m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + (x + 1)] != 0)
 				{
 					colR = true;
@@ -140,8 +146,6 @@ void GameManager::collisionR()
 // 左
 void GameManager::collisionL()
 {
-	//colL = false;
-	//colNextFlag = false;
 	for (int y = 0; y < PLAYER_HEIGHT; y++)
 	{
 		for (int x = 0; x < PLAYER_WIDTH; x++)
@@ -152,11 +156,10 @@ void GameManager::collisionL()
 				{
 					colL = false;
 				}
-				/*else if (m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + (x - 1)] == 7)
+				if (m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + (x - 1)] == 8)
 				{
-					colL = true;
-					colFlagL = true;
-				}*/
+					colL = false;
+				}
 				else if (m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + (x - 1)] != 0)
 				{
 					colL = true; 
@@ -173,8 +176,6 @@ void GameManager::collisionL()
 // 上
 void GameManager::collisionUP()
 {
-	//colUp = false;
-	//colNextFlag = false;
 	for (int y = 0; y < PLAYER_HEIGHT; y++)
 	{
 		for (int x = 0; x < PLAYER_WIDTH; x++)
@@ -185,11 +186,10 @@ void GameManager::collisionUP()
 				{
 					colUp = false;
 				}
-				/*else if (m_pStage->m_stage[m_pPlayer->m_posY + (y - 1)][m_pPlayer->m_posX + x] == 7)
+				if (m_pStage->m_stage[m_pPlayer->m_posY + (y - 1)][m_pPlayer->m_posX + x] == 8)
 				{
-					colUp = true;
-					colFlagUp = true;
-				}*/
+					colUp = false;
+				}
 				else if (m_pStage->m_stage[m_pPlayer->m_posY + (y - 1)][m_pPlayer->m_posX + x] != 0)
 				{
 					colUp = true; 
@@ -206,8 +206,6 @@ void GameManager::collisionUP()
 // 下
 void GameManager::collisionBottom()
 {
-	//colDown = false;
-	//colNextFlag = false;
 	for (int y = 0; y < PLAYER_HEIGHT; y++)
 	{
 		for (int x = 0; x < PLAYER_WIDTH; x++)
@@ -218,11 +216,10 @@ void GameManager::collisionBottom()
 				{
 					colDown = false;
 				}
-				/*else if (m_pStage->m_stage[m_pPlayer->m_posY + (y + 1)][m_pPlayer->m_posX + x] == 7)
+				if (m_pStage->m_stage[m_pPlayer->m_posY + (y + 1)][m_pPlayer->m_posX + x] == 8)
 				{
-					colDown = true;
-					colFlagDown = true;
-				}*/
+					colDown = false;
+				}
 				else if (m_pStage->m_stage[m_pPlayer->m_posY + (y + 1)][m_pPlayer->m_posX + x] != 0)
 				{
 					colDown = true;
@@ -252,7 +249,6 @@ void GameManager::collisionTimeLag()
 				else if (m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + (x + 1)] != 7)
 				{
 					colFlagR = false;
-					//m_GameOverCount = 30;
 				}
 				// 左
 				if (m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + (x - 1)] == 7)
@@ -262,7 +258,6 @@ void GameManager::collisionTimeLag()
 				else if (m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + (x - 1)] != 7)
 				{
 					colFlagL = false;
-					//m_GameOverCount = 30;
 				}
 				// 上
 				if (m_pStage->m_stage[m_pPlayer->m_posY + (y - 1)][m_pPlayer->m_posX + x] == 7)
@@ -272,7 +267,6 @@ void GameManager::collisionTimeLag()
 				else if (m_pStage->m_stage[m_pPlayer->m_posY + (y - 1)][m_pPlayer->m_posX + x] != 7)
 				{
 					colFlagUp = false;
-					//m_GameOverCount = 30;
 				}
 				// 下
 				if (m_pStage->m_stage[m_pPlayer->m_posY + (y + 1)][m_pPlayer->m_posX + x] == 7)
@@ -282,7 +276,6 @@ void GameManager::collisionTimeLag()
 				else if (m_pStage->m_stage[m_pPlayer->m_posY + (y + 1)][m_pPlayer->m_posX + x] != 7)
 				{
 					colFlagDown = false;
-					//m_GameOverCount = 30;
 				}
 			}
 		}
@@ -299,8 +292,24 @@ void GameManager::collisionGameOver()
 			{
 				if (m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + x] == 6)
 				{
-					
 					GameOver = true;
+				}
+			}
+		}
+	}
+}
+
+void GameManager::collisionGameClear()
+{
+	for (int y = 0; y < PLAYER_HEIGHT; y++)
+	{
+		for (int x = 0; x < PLAYER_WIDTH; x++)
+		{
+			if (m_pPlayer->m_player[y][x] != 0)
+			{
+				if (m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + x] == 8)
+				{
+					GameClear = true;
 				}
 			}
 		}

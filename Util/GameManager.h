@@ -24,6 +24,7 @@ public:
 	void collisionBottom();		// 下
 	void collisionTimeLag();	// 時間差で反応
 	void collisionGameOver();	// ゲームオーバー
+	void collisionGameClear();	// ゲームクリア
 
 private:
 	// ゲームオーバーのカウントダウン
@@ -31,6 +32,8 @@ private:
 
 	// ゲームオーバー
 	bool GameOver;
+	// ゲームクリア
+	bool GameClear;
 
 	// 隣を通ったかどうか
 	bool colNextFlag;
