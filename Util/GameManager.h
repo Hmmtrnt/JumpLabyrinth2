@@ -22,11 +22,22 @@ public:
 	void collisionL();			// 左
 	void collisionUP();			// 上
 	void collisionBottom();		// 下
+	void collisionBulge();
 	void collisionTimeLag();	// 時間差で反応
 	void collisionGameOver();	// ゲームオーバー
 	void collisionGameClear();	// ゲームクリア
 
 private:
+	// しぼんだり、膨らんだりする処理
+	void EnemyElasticity();
+
+	// ギミックの当たり判定が変わる時間
+	int m_gimmickFrame;
+	// しぼんでいる時間
+	int m_shrink;
+	// 膨らんている時間
+	int m_inflate;
+
 	// ゲームオーバーのカウントダウン
 	int m_GameOverCount;
 

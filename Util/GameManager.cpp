@@ -3,6 +3,9 @@
 #include "../Object/Stage.h"
 
 GameManager::GameManager() :
+	m_gimmickFrame(0),
+	m_shrink(0),
+	m_inflate(0),
 	m_GameOverCount(0),
 	GameOver(0),
 	GameClear(0),
@@ -28,6 +31,9 @@ GameManager::~GameManager()
 
 void GameManager::init()
 {
+	m_gimmickFrame = 0;
+	m_shrink = 60;
+	m_inflate = 60;
 	m_GameOverCount = 30;
 	GameOver = false;
 	GameClear = false;
@@ -104,6 +110,7 @@ void GameManager::collision()
 	collisionL();
 	collisionUP();
 	collisionBottom();
+	collisionBulge();
 	collisionTimeLag();
 	collisionGameOver();
 	collisionGameClear();
@@ -233,6 +240,65 @@ void GameManager::collisionBottom()
 	}
 }
 
+void GameManager::collisionBulge()
+{
+	EnemyElasticity();
+	if (m_gimmickFrame > m_inflate)
+	{
+		for (int y = 0; y < PLAYER_HEIGHT; y++)
+		{
+			for (int x = 0; x < PLAYER_WIDTH; x++)
+			{
+				if (m_pPlayer->m_player[y][x] != 0)
+				{
+					// 右
+					if (m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + (x + 1)] == 5)
+					{
+						GameOver = true;
+					}
+					// 左
+					if (m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + (x - 1)] == 5)
+					{
+						GameOver = true;
+					}
+					// 上
+					if (m_pStage->m_stage[m_pPlayer->m_posY + (y - 1)][m_pPlayer->m_posX + x] == 5)
+					{
+						GameOver = true;
+					}
+					// 下
+					if (m_pStage->m_stage[m_pPlayer->m_posY + (y + 1)][m_pPlayer->m_posX + (x - 1)] == 5)
+					{
+						GameOver = true;
+					}
+					// 右上
+					if (m_pStage->m_stage[m_pPlayer->m_posY + (y - 1)][m_pPlayer->m_posX + (x + 1)] == 5)
+					{
+						GameOver = true;
+					}
+					// 左上
+					if (m_pStage->m_stage[m_pPlayer->m_posY + (y - 1)][m_pPlayer->m_posX + (x - 1)] == 5)
+					{
+						GameOver = true;
+					}
+					// 右下
+					if (m_pStage->m_stage[m_pPlayer->m_posY + (y + 1)][m_pPlayer->m_posX + (x + 1)] == 5)
+					{
+						GameOver = true;
+					}
+					// 左下
+					if (m_pStage->m_stage[m_pPlayer->m_posY + (y - 1)][m_pPlayer->m_posX + (x - 1)] == 5)
+					{
+						GameOver = true;
+					}
+				}
+			}
+		}
+		printfDx("当たり判定有り\n");
+	}
+}
+
+// ギミック7:数フレーム後に針が出てゲームオーバーになる判定
 void GameManager::collisionTimeLag()
 {
 	for (int y = 0; y < PLAYER_HEIGHT; y++)
@@ -282,6 +348,7 @@ void GameManager::collisionTimeLag()
 	}
 }
 
+// ゲームオーバー
 void GameManager::collisionGameOver()
 {
 	for (int y = 0; y < PLAYER_HEIGHT; y++)
@@ -290,6 +357,7 @@ void GameManager::collisionGameOver()
 		{
 			if (m_pPlayer->m_player[y][x] != 0)
 			{
+				// ギミック6:即死判定
 				if (m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + x] == 6)
 				{
 					GameOver = true;
@@ -299,6 +367,7 @@ void GameManager::collisionGameOver()
 	}
 }
 
+// ゲームクリア
 void GameManager::collisionGameClear()
 {
 	for (int y = 0; y < PLAYER_HEIGHT; y++)
@@ -313,5 +382,15 @@ void GameManager::collisionGameClear()
 				}
 			}
 		}
+	}
+}
+
+void GameManager::EnemyElasticity()
+{
+	// ギミックの当たり判定変更処理
+	m_gimmickFrame++;
+	if (m_gimmickFrame >= m_shrink + m_inflate)
+	{
+		m_gimmickFrame = 0;
 	}
 }

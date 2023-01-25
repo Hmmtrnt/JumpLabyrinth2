@@ -15,6 +15,11 @@ public:
 	int m_stage[STAGE_HEIGHT][STAGE_WIDTH];
 
 private:
-
+	// ƒMƒ~ƒbƒN‚Ì•`‰æ‚ª•Ï‚í‚éŠÔ
+	int m_gimmickFrame;
+	// ‚µ‚Ú‚ñ‚Å‚¢‚éŠÔ
+	int m_shrink;
+	// –c‚ç‚ñ‚Ä‚¢‚éŠÔ
+	int m_inflate;
 };
 
