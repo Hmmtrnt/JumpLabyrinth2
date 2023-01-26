@@ -25,12 +25,14 @@ Enemy::~Enemy()
 
 void Enemy::init()
 {
-	//m_posX = 1;
 	m_posX = 0;
 	m_posY = 12;
-	//m_frameX = 40;
 	m_frameX = 0;
 	m_frameY = 480;
+	/*m_posX = 1;
+	m_posY = 13;
+	m_frameX = 40;
+	m_frameY = 520;*/
 	m_speedX = 0;
 	m_speedY = 0;
 	m_stopFrame = 60;
@@ -86,7 +88,7 @@ void Enemy::moveWidth(bool colL, bool colR)
 		m_speedX = 0;
 		if (m_stopFrame <= 0)
 		{
-			m_speedX = 20;
+			m_speedX = 40;
 			m_stopFrame = 0;
 		}
 	}
@@ -97,14 +99,14 @@ void Enemy::moveWidth(bool colL, bool colR)
 		m_speedX = 0;
 		if (m_stopFrame <= 0)
 		{
-			m_speedX = -20;
+			m_speedX = -40;
 			m_stopFrame = 0;
 		}
 	}
 
 	if (!colL && !colR)
 	{
-		m_stopFrame = 30;
+		m_stopFrame = 60;
 	}
 }
 
@@ -116,7 +118,7 @@ void Enemy::moveHeight(bool colUp, bool colDown)
 		m_speedY = 0;
 		if (m_stopFrame <= 0)
 		{
-			m_speedY = 20;
+			m_speedY = 40;
 			m_stopFrame = 0;
 		}
 	}
@@ -126,13 +128,13 @@ void Enemy::moveHeight(bool colUp, bool colDown)
 		m_speedY = 0;
 		if (m_stopFrame <= 0)
 		{
-			m_speedY = -20;
+			m_speedY = -40;
 			m_stopFrame = 0;
 		}
 	}
 	if (!colUp && !colDown)
 	{
-		m_stopFrame = 30;
+		m_stopFrame = 60;
 	}
 }
 

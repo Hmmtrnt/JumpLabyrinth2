@@ -449,7 +449,7 @@ void GameManager::colEnemyR()
 			{
 				if (m_pStage->m_stage[m_pEnemy->m_posY + y][m_pEnemy->m_posX + (x + 1)] != 0)
 				{
-					m_pEnemy->m_frameX = -20;
+					m_pEnemy->m_frameX = -40;
 					colNR = true;
 				}
 				else
@@ -494,7 +494,7 @@ void GameManager::colEnemyUP()
 			{
 				if (m_pStage->m_stage[m_pEnemy->m_posY + (y - 1)][m_pEnemy->m_posX + x] != 0)
 				{
-					//m_pEnemy->m_frameY = 520;
+					m_pEnemy->m_frameY = 560;
 					colNUp = true;
 				}
 				else
