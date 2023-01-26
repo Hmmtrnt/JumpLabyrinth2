@@ -1,4 +1,5 @@
 #include "SceneMain.h"
+#include "SceneTitle.h"
 #include "../Util/GameManager.h"
 
 SceneMain::SceneMain()
@@ -24,6 +25,16 @@ void SceneMain::end()
 SceneBase* SceneMain::update()
 {
 	m_pManager->update();
+
+	if (m_pManager->GameOver)
+	{
+		return(new SceneTitle);
+	}
+	if (m_pManager->GameClear)
+	{
+		return(new SceneTitle);
+	}
+
 	return this;
 }
 

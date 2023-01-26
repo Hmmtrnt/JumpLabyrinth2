@@ -37,6 +37,12 @@ public:
 	void colEnemyUP();			// 上
 	void colEnemyBottom();		// 下
 
+	// ゲームオーバー
+	bool GameOver;
+	// ゲームクリア
+	bool GameClear;
+
+
 private:
 	// しぼんだり、膨らんだりする処理
 	void EnemyElasticity();
@@ -51,10 +57,7 @@ private:
 	// ゲームオーバーのカウントダウン
 	int m_GameOverCount;
 
-	// ゲームオーバー
-	bool GameOver;
-	// ゲームクリア
-	bool GameClear;
+	
 
 	// 隣を通ったかどうか
 	bool colNextFlag;

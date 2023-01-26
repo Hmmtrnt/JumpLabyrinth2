@@ -22,10 +22,10 @@ SceneBase* SceneTitle::update()
 {
 
 	// ‰¼‚ÌƒV[ƒ“‘JˆÚ
-	/*if (Pad::isTrigger(PAD_INPUT_2) == 1)
+	if (Pad::isTrigger(PAD_INPUT_2) == 1)
 	{
 		return(new SceneMain);
-	}*/
+	}
 	return this;
 }
 
