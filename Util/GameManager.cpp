@@ -110,7 +110,8 @@ void GameManager::update()
 		printfDx("GameClear\n");
 	}
 	
-	
+	//m_pEnemy->operation(colNL, colNR, colNUp, colNBottom);
+
 	m_pPlayer->update();
 	m_pEnemy->update();
 	m_pEnemy->moveWidth(colNL, colNR);
@@ -122,8 +123,8 @@ void GameManager::update()
 
 void GameManager::draw()
 {
-	m_pStage->draw();
 	m_pEnemy->draw();
+	m_pStage->draw();
 	m_pPlayer->draw();
 	//printfDx("%d\n", m_GameOverCount);
 }
@@ -444,10 +445,11 @@ void GameManager::colEnemyR()
 	{
 		for (int x = 0; x < ENEMY_WIDTH; x++)
 		{
-			if (m_pEnemy->m_enemy[y][x] == 1)
+			if (m_pEnemy->m_enemy[y][x] != 0)
 			{
 				if (m_pStage->m_stage[m_pEnemy->m_posY + y][m_pEnemy->m_posX + (x + 1)] != 0)
 				{
+					m_pEnemy->m_frameX = -20;
 					colNR = true;
 				}
 				else
@@ -466,7 +468,7 @@ void GameManager::colEnemyL()
 	{
 		for (int x = 0; x < ENEMY_WIDTH; x++)
 		{
-			if (m_pEnemy->m_enemy[y][x] == 1)
+			if (m_pEnemy->m_enemy[y][x] != 0)
 			{
 				if (m_pStage->m_stage[m_pEnemy->m_posY + y][m_pEnemy->m_posX + (x - 1)] != 0)
 				{
@@ -488,10 +490,11 @@ void GameManager::colEnemyUP()
 	{
 		for (int x = 0; x < ENEMY_WIDTH; x++)
 		{
-			if (m_pEnemy->m_enemy[y][x] == 1)
+			if (m_pEnemy->m_enemy[y][x] != 0)
 			{
 				if (m_pStage->m_stage[m_pEnemy->m_posY + (y - 1)][m_pEnemy->m_posX + x] != 0)
 				{
+					//m_pEnemy->m_frameY = 520;
 					colNUp = true;
 				}
 				else
@@ -510,7 +513,7 @@ void GameManager::colEnemyBottom()
 	{
 		for (int x = 0; x < ENEMY_WIDTH; x++)
 		{
-			if (m_pEnemy->m_enemy[y][x] == 1)
+			if (m_pEnemy->m_enemy[y][x] != 0)
 			{
 				if (m_pStage->m_stage[m_pEnemy->m_posY + (y + 1)][m_pEnemy->m_posX + x] != 0)
 				{
