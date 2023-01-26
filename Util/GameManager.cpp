@@ -59,7 +59,7 @@ void GameManager::end()
 
 void GameManager::update()
 {
-	collisionPlayer();
+	collision();
 	
 	if (colFlagL || colFlagR || colFlagUp || colFlagDown)
 	{
@@ -113,7 +113,7 @@ void GameManager::draw()
 	//printfDx("%d\n", m_GameOverCount);
 }
 
-void GameManager::collisionPlayer()
+void GameManager::collision()
 {
 	collisionR();
 	collisionL();

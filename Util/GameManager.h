@@ -18,7 +18,7 @@ public:
 	void draw();
 
 	// “–‚½‚è”»’è
-	void collisionPlayer();			// ‘S‘Ì
+	void collision();			// ‘S‘Ì
 	void collisionR();			// ‰E
 	void collisionL();			// ¶
 	void collisionUP();			// ã
