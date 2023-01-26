@@ -434,8 +434,8 @@ void GameManager::colEnemy()
 {
 	colEnemyR();
 	colEnemyL();
-	colEnemyUP();
-	colEnemyBottom();
+	//colEnemyUP();
+	//colEnemyBottom();
 }
 
 // ‰E
