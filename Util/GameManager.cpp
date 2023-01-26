@@ -59,7 +59,7 @@ void GameManager::end()
 
 void GameManager::update()
 {
-	collision();
+	collisionPlayer();
 	
 	if (colFlagL || colFlagR || colFlagUp || colFlagDown)
 	{
@@ -99,6 +99,7 @@ void GameManager::update()
 	
 	m_pPlayer->update();
 	m_pEnemy->update();
+	m_pEnemy->moveWidth(colL, colR);
 	m_pStage->update();
 
 	
@@ -112,7 +113,7 @@ void GameManager::draw()
 	//printfDx("%d\n", m_GameOverCount);
 }
 
-void GameManager::collision()
+void GameManager::collisionPlayer()
 {
 	collisionR();
 	collisionL();
@@ -359,19 +360,11 @@ void GameManager::collisionTimeLag()
 // 敵
 void GameManager::collisionEnemy()
 {
-	for (int y = 0; y < PLAYER_HEIGHT; y++)
+	if (m_pPlayer->m_posX == m_pEnemy->m_posX && m_pPlayer->m_posY == m_pEnemy->m_posY)
 	{
-		for (int x = 0; x < PLAYER_WIDTH; x++)
-		{
-			if (m_pPlayer->m_player[y][x] != 0)
-			{
-				if (m_pEnemy->m_enemy[m_pPlayer->m_posY + y][m_pPlayer->m_posX + x] == 1)
-				{
-					GameOver = true;
-				}
-			}
-		}
+		GameOver = true;
 	}
+
 }
 
 // ゲームオーバー

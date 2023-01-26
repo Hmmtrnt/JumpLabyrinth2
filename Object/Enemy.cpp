@@ -3,8 +3,8 @@
 Enemy::Enemy() :
 	m_posX(0),
 	m_posY(0),
-	m_flameX(0),
-	m_flameY(0),
+	m_frameX(0),
+	m_frameY(0),
 	m_speedX(0),
 	m_speedY(0)
 {
@@ -25,8 +25,8 @@ void Enemy::init()
 {
 	m_posX = 1;
 	m_posY = 12;
-	m_flameX = 40;
-	m_flameY = 480;
+	m_frameX = 40;
+	m_frameY = 480;
 	m_speedX = 0;
 	m_speedY = 0; 
 	for (int y = 0; y < ENEMY_HEIGHT; y++)
@@ -44,8 +44,8 @@ void Enemy::end()
 
 void Enemy::update()
 {
-	/*m_flameX += m_speedX;
-	m_posX = m_flameX / DRAW_WIDTH;*/
+	m_frameX += m_speedX;
+	m_posX = m_frameX / DRAW_WIDTH;
 	
 }
 
@@ -57,10 +57,28 @@ void Enemy::draw()
 		{
 			if (m_enemy[y][x] == 1)
 			{
-				DrawBox(m_flameX + x * DRAW_WIDTH, m_flameY + y * DRAW_WIDTH,
-					(m_flameX + x * DRAW_WIDTH) + DRAW_WIDTH, (m_flameY + y * DRAW_WIDTH) + DRAW_WIDTH,
+				DrawBox(m_frameX + x * DRAW_WIDTH, m_frameY + y * DRAW_WIDTH,
+					(m_frameX + x * DRAW_WIDTH) + DRAW_WIDTH, (m_frameY + y * DRAW_WIDTH) + DRAW_WIDTH,
 					kColor::Green, true);
 			}
 		}
+	}
+
+	DrawFormatString(600, 250, GetColor(255, 0, 0), "m_posX:%d", m_posX);
+	DrawFormatString(600, 300, GetColor(255, 0, 0), "m_posY:%d", m_posY);
+	DrawFormatString(600, 350, GetColor(255, 0, 0), "m_flameX:%d", m_frameX);
+	DrawFormatString(600, 400, GetColor(255, 0, 0), "m_flameY:%d", m_frameY);
+
+}
+
+void Enemy::moveWidth(bool colL, bool colR)
+{
+	if (colL)
+	{
+		m_speedX = 20;
+	}
+	if (colR)
+	{
+		m_speedX = -20;
 	}
 }

@@ -13,17 +13,19 @@ public:
 	void update();
 	void draw();
 
+	void moveWidth(bool colL, bool colR);
+
 	// エネミーの配列の位置
 	int m_posX;			// X座標
 	int m_posY;			// Y座標
 	// エネミーの移動フレーム
-	int m_flameX;		// X座標
-	int m_flameY;		// Y座標
+	int m_frameX;		// X座標
+	int m_frameY;		// Y座標
 	// エネミーの移動速度
 	int m_speedX;		// X座標
 	int m_speedY;		// Y座標
 
-	// プレイヤーの配列の受け渡し
+	// エネミーの配列の受け渡し
 	int m_enemy[ENEMY_HEIGHT][ENEMY_WIDTH];
 
 private:

@@ -20,8 +20,8 @@ public:
 	int m_posX;			// X座標
 	int m_posY;			// Y座標
 	// プレイヤーの移動フレーム
-	int m_flameX;		// X座標
-	int m_flameY;		// Y座標
+	int m_frameX;		// X座標
+	int m_frameY;		// Y座標
 	// プレイヤーの移動速度
 	int m_speedX;		// X座標
 	int m_speedY;		// Y座標
