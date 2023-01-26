@@ -30,6 +30,7 @@ namespace kStage
 	// 7:数フレーム後に針が出てゲームオーバーになる判定
 	// 8:ゴール
 	// 9:壁
+	// プロトタイプ用ステージ
 	constexpr int stage1[STAGE_HEIGHT][STAGE_WIDTH] = {
 		// 1行       6行         11行     
 		{9,9,9,9,9,  9,9,9,9,9,  9,9,9,9,9},// 1行

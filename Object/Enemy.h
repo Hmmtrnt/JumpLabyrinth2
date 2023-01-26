@@ -14,6 +14,7 @@ public:
 	void draw();
 
 	void moveWidth(bool colL, bool colR);
+	void moveHeight(bool colUp, bool colDown);
 
 	// エネミーの配列の位置
 	int m_posX;			// X座標

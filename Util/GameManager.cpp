@@ -14,11 +14,16 @@ GameManager::GameManager() :
 	colFlagL(0),
 	colFlagR(0),
 	colFlagUp(0),
-	colFlagDown(0),
+	colFlagBottom(0),
 	colL(0),
 	colR(0),
 	colUp(0),
-	colDown(0)
+	colBottom(0),
+	colNL(0),
+	colNR(0),
+	colNUp(0),
+	colNBottom(0)
+
 {
 	m_pPlayer = new Player;
 	m_pEnemy = new Enemy;
@@ -43,7 +48,15 @@ void GameManager::init()
 	colFlagL = false;
 	colFlagR = false;
 	colFlagUp = false;
-	colFlagDown = false;
+	colFlagBottom = false;
+	colL = false;
+	colR = false;
+	colUp = false;
+	colBottom = false;
+	colNL = false;
+	colNR = false;
+	colNUp = false;
+	colNBottom = false;
 
 	m_pPlayer->init();
 	m_pEnemy->init();
@@ -60,8 +73,9 @@ void GameManager::end()
 void GameManager::update()
 {
 	collision();
+	colEnemy();
 	
-	if (colFlagL || colFlagR || colFlagUp || colFlagDown)
+	if (colFlagL || colFlagR || colFlagUp || colFlagBottom)
 	{
 		m_GameOverCount--;
 		if (m_GameOverCount <= 0)
@@ -73,14 +87,14 @@ void GameManager::update()
 			}
 		}
 	}
-	if (!colFlagL && !colFlagR && !colFlagUp && !colFlagDown)
+	if (!colFlagL && !colFlagR && !colFlagUp && !colFlagBottom)
 	{
 		m_GameOverCount = 30;
 	}
 
 	if (!GameOver)
 	{
-		m_pPlayer->operation(colL, colR, colUp, colDown);
+		m_pPlayer->operation(colL, colR, colUp, colBottom);
 	}
 	else if (GameOver)
 	{
@@ -99,7 +113,8 @@ void GameManager::update()
 	
 	m_pPlayer->update();
 	m_pEnemy->update();
-	m_pEnemy->moveWidth(colL, colR);
+	m_pEnemy->moveWidth(colNL, colNR);
+	//m_pEnemy->moveHeight(colNUp, colNBottom);
 	m_pStage->update();
 
 	
@@ -127,6 +142,10 @@ void GameManager::collision()
 // ----------------------------------------------
 // 当たり判定
 // ----------------------------------------------
+
+// **********************************************
+// プレイヤー
+// **********************************************
 
 // 右
 void GameManager::collisionR()
@@ -229,19 +248,19 @@ void GameManager::collisionBottom()
 			{
 				if (m_pStage->m_stage[m_pPlayer->m_posY + (y + 1)][m_pPlayer->m_posX + x] == 8)
 				{
-					colDown = false;
+					colBottom = false;
 				}
 				else if (m_pStage->m_stage[m_pPlayer->m_posY + (y + 1)][m_pPlayer->m_posX + x] == 6)
 				{
-					colDown = false;
+					colBottom = false;
 				}
 				else if (m_pStage->m_stage[m_pPlayer->m_posY + (y + 1)][m_pPlayer->m_posX + x] != 0)
 				{
-					colDown = true;
+					colBottom = true;
 				}
 				else
 				{
-					colDown = false;
+					colBottom = false;
 				}
 			}
 		}
@@ -346,11 +365,11 @@ void GameManager::collisionTimeLag()
 				// 下
 				if (m_pStage->m_stage[m_pPlayer->m_posY + (y + 1)][m_pPlayer->m_posX + x] == 7)
 				{
-					colFlagDown = true;
+					colFlagBottom = true;
 				}
 				else if (m_pStage->m_stage[m_pPlayer->m_posY + (y + 1)][m_pPlayer->m_posX + x] != 7)
 				{
-					colFlagDown = false;
+					colFlagBottom = false;
 				}
 			}
 		}
@@ -400,6 +419,106 @@ void GameManager::collisionGameClear()
 				if (m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + x] == 8)
 				{
 					GameClear = true;
+				}
+			}
+		}
+	}
+}
+
+// **********************************************
+// エネミー
+// **********************************************
+// 全体
+void GameManager::colEnemy()
+{
+	colEnemyR();
+	colEnemyL();
+	colEnemyUP();
+	colEnemyBottom();
+}
+
+// 右
+void GameManager::colEnemyR()
+{
+	for (int y = 0; y < ENEMY_HEIGHT; y++)
+	{
+		for (int x = 0; x < ENEMY_WIDTH; x++)
+		{
+			if (m_pEnemy->m_enemy[y][x] == 1)
+			{
+				if (m_pStage->m_stage[m_pEnemy->m_posY + y][m_pEnemy->m_posX + (x + 1)] != 0)
+				{
+					colNR = true;
+				}
+				else
+				{
+					colNR = false;
+				}
+			}
+		}
+	}
+}
+
+// 左
+void GameManager::colEnemyL()
+{
+	for (int y = 0; y < ENEMY_HEIGHT; y++)
+	{
+		for (int x = 0; x < ENEMY_WIDTH; x++)
+		{
+			if (m_pEnemy->m_enemy[y][x] == 1)
+			{
+				if (m_pStage->m_stage[m_pEnemy->m_posY + y][m_pEnemy->m_posX + (x - 1)] != 0)
+				{
+					colNL = true;
+				}
+				else
+				{
+					colNL = false;
+				}
+			}
+		}
+	}
+}
+
+// 上
+void GameManager::colEnemyUP()
+{
+	for (int y = 0; y < ENEMY_HEIGHT; y++)
+	{
+		for (int x = 0; x < ENEMY_WIDTH; x++)
+		{
+			if (m_pEnemy->m_enemy[y][x] == 1)
+			{
+				if (m_pStage->m_stage[m_pEnemy->m_posY + (y - 1)][m_pEnemy->m_posX + x] != 0)
+				{
+					colNUp = true;
+				}
+				else
+				{
+					colNUp = false;
+				}
+			}
+		}
+	}
+}
+
+// 下
+void GameManager::colEnemyBottom()
+{
+	for (int y = 0; y < ENEMY_HEIGHT; y++)
+	{
+		for (int x = 0; x < ENEMY_WIDTH; x++)
+		{
+			if (m_pEnemy->m_enemy[y][x] == 1)
+			{
+				if (m_pStage->m_stage[m_pEnemy->m_posY + (y + 1)][m_pEnemy->m_posX + x] != 0)
+				{
+					colNBottom = true;
+				}
+				else
+				{
+					colNBottom = false;
 				}
 			}
 		}

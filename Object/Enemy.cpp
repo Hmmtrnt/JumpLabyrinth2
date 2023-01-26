@@ -46,7 +46,8 @@ void Enemy::update()
 {
 	m_frameX += m_speedX;
 	m_posX = m_frameX / DRAW_WIDTH;
-	
+	m_frameY += m_speedY;
+	m_posY = m_frameY / DRAW_WIDTH;
 }
 
 void Enemy::draw()
@@ -75,10 +76,22 @@ void Enemy::moveWidth(bool colL, bool colR)
 {
 	if (colL)
 	{
-		m_speedX = 20;
+		m_speedX = 40;
 	}
 	if (colR)
 	{
-		m_speedX = -20;
+		m_speedX = -40;
+	}
+}
+
+void Enemy::moveHeight(bool colUp, bool colDown)
+{
+	if (colUp)
+	{
+		m_speedY = 20;
+	}
+	if (colDown)
+	{
+		m_speedY = -20;
 	}
 }

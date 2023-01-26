@@ -18,6 +18,7 @@ public:
 	void draw();
 
 	// 当たり判定
+	// プレイヤーとの
 	void collision();			// 全体
 	void collisionR();			// 右
 	void collisionL();			// 左
@@ -28,6 +29,13 @@ public:
 	void collisionEnemy();		// 敵
 	void collisionGameOver();	// ゲームオーバー
 	void collisionGameClear();	// ゲームクリア
+
+	// エネミーとの
+	void colEnemy();			// 全体
+	void colEnemyR();			// 右
+	void colEnemyL();			// 左
+	void colEnemyUP();			// 上
+	void colEnemyBottom();		// 下
 
 private:
 	// しぼんだり、膨らんだりする処理
@@ -53,13 +61,19 @@ private:
 	bool colFlagL;
 	bool colFlagR;
 	bool colFlagUp;
-	bool colFlagDown;
+	bool colFlagBottom;
 
-	// 当たり判定
+	// プレイヤー当たり判定
 	bool colL;			// 左
 	bool colR;			// 右
 	bool colUp;			// 上
-	bool colDown;		// 下
+	bool colBottom;		// 下
+
+	// エネミー当たり判定
+	bool colNL;			// 左
+	bool colNR;			// 右
+	bool colNUp;		// 上
+	bool colNBottom;	// 下
 
 	Player* m_pPlayer;
 	Enemy* m_pEnemy;
