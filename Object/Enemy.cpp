@@ -36,6 +36,7 @@ void Enemy::init()
 	m_speedX = 0;
 	m_speedY = 0;
 	m_stopFrame = 60;
+	
 	for (int y = 0; y < ENEMY_HEIGHT; y++)
 	{
 		for (int x = 0; x < ENEMY_WIDTH; x++)
@@ -47,6 +48,7 @@ void Enemy::init()
 
 void Enemy::end()
 {
+	
 }
 
 void Enemy::update()

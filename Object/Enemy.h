@@ -36,6 +36,7 @@ public:
 	int m_enemy[ENEMY_HEIGHT][ENEMY_WIDTH];
 
 private:
+	
 
 };
 

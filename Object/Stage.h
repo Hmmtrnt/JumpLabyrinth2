@@ -21,5 +21,9 @@ private:
 	int m_shrink;
 	// 膨らんている時間
 	int m_inflate;
+
+	// ステージハンドル
+	int m_handle;
+
 };
 

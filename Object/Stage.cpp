@@ -3,7 +3,8 @@
 Stage::Stage() :
 	m_gimmickFrame(0),
 	m_shrink(0),
-	m_inflate(0)
+	m_inflate(0),
+	m_handle(0)
 {
 	for (int y = 0; y < STAGE_HEIGHT; y++)
 	{
@@ -23,6 +24,7 @@ void Stage::init()
 	m_gimmickFrame = 0;
 	m_shrink = 60;
 	m_inflate = 60;
+	m_handle = draw::MyLoadGraph("data/industrial.v2.png");
 	for (int y = 0; y < STAGE_HEIGHT; y++)
 	{
 		for (int x = 0; x < STAGE_WIDTH; x++)
@@ -34,6 +36,7 @@ void Stage::init()
 
 void Stage::end()
 {
+	DeleteGraph(m_handle);
 }
 
 void Stage::update()
@@ -58,6 +61,7 @@ void Stage::draw()
 						(x * DRAW_WIDTH) + DRAW_WIDTH, 
 						(y * DRAW_WIDTH) + DRAW_WIDTH,
 						kColor::White, false);
+				draw::MyDrawRectRotaGraph()
 			}
 			if (m_stage[y][x] == 4)
 			{

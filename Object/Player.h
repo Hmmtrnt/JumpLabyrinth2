@@ -30,5 +30,11 @@ public:
 	int m_player[PLAYER_HEIGHT][PLAYER_WIDTH];
 
 private:
-
+	// プレイヤーハンドル
+	int m_handle;
+	int m_handle2;
+	// プレイヤー画像の番号
+	int m_handlenumX;
+	// プレイヤーの回転
+	float m_rota;
 };

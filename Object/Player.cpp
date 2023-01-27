@@ -7,7 +7,11 @@ Player::Player() :
 	m_frameX(0),
 	m_frameY(0),
 	m_speedX(0),
-	m_speedY(0)
+	m_speedY(0),
+	m_handle(-1),
+	m_handle2(-1),
+	m_handlenumX(-1),
+	m_rota(0.0f)
 {
 	for (int y = 0; y < PLAYER_HEIGHT; y++)
 	{
@@ -28,6 +32,10 @@ void Player::init()
 	m_posY = 12;
 	m_frameX = 440;
 	m_frameY = 480;
+	m_rota = 0.0f;
+	m_handle = draw::MyLoadGraph("data/AnimationSheet_Character.png");
+	m_handle2 = draw::MyLoadGraph("data/AnimationSheet_Character2.png");
+
 	for (int y = 0; y < PLAYER_HEIGHT; y++)
 	{
 		for (int x = 0; x < PLAYER_WIDTH; x++)
@@ -39,6 +47,8 @@ void Player::init()
 
 void Player::end()
 {
+	DeleteGraph(m_handle);
+	DeleteGraph(m_handle2);
 }
 
 void Player::update()
@@ -58,10 +68,52 @@ void Player::draw()
 		{
 			if (m_player[y][x] == 1)
 			{
-				DrawBox(m_frameX + x * DRAW_WIDTH, m_frameY + y * DRAW_WIDTH,
+				/*DrawBox(m_frameX + x * DRAW_WIDTH, m_frameY + y * DRAW_WIDTH,
 						(m_frameX + x * DRAW_WIDTH) + DRAW_WIDTH, (m_frameY + y * DRAW_WIDTH) + DRAW_WIDTH,
-						kColor::Peach, true);
-					
+						kColor::Peach, true);*/
+				if (m_rota == PI / 2)
+				{
+					draw::MyDrawRectRotaGraph((m_frameX + (x * DRAW_WIDTH)) + (DRAW_WIDTH / 2), (m_frameY + (y * DRAW_WIDTH)) + (DRAW_WIDTH / 2),
+											  0, 0,
+											  32, 32,
+											  1.2f, m_rota,
+											  m_handle, true);
+
+					/*DrawRotaGraph3((m_frameX + (x * DRAW_WIDTH)) + (DRAW_WIDTH / 2), (m_frameY + (y * DRAW_WIDTH)) + (DRAW_WIDTH / 2),
+									0, 0,
+									1.2f, 1.2f,
+									m_rota, m_handle,
+									true, true);*/
+				}
+				else
+				{
+					draw::MyDrawRectRotaGraph((m_frameX + (x * DRAW_WIDTH)) + (DRAW_WIDTH / 2), (m_frameY + (y * DRAW_WIDTH)) + (DRAW_WIDTH / 2),
+											  0, 0,
+											  32, 32,
+											  1.2f, m_rota,
+											  m_handle, true);
+				}
+				// ã
+				if (Pad::isPress(PAD_INPUT_UP))
+				{
+					m_rota = PI / 1;
+				}
+				// ‰º
+				if (Pad::isPress(PAD_INPUT_DOWN))
+				{
+					m_rota = 0;
+				}
+				// ‰E
+				if (Pad::isPress(PAD_INPUT_RIGHT))
+				{
+					m_rota = PI / -2;
+				}
+				// ¶
+				if (Pad::isPress(PAD_INPUT_LEFT))
+				{
+					m_rota = PI / 2;
+				}
+				
 			}
 		}
 	}
@@ -69,8 +121,6 @@ void Player::draw()
 	DrawFormatString(600, 50, GetColor(255, 0, 0), "m_posY:%d", m_posY);
 	DrawFormatString(600, 100, GetColor(255, 0, 0), "m_flameX:%d", m_frameX);
 	DrawFormatString(600, 150, GetColor(255, 0, 0), "m_flameY:%d", m_frameY);
-
-
 }
 
 void Player::operation(bool colL, bool colR, bool colUp, bool colDown)
