@@ -61,7 +61,7 @@ void Stage::draw()
 						(x * DRAW_WIDTH) + DRAW_WIDTH, 
 						(y * DRAW_WIDTH) + DRAW_WIDTH,
 						kColor::White, false);
-				draw::MyDrawRectRotaGraph()
+				//draw::MyDrawRectRotaGraph()
 			}
 			if (m_stage[y][x] == 4)
 			{
