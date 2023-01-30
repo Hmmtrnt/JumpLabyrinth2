@@ -74,10 +74,16 @@ void Player::draw()
 				if (m_rota == PI / 2)
 				{
 					draw::MyDrawRectRotaGraph((m_frameX + (x * DRAW_WIDTH)) + (DRAW_WIDTH / 2), (m_frameY + (y * DRAW_WIDTH)) + (DRAW_WIDTH / 2),
-											  0, 0,
 											  32, 32,
+											  0, 0,
 											  1.2f, m_rota,
 											  m_handle, true);
+
+					/*draw::MyDrawRectRotaGraph((m_frameX + (x * DRAW_WIDTH)) + (DRAW_WIDTH / 2), (m_frameY + (y * DRAW_WIDTH)) + (DRAW_WIDTH / 2),
+						0, 0,
+						32, 32,
+						1.2f, m_rota,
+						m_handle, true);*/
 
 					/*DrawRotaGraph3((m_frameX + (x * DRAW_WIDTH)) + (DRAW_WIDTH / 2), (m_frameY + (y * DRAW_WIDTH)) + (DRAW_WIDTH / 2),
 									0, 0,
