@@ -34,7 +34,7 @@ void Player::init()
 	m_frameY = 480;
 	m_rota = 0.0f;
 	m_handle = draw::MyLoadGraph("data/AnimationSheet_Character.png");
-	m_handle2 = draw::MyLoadGraph("data/AnimationSheet_Character2.png");
+	m_handle2 = draw::MyLoadGraph("data/char.png");
 
 	for (int y = 0; y < PLAYER_HEIGHT; y++)
 	{
@@ -77,13 +77,13 @@ void Player::draw()
 											  0, 0,
 											  32, 32,
 											  1.2f, m_rota,
-											  m_handle, true);
+											  m_handle, true, true);
 
-					/*DrawRotaGraph3((m_frameX + (x * DRAW_WIDTH)) + (DRAW_WIDTH / 2), (m_frameY + (y * DRAW_WIDTH)) + (DRAW_WIDTH / 2),
-									0, 0,
-									1.2f, 1.2f,
-									m_rota, m_handle,
-									true, true);*/
+					/*draw::MyDrawRectRotaGraph((m_frameX + (x * DRAW_WIDTH)) + (DRAW_WIDTH / 2), (m_frameY + (y * DRAW_WIDTH)) + (DRAW_WIDTH / 2),
+						224, 288,
+						256, 256,
+						1.2f, m_rota,
+						m_handle2, true);*/
 				}
 				else
 				{
@@ -91,27 +91,31 @@ void Player::draw()
 											  0, 0,
 											  32, 32,
 											  1.2f, m_rota,
-											  m_handle, true);
+											  m_handle, true, false);
 				}
 				// ã
 				if (Pad::isPress(PAD_INPUT_UP))
 				{
 					m_rota = PI / 1;
+				//	printfDx("ã\n");
 				}
 				// ‰º
 				if (Pad::isPress(PAD_INPUT_DOWN))
 				{
 					m_rota = 0;
+				//	printfDx("‰º\n");
 				}
 				// ‰E
 				if (Pad::isPress(PAD_INPUT_RIGHT))
 				{
 					m_rota = PI / -2;
+				//	printfDx("‰E\n");
 				}
 				// ¶
 				if (Pad::isPress(PAD_INPUT_LEFT))
 				{
 					m_rota = PI / 2;
+				//	printfDx("¶\n");
 				}
 				
 			}

@@ -15,13 +15,13 @@ namespace draw
 		assert(handle >= 0);
 		return handle;
 	}
-	int MyDrawRectRotaGraph(int x, int y, int left, int top, int width, int height, float scale, float angle, int handle, bool transFlg)
+	int MyDrawRectRotaGraph(int x, int y, int left, int top, int width, int height, float scale, float angle, int handle, bool transFlg, bool turnFlag)
 	{
 		return DrawRectRotaGraph(x, y,					// •\¦À•W
 								 left, top,				// Ø‚èæ‚è¶ã
 								 width, height,			// •A‚‚³
 								 scale, angle,			// Šg‘å—¦A‰ñ“]Šp“x
-								 handle, transFlg);
+								 handle, transFlg, turnFlag);
 	}
 	int MyDrawRotaGraph(int x, int y, float ExtRate, float Angle, int GrHandle, int TransFlag, int TurnFlag)
 	{

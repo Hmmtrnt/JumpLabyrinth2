@@ -296,7 +296,7 @@ void GameManager::collisionBulge()
 						GameOver = true;
 					}
 					// ‰º
-					if (m_pStage->m_stage[m_pPlayer->m_posY + (y + 1)][m_pPlayer->m_posX + (x - 1)] == 5)
+					if (m_pStage->m_stage[m_pPlayer->m_posY + (y + 1)][m_pPlayer->m_posX + x] == 5)
 					{
 						GameOver = true;
 					}

@@ -16,7 +16,7 @@ namespace draw
 							int left, int top,				// Ø‚èæ‚è¶ã
 							int width, int height,			// •A‚‚³
 							float scale, float angle,		// Šg‘å—¦A‰ñ“]Šp“x
-							int handle, bool transFlg);		
+							int handle, bool transFlg, bool turnFlag);		
 
 	int MyDrawRotaGraph(int x, int y,						// •\¦À•W
 						float ExtRate, float Angle,		// Šg‘å—¦A‰ñ“]Šp“x

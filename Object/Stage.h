@@ -24,6 +24,17 @@ private:
 
 	// ステージハンドル
 	int m_handle;
+	int m_handle2;
 
+	// 切り取る左上の頂点
+	int m_vertexX;
+	int m_vertexY;
+	int m_vertexX2;
+	int m_vertexY2;
+
+	int m_verX;
+	int m_verY;
+	int m_verX2;
+	int m_verY2;
 };
 
