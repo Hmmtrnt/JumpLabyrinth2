@@ -62,7 +62,6 @@ private:
 
 	// フレームカウント
 	int m_frameCountGameOver;
-	int m_frameCountGameOver2;
 
 	// 隣を通ったかどうか
 	bool colNextFlag;

@@ -15,7 +15,7 @@ SceneMain::~SceneMain()
 
 void SceneMain::init()
 {
-	m_frameCount = 120;
+	m_frameCount = 90;
 	m_pManager->init();
 }
 
@@ -30,7 +30,14 @@ SceneBase* SceneMain::update()
 
 	if (m_pManager->GameOver)
 	{
-		return(new SceneTitle);
+		m_frameCount--;
+
+		if (m_frameCount <= 0)
+		{
+			return(new SceneTitle);
+		}
+
+		
 	}
 	if (m_pManager->GameClear)
 	{

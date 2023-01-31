@@ -11,7 +11,6 @@ GameManager::GameManager() :
 	GameOver(0),
 	GameClear(0),
 	m_frameCountGameOver(0),
-	m_frameCountGameOver2(0),
 	colNextFlag(0),
 	colFlagL(0),
 	colFlagR(0),
@@ -48,7 +47,6 @@ void GameManager::init()
 	GameOver = false;
 	GameClear = false;
 	m_frameCountGameOver = 30;
-	m_frameCountGameOver2 = 30;
 	colFlagL = false;
 	colFlagR = false;
 	colFlagUp = false;
@@ -102,9 +100,10 @@ void GameManager::update()
 	}
 	else if (GameOver)
 	{
+		GameOverMotion();
 		m_pPlayer->m_speedX = 0;
 		m_pPlayer->m_speedY = 0;
-		printfDx("GameOver\n");
+		//printfDx("GameOver\n");
 	}
 
 	if (GameClear)
@@ -122,6 +121,7 @@ void GameManager::update()
 
 void GameManager::draw()
 {
+	
 	m_pEnemy->draw();
 	m_pStage->draw();
 	m_pPlayer->draw();
@@ -529,26 +529,15 @@ void GameManager::colEnemyBottom()
 
 void GameManager::GameOverMotion()
 {
-	if (GameOver)
+	m_frameCountGameOver--;
+	m_pPlayer->m_verXPlayer = 1;
+	m_pPlayer->m_verYPlayer = 6;
+	
+	if (m_frameCountGameOver <= 0)
 	{
-		m_frameCountGameOver--;
-		if (m_frameCountGameOver <= 0)
-		{
-			m_frameCountGameOver = 0;
-			m_pPlayer->m_verXPlayer = 1;
-			m_pPlayer->m_verYPlayer = 6;
-		}
-		if (m_frameCountGameOver = 0)
-		{
-			m_frameCountGameOver2--;
-		}
-		if (m_frameCountGameOver2 <= 0)
-		{
-			m_frameCountGameOver2 = 0;
-			m_pPlayer->m_verXPlayer = 2;
-			m_pPlayer->m_verYPlayer = 6;
-		}
-		
+		m_frameCountGameOver = 0;
+		m_pPlayer->m_verXPlayer = 2;
+		m_pPlayer->m_verYPlayer = 6;
 	}
 }
 
