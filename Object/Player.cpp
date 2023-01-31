@@ -54,7 +54,7 @@ void Player::init()
 		}
 	}
 }
-
+//
 void Player::end()
 {
 	DeleteGraph(m_handle);
