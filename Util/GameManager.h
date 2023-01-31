@@ -37,6 +37,9 @@ public:
 	void colEnemyUP();			// 上
 	void colEnemyBottom();		// 下
 
+	// 針の描画
+	void drawNeedle();
+
 	// ゲームオーバーモーション
 	void GameOverMotion();
 
@@ -62,6 +65,9 @@ private:
 
 	// フレームカウント
 	int m_frameCountGameOver;
+
+	// 針のグラフィックハンドル
+	int m_handleNeedle;
 
 	// 隣を通ったかどうか
 	bool colNextFlag;

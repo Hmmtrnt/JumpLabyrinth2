@@ -8,7 +8,8 @@ Enemy::Enemy() :
 	m_frameY(0),
 	m_speedX(0),
 	m_speedY(0),
-	m_stopFrame(0)
+	m_stopFrame(0),
+	m_handleArrow(0)
 {
 	for (int y = 0; y < ENEMY_HEIGHT; y++)
 	{
@@ -29,13 +30,11 @@ void Enemy::init()
 	m_posY = 12;
 	m_frameX = 0;
 	m_frameY = 480;
-	/*m_posX = 1;
-	m_posY = 13;
-	m_frameX = 40;
-	m_frameY = 520;*/
 	m_speedX = 0;
 	m_speedY = 0;
 	m_stopFrame = 60;
+
+	m_handleArrow = draw::MyLoadGraph("data/arrow3.png");
 	
 	for (int y = 0; y < ENEMY_HEIGHT; y++)
 	{
@@ -67,9 +66,15 @@ void Enemy::draw()
 		{
 			if (m_enemy[y][x] == 1)
 			{
-				DrawBox(m_frameX + x * DRAW_WIDTH, m_frameY + y * DRAW_WIDTH,
+				/*DrawBox(m_frameX + x * DRAW_WIDTH, m_frameY + y * DRAW_WIDTH,
 					(m_frameX + x * DRAW_WIDTH) + DRAW_WIDTH, (m_frameY + y * DRAW_WIDTH) + DRAW_WIDTH,
-					kColor::Green, true);
+					kColor::Green, true);*/
+
+				draw::MyDrawRectRotaGraph((m_frameX + (x * DRAW_WIDTH)) + (DRAW_WIDTH / 2), (m_frameY + (y * DRAW_WIDTH)) + (DRAW_WIDTH / 2),
+										  0, 0,
+										  40, 40,
+										  1.0f, PI / 2,
+										  m_handleArrow, true, false);
 			}
 		}
 	}

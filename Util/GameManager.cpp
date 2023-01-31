@@ -82,6 +82,8 @@ void GameManager::update()
 		m_GameOverCount--;
 		if (m_GameOverCount <= 0)
 		{
+				
+
 			m_GameOverCount = 0;
 			if (m_GameOverCount == 0)
 			{
@@ -521,6 +523,23 @@ void GameManager::colEnemyBottom()
 				else
 				{
 					colNBottom = false;
+				}
+			}
+		}
+	}
+}
+
+void GameManager::drawNeedle()
+{
+	if (colFlagR && m_GameOverCount == 0)
+	{
+		for (int y = 0; y < STAGE_HEIGHT; y++)
+		{
+			for (int x = 0; x < STAGE_WIDTH; x++)
+			{
+				if (m_pStage->m_stage[y][x] == 7)
+				{
+					//if (m_pPlayer->)
 				}
 			}
 		}

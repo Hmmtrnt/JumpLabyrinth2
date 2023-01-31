@@ -15,6 +15,21 @@ namespace draw
 		assert(handle >= 0);
 		return handle;
 	}
+
+	int MyDrawGraph(int x, int y, int GrHandle, bool TransFlag)
+	{
+		return DrawGraph(x, y,							// 描画する左上座標
+						 GrHandle, TransFlag);			// グラフィックハンドル、画像の透明度
+	}
+
+	int MyDrawRotaGraph(int x, int y, float scale, float angle, int handle, bool transFlag, bool turnFlag)
+	{
+		return DrawRotaGraph(x, y,						// 描画する中心座標
+							 scale, angle,				// 拡大率、回転角度
+							 handle,					// グラフィックハンドル
+							 transFlag, turnFlag);		// 画像の透明度、画像の左右反転
+	}
+
 	int MyDrawRectRotaGraph(int x, int y, int left, int top, int width, int height, float scale, float angle, int handle, bool transFlg, bool turnFlag)
 	{
 		return DrawRectRotaGraph(x, y,					// 表示座標
