@@ -18,4 +18,6 @@ public:
 
 private:
 	GameManager* m_pManager;
+	// フレームカウント
+	int m_frameCount;
 };

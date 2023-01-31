@@ -74,11 +74,11 @@ void Enemy::draw()
 		}
 	}
 
-	DrawFormatString(600, 250, GetColor(255, 0, 0), "m_posX:%d", m_posX);
+	/*DrawFormatString(600, 250, GetColor(255, 0, 0), "m_posX:%d", m_posX);
 	DrawFormatString(600, 300, GetColor(255, 0, 0), "m_posY:%d", m_posY);
 	DrawFormatString(600, 350, GetColor(255, 0, 0), "m_flameX:%d", m_frameX);
 	DrawFormatString(600, 400, GetColor(255, 0, 0), "m_flameY:%d", m_frameY);
-	DrawFormatString(600, 450, GetColor(255, 0, 0), "m_stopFrame:%d", m_stopFrame);
+	DrawFormatString(600, 450, GetColor(255, 0, 0), "m_stopFrame:%d", m_stopFrame);*/
 
 }
 

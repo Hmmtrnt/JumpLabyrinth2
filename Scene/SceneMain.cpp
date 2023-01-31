@@ -2,7 +2,8 @@
 #include "SceneTitle.h"
 #include "../Util/GameManager.h"
 
-SceneMain::SceneMain()
+SceneMain::SceneMain() :
+	m_frameCount(0)
 {
 	m_pManager = new GameManager;
 }
@@ -14,6 +15,7 @@ SceneMain::~SceneMain()
 
 void SceneMain::init()
 {
+	m_frameCount = 120;
 	m_pManager->init();
 }
 

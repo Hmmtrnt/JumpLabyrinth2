@@ -37,6 +37,9 @@ public:
 	void colEnemyUP();			// 上
 	void colEnemyBottom();		// 下
 
+	// ゲームオーバーモーション
+	void GameOverMotion();
+
 	// ゲームオーバー
 	bool GameOver;
 	// ゲームクリア
@@ -57,7 +60,9 @@ private:
 	// ゲームオーバーのカウントダウン
 	int m_GameOverCount;
 
-	
+	// フレームカウント
+	int m_frameCountGameOver;
+	int m_frameCountGameOver2;
 
 	// 隣を通ったかどうか
 	bool colNextFlag;

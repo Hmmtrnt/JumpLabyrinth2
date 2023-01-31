@@ -10,6 +10,8 @@ GameManager::GameManager() :
 	m_GameOverCount(0),
 	GameOver(0),
 	GameClear(0),
+	m_frameCountGameOver(0),
+	m_frameCountGameOver2(0),
 	colNextFlag(0),
 	colFlagL(0),
 	colFlagR(0),
@@ -45,6 +47,8 @@ void GameManager::init()
 	m_GameOverCount = 30;
 	GameOver = false;
 	GameClear = false;
+	m_frameCountGameOver = 30;
+	m_frameCountGameOver2 = 30;
 	colFlagL = false;
 	colFlagR = false;
 	colFlagUp = false;
@@ -110,15 +114,10 @@ void GameManager::update()
 		printfDx("GameClear\n");
 	}
 	
-	//m_pEnemy->operation(colNL, colNR, colNUp, colNBottom);
-
 	m_pPlayer->update();
 	m_pEnemy->update();
 	m_pEnemy->moveWidth(colNL, colNR);
-	//m_pEnemy->moveHeight(colNUp, colNBottom);
 	m_pStage->update();
-
-	
 }
 
 void GameManager::draw()
@@ -525,6 +524,31 @@ void GameManager::colEnemyBottom()
 				}
 			}
 		}
+	}
+}
+
+void GameManager::GameOverMotion()
+{
+	if (GameOver)
+	{
+		m_frameCountGameOver--;
+		if (m_frameCountGameOver <= 0)
+		{
+			m_frameCountGameOver = 0;
+			m_pPlayer->m_verXPlayer = 1;
+			m_pPlayer->m_verYPlayer = 6;
+		}
+		if (m_frameCountGameOver = 0)
+		{
+			m_frameCountGameOver2--;
+		}
+		if (m_frameCountGameOver2 <= 0)
+		{
+			m_frameCountGameOver2 = 0;
+			m_pPlayer->m_verXPlayer = 2;
+			m_pPlayer->m_verYPlayer = 6;
+		}
+		
 	}
 }
 

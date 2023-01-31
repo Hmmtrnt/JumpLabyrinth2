@@ -1,4 +1,5 @@
 #include "SceneTitle.h"
+#include "SceneSelect.h"
 #include "SceneMain.h"
 #include "../Util/Pad.h"
 
@@ -24,7 +25,7 @@ SceneBase* SceneTitle::update()
 	// ‰¼‚ÌƒV[ƒ“‘JˆÚ
 	if (Pad::isTrigger(PAD_INPUT_2) == 1)
 	{
-		return(new SceneMain);
+		return(new SceneSelect);
 	}
 	return this;
 }

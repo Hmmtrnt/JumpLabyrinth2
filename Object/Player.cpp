@@ -147,10 +147,10 @@ void Player::draw()
 			}
 		}
 	}
-	DrawFormatString(600, 0, GetColor(255, 0, 0), "m_frameCount:%d", m_frameCount);
+	/*DrawFormatString(600, 0, GetColor(255, 0, 0), "m_frameCount:%d", m_frameCount);
 	DrawFormatString(600, 50, GetColor(255, 0, 0), "m_verXPlayer:%d", m_verXPlayer);
 	DrawFormatString(600, 100, GetColor(255, 0, 0), "m_verYPlayer:%d", m_verYPlayer);
-	//DrawFormatString(600, 150, GetColor(255, 0, 0), "m_flameY:%d", m_frameY);
+	DrawFormatString(600, 150, GetColor(255, 0, 0), "m_flameY:%d", m_frameY);*/
 }
 
 void Player::operation(bool colL, bool colR, bool colUp, bool colDown)
@@ -278,6 +278,8 @@ void Player::motion()
 		}
 	}
 }
+
+
 
 void Player::standMotion()
 {

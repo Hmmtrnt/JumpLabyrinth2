@@ -200,7 +200,7 @@ void Stage::draw()
 		}
 	}
 	// •Ï”Šm”F—p•`‰æ
-	DrawFormatString(600, 200, kColor::Red, "m_gimmickFrame:%d", m_gimmickFrame);
+	//DrawFormatString(600, 200, kColor::Red, "m_gimmickFrame:%d", m_gimmickFrame);
 	//DrawFormatString(600, 250, kColor::Red, "m_inflate:%d", m_inflate);
 
 }
