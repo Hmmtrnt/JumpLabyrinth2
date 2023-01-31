@@ -69,7 +69,7 @@ void Player::update()
 	m_posY = m_frameY / DRAW_WIDTH;
 	
 	standMotion();
-
+	//jumpMotion();
 }
 
 void Player::draw()
@@ -126,9 +126,9 @@ void Player::draw()
 		}
 	}
 	DrawFormatString(600, 0, GetColor(255, 0, 0), "m_frameCount:%d", m_frameCount);
-	/*DrawFormatString(600, 50, GetColor(255, 0, 0), "m_posY:%d", m_posY);
-	DrawFormatString(600, 100, GetColor(255, 0, 0), "m_flameX:%d", m_frameX);
-	DrawFormatString(600, 150, GetColor(255, 0, 0), "m_flameY:%d", m_frameY);*/
+	DrawFormatString(600, 50, GetColor(255, 0, 0), "m_verXPlayer:%d", m_verXPlayer);
+	DrawFormatString(600, 100, GetColor(255, 0, 0), "m_verYPlayer:%d", m_verYPlayer);
+	//DrawFormatString(600, 150, GetColor(255, 0, 0), "m_flameY:%d", m_frameY);
 }
 
 void Player::operation(bool colL, bool colR, bool colUp, bool colDown)
@@ -218,15 +218,16 @@ void Player::standMotion()
 	if (m_speedX != 0 || m_speedY != 0)
 	{
 		m_verXPlayer = 0;
+		m_verYPlayer = 0;
 		m_frameCount = motionCount;
 	}
 
-	if (m_frameCount <= 0 && m_verXPlayer == 0)
+	if (m_frameCount <= 0 && m_verXPlayer != 1)
 	{
 		m_verXPlayer = 1;
 		m_frameCount = motionCount;
 	}
-	else if (m_frameCount <= 0 && m_verXPlayer == 1)
+	else if (m_frameCount <= 0 && m_verXPlayer != 0)
 	{
 		m_verXPlayer = 0;
 		m_frameCount = motionCount;
@@ -235,4 +236,18 @@ void Player::standMotion()
 
 void Player::jumpMotion()
 {
+
+	if (m_speedX != 0 || m_speedY != 0)
+	{
+		m_verXPlayer = 2;
+		m_verYPlayer = 5;
+		m_frameCount = motionCount;
+	}
+	else if (m_speedX == 0 && m_speedY == 0 && m_verXPlayer == 2 && m_verYPlayer == 5)
+	{
+		m_verXPlayer = 0;
+		m_verYPlayer = 0;
+		standMotion();
+	}
+
 }
