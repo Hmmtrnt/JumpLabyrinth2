@@ -16,6 +16,8 @@ public:
 	// プレイヤー操作
 	void operation(bool colL,bool colR, bool colUp, bool colDown);
 
+	// モーション
+	void motion();
 	// 立ちモーション
 	void standMotion();
 	// ジャンプモーション

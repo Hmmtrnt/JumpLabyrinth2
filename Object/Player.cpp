@@ -54,7 +54,7 @@ void Player::init()
 		}
 	}
 }
-//
+
 void Player::end()
 {
 	DeleteGraph(m_handle);
@@ -68,7 +68,8 @@ void Player::update()
 	m_frameY += m_speedY;
 	m_posY = m_frameY / DRAW_WIDTH;
 	
-	standMotion();
+	//motion();
+	//standMotion();
 	//jumpMotion();
 }
 
@@ -80,48 +81,69 @@ void Player::draw()
 		{
 			if (m_player[y][x] == 1)
 			{
+				if (Pad::isPress(PAD_INPUT_DOWN) == 0 &&
+					Pad::isPress(PAD_INPUT_RIGHT) == 0 &&
+					Pad::isPress(PAD_INPUT_LEFT) == 0)
+				{
+					// 上
+					if (Pad::isTrigger(PAD_INPUT_UP) == 1)
+					{
+						m_rota = PI / 1;
+						//	printfDx("上\n");
+					}
+				}
+				if (Pad::isPress(PAD_INPUT_UP) == 0 &&
+					Pad::isPress(PAD_INPUT_RIGHT) == 0 &&
+					Pad::isPress(PAD_INPUT_LEFT) == 0)
+				{
+					// 下
+					if (Pad::isTrigger(PAD_INPUT_DOWN) == 1)
+					{
+						m_rota = 0;
+						//	printfDx("下\n");
+					}
+				}
+				if (Pad::isPress(PAD_INPUT_DOWN) == 0 &&
+					Pad::isPress(PAD_INPUT_UP) == 0 &&
+					Pad::isPress(PAD_INPUT_LEFT) == 0)
+				{
+					// 右
+					if (Pad::isTrigger(PAD_INPUT_RIGHT) == 1)
+					{
+						m_rota = PI / -2;
+						//	printfDx("右\n");
+					}
+				}
+				if (Pad::isPress(PAD_INPUT_DOWN) == 0 &&
+					Pad::isPress(PAD_INPUT_UP) == 0 &&
+					Pad::isPress(PAD_INPUT_RIGHT) == 0)
+				{
+					// 左
+					if (Pad::isTrigger(PAD_INPUT_LEFT) == 1)
+					{
+						m_rota = PI / 2;
+						//	printfDx("左\n");
+					}
+				}
+				
 				if (m_rota == PI / 2)
 				{
 					draw::MyDrawRectRotaGraph((m_frameX + (x * DRAW_WIDTH)) + (DRAW_WIDTH / 2), (m_frameY + (y * DRAW_WIDTH)) + (DRAW_WIDTH / 2),
-											  m_verXPlayer * 32, m_verYPlayer * 32,
-											  32, 32,
-											  1.2f, m_rota,
-											  m_handle, true, true);
+						m_verXPlayer * 32, m_verYPlayer * 32,
+						32, 32,
+						1.3f, m_rota,
+						m_handle, true, true);
 
 				}
 				else
 				{
 					draw::MyDrawRectRotaGraph((m_frameX + (x * DRAW_WIDTH)) + (DRAW_WIDTH / 2), (m_frameY + (y * DRAW_WIDTH)) + (DRAW_WIDTH / 2),
-											  m_verXPlayer * 32, m_verYPlayer * 32,
-											  32, 32,
-											  1.2f, m_rota,
-											  m_handle, true, false);
+						m_verXPlayer * 32, m_verYPlayer * 32,
+						32, 32,
+						1.3f, m_rota,
+						m_handle, true, false);
 				}
-				// 上
-				if (Pad::isPress(PAD_INPUT_UP))
-				{
-					m_rota = PI / 1;
-				//	printfDx("上\n");
-				}
-				// 下
-				if (Pad::isPress(PAD_INPUT_DOWN))
-				{
-					m_rota = 0;
-				//	printfDx("下\n");
-				}
-				// 右
-				if (Pad::isPress(PAD_INPUT_RIGHT))
-				{
-					m_rota = PI / -2;
-				//	printfDx("右\n");
-				}
-				// 左
-				if (Pad::isPress(PAD_INPUT_LEFT))
-				{
-					m_rota = PI / 2;
-				//	printfDx("左\n");
-				}
-				
+				motion();
 			}
 		}
 	}
@@ -178,36 +200,82 @@ void Player::operation(bool colL, bool colR, bool colUp, bool colDown)
 		}
 #else
 		// 正規用
-		if (Pad::isPress(PAD_INPUT_LEFT))
+		if (Pad::isPress(PAD_INPUT_DOWN) == 0 &&
+			Pad::isPress(PAD_INPUT_RIGHT) == 0 &&
+			Pad::isPress(PAD_INPUT_UP) == 0)
 		{
-			if (!colL)
+			if (Pad::isTrigger(PAD_INPUT_LEFT) == 1)
 			{
-				m_speedX = -40;
-			}
+				if (!colL)
+				{
+					m_speedX = -40;
+				}
 
-		}
-		else if (Pad::isPress(PAD_INPUT_RIGHT))
-		{
-			if (!colR)
-			{
-				m_speedX = 40;
 			}
 		}
-		else if (Pad::isPress(PAD_INPUT_UP))
+		if (Pad::isPress(PAD_INPUT_UP) == 0 &&
+			Pad::isPress(PAD_INPUT_DOWN) == 0 &&
+			Pad::isPress(PAD_INPUT_LEFT) == 0)
 		{
-			if (!colUp)
+			if (Pad::isTrigger(PAD_INPUT_RIGHT) == 1)
 			{
-				m_speedY = -40;
+				if (!colR)
+				{
+					m_speedX = 40;
+				}
 			}
 		}
-		else if (Pad::isPress(PAD_INPUT_DOWN))
+		if (Pad::isPress(PAD_INPUT_DOWN) == 0 &&
+			Pad::isPress(PAD_INPUT_RIGHT) == 0 &&
+			Pad::isPress(PAD_INPUT_LEFT) == 0)
 		{
-			if (!colDown)
+			if (Pad::isTrigger(PAD_INPUT_UP) == 1)
 			{
-				m_speedY = 40;
+				if (!colUp)
+				{
+					m_speedY = -40;
+				}
+			}
+		}
+		if (Pad::isPress(PAD_INPUT_UP) == 0 &&
+			Pad::isPress(PAD_INPUT_RIGHT) == 0 &&
+			Pad::isPress(PAD_INPUT_LEFT) == 0)
+		{
+			if (Pad::isTrigger(PAD_INPUT_DOWN) == 1)
+			{
+				if (!colDown)
+				{
+					m_speedY = 40;
+				}
 			}
 		}
 #endif
+	}
+}
+
+void Player::motion()
+{
+	m_frameCount--;
+
+	if (m_speedX != 0 || m_speedY != 0)
+	{
+		
+		m_frameCount = motionCount;
+	}
+	if (m_speedX == 0 && m_speedY == 0)
+	{
+		if (m_frameCount <= 0 && m_verXPlayer != 1)
+		{
+			m_verXPlayer = 1;
+			m_verYPlayer = 0;
+			m_frameCount = motionCount;
+		}
+		else if (m_frameCount <= 0 && m_verXPlayer != 0)
+		{
+			m_verXPlayer = 0;
+			m_verYPlayer = 0;
+			m_frameCount = motionCount;
+		}
 	}
 }
 
