@@ -16,6 +16,11 @@ public:
 	// プレイヤー操作
 	void operation(bool colL,bool colR, bool colUp, bool colDown);
 
+	// 立ちモーション
+	void standMotion();
+	// ジャンプモーション
+	void jumpMotion();
+
 	// プレイヤーの配列の位置
 	int m_posX;			// X座標
 	int m_posY;			// Y座標
@@ -35,6 +40,12 @@ private:
 	int m_handle2;
 	// プレイヤー画像の番号
 	int m_handlenumX;
+	// プレイヤーの切り取る左上の頂点
+	int m_verXPlayer;
+	int m_verYPlayer;
+	// フレームカウント
+	int m_frameCount;
+
 	// プレイヤーの回転
 	float m_rota;
 };

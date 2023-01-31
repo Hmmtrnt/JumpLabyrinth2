@@ -23,8 +23,19 @@ namespace draw
 								 scale, angle,			// 拡大率、回転角度
 								 handle, transFlg, turnFlag);
 	}
-	int MyDrawRotaGraph(int x, int y, float ExtRate, float Angle, int GrHandle, int TransFlag, int TurnFlag)
+
+	int MyDerivationGraph(int x, int y, int width, int height, int Grhandle)
 	{
-		return DrawRotaGraph(x, y, ExtRate, Angle, GrHandle, TransFlag, TurnFlag);
+		return DerivationGraph(x, y,					// 矩形の左上座標
+							   width, height,			// 抜き出すグラフィックのサイズ
+							   Grhandle);				// グラフィックハンドル
+	}
+
+	int MyDrawExtendGraph(int x1, int y1, int x2, int y2, int GrHandle, int TransFlag)
+	{
+		return DrawExtendGraph(x1, y1,					// 左上頂点の座標
+							   x2, y2,					// 右上の頂点座標
+							   GrHandle,				// グラフィックハンドル
+							   TransFlag);				// 画面の透明度
 	}
 }

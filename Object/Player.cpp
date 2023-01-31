@@ -1,6 +1,11 @@
 #include "Player.h"
 #include "../Util/Pad.h"
 
+namespace
+{
+	constexpr int motionCount = 45;
+}
+
 Player::Player() :
 	m_posX(0),
 	m_posY(0),
@@ -11,6 +16,9 @@ Player::Player() :
 	m_handle(-1),
 	m_handle2(-1),
 	m_handlenumX(-1),
+	m_verXPlayer(0),
+	m_verYPlayer(0),
+	m_frameCount(0),
 	m_rota(0.0f)
 {
 	for (int y = 0; y < PLAYER_HEIGHT; y++)
@@ -32,9 +40,11 @@ void Player::init()
 	m_posY = 12;
 	m_frameX = 440;
 	m_frameY = 480;
+	m_verXPlayer = 0;
+	m_verYPlayer = 0;
+	m_frameCount = motionCount;
 	m_rota = 0.0f;
 	m_handle = draw::MyLoadGraph("data/AnimationSheet_Character.png");
-	m_handle2 = draw::MyLoadGraph("data/char.png");
 
 	for (int y = 0; y < PLAYER_HEIGHT; y++)
 	{
@@ -58,6 +68,8 @@ void Player::update()
 	m_frameY += m_speedY;
 	m_posY = m_frameY / DRAW_WIDTH;
 	
+	standMotion();
+
 }
 
 void Player::draw()
@@ -68,27 +80,19 @@ void Player::draw()
 		{
 			if (m_player[y][x] == 1)
 			{
-				/*DrawBox(m_frameX + x * DRAW_WIDTH, m_frameY + y * DRAW_WIDTH,
-						(m_frameX + x * DRAW_WIDTH) + DRAW_WIDTH, (m_frameY + y * DRAW_WIDTH) + DRAW_WIDTH,
-						kColor::Peach, true);*/
 				if (m_rota == PI / 2)
 				{
 					draw::MyDrawRectRotaGraph((m_frameX + (x * DRAW_WIDTH)) + (DRAW_WIDTH / 2), (m_frameY + (y * DRAW_WIDTH)) + (DRAW_WIDTH / 2),
-											  0, 0,
+											  m_verXPlayer * 32, m_verYPlayer * 32,
 											  32, 32,
 											  1.2f, m_rota,
 											  m_handle, true, true);
 
-					/*draw::MyDrawRectRotaGraph((m_frameX + (x * DRAW_WIDTH)) + (DRAW_WIDTH / 2), (m_frameY + (y * DRAW_WIDTH)) + (DRAW_WIDTH / 2),
-						224, 288,
-						256, 256,
-						1.2f, m_rota,
-						m_handle2, true);*/
 				}
 				else
 				{
 					draw::MyDrawRectRotaGraph((m_frameX + (x * DRAW_WIDTH)) + (DRAW_WIDTH / 2), (m_frameY + (y * DRAW_WIDTH)) + (DRAW_WIDTH / 2),
-											  0, 0,
+											  m_verXPlayer * 32, m_verYPlayer * 32,
 											  32, 32,
 											  1.2f, m_rota,
 											  m_handle, true, false);
@@ -121,10 +125,10 @@ void Player::draw()
 			}
 		}
 	}
-	DrawFormatString(600, 0, GetColor(255, 0, 0), "m_posX:%d", m_posX);
-	DrawFormatString(600, 50, GetColor(255, 0, 0), "m_posY:%d", m_posY);
+	DrawFormatString(600, 0, GetColor(255, 0, 0), "m_frameCount:%d", m_frameCount);
+	/*DrawFormatString(600, 50, GetColor(255, 0, 0), "m_posY:%d", m_posY);
 	DrawFormatString(600, 100, GetColor(255, 0, 0), "m_flameX:%d", m_frameX);
-	DrawFormatString(600, 150, GetColor(255, 0, 0), "m_flameY:%d", m_frameY);
+	DrawFormatString(600, 150, GetColor(255, 0, 0), "m_flameY:%d", m_frameY);*/
 }
 
 void Player::operation(bool colL, bool colR, bool colUp, bool colDown)
@@ -182,21 +186,21 @@ void Player::operation(bool colL, bool colR, bool colUp, bool colDown)
 			}
 
 		}
-		if (Pad::isPress(PAD_INPUT_RIGHT))
+		else if (Pad::isPress(PAD_INPUT_RIGHT))
 		{
 			if (!colR)
 			{
 				m_speedX = 40;
 			}
 		}
-		if (Pad::isPress(PAD_INPUT_UP))
+		else if (Pad::isPress(PAD_INPUT_UP))
 		{
 			if (!colUp)
 			{
 				m_speedY = -40;
 			}
 		}
-		if (Pad::isPress(PAD_INPUT_DOWN))
+		else if (Pad::isPress(PAD_INPUT_DOWN))
 		{
 			if (!colDown)
 			{
@@ -205,4 +209,30 @@ void Player::operation(bool colL, bool colR, bool colUp, bool colDown)
 		}
 #endif
 	}
+}
+
+void Player::standMotion()
+{
+	m_frameCount--;
+
+	if (m_speedX != 0 || m_speedY != 0)
+	{
+		m_verXPlayer = 0;
+		m_frameCount = motionCount;
+	}
+
+	if (m_frameCount <= 0 && m_verXPlayer == 0)
+	{
+		m_verXPlayer = 1;
+		m_frameCount = motionCount;
+	}
+	else if (m_frameCount <= 0 && m_verXPlayer == 1)
+	{
+		m_verXPlayer = 0;
+		m_frameCount = motionCount;
+	}
+}
+
+void Player::jumpMotion()
+{
 }

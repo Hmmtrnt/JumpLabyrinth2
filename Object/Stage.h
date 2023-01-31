@@ -23,18 +23,23 @@ private:
 	int m_inflate;
 
 	// ステージハンドル
-	int m_handle;
-	int m_handle2;
+	int m_handleWall;		// 触れる判定のハンドル
+	int m_handleTrap;		// 敵判定のハンドル
 
 	// 切り取る左上の頂点
-	int m_vertexX;
-	int m_vertexY;
-	int m_vertexX2;
-	int m_vertexY2;
-
-	int m_verX;
-	int m_verY;
-	int m_verX2;
-	int m_verY2;
+	int m_verXWall;
+	int m_verYWall;
+	int m_verXTrap;
+	int m_verYTrap;
+	int m_verXLagTrap;
+	int m_verYLagTrap;
+	int m_verXFire;
+	int m_verYFire;
+	int m_verXInflate;
+	int m_verYInflate;
+	int m_verXInflate2;
+	int m_verYInflate2;
+	int m_verXGoal;
+	int m_verYGoal;
 };
 
