@@ -25,9 +25,9 @@ private:
 	// ステージハンドル
 	int m_handleWall;		// 触れる判定のハンドル
 	int m_handleTrap;		// 敵判定のハンドル
+	int m_handleSmallNeedle;// 少し出てる針
 
 	// 切り取る左上の頂点
 	int m_verX;
 	int m_verY;
 };
-

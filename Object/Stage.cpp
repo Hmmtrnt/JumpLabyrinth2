@@ -6,6 +6,7 @@ Stage::Stage() :
 	m_inflate(0),
 	m_handleWall(-1),
 	m_handleTrap(-1),
+	m_handleSmallNeedle(-1),
 	m_verX(0),
 	m_verY(0)
 {
@@ -29,6 +30,7 @@ void Stage::init()
 	m_inflate = 60;
 	m_handleWall = draw::MyLoadGraph("data/tileset/inca_front.png");
 	m_handleTrap = draw::MyLoadGraph("data/Textures-16.png");
+	m_handleSmallNeedle = draw::MyLoadGraph("data/smallneedle.png");
 
 	// ステージハンドル
 	m_verX = 0;
@@ -98,7 +100,7 @@ void Stage::draw()
 					draw::MyDrawRectRotaGraph((x * DRAW_WIDTH) + (DRAW_WIDTH / 2), (y * DRAW_WIDTH) + (DRAW_WIDTH / 2),
 											  m_verX * 32, m_verY * 32,
 											  32, 32,
-											  3.7f, 0.0f,
+											  3.6f, 0.0f,
 											  m_handleWall, true, false);
 
 				}
@@ -124,6 +126,39 @@ void Stage::draw()
 										  32, 32,
 										  1.3f, 0.0f,
 										  m_handleWall, true, false);
+				// 右
+				if (m_stage[y][x + 1] != 7)
+				{
+					draw::MyDrawRectRotaGraph(((x + 1) * DRAW_WIDTH) + (DRAW_WIDTH / 2), (y * DRAW_WIDTH) + (DRAW_WIDTH / 2),
+						0, 0,
+						40, 40,
+						1.0f, PI/-2,
+						m_handleSmallNeedle, true, false);
+				}
+				// 左
+				if (m_stage[y][x - 1] != 7)
+				{
+					draw::MyDrawRectRotaGraph(((x - 1) * DRAW_WIDTH) + (DRAW_WIDTH / 2), (y * DRAW_WIDTH) + (DRAW_WIDTH / 2),
+						0, 0,
+						40, 40,
+						1.0f, PI/2,
+						m_handleSmallNeedle, true, false);
+				}
+				// 上
+				if (m_stage[y + 1][x] != 7)
+				{
+					draw::MyDrawRectRotaGraph((x * DRAW_WIDTH) + (DRAW_WIDTH / 2), (y * DRAW_WIDTH) + (DRAW_WIDTH / 2),
+						0, 0,
+						40, 40,
+						1.0f, PI/1,
+						m_handleSmallNeedle, true, false);
+				}
+				// 下
+				draw::MyDrawRectRotaGraph((x * DRAW_WIDTH) + (DRAW_WIDTH / 2), (y * DRAW_WIDTH) + (DRAW_WIDTH / 2),
+					0, 0,
+					40, 40,
+					1.0f, 0.0f,
+					m_handleSmallNeedle, true, false);
 			}
 			if (m_stage[y][x] == 8)
 			{
