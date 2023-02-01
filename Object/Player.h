@@ -17,12 +17,7 @@ public:
 	void operation(bool colL,bool colR, bool colUp, bool colDown);
 
 	// モーション
-	void motion();
-	
-	// 立ちモーション
-	void standMotion();
-	// ジャンプモーション
-	void jumpMotion();
+	void motion(int x, int y);
 
 	// プレイヤーの配列の位置
 	int m_posX;			// X座標
@@ -43,8 +38,10 @@ public:
 
 private:
 	// プレイヤーハンドル
-	int m_handle;
-	int m_handle2;
+	int m_handle;		// 静止
+	int m_handle2;		// 動いてる
+	int m_handleEffect;	// エフェクト
+
 	// プレイヤー画像の番号
 	int m_handlenumX;
 	

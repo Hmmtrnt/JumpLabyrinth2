@@ -15,6 +15,7 @@ Player::Player() :
 	m_speedY(0),
 	m_handle(-1),
 	m_handle2(-1),
+	m_handleEffect(-1),
 	m_handlenumX(-1),
 	m_verXPlayer(0),
 	m_verYPlayer(0),
@@ -45,6 +46,8 @@ void Player::init()
 	m_frameCount = motionCount;
 	m_rota = 0.0f;
 	m_handle = draw::MyLoadGraph("data/AnimationSheet_Character.png");
+	m_handle2 = draw::MyLoadGraph("data/moveChar2.png");
+	m_handleEffect = draw::MyLoadGraph("data/charEffect2.png");
 
 	for (int y = 0; y < PLAYER_HEIGHT; y++)
 	{
@@ -81,9 +84,7 @@ void Player::draw()
 		{
 			if (m_player[y][x] == 1)
 			{
-				
-				
-				if (m_rota == PI / 2)
+				if (m_rota == PI / 2 && m_speedX == 0 && m_speedY == 0)
 				{
 					draw::MyDrawRectRotaGraph((m_frameX + (x * DRAW_WIDTH)) + (DRAW_WIDTH / 2), (m_frameY + (y * DRAW_WIDTH)) + (DRAW_WIDTH / 2),
 						m_verXPlayer * 32, m_verYPlayer * 32,
@@ -92,7 +93,7 @@ void Player::draw()
 						m_handle, true, true);
 
 				}
-				else
+				else if (m_speedX == 0 && m_speedY == 0)
 				{
 					draw::MyDrawRectRotaGraph((m_frameX + (x * DRAW_WIDTH)) + (DRAW_WIDTH / 2), (m_frameY + (y * DRAW_WIDTH)) + (DRAW_WIDTH / 2),
 						m_verXPlayer * 32, m_verYPlayer * 32,
@@ -100,7 +101,7 @@ void Player::draw()
 						1.3f, m_rota,
 						m_handle, true, false);
 				}
-				motion();
+				motion(x, y);
 			}
 		}
 	}
@@ -217,15 +218,54 @@ void Player::operation(bool colL, bool colR, bool colUp, bool colDown)
 	}
 }
 
-void Player::motion()
+void Player::motion(int x, int y)
 {
 	m_frameCount--;
 
+	// ˆÚ“®’†‚ÌƒLƒƒƒ‰‚ÌŒ©‚½–Ú
 	if (m_speedX != 0 || m_speedY != 0)
 	{
-		
+		draw::MyDrawRectRotaGraph((m_frameX + (x * DRAW_WIDTH)) + (DRAW_WIDTH / 2), (m_frameY + (y * DRAW_WIDTH)) + (DRAW_WIDTH / 2),
+			0, 0,
+			40, 40,
+			1.0f, m_rota,
+			m_handle2, true, false);
 		m_frameCount = motionCount;
 	}
+
+	if (m_speedY == -40)
+	{
+		draw::MyDrawRectRotaGraph((m_frameX + (x * DRAW_WIDTH)) + (DRAW_WIDTH / 2), (m_frameY + (y * DRAW_WIDTH)) + (DRAW_WIDTH / 2),
+			0, 0,
+			40, 40,
+			1.0f, m_rota,
+			m_handleEffect, true, false);
+	}
+	if (m_speedY == 40)
+	{
+		draw::MyDrawRectRotaGraph((m_frameX + (x * DRAW_WIDTH)) + (DRAW_WIDTH / 2), (m_frameY + (y * DRAW_WIDTH)) + (DRAW_WIDTH / 2),
+			0, 0,
+			40, 40,
+			1.0f, m_rota,
+			m_handleEffect, true, false);
+	}
+	if (m_speedX == -40)
+	{
+		draw::MyDrawRectRotaGraph((m_frameX + (x * DRAW_WIDTH)) + (DRAW_WIDTH / 2), (m_frameY + (y * DRAW_WIDTH)) + (DRAW_WIDTH / 2),
+			0, 0,
+			40, 40,
+			1.0f, m_rota,
+			m_handleEffect, true, false);
+	}
+	if (m_speedX == 40)
+	{
+		draw::MyDrawRectRotaGraph((m_frameX + (x * DRAW_WIDTH)) + (DRAW_WIDTH / 2), (m_frameY + (y * DRAW_WIDTH)) + (DRAW_WIDTH / 2),
+			0, 0,
+			40, 40,
+			1.0f, m_rota,
+			m_handleEffect, true, false);
+	}
+
 	if (m_speedX == 0 && m_speedY == 0)
 	{
 		if (m_frameCount <= 0 && m_verXPlayer != 1)
@@ -241,47 +281,4 @@ void Player::motion()
 			m_frameCount = motionCount;
 		}
 	}
-}
-
-
-
-void Player::standMotion()
-{
-	m_frameCount--;
-
-	if (m_speedX != 0 || m_speedY != 0)
-	{
-		m_verXPlayer = 0;
-		m_verYPlayer = 0;
-		m_frameCount = motionCount;
-	}
-
-	if (m_frameCount <= 0 && m_verXPlayer != 1)
-	{
-		m_verXPlayer = 1;
-		m_frameCount = motionCount;
-	}
-	else if (m_frameCount <= 0 && m_verXPlayer != 0)
-	{
-		m_verXPlayer = 0;
-		m_frameCount = motionCount;
-	}
-}
-
-void Player::jumpMotion()
-{
-
-	if (m_speedX != 0 || m_speedY != 0)
-	{
-		m_verXPlayer = 2;
-		m_verYPlayer = 5;
-		m_frameCount = motionCount;
-	}
-	else if (m_speedX == 0 && m_speedY == 0 && m_verXPlayer == 2 && m_verYPlayer == 5)
-	{
-		m_verXPlayer = 0;
-		m_verYPlayer = 0;
-		standMotion();
-	}
-
 }

@@ -34,7 +34,7 @@ void Enemy::init()
 	m_speedY = 0;
 	m_stopFrame = 60;
 
-	m_handleArrow = draw::MyLoadGraph("data/arrow3.png");
+	m_handleArrow = draw::MyLoadGraph("data/arrow4.png");
 	
 	for (int y = 0; y < ENEMY_HEIGHT; y++)
 	{
