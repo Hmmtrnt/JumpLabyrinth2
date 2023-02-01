@@ -6,20 +6,8 @@ Stage::Stage() :
 	m_inflate(0),
 	m_handleWall(-1),
 	m_handleTrap(-1),
-	m_verXWall(0),
-	m_verYWall(0),
-	m_verXTrap(0),
-	m_verYTrap(0),
-	m_verXLagTrap(0),
-	m_verYLagTrap(0),
-	m_verXFire(0),
-	m_verYFire(0),
-	m_verXInflate(0),
-	m_verYInflate(0),
-	m_verXInflate2(0),
-	m_verYInflate2(0),
-	m_verXGoal(0),
-	m_verYGoal(0)
+	m_verX(0),
+	m_verY(0)
 {
 	for (int y = 0; y < STAGE_HEIGHT; y++)
 	{
@@ -43,20 +31,8 @@ void Stage::init()
 	m_handleTrap = draw::MyLoadGraph("data/Textures-16.png");
 
 	// ステージハンドル
-	m_verXWall = 4;
-	m_verYWall = 0;
-	m_verXTrap = 13;
-	m_verYTrap = 13;
-	m_verXLagTrap = 0;
-	m_verYLagTrap = 0;
-	m_verXFire = 1;
-	m_verYFire = 0;
-	m_verXInflate = 3;
-	m_verYInflate = 0;
-	m_verXInflate2 = 2;
-	m_verYInflate2 = 0;
-	m_verXGoal = 1;
-	m_verYGoal = 1;
+	m_verX = 0;
+	m_verY = 0;
 
 	for (int y = 0; y < STAGE_HEIGHT; y++)
 	{
@@ -90,51 +66,37 @@ void Stage::draw()
 		{
 			if (m_stage[y][x] == 0)
 			{
-				/*DrawBox(x * DRAW_WIDTH, y * DRAW_WIDTH,
-						(x * DRAW_WIDTH) + DRAW_WIDTH, 
-						(y * DRAW_WIDTH) + DRAW_WIDTH,
-						kColor::White, false);*/
-				//draw::MyDrawRectRotaGraph()
 			}
 			if (m_stage[y][x] == 4)
 			{
-				/*DrawBox(x * DRAW_WIDTH, y * DRAW_WIDTH,
-					(x * DRAW_WIDTH) + DRAW_WIDTH,
-					(y * DRAW_WIDTH) + DRAW_WIDTH,
-					kColor::YellowGreen, true);*/
-
+				m_verX = 1;
+				m_verY = 0;
 				draw::MyDrawRectRotaGraph((x * DRAW_WIDTH) + (DRAW_WIDTH / 2), (y * DRAW_WIDTH) + (DRAW_WIDTH / 2),
-					m_verXFire * 32, m_verYFire * 32,
-					32, 32,
-					1.3f, 0.0f,
-					m_handleWall, true, false);
+										  m_verX * 32, m_verY * 32,
+										  32, 32,
+										  1.3f, 0.0f,
+										  m_handleWall, true, false);
 
 			}
 			if (m_stage[y][x] == 5)
 			{
 				if (m_gimmickFrame < m_shrink)
 				{
-					/*DrawBox(x * DRAW_WIDTH, y * DRAW_WIDTH,
-						(x * DRAW_WIDTH) + DRAW_WIDTH,
-						(y * DRAW_WIDTH) + DRAW_WIDTH,
-						kColor::Yellow, true);*/
-
+					m_verX = 3;
+					m_verY = 0;
 					draw::MyDrawRectRotaGraph((x * DRAW_WIDTH) + (DRAW_WIDTH / 2), (y * DRAW_WIDTH) + (DRAW_WIDTH / 2),
-											   m_verXInflate * 32, m_verYInflate * 32,
-											   32, 32,
-											   1.3f, 0.0f,
-											   m_handleWall, true, false);
+											  m_verX * 32, m_verY * 32,
+											  32, 32,
+											  1.3f, 0.0f,
+											  m_handleWall, true, false);
 
 				}
 				if (m_gimmickFrame > m_inflate)
 				{
-					/*DrawBox(x * DRAW_WIDTH - 40, y * DRAW_WIDTH - 40,
-						(x * DRAW_WIDTH) + DRAW_WIDTH + 40,
-						(y * DRAW_WIDTH) + DRAW_WIDTH + 40,
-						kColor::Yellow, true);*/
-
+					m_verX = 2;
+					m_verY = 0;
 					draw::MyDrawRectRotaGraph((x * DRAW_WIDTH) + (DRAW_WIDTH / 2), (y * DRAW_WIDTH) + (DRAW_WIDTH / 2),
-											  m_verXInflate2 * 32, m_verYInflate2 * 32,
+											  m_verX * 32, m_verY * 32,
 											  32, 32,
 											  3.7f, 0.0f,
 											  m_handleWall, true, false);
@@ -143,41 +105,32 @@ void Stage::draw()
 			}
 			if (m_stage[y][x] == 6)
 			{
-				/*DrawBox(x * DRAW_WIDTH, y * DRAW_WIDTH,
-					(x * DRAW_WIDTH) + DRAW_WIDTH,
-					(y * DRAW_WIDTH) + DRAW_WIDTH,
-					kColor::Red, true);*/
-
+				m_verX = 13;
+				m_verY = 13;
 				draw::MyDrawRectRotaGraph((x * DRAW_WIDTH) + (DRAW_WIDTH / 2), (y * DRAW_WIDTH) + (DRAW_WIDTH / 2),
-					m_verXTrap * 16, m_verYTrap * 16,
-					16, 16,
-					2.5f, 0.0f,
-					m_handleTrap, true, false);
+										  m_verX * 16, m_verY * 16,
+										  16, 16,
+										  2.5f, 0.0f,
+										  m_handleTrap, true, false);
 
 
 			}
 			if (m_stage[y][x] == 7)
 			{
-				/*DrawBox(x * DRAW_WIDTH, y * DRAW_WIDTH,
-					(x * DRAW_WIDTH) + DRAW_WIDTH,
-					(y * DRAW_WIDTH) + DRAW_WIDTH,
-					kColor::Blue, true);*/
-
+				m_verX = 0;
+				m_verY = 0;
 				draw::MyDrawRectRotaGraph((x * DRAW_WIDTH) + (DRAW_WIDTH / 2), (y * DRAW_WIDTH) + (DRAW_WIDTH / 2),
-					m_verXLagTrap * 32, m_verYLagTrap * 32,
-					32, 32,
-					1.3f, 0.0f,
-					m_handleWall, true, false);
+										  m_verX * 32, m_verY * 32,
+										  32, 32,
+										  1.3f, 0.0f,
+										  m_handleWall, true, false);
 			}
 			if (m_stage[y][x] == 8)
 			{
-				/*DrawBox(x * DRAW_WIDTH, y * DRAW_WIDTH,
-					(x * DRAW_WIDTH) + DRAW_WIDTH,
-					(y * DRAW_WIDTH) + DRAW_WIDTH,
-					kColor::LightBlue, true);*/
-
+				m_verX = 1;
+				m_verY = 1;
 				draw::MyDrawRectRotaGraph((x * DRAW_WIDTH) + (DRAW_WIDTH / 2), (y * DRAW_WIDTH) + (DRAW_WIDTH / 2),
-										  m_verXGoal * 32, m_verYGoal * 32,
+										  m_verX * 32, m_verY * 32,
 										  32, 32,
 										  1.3f, 0.0f,
 										  m_handleWall, true, false);
@@ -185,13 +138,10 @@ void Stage::draw()
 			}
 			if (m_stage[y][x] == 9)
 			{
-				/*DrawBox(x * DRAW_WIDTH, y * DRAW_WIDTH, 
-						(x * DRAW_WIDTH) + DRAW_WIDTH, 
-						(y * DRAW_WIDTH) + DRAW_WIDTH, 
-						kColor::White, true);*/
-
+				m_verX = 4;
+				m_verY = 0;
 				draw::MyDrawRectRotaGraph((x * DRAW_WIDTH) + (DRAW_WIDTH / 2), (y * DRAW_WIDTH) + (DRAW_WIDTH / 2),
-					m_verXWall * 32, m_verYWall * 32,
+					m_verX * 32, m_verY * 32,
 					32, 32,
 					1.3f, 0.0f,
 					m_handleWall, true, false);
@@ -202,5 +152,4 @@ void Stage::draw()
 	// 変数確認用描画
 	//DrawFormatString(600, 200, kColor::Red, "m_gimmickFrame:%d", m_gimmickFrame);
 	//DrawFormatString(600, 250, kColor::Red, "m_inflate:%d", m_inflate);
-
 }

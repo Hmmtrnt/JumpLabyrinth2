@@ -1,5 +1,6 @@
 #include "SceneMain.h"
 #include "SceneTitle.h"
+#include "SceneSelect.h"
 #include "../Util/GameManager.h"
 
 SceneMain::SceneMain() :
@@ -34,14 +35,12 @@ SceneBase* SceneMain::update()
 
 		if (m_frameCount <= 0)
 		{
-			return(new SceneTitle);
+			return(new SceneSelect);
 		}
-
-		
 	}
 	if (m_pManager->GameClear)
 	{
-		return(new SceneTitle);
+		return(new SceneSelect);
 	}
 
 	return this;

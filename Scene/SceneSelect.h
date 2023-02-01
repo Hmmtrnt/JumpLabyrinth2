@@ -15,5 +15,9 @@ public:
 	virtual void draw();			// 描画
 
 private:
-
+	// ステージ選択時の数
+	int m_stageSelect;
+	// テキストハンドル
+	int m_textHandle;
+	int m_textHandle2;
 };

@@ -5,6 +5,7 @@
 class Player;
 class Enemy;
 class Stage;
+class Back;
 
 class GameManager
 {
@@ -69,6 +70,9 @@ private:
 	// 針のグラフィックハンドル
 	int m_handleNeedle;
 
+	// 回転角度
+	float m_rota;
+
 	// 隣を通ったかどうか
 	bool colNextFlag;
 	bool colFlagL;
@@ -91,5 +95,6 @@ private:
 	Player* m_pPlayer;
 	Enemy* m_pEnemy;
 	Stage* m_pStage;
+	Back* m_pBack;
 };
 

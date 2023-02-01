@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Object\Back.cpp" />
     <ClCompile Include="Scene\SceneSelect.cpp" />
     <ClCompile Include="Util\DrawFunctions.cpp" />
     <ClCompile Include="Object\Enemy.cpp" />
@@ -165,6 +166,7 @@
     <ClCompile Include="Scene\SceneTitle.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Object\Back.h" />
     <ClInclude Include="Scene\SceneSelect.h" />
     <ClInclude Include="Util\DrawFunctions.h" />
     <ClInclude Include="Object\Enemy.h" />

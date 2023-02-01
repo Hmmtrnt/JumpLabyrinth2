@@ -27,19 +27,7 @@ private:
 	int m_handleTrap;		// “G”»’è‚Ìƒnƒ“ƒhƒ‹
 
 	// Ø‚èæ‚é¶ã‚Ì’¸“_
-	int m_verXWall;
-	int m_verYWall;
-	int m_verXTrap;
-	int m_verYTrap;
-	int m_verXLagTrap;
-	int m_verYLagTrap;
-	int m_verXFire;
-	int m_verYFire;
-	int m_verXInflate;
-	int m_verYInflate;
-	int m_verXInflate2;
-	int m_verYInflate2;
-	int m_verXGoal;
-	int m_verYGoal;
+	int m_verX;
+	int m_verY;
 };
 

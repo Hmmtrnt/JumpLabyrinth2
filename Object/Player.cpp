@@ -81,50 +81,7 @@ void Player::draw()
 		{
 			if (m_player[y][x] == 1)
 			{
-				if (Pad::isPress(PAD_INPUT_DOWN) == 0 &&
-					Pad::isPress(PAD_INPUT_RIGHT) == 0 &&
-					Pad::isPress(PAD_INPUT_LEFT) == 0)
-				{
-					// 上
-					if (Pad::isTrigger(PAD_INPUT_UP) == 1)
-					{
-						m_rota = PI / 1;
-						//	printfDx("上\n");
-					}
-				}
-				if (Pad::isPress(PAD_INPUT_UP) == 0 &&
-					Pad::isPress(PAD_INPUT_RIGHT) == 0 &&
-					Pad::isPress(PAD_INPUT_LEFT) == 0)
-				{
-					// 下
-					if (Pad::isTrigger(PAD_INPUT_DOWN) == 1)
-					{
-						m_rota = 0;
-						//	printfDx("下\n");
-					}
-				}
-				if (Pad::isPress(PAD_INPUT_DOWN) == 0 &&
-					Pad::isPress(PAD_INPUT_UP) == 0 &&
-					Pad::isPress(PAD_INPUT_LEFT) == 0)
-				{
-					// 右
-					if (Pad::isTrigger(PAD_INPUT_RIGHT) == 1)
-					{
-						m_rota = PI / -2;
-						//	printfDx("右\n");
-					}
-				}
-				if (Pad::isPress(PAD_INPUT_DOWN) == 0 &&
-					Pad::isPress(PAD_INPUT_UP) == 0 &&
-					Pad::isPress(PAD_INPUT_RIGHT) == 0)
-				{
-					// 左
-					if (Pad::isTrigger(PAD_INPUT_LEFT) == 1)
-					{
-						m_rota = PI / 2;
-						//	printfDx("左\n");
-					}
-				}
+				
 				
 				if (m_rota == PI / 2)
 				{
@@ -202,35 +159,12 @@ void Player::operation(bool colL, bool colR, bool colUp, bool colDown)
 		// 正規用
 		if (Pad::isPress(PAD_INPUT_DOWN) == 0 &&
 			Pad::isPress(PAD_INPUT_RIGHT) == 0 &&
-			Pad::isPress(PAD_INPUT_UP) == 0)
-		{
-			if (Pad::isTrigger(PAD_INPUT_LEFT) == 1)
-			{
-				if (!colL)
-				{
-					m_speedX = -40;
-				}
-
-			}
-		}
-		if (Pad::isPress(PAD_INPUT_UP) == 0 &&
-			Pad::isPress(PAD_INPUT_DOWN) == 0 &&
 			Pad::isPress(PAD_INPUT_LEFT) == 0)
 		{
-			if (Pad::isTrigger(PAD_INPUT_RIGHT) == 1)
-			{
-				if (!colR)
-				{
-					m_speedX = 40;
-				}
-			}
-		}
-		if (Pad::isPress(PAD_INPUT_DOWN) == 0 &&
-			Pad::isPress(PAD_INPUT_RIGHT) == 0 &&
-			Pad::isPress(PAD_INPUT_LEFT) == 0)
-		{
+			// 上
 			if (Pad::isTrigger(PAD_INPUT_UP) == 1)
 			{
+				m_rota = PI / 1;
 				if (!colUp)
 				{
 					m_speedY = -40;
@@ -241,11 +175,41 @@ void Player::operation(bool colL, bool colR, bool colUp, bool colDown)
 			Pad::isPress(PAD_INPUT_RIGHT) == 0 &&
 			Pad::isPress(PAD_INPUT_LEFT) == 0)
 		{
+			// 下
 			if (Pad::isTrigger(PAD_INPUT_DOWN) == 1)
 			{
+				m_rota = 0;
 				if (!colDown)
 				{
 					m_speedY = 40;
+				}
+			}
+		}
+		if (Pad::isPress(PAD_INPUT_DOWN) == 0 &&
+			Pad::isPress(PAD_INPUT_UP) == 0 &&
+			Pad::isPress(PAD_INPUT_LEFT) == 0)
+		{
+			// 右
+			if (Pad::isTrigger(PAD_INPUT_RIGHT) == 1)
+			{
+				m_rota = PI / -2;
+				if (!colR)
+				{
+					m_speedX = 40;
+				}
+			}
+		}
+		if (Pad::isPress(PAD_INPUT_DOWN) == 0 &&
+			Pad::isPress(PAD_INPUT_UP) == 0 &&
+			Pad::isPress(PAD_INPUT_RIGHT) == 0)
+		{
+			// 左
+			if (Pad::isTrigger(PAD_INPUT_LEFT) == 1)
+			{
+				m_rota = PI / 2;
+				if (!colL)
+				{
+					m_speedX = -40;
 				}
 			}
 		}

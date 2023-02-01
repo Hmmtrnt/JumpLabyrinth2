@@ -2,6 +2,8 @@
 #include "../Object/Player.h"
 #include "../Object/Enemy.h"
 #include "../Object/Stage.h"
+#include "../Object/Back.h"
+#include "DrawFunctions.h"
 
 GameManager::GameManager() :
 	m_gimmickFrame(0),
@@ -11,6 +13,8 @@ GameManager::GameManager() :
 	GameOver(0),
 	GameClear(0),
 	m_frameCountGameOver(0),
+	m_handleNeedle(-1),
+	m_rota(0.0f),
 	colNextFlag(0),
 	colFlagL(0),
 	colFlagR(0),
@@ -29,6 +33,7 @@ GameManager::GameManager() :
 	m_pPlayer = new Player;
 	m_pEnemy = new Enemy;
 	m_pStage = new Stage;
+	m_pBack = new Back;
 }
 
 GameManager::~GameManager()
@@ -36,6 +41,7 @@ GameManager::~GameManager()
 	delete m_pPlayer;
 	delete m_pEnemy;
 	delete m_pStage;
+	delete m_pBack;
 }
 
 void GameManager::init()
@@ -47,6 +53,7 @@ void GameManager::init()
 	GameOver = false;
 	GameClear = false;
 	m_frameCountGameOver = 30;
+	m_handleNeedle = draw::MyLoadGraph("data/needle2.png");
 	colFlagL = false;
 	colFlagR = false;
 	colFlagUp = false;
@@ -63,6 +70,7 @@ void GameManager::init()
 	m_pPlayer->init();
 	m_pEnemy->init();
 	m_pStage->init();
+	m_pBack->init();
 }
 
 void GameManager::end()
@@ -123,11 +131,11 @@ void GameManager::update()
 
 void GameManager::draw()
 {
-	
+	m_pBack->draw();
+	drawNeedle();
 	m_pEnemy->draw();
 	m_pStage->draw();
 	m_pPlayer->draw();
-	//printfDx("%d\n", m_GameOverCount);
 }
 
 void GameManager::collision()
@@ -529,17 +537,39 @@ void GameManager::colEnemyBottom()
 	}
 }
 
+// êjÇÃï`âÊ
 void GameManager::drawNeedle()
 {
-	if (colFlagR && m_GameOverCount == 0)
+	if (colFlagR)
 	{
-		for (int y = 0; y < STAGE_HEIGHT; y++)
+		m_rota = PI / -2;
+	}
+	else if (colFlagL)
+	{
+		m_rota = PI / 2;
+	}
+	else if (colFlagUp)
+	{
+		m_rota = PI / 1;
+	}
+	else if (colFlagBottom)
+	{
+		m_rota = 0.0f;
+	}
+
+	if (m_GameOverCount == 0)
+	{
+		for (int y = 0; y < PLAYER_HEIGHT; y++)
 		{
-			for (int x = 0; x < STAGE_WIDTH; x++)
+			for (int x = 0; x < PLAYER_WIDTH; x++)
 			{
-				if (m_pStage->m_stage[y][x] == 7)
+				if (m_pPlayer->m_player[y][x] == 1)
 				{
-					//if (m_pPlayer->)
+					draw::MyDrawRectRotaGraph((m_pPlayer->m_frameX + (x * DRAW_WIDTH)) + (DRAW_WIDTH / 2), (m_pPlayer->m_frameY + (y * DRAW_WIDTH)) + (DRAW_WIDTH / 2),
+											  0, 0,
+											  40, 40,
+											  1.0f, m_rota,
+											  m_handleNeedle, true, false);
 				}
 			}
 		}
