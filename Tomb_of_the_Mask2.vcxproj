@@ -152,6 +152,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Object\Back.cpp" />
+    <ClCompile Include="Scene\ScenePause.cpp" />
+    <ClCompile Include="Scene\SceneStage5.cpp" />
     <ClCompile Include="Scene\SceneStage4.cpp" />
     <ClCompile Include="Scene\SceneStage3.cpp" />
     <ClCompile Include="Scene\SceneStage2.cpp" />
@@ -171,6 +173,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Object\Back.h" />
+    <ClInclude Include="Scene\ScenePause.h" />
+    <ClInclude Include="Scene\SceneStage5.h" />
     <ClInclude Include="Scene\SceneStage4.h" />
     <ClInclude Include="Scene\SceneStage3.h" />
     <ClInclude Include="Scene\SceneStage2.h" />

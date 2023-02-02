@@ -109,6 +109,14 @@ void GameManager::init4()
 	m_pBack->init();
 }
 
+void GameManager::init5()
+{
+	initCommon();
+	m_pPlayer->init5();
+	m_pStage->init5();
+	m_pBack->init();
+}
+
 void GameManager::end()
 {
 	m_pPlayer->end();

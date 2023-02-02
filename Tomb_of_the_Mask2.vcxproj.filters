@@ -84,6 +84,12 @@
     <ClCompile Include="Scene\SceneStage4.cpp">
       <Filter>ソース ファイル\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="Scene\SceneStage5.cpp">
+      <Filter>ソース ファイル\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\ScenePause.cpp">
+      <Filter>ソース ファイル\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Util\common.h">
@@ -138,6 +144,12 @@
       <Filter>ヘッダー ファイル\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Scene\SceneStage4.h">
+      <Filter>ヘッダー ファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\SceneStage5.h">
+      <Filter>ヘッダー ファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\ScenePause.h">
       <Filter>ヘッダー ファイル\Scene</Filter>
     </ClInclude>
   </ItemGroup>
