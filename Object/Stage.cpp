@@ -62,6 +62,18 @@ void Stage::init1()
 	}
 }
 
+void Stage::init2()
+{
+	initCommon();
+	for (int y = 0; y < STAGE_HEIGHT; y++)
+	{
+		for (int x = 0; x < STAGE_WIDTH; x++)
+		{
+			m_stage[y][x] = kStage::stage2[y][x];
+		}
+	}
+}
+
 void Stage::end()
 {
 	DeleteGraph(m_handleWall);

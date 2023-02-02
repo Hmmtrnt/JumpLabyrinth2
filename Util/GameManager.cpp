@@ -85,6 +85,14 @@ void GameManager::init1()
 	m_pBack->init();
 }
 
+void GameManager::init2()
+{
+	initCommon();
+	m_pPlayer->init2();
+	m_pStage->init2();
+	m_pBack->init();
+}
+
 void GameManager::end()
 {
 	m_pPlayer->end();
@@ -103,8 +111,6 @@ void GameManager::update()
 		m_GameOverCount--;
 		if (m_GameOverCount <= 0)
 		{
-				
-
 			m_GameOverCount = 0;
 			if (m_GameOverCount == 0)
 			{
@@ -141,6 +147,49 @@ void GameManager::update()
 	m_pStage->update();
 }
 
+void GameManager::updateNoShot()
+{
+	collisionNoShot();1
+	colEnemy();
+
+	if (colFlagL || colFlagR || colFlagUp || colFlagBottom)
+	{
+		m_GameOverCount--;
+		if (m_GameOverCount <= 0)
+		{
+			m_GameOverCount = 0;
+			if (m_GameOverCount == 0)
+			{
+				GameOver = true;
+			}
+		}
+	}
+	if (!colFlagL && !colFlagR && !colFlagUp && !colFlagBottom)
+	{
+		m_GameOverCount = 30;
+	}
+
+	if (!GameOver)
+	{
+		m_pPlayer->operation(colL, colR, colUp, colBottom);
+	}
+	else if (GameOver)
+	{
+		GameOverMotion();
+		m_pPlayer->m_speedX = 0;
+		m_pPlayer->m_speedY = 0;
+	}
+
+	if (GameClear)
+	{
+		m_pPlayer->m_speedX = 0;
+		m_pPlayer->m_speedY = 0;
+	}
+
+	m_pPlayer->update();
+	m_pStage->update();
+}
+
 void GameManager::draw()
 {
 	m_pBack->draw();
@@ -157,6 +206,16 @@ void GameManager::collision()
 	collisionUP();
 	collisionBottom();
 	collisionEnemy();
+	collisionGameOver();
+	collisionGameClear();
+}
+
+void GameManager::collisionNoShot()
+{
+	collisionR();
+	collisionL();
+	collisionUP();
+	collisionBottom();
 	collisionGameOver();
 	collisionGameClear();
 }
@@ -408,7 +467,7 @@ void GameManager::collisionEnemy()
 
 }
 
-// ゲームオーバー
+// ギミック6:即死判定
 void GameManager::collisionGameOver()
 {
 	collisionBulge();

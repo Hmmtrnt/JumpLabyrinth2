@@ -26,7 +26,7 @@ void SceneStage1::end()
 
 SceneBase* SceneStage1::update()
 {
-	m_pManager->update();
+	m_pManager->updateNoShot();
 
 	if (m_pManager->GameOver)
 	{

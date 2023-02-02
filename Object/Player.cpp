@@ -75,6 +75,15 @@ void Player::init1()
 	initCommon();
 }
 
+void Player::init2()
+{
+	m_posX = 1;
+	m_frameX = 40;
+	m_posY = 2;
+	m_frameY = 80;
+	initCommon();
+}
+
 // èIóπ
 void Player::end()
 {

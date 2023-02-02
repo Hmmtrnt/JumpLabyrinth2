@@ -16,13 +16,16 @@ public:
 	void initCommon();			// 共通の初期化
 	void initP();				// プロトタイプ用初期化
 	void init1();				// ステージ1の初期化
-	void end();
-	void update();
-	void draw();
+	void init2();				// ステージ2の初期化
+	void end();					// 終了
+	void update();				// 更新
+	void updateNoShot();		// 弾の処理が入っていない更新
+	void draw();				// 描画
 
 	// 当たり判定
 	// プレイヤーとの
 	void collision();			// 全体
+	void collisionNoShot();		// 弾以外の当たり判定
 	void collisionR();			// 右
 	void collisionL();			// 左
 	void collisionUP();			// 上
@@ -30,7 +33,7 @@ public:
 	void collisionBulge();		// 膨らんだら即死判定
 	void collisionTimeLag();	// 時間差で反応
 	void collisionEnemy();		// 敵
-	void collisionGameOver();	// ゲームオーバー
+	void collisionGameOver();	// ギミック6:即死判定
 	void collisionGameClear();	// ゲームクリア
 
 	// エネミーとの
