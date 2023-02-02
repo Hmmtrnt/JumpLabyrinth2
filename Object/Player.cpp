@@ -223,16 +223,9 @@ void Player::motion(int x, int y)
 	m_frameCount--;
 
 	// 移動中のキャラの見た目
-	if (m_speedX != 0 || m_speedY != 0)
-	{
-		draw::MyDrawRectRotaGraph((m_frameX + (x * DRAW_WIDTH)) + (DRAW_WIDTH / 2), (m_frameY + (y * DRAW_WIDTH)) + (DRAW_WIDTH / 2),
-			0, 0,
-			40, 40,
-			1.0f, m_rota,
-			m_handle2, true, false);
-		m_frameCount = motionCount;
-	}
+	
 
+	// 移動中のキャラエフェクト
 	if (m_speedY == -40)
 	{
 		draw::MyDrawRectRotaGraph((m_frameX + (x * DRAW_WIDTH)) + (DRAW_WIDTH / 2), (m_frameY + (y * DRAW_WIDTH)) + (DRAW_WIDTH / 2),
@@ -264,6 +257,16 @@ void Player::motion(int x, int y)
 			40, 40,
 			1.0f, m_rota,
 			m_handleEffect, true, false);
+	}
+
+	if (m_speedX != 0 || m_speedY != 0)
+	{
+		draw::MyDrawRectRotaGraph((m_frameX + (x * DRAW_WIDTH)) + (DRAW_WIDTH / 2), (m_frameY + (y * DRAW_WIDTH)) + (DRAW_WIDTH / 2),
+			0, 0,
+			40, 40,
+			1.0f, m_rota,
+			m_handle2, true, false);
+		m_frameCount = motionCount;
 	}
 
 	if (m_speedX == 0 && m_speedY == 0)

@@ -132,9 +132,9 @@ void GameManager::update()
 void GameManager::draw()
 {
 	m_pBack->draw();
-	drawNeedle();
 	m_pEnemy->draw();
 	m_pStage->draw();
+	drawNeedle();
 	m_pPlayer->draw();
 }
 
