@@ -16,9 +16,6 @@ public:
 	// プレイヤー操作
 	void operation(bool colL,bool colR, bool colUp, bool colDown);
 
-	// モーション
-	void motion(int x, int y);
-
 	// プレイヤーの配列の位置
 	int m_posX;			// X座標
 	int m_posY;			// Y座標
@@ -37,6 +34,11 @@ public:
 	int m_verYPlayer;
 
 private:
+	// プレイヤーの描画
+	void playerDraw(int x, int y);
+	// モーション
+	void motion(int x, int y);
+
 	// プレイヤーハンドル
 	int m_handle;		// 静止
 	int m_handle2;		// 動いてる

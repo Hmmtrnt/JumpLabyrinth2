@@ -126,38 +126,7 @@ void Stage::draw()
 										  32, 32,
 										  1.3f, 0.0f,
 										  m_handleWall, true, false);
-				// 右
-				draw::MyDrawRectRotaGraph(((x + 1) * DRAW_WIDTH) + (DRAW_WIDTH / 2), (y * DRAW_WIDTH) + (DRAW_WIDTH / 2),
-					0, 0,
-					40, 40,
-					1.0f, PI / 2,
-					m_handleSmallNeedle, true, false);
-				// 左
-				if (m_stage[y][x - 1] == 0)
-				{
-					draw::MyDrawRectRotaGraph(((x - 1) * DRAW_WIDTH) + (DRAW_WIDTH / 2), (y * DRAW_WIDTH) + (DRAW_WIDTH / 2),
-						0, 0,
-						40, 40,
-						1.0f, PI / -2,
-						m_handleSmallNeedle, true, false);
-				}
-				
-				// 上
-				if (m_stage[y - 1][x] == 0)
-				{
-					draw::MyDrawRectRotaGraph((x * DRAW_WIDTH) + (DRAW_WIDTH / 2), ((y - 1) * DRAW_WIDTH) + (DRAW_WIDTH / 2),
-						0, 0,
-						40, 40,
-						1.0f, 0.0f,
-						m_handleSmallNeedle, true, false);
-				}
-				
-				// 下
-				draw::MyDrawRectRotaGraph((x * DRAW_WIDTH) + (DRAW_WIDTH / 2), ((y + 1) * DRAW_WIDTH) + (DRAW_WIDTH / 2),
-					0, 0,
-					40, 40,
-					1.0f, PI / 1,
-					m_handleSmallNeedle, true, false);
+				needleDraw(x, y);
 			}
 			else if (m_stage[y][x] == 8)
 			{
@@ -186,4 +155,38 @@ void Stage::draw()
 	// 変数確認用描画
 	//DrawFormatString(600, 200, kColor::Red, "m_gimmickFrame:%d", m_gimmickFrame);
 	//DrawFormatString(600, 250, kColor::Red, "m_inflate:%d", m_inflate);
+}
+
+void Stage::needleDraw(int x, int y)
+{
+	// 右
+	draw::MyDrawRectRotaGraph(((x + 1) * DRAW_WIDTH) + (DRAW_WIDTH / 2), (y * DRAW_WIDTH) + (DRAW_WIDTH / 2),
+		0, 0,
+		40, 40,
+		1.0f, PI / 2,
+		m_handleSmallNeedle, true, false);
+	// 左
+	if (m_stage[y][x - 1] == 0)
+	{
+		draw::MyDrawRectRotaGraph(((x - 1) * DRAW_WIDTH) + (DRAW_WIDTH / 2), (y * DRAW_WIDTH) + (DRAW_WIDTH / 2),
+			0, 0,
+			40, 40,
+			1.0f, PI / -2,
+			m_handleSmallNeedle, true, false);
+	}
+	// 上
+	if (m_stage[y - 1][x] == 0)
+	{
+		draw::MyDrawRectRotaGraph((x * DRAW_WIDTH) + (DRAW_WIDTH / 2), ((y - 1) * DRAW_WIDTH) + (DRAW_WIDTH / 2),
+			0, 0,
+			40, 40,
+			1.0f, 0.0f,
+			m_handleSmallNeedle, true, false);
+	}
+	// 下
+	draw::MyDrawRectRotaGraph((x * DRAW_WIDTH) + (DRAW_WIDTH / 2), ((y + 1) * DRAW_WIDTH) + (DRAW_WIDTH / 2),
+		0, 0,
+		40, 40,
+		1.0f, PI / 1,
+		m_handleSmallNeedle, true, false);
 }

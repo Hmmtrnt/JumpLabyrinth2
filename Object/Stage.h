@@ -15,6 +15,9 @@ public:
 	int m_stage[STAGE_HEIGHT][STAGE_WIDTH];
 
 private:
+
+	void needleDraw(int x, int y);
+
 	// ƒMƒ~ƒbƒN‚Ì•`‰æ‚ª•Ï‚í‚éŠÔ
 	int m_gimmickFrame;
 	// ‚µ‚Ú‚ñ‚Å‚¢‚éŠÔ

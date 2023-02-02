@@ -3,7 +3,7 @@
 
 namespace
 {
-	constexpr int motionCount = 45;
+	constexpr int motionCount = 40;
 }
 
 Player::Player() :
@@ -35,6 +35,7 @@ Player::~Player()
 {
 }
 
+// 初期化
 void Player::init()
 {
 	m_posX = 11;
@@ -58,12 +59,14 @@ void Player::init()
 	}
 }
 
+// 終了
 void Player::end()
 {
 	DeleteGraph(m_handle);
 	DeleteGraph(m_handle2);
 }
 
+// 更新
 void Player::update()
 {
 	m_frameX += m_speedX;
@@ -76,6 +79,7 @@ void Player::update()
 	//jumpMotion();
 }
 
+// 描画
 void Player::draw()
 {
 	for (int y = 0; y < PLAYER_HEIGHT; y++)
@@ -84,23 +88,7 @@ void Player::draw()
 		{
 			if (m_player[y][x] == 1)
 			{
-				if (m_rota == PI / 2 && m_speedX == 0 && m_speedY == 0)
-				{
-					draw::MyDrawRectRotaGraph((m_frameX + (x * DRAW_WIDTH)) + (DRAW_WIDTH / 2), (m_frameY + (y * DRAW_WIDTH)) + (DRAW_WIDTH / 2),
-						m_verXPlayer * 32, m_verYPlayer * 32,
-						32, 32,
-						1.3f, m_rota,
-						m_handle, true, true);
-
-				}
-				else if (m_speedX == 0 && m_speedY == 0)
-				{
-					draw::MyDrawRectRotaGraph((m_frameX + (x * DRAW_WIDTH)) + (DRAW_WIDTH / 2), (m_frameY + (y * DRAW_WIDTH)) + (DRAW_WIDTH / 2),
-						m_verXPlayer * 32, m_verYPlayer * 32,
-						32, 32,
-						1.3f, m_rota,
-						m_handle, true, false);
-				}
+				playerDraw(x, y);
 				motion(x, y);
 			}
 		}
@@ -111,9 +99,10 @@ void Player::draw()
 	DrawFormatString(600, 150, GetColor(255, 0, 0), "m_flameY:%d", m_frameY);*/
 }
 
+// プレイヤーの操作処理
 void Player::operation(bool colL, bool colR, bool colUp, bool colDown)
 {
-	
+
 	if (colL || colR)
 	{
 		m_speedX = 0;
@@ -125,38 +114,6 @@ void Player::operation(bool colL, bool colR, bool colUp, bool colDown)
 
 	if (m_speedX == 0 && m_speedY == 0)
 	{
-#if false
-		// デバッグ用
-		if (Pad::isTrigger(PAD_INPUT_LEFT))
-		{
-			if (!colL)
-			{
-				m_frameX += -40;
-			}
-
-		}
-		if (Pad::isTrigger(PAD_INPUT_RIGHT))
-		{
-			if (!colR)
-			{
-				m_frameX += 40;
-			}
-		}
-		if (Pad::isTrigger(PAD_INPUT_UP))
-		{
-			if (!colUp)
-			{
-				m_frameY += -40;
-			}
-		}
-		if (Pad::isTrigger(PAD_INPUT_DOWN))
-		{
-			if (!colDown)
-			{
-				m_frameY += 40;
-			}
-		}
-#else
 		// 正規用
 		if (Pad::isPress(PAD_INPUT_DOWN) == 0 &&
 			Pad::isPress(PAD_INPUT_RIGHT) == 0 &&
@@ -214,16 +171,35 @@ void Player::operation(bool colL, bool colR, bool colUp, bool colDown)
 				}
 			}
 		}
-#endif
 	}
 }
 
+// プレイヤーの描画
+void Player::playerDraw(int x, int y)
+{
+	if (m_rota == PI / 2 && m_speedX == 0 && m_speedY == 0)
+	{
+		draw::MyDrawRectRotaGraph((m_frameX + (x * DRAW_WIDTH)) + (DRAW_WIDTH / 2), (m_frameY + (y * DRAW_WIDTH)) + (DRAW_WIDTH / 2),
+			m_verXPlayer * 32, m_verYPlayer * 32,
+			32, 32,
+			1.3f, m_rota,
+			m_handle, true, true);
+
+	}
+	else if (m_speedX == 0 && m_speedY == 0)
+	{
+		draw::MyDrawRectRotaGraph((m_frameX + (x * DRAW_WIDTH)) + (DRAW_WIDTH / 2), (m_frameY + (y * DRAW_WIDTH)) + (DRAW_WIDTH / 2),
+			m_verXPlayer * 32, m_verYPlayer * 32,
+			32, 32,
+			1.3f, m_rota,
+			m_handle, true, false);
+	}
+}
+
+// プレイヤーのモーション
 void Player::motion(int x, int y)
 {
 	m_frameCount--;
-
-	// 移動中のキャラの見た目
-	
 
 	// 移動中のキャラエフェクト
 	if (m_speedY == -40)
@@ -259,6 +235,7 @@ void Player::motion(int x, int y)
 			m_handleEffect, true, false);
 	}
 
+	// 移動中のキャラの見た目
 	if (m_speedX != 0 || m_speedY != 0)
 	{
 		draw::MyDrawRectRotaGraph((m_frameX + (x * DRAW_WIDTH)) + (DRAW_WIDTH / 2), (m_frameY + (y * DRAW_WIDTH)) + (DRAW_WIDTH / 2),
