@@ -149,7 +149,7 @@ void GameManager::update()
 
 void GameManager::updateNoShot()
 {
-	collisionNoShot();1
+	collisionNoShot();
 	colEnemy();
 
 	if (colFlagL || colFlagR || colFlagUp || colFlagBottom)
