@@ -1,3 +1,4 @@
+// ステージ1ファイル
 #pragma once
 #include "SceneBase.h"
 #include "../Util/common.h"
