@@ -133,17 +133,25 @@ void Stage::draw()
 					1.0f, PI / 2,
 					m_handleSmallNeedle, true, false);
 				// ç∂
-				draw::MyDrawRectRotaGraph(((x - 1) * DRAW_WIDTH) + (DRAW_WIDTH / 2), (y * DRAW_WIDTH) + (DRAW_WIDTH / 2),
-					0, 0,
-					40, 40,
-					1.0f, PI / -2,
-					m_handleSmallNeedle, true, false);
+				if (m_stage[y][x - 1] == 0)
+				{
+					draw::MyDrawRectRotaGraph(((x - 1) * DRAW_WIDTH) + (DRAW_WIDTH / 2), (y * DRAW_WIDTH) + (DRAW_WIDTH / 2),
+						0, 0,
+						40, 40,
+						1.0f, PI / -2,
+						m_handleSmallNeedle, true, false);
+				}
+				
 				// è„
-				draw::MyDrawRectRotaGraph((x * DRAW_WIDTH) + (DRAW_WIDTH / 2), ((y - 1) * DRAW_WIDTH) + (DRAW_WIDTH / 2),
-					0, 0,
-					40, 40,
-					1.0f, 0.0f,
-					m_handleSmallNeedle, true, false);
+				if (m_stage[y - 1][x] == 0)
+				{
+					draw::MyDrawRectRotaGraph((x * DRAW_WIDTH) + (DRAW_WIDTH / 2), ((y - 1) * DRAW_WIDTH) + (DRAW_WIDTH / 2),
+						0, 0,
+						40, 40,
+						1.0f, 0.0f,
+						m_handleSmallNeedle, true, false);
+				}
+				
 				// â∫
 				draw::MyDrawRectRotaGraph((x * DRAW_WIDTH) + (DRAW_WIDTH / 2), ((y + 1) * DRAW_WIDTH) + (DRAW_WIDTH / 2),
 					0, 0,
