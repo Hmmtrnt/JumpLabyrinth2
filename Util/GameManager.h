@@ -13,7 +13,9 @@ public:
 	GameManager();
 	virtual ~GameManager();
 
-	void init();
+	void initCommon();			// 共通の初期化
+	void initP();				// プロトタイプ用初期化
+	void init1();				// ステージ1の初期化
 	void end();
 	void update();
 	void draw();

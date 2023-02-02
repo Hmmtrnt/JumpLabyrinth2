@@ -23,24 +23,41 @@ Stage::~Stage()
 {
 }
 
-void Stage::init()
+void Stage::initCommon()
 {
 	m_gimmickFrame = 0;
 	m_shrink = 60;
 	m_inflate = 60;
+	// ステージハンドル
 	m_handleWall = draw::MyLoadGraph("data/tileset/inca_front.png");
 	m_handleTrap = draw::MyLoadGraph("data/Textures-16.png");
 	m_handleSmallNeedle = draw::MyLoadGraph("data/smallneedle.png");
 
-	// ステージハンドル
+	// ステージ切り取り
 	m_verX = 0;
 	m_verY = 0;
+}
 
+void Stage::initP()
+{
+	initCommon();
 	for (int y = 0; y < STAGE_HEIGHT; y++)
 	{
 		for (int x = 0; x < STAGE_WIDTH; x++)
 		{
 			m_stage[y][x] = kStage::stageP[y][x];
+		}
+	}
+}
+
+void Stage::init1()
+{
+	initCommon();
+	for (int y = 0; y< STAGE_HEIGHT; y++)
+	{
+		for (int x = 0; x < STAGE_WIDTH; x++)
+		{
+			m_stage[y][x] = kStage::stage1[y][x];
 		}
 	}
 }

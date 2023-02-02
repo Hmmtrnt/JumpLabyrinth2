@@ -1,20 +1,19 @@
-// メイン画面
 #pragma once
 #include "SceneBase.h"
 #include "../Util/common.h"
 
 class GameManager;
 
-class SceneMain : public SceneBase
+class SceneStage1 : public SceneBase
 {
 public:
-	SceneMain();
-	virtual ~SceneMain();
+	SceneStage1();
+	virtual ~SceneStage1();
 
 	virtual void init();			// 初期化
-	virtual void end();				// 終了処理
-	virtual SceneBase* update();	// 更新処理
-	virtual void draw();			// 描画処理
+	virtual void end();				// 終了
+	virtual SceneBase* update();	// 更新
+	virtual void draw();			// 描画
 
 private:
 	// ゲームマネージャーポインタ
@@ -23,3 +22,4 @@ private:
 	// フレームカウント
 	int m_frameCount;
 };
+

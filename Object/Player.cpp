@@ -35,13 +35,9 @@ Player::~Player()
 {
 }
 
-// 初期化
-void Player::init()
+// 共通の初期化
+void Player::initCommon()
 {
-	m_posX = 11;
-	m_posY = 12;
-	m_frameX = 440;
-	m_frameY = 480;
 	m_verXPlayer = 0;
 	m_verYPlayer = 0;
 	m_frameCount = motionCount;
@@ -57,6 +53,26 @@ void Player::init()
 			m_player[y][x] = kPlayer::playr[y][x];
 		}
 	}
+}
+
+// プロトタイプ用初期化
+void Player::initP()
+{
+	m_posX = 11;
+	m_posY = 12;
+	m_frameX = 440;
+	m_frameY = 480;
+	initCommon();
+}
+
+// ステージ1の初期化
+void Player::init1()
+{
+	m_posX = 1;
+	m_frameX = 40;
+	m_posY = 12;
+	m_frameY = 480;
+	initCommon();
 }
 
 // 終了

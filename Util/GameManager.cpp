@@ -44,7 +44,7 @@ GameManager::~GameManager()
 	delete m_pBack;
 }
 
-void GameManager::init()
+void GameManager::initCommon()
 {
 	m_gimmickFrame = 0;
 	m_shrink = 60;
@@ -66,10 +66,22 @@ void GameManager::init()
 	colNR = false;
 	colNUp = false;
 	colNBottom = false;
+}
 
-	m_pPlayer->init();
+void GameManager::initP()
+{
+	initCommon();
+	m_pPlayer->initP();
 	m_pShot->init();
-	m_pStage->init();
+	m_pStage->initP();
+	m_pBack->init();
+}
+
+void GameManager::init1()
+{
+	initCommon();
+	m_pPlayer->init1();
+	m_pStage->init1();
 	m_pBack->init();
 }
 
@@ -114,19 +126,18 @@ void GameManager::update()
 		GameOverMotion();
 		m_pPlayer->m_speedX = 0;
 		m_pPlayer->m_speedY = 0;
-		//printfDx("GameOver\n");
 	}
 
 	if (GameClear)
 	{
 		m_pPlayer->m_speedX = 0;
 		m_pPlayer->m_speedY = 0;
-		printfDx("GameClear\n");
 	}
 	
 	m_pPlayer->update();
 	m_pShot->update();
 	m_pShot->moveWidth(colNL, colNR);
+	//m_pShot->moveHeight(colNUp, colNBottom);
 	m_pStage->update();
 }
 

@@ -1,31 +1,30 @@
-#include "SceneMain.h"
-#include "SceneTitle.h"
+#include "SceneStage1.h"
 #include "SceneSelect.h"
 #include "../Util/GameManager.h"
 
-SceneMain::SceneMain() :
+SceneStage1::SceneStage1() :
 	m_frameCount(0)
 {
 	m_pManager = new GameManager;
 }
 
-SceneMain::~SceneMain()
+SceneStage1::~SceneStage1()
 {
 	delete m_pManager;
 }
 
-void SceneMain::init()
+void SceneStage1::init()
 {
 	m_frameCount = 90;
-	m_pManager->initP();
+	m_pManager->init1();
 }
 
-void SceneMain::end()
+void SceneStage1::end()
 {
 	m_pManager->end();
 }
 
-SceneBase* SceneMain::update()
+SceneBase* SceneStage1::update()
 {
 	m_pManager->update();
 
@@ -46,7 +45,7 @@ SceneBase* SceneMain::update()
 	return this;
 }
 
-void SceneMain::draw()
+void SceneStage1::draw()
 {
 	m_pManager->draw();
 }

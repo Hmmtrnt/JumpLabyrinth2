@@ -24,12 +24,19 @@ Shot::~Shot()
 {
 }
 
+// 初期化(実験用)
 void Shot::init()
 {
+	// 左から右に行くときの座標
 	m_posX = 0;
 	m_posY = 12;
 	m_frameX = 0;
 	m_frameY = 480;
+	// 下から上に行くときの座標
+	/*m_posX = 1;
+	m_posY = 13;
+	m_frameX = 40;
+	m_frameY = 520;*/
 	m_speedX = 0;
 	m_speedY = 0;
 	m_stopFrame = 60;
@@ -64,18 +71,7 @@ void Shot::draw()
 	{
 		for (int x = 0; x < SHOT_WIDTH; x++)
 		{
-			if (m_enemy[y][x] == 1)
-			{
-				/*DrawBox(m_frameX + x * DRAW_WIDTH, m_frameY + y * DRAW_WIDTH,
-					(m_frameX + x * DRAW_WIDTH) + DRAW_WIDTH, (m_frameY + y * DRAW_WIDTH) + DRAW_WIDTH,
-					kColor::Green, true);*/
-
-				draw::MyDrawRectRotaGraph((m_frameX + (x * DRAW_WIDTH)) + (DRAW_WIDTH / 2), (m_frameY + (y * DRAW_WIDTH)) + (DRAW_WIDTH / 2),
-										  0, 0,
-										  40, 40,
-										  1.0f, PI / 2,
-										  m_handleArrow, true, false);
-			}
+			shotDraw(x, y);
 		}
 	}
 
@@ -184,6 +180,49 @@ void Shot::operation(bool colL, bool colR, bool colUp, bool colDown)
 		if (!colDown)
 		{
 			m_speedY = 40;
+		}
+	}
+}
+
+void Shot::shotDraw(int x, int y)
+{
+	if (m_enemy[y][x] == 1)
+	{
+		// 右向き
+		if (m_speedX == 40)
+		{
+			draw::MyDrawRectRotaGraph((m_frameX + (x * DRAW_WIDTH)) + (DRAW_WIDTH / 2), (m_frameY + (y * DRAW_WIDTH)) + (DRAW_WIDTH / 2),
+				0, 0,
+				40, 40,
+				1.0f, PI / 2,
+				m_handleArrow, true, false);
+		}
+		// 左向き
+		if (m_speedX == -40)
+		{
+			draw::MyDrawRectRotaGraph((m_frameX + (x * DRAW_WIDTH)) + (DRAW_WIDTH / 2), (m_frameY + (y * DRAW_WIDTH)) + (DRAW_WIDTH / 2),
+				0, 0,
+				40, 40,
+				1.0f, PI / -2,
+				m_handleArrow, true, false);
+		}
+		// 下向き
+		if (m_speedY == 40)
+		{
+			draw::MyDrawRectRotaGraph((m_frameX + (x * DRAW_WIDTH)) + (DRAW_WIDTH / 2), (m_frameY + (y * DRAW_WIDTH)) + (DRAW_WIDTH / 2),
+				0, 0,
+				40, 40,
+				1.0f, PI / 1,
+				m_handleArrow, true, false);
+		}
+		// 上向き
+		if (m_speedY == -40)
+		{
+			draw::MyDrawRectRotaGraph((m_frameX + (x * DRAW_WIDTH)) + (DRAW_WIDTH / 2), (m_frameY + (y * DRAW_WIDTH)) + (DRAW_WIDTH / 2),
+				0, 0,
+				40, 40,
+				1.0f, 0,
+				m_handleArrow, true, false);
 		}
 	}
 }
