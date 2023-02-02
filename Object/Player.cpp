@@ -111,6 +111,15 @@ void Player::init5()
 	initCommon();
 }
 
+void Player::init6()
+{
+	m_posX = 11;
+	m_frameX = 440;
+	m_posY = 12;
+	m_frameY = 480;
+	initCommon();
+}
+
 // èIóπ
 void Player::end()
 {
