@@ -2,6 +2,7 @@
 #include "SceneMain.h"
 #include "SceneStage1.h"
 #include "SceneStage2.h"
+#include "SceneStage3.h"
 #include "../Util/Pad.h"
 
 SceneSelect::SceneSelect() :
@@ -60,6 +61,11 @@ SceneBase* SceneSelect::update()
 	{
 		return (new SceneStage2);
 	}
+	// ステージ3
+	if (Pad::isTrigger(PAD_INPUT_2) == 1 && m_stageSelect == 3)
+	{
+		return (new SceneStage3);
+	}
 
 	return this;
 }
@@ -69,7 +75,7 @@ void SceneSelect::draw()
 	DrawStringToHandle(300, 180, "ステージ", kColor::White,m_textHandle2 );
 	DrawFormatStringToHandle(380, 240, kColor::White, m_textHandle ,"%d", m_stageSelect);
 	DrawString(300, 500, "Bボタンでステージを選択", kColor::White);
-	DrawString(300, 550, "2ステージまでできています\n", kColor::White);
+	DrawString(300, 550, "3ステージまでできています\n", kColor::White);
 	DrawString(300, 600, "0ステージは実験用ステージです\n", kColor::White);
 	DrawFormatStringToHandle(600, 240, kColor::White, m_textHandle, "→");
 	if (m_stageSelect != 0)

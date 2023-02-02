@@ -11,6 +11,7 @@ public:
 	void initP();		// プロトタイプ用初期化
 	void init1();		// ステージ1の初期化
 	void init2();		// ステージ2の初期化
+	void init3();		// ステージ3の初期化
 	void end();			// 終了
 	void update();		// 更新
 	void draw();		// 描画

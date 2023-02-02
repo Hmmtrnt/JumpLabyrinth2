@@ -4,6 +4,7 @@
 #include "SceneSelect.h"
 #include "SceneStage1.h"
 #include "SceneStage2.h"
+#include "SceneStage3.h"
 #include "SceneMain.h"
 #include "../Util/Pad.h"
 
