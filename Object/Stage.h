@@ -7,15 +7,17 @@ public:
 	Stage();
 	virtual ~Stage();
 
-	void init();
-	void end();
-	void update();
-	void draw();
+	void init();		// 初期化
+	void end();			// 終了
+	void update();		// 更新
+	void draw();		// 描画
 
 	int m_stage[STAGE_HEIGHT][STAGE_WIDTH];
 
 private:
-
+	// ステージの描画
+	void stageDraw(int x, int y);
+	// 針の描画
 	void needleDraw(int x, int y);
 
 	// ギミックの描画が変わる時間

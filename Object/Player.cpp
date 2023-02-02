@@ -64,6 +64,7 @@ void Player::end()
 {
 	DeleteGraph(m_handle);
 	DeleteGraph(m_handle2);
+	DeleteGraph(m_handleEffect);
 }
 
 // XV

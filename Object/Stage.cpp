@@ -66,95 +66,100 @@ void Stage::draw()
 	{
 		for (int x = 0; x < STAGE_WIDTH; x++)
 		{
-			if (m_stage[y][x] == 0)
-			{
-			}
-			else if (m_stage[y][x] == 4)
-			{
-				m_verX = 1;
-				m_verY = 0;
-				draw::MyDrawRectRotaGraph((x * DRAW_WIDTH) + (DRAW_WIDTH / 2), (y * DRAW_WIDTH) + (DRAW_WIDTH / 2),
-										  m_verX * 32, m_verY * 32,
-										  32, 32,
-										  1.3f, 0.0f,
-										  m_handleWall, true, false);
-
-			}
-			else if (m_stage[y][x] == 5)
-			{
-				if (m_gimmickFrame < m_shrink)
-				{
-					m_verX = 3;
-					m_verY = 0;
-					draw::MyDrawRectRotaGraph((x * DRAW_WIDTH) + (DRAW_WIDTH / 2), (y * DRAW_WIDTH) + (DRAW_WIDTH / 2),
-											  m_verX * 32, m_verY * 32,
-											  32, 32,
-											  1.3f, 0.0f,
-											  m_handleWall, true, false);
-
-				}
-				if (m_gimmickFrame > m_inflate)
-				{
-					m_verX = 2;
-					m_verY = 0;
-					draw::MyDrawRectRotaGraph((x * DRAW_WIDTH) + (DRAW_WIDTH / 2), (y * DRAW_WIDTH) + (DRAW_WIDTH / 2),
-											  m_verX * 32, m_verY * 32,
-											  32, 32,
-											  3.6f, 0.0f,
-											  m_handleWall, true, false);
-
-				}
-			}
-			else if (m_stage[y][x] == 6)
-			{
-				m_verX = 13;
-				m_verY = 13;
-				draw::MyDrawRectRotaGraph((x * DRAW_WIDTH) + (DRAW_WIDTH / 2), (y * DRAW_WIDTH) + (DRAW_WIDTH / 2),
-										  m_verX * 16, m_verY * 16,
-										  16, 16,
-										  2.5f, 0.0f,
-										  m_handleTrap, true, false);
-
-
-			}
-			else if (m_stage[y][x] == 7)
-			{
-				m_verX = 0;
-				m_verY = 0;
-				draw::MyDrawRectRotaGraph((x * DRAW_WIDTH) + (DRAW_WIDTH / 2), (y * DRAW_WIDTH) + (DRAW_WIDTH / 2),
-										  m_verX * 32, m_verY * 32,
-										  32, 32,
-										  1.3f, 0.0f,
-										  m_handleWall, true, false);
-				needleDraw(x, y);
-			}
-			else if (m_stage[y][x] == 8)
-			{
-				m_verX = 1;
-				m_verY = 1;
-				draw::MyDrawRectRotaGraph((x * DRAW_WIDTH) + (DRAW_WIDTH / 2), (y * DRAW_WIDTH) + (DRAW_WIDTH / 2),
-										  m_verX * 32, m_verY * 32,
-										  32, 32,
-										  1.3f, 0.0f,
-										  m_handleWall, true, false);
-
-			}
-			else if (m_stage[y][x] == 9)
-			{
-				m_verX = 4;
-				m_verY = 0;
-				draw::MyDrawRectRotaGraph((x * DRAW_WIDTH) + (DRAW_WIDTH / 2), (y * DRAW_WIDTH) + (DRAW_WIDTH / 2),
-					m_verX * 32, m_verY * 32,
-					32, 32,
-					1.3f, 0.0f,
-					m_handleWall, true, false);
-
-			}
+			stageDraw(x, y);
 		}
 	}
 	// ïœêîämîFópï`âÊ
 	//DrawFormatString(600, 200, kColor::Red, "m_gimmickFrame:%d", m_gimmickFrame);
 	//DrawFormatString(600, 250, kColor::Red, "m_inflate:%d", m_inflate);
+}
+
+void Stage::stageDraw(int x, int y)
+{
+	if (m_stage[y][x] == 0)
+	{
+	}
+	else if (m_stage[y][x] == 4)
+	{
+		m_verX = 1;
+		m_verY = 0;
+		draw::MyDrawRectRotaGraph((x * DRAW_WIDTH) + (DRAW_WIDTH / 2), (y * DRAW_WIDTH) + (DRAW_WIDTH / 2),
+			m_verX * 32, m_verY * 32,
+			32, 32,
+			1.3f, 0.0f,
+			m_handleWall, true, false);
+
+	}
+	else if (m_stage[y][x] == 5)
+	{
+		if (m_gimmickFrame < m_shrink)
+		{
+			m_verX = 3;
+			m_verY = 0;
+			draw::MyDrawRectRotaGraph((x * DRAW_WIDTH) + (DRAW_WIDTH / 2), (y * DRAW_WIDTH) + (DRAW_WIDTH / 2),
+				m_verX * 32, m_verY * 32,
+				32, 32,
+				1.3f, 0.0f,
+				m_handleWall, true, false);
+
+		}
+		if (m_gimmickFrame > m_inflate)
+		{
+			m_verX = 2;
+			m_verY = 0;
+			draw::MyDrawRectRotaGraph((x * DRAW_WIDTH) + (DRAW_WIDTH / 2), (y * DRAW_WIDTH) + (DRAW_WIDTH / 2),
+				m_verX * 32, m_verY * 32,
+				32, 32,
+				3.6f, 0.0f,
+				m_handleWall, true, false);
+
+		}
+	}
+	else if (m_stage[y][x] == 6)
+	{
+		m_verX = 13;
+		m_verY = 13;
+		draw::MyDrawRectRotaGraph((x * DRAW_WIDTH) + (DRAW_WIDTH / 2), (y * DRAW_WIDTH) + (DRAW_WIDTH / 2),
+			m_verX * 16, m_verY * 16,
+			16, 16,
+			2.5f, 0.0f,
+			m_handleTrap, true, false);
+
+
+	}
+	else if (m_stage[y][x] == 7)
+	{
+		m_verX = 0;
+		m_verY = 0;
+		draw::MyDrawRectRotaGraph((x * DRAW_WIDTH) + (DRAW_WIDTH / 2), (y * DRAW_WIDTH) + (DRAW_WIDTH / 2),
+			m_verX * 32, m_verY * 32,
+			32, 32,
+			1.3f, 0.0f,
+			m_handleWall, true, false);
+		needleDraw(x, y);
+	}
+	else if (m_stage[y][x] == 8)
+	{
+		m_verX = 1;
+		m_verY = 1;
+		draw::MyDrawRectRotaGraph((x * DRAW_WIDTH) + (DRAW_WIDTH / 2), (y * DRAW_WIDTH) + (DRAW_WIDTH / 2),
+			m_verX * 32, m_verY * 32,
+			32, 32,
+			1.3f, 0.0f,
+			m_handleWall, true, false);
+
+	}
+	else if (m_stage[y][x] == 9)
+	{
+		m_verX = 4;
+		m_verY = 0;
+		draw::MyDrawRectRotaGraph((x * DRAW_WIDTH) + (DRAW_WIDTH / 2), (y * DRAW_WIDTH) + (DRAW_WIDTH / 2),
+			m_verX * 32, m_verY * 32,
+			32, 32,
+			1.3f, 0.0f,
+			m_handleWall, true, false);
+
+	}
 }
 
 void Stage::needleDraw(int x, int y)

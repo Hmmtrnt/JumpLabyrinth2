@@ -2,11 +2,11 @@
 #pragma once
 #include "../Util/common.h"
 
-class Enemy
+class Shot
 {
 public:
-	Enemy();
-	virtual ~Enemy();
+	Shot();
+	virtual ~Shot();
 
 	void init();
 	void end();
@@ -33,7 +33,7 @@ public:
 	int m_stopFrame;	// 壁についたときに止まっている時間
 
 	// エネミーの配列の受け渡し
-	int m_enemy[ENEMY_HEIGHT][ENEMY_WIDTH];
+	int m_enemy[SHOT_HEIGHT][SHOT_WIDTH];
 
 private:
 	

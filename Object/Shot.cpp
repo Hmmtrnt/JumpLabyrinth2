@@ -1,7 +1,7 @@
-#include "Enemy.h"
+#include "Shot.h"
 #include "../Util/Pad.h"
 
-Enemy::Enemy() :
+Shot::Shot() :
 	m_posX(0),
 	m_posY(0),
 	m_frameX(0),
@@ -11,20 +11,20 @@ Enemy::Enemy() :
 	m_stopFrame(0),
 	m_handleArrow(0)
 {
-	for (int y = 0; y < ENEMY_HEIGHT; y++)
+	for (int y = 0; y < SHOT_HEIGHT; y++)
 	{
-		for (int x = 0; x < ENEMY_WIDTH; x++)
+		for (int x = 0; x < SHOT_WIDTH; x++)
 		{
 			m_enemy[y][x] = 0;
 		}
 	}
 }
 
-Enemy::~Enemy()
+Shot::~Shot()
 {
 }
 
-void Enemy::init()
+void Shot::init()
 {
 	m_posX = 0;
 	m_posY = 12;
@@ -36,21 +36,21 @@ void Enemy::init()
 
 	m_handleArrow = draw::MyLoadGraph("data/arrow4.png");
 	
-	for (int y = 0; y < ENEMY_HEIGHT; y++)
+	for (int y = 0; y < SHOT_HEIGHT; y++)
 	{
-		for (int x = 0; x < ENEMY_WIDTH; x++)
+		for (int x = 0; x < SHOT_WIDTH; x++)
 		{
-			m_enemy[y][x] = kEnemy::enemy[y][x];
+			m_enemy[y][x] = kShot::shot[y][x];
 		}
 	}
 }
 
-void Enemy::end()
+void Shot::end()
 {
-	
+	DeleteGraph(m_handleArrow);
 }
 
-void Enemy::update()
+void Shot::update()
 {
 	m_frameX += m_speedX;
 	m_posX = m_frameX / DRAW_WIDTH;
@@ -58,11 +58,11 @@ void Enemy::update()
 	m_posY = m_frameY / DRAW_WIDTH;
 }
 
-void Enemy::draw()
+void Shot::draw()
 {
-	for (int y = 0; y < ENEMY_HEIGHT; y++)
+	for (int y = 0; y < SHOT_HEIGHT; y++)
 	{
-		for (int x = 0; x < ENEMY_WIDTH; x++)
+		for (int x = 0; x < SHOT_WIDTH; x++)
 		{
 			if (m_enemy[y][x] == 1)
 			{
@@ -87,7 +87,7 @@ void Enemy::draw()
 
 }
 
-void Enemy::moveWidth(bool colL, bool colR)
+void Shot::moveWidth(bool colL, bool colR)
 {
 	if (colL)
 	{
@@ -117,7 +117,7 @@ void Enemy::moveWidth(bool colL, bool colR)
 	}
 }
 
-void Enemy::moveHeight(bool colUp, bool colDown)
+void Shot::moveHeight(bool colUp, bool colDown)
 {
 	if (colUp)
 	{
@@ -145,7 +145,7 @@ void Enemy::moveHeight(bool colUp, bool colDown)
 	}
 }
 
-void Enemy::operation(bool colL, bool colR, bool colUp, bool colDown)
+void Shot::operation(bool colL, bool colR, bool colUp, bool colDown)
 {
 
 	if (colL || colR)

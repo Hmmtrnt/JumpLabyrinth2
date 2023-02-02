@@ -1,6 +1,6 @@
 #include "GameManager.h"
 #include "../Object/Player.h"
-#include "../Object/Enemy.h"
+#include "../Object/Shot.h"
 #include "../Object/Stage.h"
 #include "../Object/Back.h"
 #include "DrawFunctions.h"
@@ -31,7 +31,7 @@ GameManager::GameManager() :
 
 {
 	m_pPlayer = new Player;
-	m_pEnemy = new Enemy;
+	m_pShot = new Shot;
 	m_pStage = new Stage;
 	m_pBack = new Back;
 }
@@ -39,7 +39,7 @@ GameManager::GameManager() :
 GameManager::~GameManager()
 {
 	delete m_pPlayer;
-	delete m_pEnemy;
+	delete m_pShot;
 	delete m_pStage;
 	delete m_pBack;
 }
@@ -68,7 +68,7 @@ void GameManager::init()
 	colNBottom = false;
 
 	m_pPlayer->init();
-	m_pEnemy->init();
+	m_pShot->init();
 	m_pStage->init();
 	m_pBack->init();
 }
@@ -76,8 +76,9 @@ void GameManager::init()
 void GameManager::end()
 {
 	m_pPlayer->end();
-	m_pEnemy->end();
+	m_pShot->end();
 	m_pStage->end();
+	m_pBack->end();
 }
 
 void GameManager::update()
@@ -124,15 +125,15 @@ void GameManager::update()
 	}
 	
 	m_pPlayer->update();
-	m_pEnemy->update();
-	m_pEnemy->moveWidth(colNL, colNR);
+	m_pShot->update();
+	m_pShot->moveWidth(colNL, colNR);
 	m_pStage->update();
 }
 
 void GameManager::draw()
 {
 	m_pBack->draw();
-	m_pEnemy->draw();
+	m_pShot->draw();
 	m_pStage->draw();
 	drawNeedle();
 	m_pPlayer->draw();
@@ -389,7 +390,7 @@ void GameManager::collisionTimeLag()
 // ìG
 void GameManager::collisionEnemy()
 {
-	if (m_pPlayer->m_posX == m_pEnemy->m_posX && m_pPlayer->m_posY == m_pEnemy->m_posY)
+	if (m_pPlayer->m_posX == m_pShot->m_posX && m_pPlayer->m_posY == m_pShot->m_posY)
 	{
 		GameOver = true;
 	}
@@ -450,15 +451,15 @@ void GameManager::colEnemy()
 // âE
 void GameManager::colEnemyR()
 {
-	for (int y = 0; y < ENEMY_HEIGHT; y++)
+	for (int y = 0; y < SHOT_HEIGHT; y++)
 	{
-		for (int x = 0; x < ENEMY_WIDTH; x++)
+		for (int x = 0; x < SHOT_WIDTH; x++)
 		{
-			if (m_pEnemy->m_enemy[y][x] != 0)
+			if (m_pShot->m_enemy[y][x] != 0)
 			{
-				if (m_pStage->m_stage[m_pEnemy->m_posY + y][m_pEnemy->m_posX + (x + 1)] != 0)
+				if (m_pStage->m_stage[m_pShot->m_posY + y][m_pShot->m_posX + (x + 1)] != 0)
 				{
-					m_pEnemy->m_frameX = -40;
+					m_pShot->m_frameX = -40;
 					colNR = true;
 				}
 				else
@@ -473,13 +474,13 @@ void GameManager::colEnemyR()
 // ç∂
 void GameManager::colEnemyL()
 {
-	for (int y = 0; y < ENEMY_HEIGHT; y++)
+	for (int y = 0; y < SHOT_HEIGHT; y++)
 	{
-		for (int x = 0; x < ENEMY_WIDTH; x++)
+		for (int x = 0; x < SHOT_WIDTH; x++)
 		{
-			if (m_pEnemy->m_enemy[y][x] != 0)
+			if (m_pShot->m_enemy[y][x] != 0)
 			{
-				if (m_pStage->m_stage[m_pEnemy->m_posY + y][m_pEnemy->m_posX + (x - 1)] != 0)
+				if (m_pStage->m_stage[m_pShot->m_posY + y][m_pShot->m_posX + (x - 1)] != 0)
 				{
 					colNL = true;
 				}
@@ -495,15 +496,15 @@ void GameManager::colEnemyL()
 // è„
 void GameManager::colEnemyUP()
 {
-	for (int y = 0; y < ENEMY_HEIGHT; y++)
+	for (int y = 0; y < SHOT_HEIGHT; y++)
 	{
-		for (int x = 0; x < ENEMY_WIDTH; x++)
+		for (int x = 0; x < SHOT_WIDTH; x++)
 		{
-			if (m_pEnemy->m_enemy[y][x] != 0)
+			if (m_pShot->m_enemy[y][x] != 0)
 			{
-				if (m_pStage->m_stage[m_pEnemy->m_posY + (y - 1)][m_pEnemy->m_posX + x] != 0)
+				if (m_pStage->m_stage[m_pShot->m_posY + (y - 1)][m_pShot->m_posX + x] != 0)
 				{
-					m_pEnemy->m_frameY = 560;
+					m_pShot->m_frameY = 560;
 					colNUp = true;
 				}
 				else
@@ -518,13 +519,13 @@ void GameManager::colEnemyUP()
 // â∫
 void GameManager::colEnemyBottom()
 {
-	for (int y = 0; y < ENEMY_HEIGHT; y++)
+	for (int y = 0; y < SHOT_HEIGHT; y++)
 	{
-		for (int x = 0; x < ENEMY_WIDTH; x++)
+		for (int x = 0; x < SHOT_WIDTH; x++)
 		{
-			if (m_pEnemy->m_enemy[y][x] != 0)
+			if (m_pShot->m_enemy[y][x] != 0)
 			{
-				if (m_pStage->m_stage[m_pEnemy->m_posY + (y + 1)][m_pEnemy->m_posX + x] != 0)
+				if (m_pStage->m_stage[m_pShot->m_posY + (y + 1)][m_pShot->m_posX + x] != 0)
 				{
 					colNBottom = true;
 				}

@@ -3,7 +3,7 @@
 #include "common.h"
 
 class Player;
-class Enemy;
+class Shot;
 class Stage;
 class Back;
 
@@ -93,7 +93,7 @@ private:
 	bool colNBottom;	// ‰º
 
 	Player* m_pPlayer;
-	Enemy* m_pEnemy;
+	Shot* m_pShot;
 	Stage* m_pStage;
 	Back* m_pBack;
 };

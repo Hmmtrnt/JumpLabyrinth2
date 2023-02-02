@@ -60,7 +60,7 @@
     <ClCompile Include="Util\GameManager.cpp">
       <Filter>ソース ファイル\Util</Filter>
     </ClCompile>
-    <ClCompile Include="Object\Enemy.cpp">
+    <ClCompile Include="Object\Shot.cpp">
       <Filter>ソース ファイル\Object</Filter>
     </ClCompile>
     <ClCompile Include="Util\DrawFunctions.cpp">
@@ -104,7 +104,7 @@
     <ClInclude Include="Util\GameManager.h">
       <Filter>ヘッダー ファイル\Util</Filter>
     </ClInclude>
-    <ClInclude Include="Object\Enemy.h">
+    <ClInclude Include="Object\Shot.h">
       <Filter>ヘッダー ファイル\Object</Filter>
     </ClInclude>
     <ClInclude Include="Util\DrawFunctions.h">

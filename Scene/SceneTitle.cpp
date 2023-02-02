@@ -25,6 +25,7 @@ void SceneTitle::init()
 
 void SceneTitle::end()
 {
+	DeleteFontToHandle(m_textHandle);
 }
 
 SceneBase* SceneTitle::update()

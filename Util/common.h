@@ -7,8 +7,8 @@
 #define PLAYER_WIDTH 3		// 横
 
 // エネミーの幅
-#define ENEMY_HEIGHT 3		// 縦
-#define ENEMY_WIDTH 3		// 横
+#define SHOT_HEIGHT 3		// 縦
+#define SHOT_WIDTH 3		// 横
 
 // ステージの幅
 #define STAGE_HEIGHT 15		// 縦
@@ -140,12 +140,12 @@ namespace kPlayer
 }
 
 // エネミー
-namespace kEnemy
+namespace kShot
 {
 	// エネミーの配列
 	// 0:無
 	// 1:エネミー
-	constexpr int enemy[ENEMY_HEIGHT][ENEMY_WIDTH] = {
+	constexpr int shot[SHOT_HEIGHT][SHOT_WIDTH] = {
 		{0,0,0},
 		{0,1,0},
 		{0,0,0},

@@ -18,6 +18,7 @@ Back::~Back()
 {
 }
 
+// 初期化
 void Back::init()
 {
 	// 背景ハンドル
@@ -26,6 +27,7 @@ void Back::init()
 	m_verX = 0;
 	m_verY = 0;
 
+	// 背景配列のサイズ取得
 	for (int y = 0; y < BACK_HEIGHT; y++)
 	{
 		for (int x = 0; x < BACK_WIDTH; x++)
@@ -35,6 +37,13 @@ void Back::init()
 	}
 }
 
+// 終了
+void Back::end()
+{
+	DeleteGraph(m_handle);
+}
+
+// 描画
 void Back::draw()
 {
 	for (int y = 0; y < BACK_HEIGHT; y++)

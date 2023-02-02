@@ -154,7 +154,7 @@
     <ClCompile Include="Object\Back.cpp" />
     <ClCompile Include="Scene\SceneSelect.cpp" />
     <ClCompile Include="Util\DrawFunctions.cpp" />
-    <ClCompile Include="Object\Enemy.cpp" />
+    <ClCompile Include="Object\Shot.cpp" />
     <ClCompile Include="Util\GameManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Object\Player.cpp" />
@@ -169,7 +169,7 @@
     <ClInclude Include="Object\Back.h" />
     <ClInclude Include="Scene\SceneSelect.h" />
     <ClInclude Include="Util\DrawFunctions.h" />
-    <ClInclude Include="Object\Enemy.h" />
+    <ClInclude Include="Object\Shot.h" />
     <ClInclude Include="Util\GameManager.h" />
     <ClInclude Include="Object\Player.h" />
     <ClInclude Include="Object\Stage.h" />

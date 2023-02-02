@@ -22,6 +22,8 @@ void SceneSelect::init()
 
 void SceneSelect::end()
 {
+	DeleteFontToHandle(m_textHandle);
+	DeleteFontToHandle(m_textHandle2);
 }
 
 SceneBase* SceneSelect::update()
