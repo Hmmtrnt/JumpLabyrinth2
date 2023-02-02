@@ -20,7 +20,7 @@ SceneSelect::~SceneSelect()
 
 void SceneSelect::init()
 {
-	m_stageSelect = 5;
+	m_stageSelect = 1;
 	m_textHandle = CreateFontToHandle(NULL, 100, 3);
 	m_textHandle2 = CreateFontToHandle(NULL, 50, 3);
 }

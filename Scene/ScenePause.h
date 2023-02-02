@@ -1,6 +1,8 @@
 #pragma once
-#include "SceneBase.h"
-class ScenePause : public SceneBase
+#include "../Util/common.h"
+
+
+class ScenePause
 {
 public:
 	ScenePause();
@@ -8,9 +10,9 @@ public:
 
 	virtual void init();
 	virtual void end();
-	virtual SceneBase* update();
+	virtual void update();
 	virtual void draw();
 private:
-
+	// テキストハンドル
+	int m_textHandle;
 };
-

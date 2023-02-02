@@ -3,37 +3,41 @@
 #include "../Object/Shot.h"
 #include "../Object/Stage.h"
 #include "../Object/Back.h"
+#include "../Scene/ScenePause.h"
 #include "DrawFunctions.h"
+#include "../Util/Pad.h"
 
 GameManager::GameManager() :
+	GameOver(false),
+	GameClear(false),
 	m_gimmickFrame(0),
 	m_shrink(0),
 	m_inflate(0),
 	m_GameOverCount(0),
-	GameOver(0),
-	GameClear(0),
 	m_frameCountGameOver(0),
 	m_handleNeedle(-1),
 	m_rota(0.0f),
-	colNextFlag(0),
-	colFlagL(0),
-	colFlagR(0),
-	colFlagUp(0),
-	colFlagBottom(0),
-	colL(0),
-	colR(0),
-	colUp(0),
-	colBottom(0),
-	colNL(0),
-	colNR(0),
-	colNUp(0),
-	colNBottom(0)
+	colNextFlag(false),
+	colFlagL(false),
+	colFlagR(false),
+	colFlagUp(false),
+	colFlagBottom(false),
+	colL(false),
+	colR(false),
+	colUp(false),
+	colBottom(false),
+	colNL(false),
+	colNR(false),
+	colNUp(false),
+	colNBottom(false),
+	m_pushFlag(false)
 
 {
 	m_pPlayer = new Player;
 	m_pShot = new Shot;
 	m_pStage = new Stage;
 	m_pBack = new Back;
+	m_pPause = new ScenePause;
 }
 
 GameManager::~GameManager()
@@ -42,6 +46,7 @@ GameManager::~GameManager()
 	delete m_pShot;
 	delete m_pStage;
 	delete m_pBack;
+	delete m_pPause;
 }
 
 void GameManager::initCommon()
@@ -123,52 +128,69 @@ void GameManager::end()
 	m_pShot->end();
 	m_pStage->end();
 	m_pBack->end();
+	m_pPause->end();
 }
 
 void GameManager::update()
 {
-	collision();
-	colEnemy();
-	
-	if (colFlagL || colFlagR || colFlagUp || colFlagBottom)
+	if (Pad::isTrigger(PAD_INPUT_R) == 1)
 	{
-		m_GameOverCount--;
-		if (m_GameOverCount <= 0)
+		if (m_pushFlag == false)
 		{
-			m_GameOverCount = 0;
-			if (m_GameOverCount == 0)
-			{
-				GameOver = true;
-			}
+			m_pushFlag = true;
+		}
+		else if (m_pushFlag == true)
+		{
+			m_pushFlag = false;
 		}
 	}
-	if (!colFlagL && !colFlagR && !colFlagUp && !colFlagBottom)
-	{
-		m_GameOverCount = 30;
-	}
 
-	if (!GameOver)
+	if (m_pushFlag == false)
 	{
-		m_pPlayer->operation(colL, colR, colUp, colBottom);
-	}
-	else if (GameOver)
-	{
-		GameOverMotion();
-		m_pPlayer->m_speedX = 0;
-		m_pPlayer->m_speedY = 0;
-	}
+		collision();
+		colEnemy();
 
-	if (GameClear)
-	{
-		m_pPlayer->m_speedX = 0;
-		m_pPlayer->m_speedY = 0;
+		if (colFlagL || colFlagR || colFlagUp || colFlagBottom)
+		{
+			m_GameOverCount--;
+			if (m_GameOverCount <= 0)
+			{
+				m_GameOverCount = 0;
+				if (m_GameOverCount == 0)
+				{
+					GameOver = true;
+				}
+			}
+		}
+		if (!colFlagL && !colFlagR && !colFlagUp && !colFlagBottom)
+		{
+			m_GameOverCount = 30;
+		}
+
+		if (!GameOver)
+		{
+			m_pPlayer->operation(colL, colR, colUp, colBottom);
+		}
+		else if (GameOver)
+		{
+			GameOverMotion();
+			m_pPlayer->m_speedX = 0;
+			m_pPlayer->m_speedY = 0;
+		}
+
+		if (GameClear)
+		{
+			m_pPlayer->m_speedX = 0;
+			m_pPlayer->m_speedY = 0;
+		}
+
+		m_pPlayer->update();
+		m_pShot->update();
+		m_pShot->moveWidth(colNL, colNR);
+		//m_pShot->moveHeight(colNUp, colNBottom);
+		m_pStage->update();
 	}
 	
-	m_pPlayer->update();
-	m_pShot->update();
-	m_pShot->moveWidth(colNL, colNR);
-	//m_pShot->moveHeight(colNUp, colNBottom);
-	m_pStage->update();
 }
 
 void GameManager::updateNoShot()
@@ -221,6 +243,10 @@ void GameManager::draw()
 	m_pStage->draw();
 	drawNeedle();
 	m_pPlayer->draw();
+	if (m_pushFlag == true)
+	{
+		m_pPause->draw();
+	}
 }
 
 void GameManager::collision()

@@ -6,6 +6,7 @@ class Player;
 class Shot;
 class Stage;
 class Back;
+class ScenePause;
 
 class GameManager
 {
@@ -100,9 +101,13 @@ private:
 	bool colNUp;		// 上
 	bool colNBottom;	// 下
 
+	// ポーズボタンが押されたかどうか
+	bool m_pushFlag;
+
 	Player* m_pPlayer;
 	Shot* m_pShot;
 	Stage* m_pStage;
 	Back* m_pBack;
+	ScenePause* m_pPause;
 };
 
