@@ -9,6 +9,7 @@
 #include "SceneStage7.h"
 #include "SceneStage8.h"
 #include "SceneStage9.h"
+#include "SceneStage10.h"
 #include "../Util/Pad.h"
 
 SceneSelect::SceneSelect() :
@@ -45,7 +46,14 @@ SceneBase* SceneSelect::update()
 	{
 		m_stageSelect--;
 	}
-
+	else if (Pad::isTrigger(PAD_INPUT_Y) == 1)
+	{
+		m_stageSelect -= 5;
+	}
+	else if (Pad::isTrigger(PAD_INPUT_Z) == 1)
+	{
+		m_stageSelect += 5;
+	}
 	if (m_stageSelect <= 0)
 	{
 		m_stageSelect = 0;
@@ -102,6 +110,11 @@ SceneBase* SceneSelect::update()
 	{
 		return (new SceneStage9);
 	}
+	// ステージ10
+	if (Pad::isTrigger(PAD_INPUT_2) == 1 && m_stageSelect == 10)
+	{
+		return (new SceneStage10);
+	}
 
 	return this;
 }
@@ -113,9 +126,11 @@ void SceneSelect::draw()
 	DrawString(300, 500, "Bボタンでステージを選択", kColor::White);
 	DrawString(300, 550, "6ステージまで出来ています\n", kColor::White);
 	DrawString(300, 600, "0ステージは実験用ステージです\n", kColor::White);
+	DrawString(600, 200, "RBボタン＋5", kColor::White);
 	DrawFormatStringToHandle(600, 240, kColor::White, m_textHandle, "→");
 	if (m_stageSelect != 0)
 	{
+		DrawString(100, 200, "LBボタンー5", kColor::White);
 		DrawFormatStringToHandle(100, 240, kColor::White, m_textHandle, "←");
 	}
 }
