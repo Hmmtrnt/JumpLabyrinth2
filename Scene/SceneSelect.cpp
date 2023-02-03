@@ -8,6 +8,7 @@
 #include "SceneStage6.h"
 #include "SceneStage7.h"
 #include "SceneStage8.h"
+#include "SceneStage9.h"
 #include "../Util/Pad.h"
 
 SceneSelect::SceneSelect() :
@@ -95,6 +96,11 @@ SceneBase* SceneSelect::update()
 	if (Pad::isTrigger(PAD_INPUT_2) == 1 && m_stageSelect == 8)
 	{
 		return (new SceneStage8);
+	}
+	// ステージ9
+	if (Pad::isTrigger(PAD_INPUT_2) == 1 && m_stageSelect == 9)
+	{
+		return (new SceneStage9);
 	}
 
 	return this;
