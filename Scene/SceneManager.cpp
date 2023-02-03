@@ -9,6 +9,7 @@
 #include "SceneStage5.h"
 #include "SceneStage6.h"
 #include "SceneStage7.h"
+#include "SceneStage8.h"
 #include "SceneMain.h"
 #include "../Util/Pad.h"
 
