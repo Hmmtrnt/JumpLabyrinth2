@@ -120,6 +120,15 @@ void Player::init6()
 	initCommon();
 }
 
+void Player::init7()
+{
+	m_posX = 10;
+	m_frameX = 400;
+	m_posY = 12;
+	m_frameY = 480;
+	initCommon();
+}
+
 // èIóπ
 void Player::end()
 {

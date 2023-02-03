@@ -15,6 +15,7 @@ public:
 	void init4();		// ステージ4の初期化
 	void init5();		// ステージ5の初期化
 	void init6();		// ステージ6の初期化
+	void init7();		// ステージ7の初期化
 	void end();			// 終了
 	void update();		// 更新
 	void draw();		// 描画

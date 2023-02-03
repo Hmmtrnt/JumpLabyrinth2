@@ -1,15 +1,15 @@
-// ステージ6
+// ステージ7
 #pragma once
 #include "SceneBase.h"
 #include "../Util/common.h"
 
 class GameManager;
 
-class SceneStage6 : public SceneBase
+class SceneStage7 : public SceneBase
 {
 public:
-	SceneStage6();
-	virtual ~SceneStage6();
+	SceneStage7();
+	virtual ~SceneStage7();
 
 	virtual void init();			// 初期化
 	virtual void end();				// 終了
