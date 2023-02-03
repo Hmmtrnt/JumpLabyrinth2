@@ -1,8 +1,10 @@
-#include "ScenePause.h"
+Ôªø#include "ScenePause.h"
 #include "../Util/Pad.h"
 
 ScenePause::ScenePause() :
-	m_textHandle(-1)
+	m_textHandle(-1),
+	m_posArrow(0),
+	m_pushNum(0)
 {
 }
 
@@ -13,6 +15,8 @@ ScenePause::~ScenePause()
 void ScenePause::init()
 {
 	m_textHandle = CreateFontToHandle(NULL, 50, 4);
+	m_posArrow = 200;
+	m_pushNum = 0;
 }
 
 void ScenePause::end()
@@ -22,6 +26,33 @@ void ScenePause::end()
 
 void ScenePause::update()
 {
+	if (m_pushNum >= 0 && m_pushNum <= 2)
+	{
+		if (Pad::isTrigger(PAD_INPUT_UP) == 1)
+		{
+			if (m_pushNum <= 0)
+			{
+				m_pushNum = 0;
+			}
+			else
+			{
+				m_posArrow -= 70;
+				m_pushNum--;
+			}
+		}
+		if (Pad::isTrigger(PAD_INPUT_DOWN) == 1)
+		{
+			if (m_pushNum >= 2)
+			{
+				m_pushNum = 2;
+			}
+			else
+			{
+				m_posArrow += 70;
+				m_pushNum++;
+			}
+		}
+	}
 }
 
 void ScenePause::draw()
@@ -30,7 +61,11 @@ void ScenePause::draw()
 	DrawBox(100, 100, 700, 600, kColor::LightBlue, true);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 	DrawBox(100, 100, 700, 600, kColor::Black, false);
-	//DrawStringToHandle(200, 250, "ÉäÉ^ÉCÉA", kColor::Black, m_textHandle);
-	//DrawFormatStringToHandle(200, 250, kColor::Black, m_textHandle, "ÉäÉ^ÉCÉA");
-	DrawString(200, 250, "ÉäÉ^ÉCÉA", kColor::Black);
+	DrawStringToHandle(200, 200, "Ë®≠ÂÆö", kColor::Black, m_textHandle);
+	DrawStringToHandle(200, 270, "„É™„Çø„Ç§„Ç¢", kColor::Black, m_textHandle);
+	DrawStringToHandle(200, 340, "„É™„Éà„É©„Ç§", kColor::Black, m_textHandle);
+	DrawStringToHandle(150, m_posArrow, "‚Üí", kColor::Black, m_textHandle);
+
+	// Á¢∫Ë™çÊèèÁîª
+	//DrawFormatString(0, 0, kColor::Black, "%d", m_pushNum);
 }

@@ -93,7 +93,7 @@ void SceneSelect::draw()
 	DrawStringToHandle(300, 180, "ステージ", kColor::White,m_textHandle2 );
 	DrawFormatStringToHandle(380, 240, kColor::White, m_textHandle ,"%d", m_stageSelect);
 	DrawString(300, 500, "Bボタンでステージを選択", kColor::White);
-	DrawString(300, 550, "5ステージまで出来ています\n", kColor::White);
+	DrawString(300, 550, "6ステージまで出来ています\n", kColor::White);
 	DrawString(300, 600, "0ステージは実験用ステージです\n", kColor::White);
 	DrawFormatStringToHandle(600, 240, kColor::White, m_textHandle, "→");
 	if (m_stageSelect != 0)

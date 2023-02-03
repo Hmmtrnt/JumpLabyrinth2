@@ -14,6 +14,7 @@ public:
 	GameManager();
 	virtual ~GameManager();
 
+	// 初期化一覧
 	void initCommon();			// 共通の初期化
 	void initP();				// プロトタイプ用初期化
 	void init1();				// ステージ1の初期化
@@ -22,9 +23,11 @@ public:
 	void init4();				// ステージ4の初期化
 	void init5();				// ステージ5の初期化
 	void init6();				// ステージ6の初期化
+
 	void end();					// 終了
 	void update();				// 更新
 	void updateNoShot();		// 弾の処理が入っていない更新
+	void updatePause();			// ポーズ画面の更新処理
 	void draw();				// 描画
 
 	// 当たり判定
@@ -54,6 +57,9 @@ public:
 	// ゲームオーバーモーション
 	void GameOverMotion();
 
+	// ポーズ画面の項目を押した情報取得
+	int GetPushPause() { return m_pushPause; }
+
 	// ゲームオーバー
 	bool GameOver;
 	// ゲームクリア
@@ -64,6 +70,8 @@ private:
 	// しぼんだり、膨らんだりする処理
 	void EnemyElasticity();
 
+	// どこの項目を選択したか
+	int m_pushPause;
 	// ギミックの当たり判定が変わる時間
 	int m_gimmickFrame;
 	// しぼんでいる時間

@@ -28,6 +28,18 @@ SceneBase* SceneMain::update()
 {
 	m_pManager->update();
 
+	if (m_pManager->GetPushPause() == 1)
+	{
+	}
+	else if (m_pManager->GetPushPause() == 2)
+	{
+		return(new SceneSelect);
+	}
+	else if (m_pManager->GetPushPause() == 3)
+	{
+		return(new SceneMain);
+	}
+
 	if (m_pManager->GameOver)
 	{
 		m_frameCount--;

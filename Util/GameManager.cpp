@@ -10,6 +10,7 @@
 GameManager::GameManager() :
 	GameOver(false),
 	GameClear(false),
+	m_pushPause(0),
 	m_gimmickFrame(0),
 	m_shrink(0),
 	m_inflate(0),
@@ -51,12 +52,13 @@ GameManager::~GameManager()
 
 void GameManager::initCommon()
 {
+	GameOver = false;
+	GameClear = false;
+	m_pushPause = 0;
 	m_gimmickFrame = 0;
 	m_shrink = 60;
 	m_inflate = 60;
 	m_GameOverCount = 30;
-	GameOver = false;
-	GameClear = false;
 	m_frameCountGameOver = 30;
 	m_handleNeedle = draw::MyLoadGraph("data/needle2.png");
 	colFlagL = false;
@@ -71,6 +73,7 @@ void GameManager::initCommon()
 	colNR = false;
 	colNUp = false;
 	colNBottom = false;
+	m_pPause->init();
 }
 
 void GameManager::initP()
@@ -143,17 +146,20 @@ void GameManager::update()
 {
 	if (Pad::isTrigger(PAD_INPUT_R) == 1)
 	{
-		if (m_pushFlag == false)
+		if (!GameOver)
 		{
-			m_pushFlag = true;
-		}
-		else if (m_pushFlag == true)
-		{
-			m_pushFlag = false;
+			if (m_pushFlag == false)
+			{
+				m_pushFlag = true;
+			}
+			else if (m_pushFlag == true)
+			{
+				m_pushFlag = false;
+			}
 		}
 	}
 
-	if (m_pushFlag == false)
+	if (!m_pushFlag)
 	{
 		collision();
 		colEnemy();
@@ -198,50 +204,98 @@ void GameManager::update()
 		//m_pShot->moveHeight(colNUp, colNBottom);
 		m_pStage->update();
 	}
+	if (m_pushFlag)
+	{
+		m_pPause->update();
+		updatePause();
+	}
 	
 }
 
 void GameManager::updateNoShot()
 {
-	collisionNoShot();
-	colEnemy();
-
-	if (colFlagL || colFlagR || colFlagUp || colFlagBottom)
+	if (Pad::isTrigger(PAD_INPUT_R) == 1)
 	{
-		m_GameOverCount--;
-		if (m_GameOverCount <= 0)
+		if (!GameOver)
 		{
-			m_GameOverCount = 0;
-			if (m_GameOverCount == 0)
+			if (m_pushFlag == false)
 			{
-				GameOver = true;
+				m_pushFlag = true;
+			}
+			else if (m_pushFlag == true)
+			{
+				m_pushFlag = false;
 			}
 		}
 	}
-	if (!colFlagL && !colFlagR && !colFlagUp && !colFlagBottom)
-	{
-		m_GameOverCount = 30;
-	}
 
-	if (!GameOver)
+	if (!m_pushFlag)
 	{
-		m_pPlayer->operation(colL, colR, colUp, colBottom);
-	}
-	else if (GameOver)
-	{
-		GameOverMotion();
-		m_pPlayer->m_speedX = 0;
-		m_pPlayer->m_speedY = 0;
-	}
+		collisionNoShot();
+		colEnemy();
 
-	if (GameClear)
-	{
-		m_pPlayer->m_speedX = 0;
-		m_pPlayer->m_speedY = 0;
-	}
+		if (colFlagL || colFlagR || colFlagUp || colFlagBottom)
+		{
+			m_GameOverCount--;
+			if (m_GameOverCount <= 0)
+			{
+				m_GameOverCount = 0;
+				if (m_GameOverCount == 0)
+				{
+					GameOver = true;
+				}
+			}
+		}
+		if (!colFlagL && !colFlagR && !colFlagUp && !colFlagBottom)
+		{
+			m_GameOverCount = 30;
+		}
 
-	m_pPlayer->update();
-	m_pStage->update();
+		if (!GameOver)
+		{
+			m_pPlayer->operation(colL, colR, colUp, colBottom);
+		}
+		else if (GameOver)
+		{
+			GameOverMotion();
+			m_pPlayer->m_speedX = 0;
+			m_pPlayer->m_speedY = 0;
+		}
+
+		if (GameClear)
+		{
+			m_pPlayer->m_speedX = 0;
+			m_pPlayer->m_speedY = 0;
+		}
+
+		m_pPlayer->update();
+		m_pStage->update();
+	}
+	
+	if (m_pushFlag)
+	{
+		m_pPause->update();
+		updatePause();
+	}
+}
+
+void GameManager::updatePause()
+{
+	if (Pad::isTrigger(PAD_INPUT_2) == 1)
+	{
+		if (m_pPause->GetPushNum() == 0)
+		{
+			m_pushPause = 1;
+		}
+		else if (m_pPause->GetPushNum() == 1)
+		{
+			m_pushPause = 2;
+		}
+		else if (m_pPause->GetPushNum() == 2)
+		{
+			m_pushPause = 3;
+		}
+	}
 }
 
 void GameManager::draw()
@@ -251,10 +305,12 @@ void GameManager::draw()
 	m_pStage->draw();
 	drawNeedle();
 	m_pPlayer->draw();
-	if (m_pushFlag == true)
+	if (m_pushFlag)
 	{
 		m_pPause->draw();
 	}
+	// Šm”F•`‰æ
+	//DrawFormatString(0, 60, kColor::Black, "%d", m_pushPause);
 }
 
 void GameManager::collision()

@@ -28,6 +28,18 @@ SceneBase* SceneStage2::update()
 {
 	m_pManager->updateNoShot();
 
+	if (m_pManager->GetPushPause() == 1)
+	{
+	}
+	else if (m_pManager->GetPushPause() == 2)
+	{
+		return(new SceneSelect);
+	}
+	else if (m_pManager->GetPushPause() == 3)
+	{
+		return(new SceneStage2);
+	}
+
 	if (m_pManager->GameOver)
 	{
 		m_frameCount--;
