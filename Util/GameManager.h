@@ -22,17 +22,17 @@ public:
 
 	void initP();				// プロトタイプ用初期化
 	void init1(int posX, int posY, int frameX, int frameY);				// ステージ1の初期化
-	void init2();				// ステージ2の初期化
-	void init3();				// ステージ3の初期化
-	void init4();				// ステージ4の初期化
-	void init5();				// ステージ5の初期化
-	void init6();				// ステージ6の初期化
-	void init7();				// ステージ7の初期化
-	void init8();				// ステージ8の初期化
-	void init9();				// ステージ9の初期化
-	void init10();				// ステージ10の初期化
-	void init11();				// ステージ11の初期化
-	void init12();				// ステージ12の初期化
+	void init2(int posX, int posY, int frameX, int frameY);				// ステージ2の初期化
+	void init3(int posX, int posY, int frameX, int frameY);				// ステージ3の初期化
+	void init4(int posX, int posY, int frameX, int frameY);				// ステージ4の初期化
+	void init5(int posX, int posY, int frameX, int frameY);				// ステージ5の初期化
+	void init6(int posX, int posY, int frameX, int frameY);				// ステージ6の初期化
+	void init7(int posX, int posY, int frameX, int frameY);				// ステージ7の初期化
+	void init8(int posX, int posY, int frameX, int frameY);				// ステージ8の初期化
+	void init9(int posX, int posY, int frameX, int frameY);				// ステージ9の初期化
+	void init10(int posX, int posY, int frameX, int frameY);				// ステージ10の初期化
+	void init11(int posX, int posY, int frameX, int frameY);				// ステージ11の初期化
+	void init12(int posX, int posY, int frameX, int frameY);				// ステージ12の初期化
 
 	void end();					// 終了
 	void update();				// 更新

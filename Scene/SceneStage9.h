@@ -22,4 +22,10 @@ private:
 
 	// フレームカウント
 	int m_frameCount;
+	// キャラの座標
+	int m_posX;				// X座標
+	int m_posY;				// Y座標
+	// キャラの移動フレーム
+	int m_frameX;			// X座標
+	int m_frameY;			// Y座標
 };

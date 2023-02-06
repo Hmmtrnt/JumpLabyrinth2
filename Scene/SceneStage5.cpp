@@ -3,7 +3,11 @@
 #include "../Util/GameManager.h"
 
 SceneStage5::SceneStage5() :
-	m_frameCount(0)
+	m_frameCount(0),
+	m_posX(0),
+	m_posY(0),
+	m_frameX(0),
+	m_frameY(0)
 {
 	m_pManager = new GameManager;
 }
@@ -16,7 +20,11 @@ SceneStage5::~SceneStage5()
 void SceneStage5::init()
 {
 	m_frameCount = 90;
-	m_pManager->init5();
+	m_posX = 1;
+	m_posY = 1;
+	m_frameX = 40;
+	m_frameY = 40;
+	m_pManager->init5(m_posX, m_posY, m_frameX, m_frameY);
 }
 
 void SceneStage5::end()

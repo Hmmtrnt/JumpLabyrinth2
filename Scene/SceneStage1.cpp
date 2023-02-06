@@ -3,7 +3,11 @@
 #include "../Util/GameManager.h"
 
 SceneStage1::SceneStage1() :
-	m_frameCount(0)
+	m_frameCount(0),
+	m_posX(0),
+	m_posY(0),
+	m_frameX(0),
+	m_frameY(0)
 {
 	m_pManager = new GameManager;
 }
@@ -16,7 +20,12 @@ SceneStage1::~SceneStage1()
 void SceneStage1::init()
 {
 	m_frameCount = 90;
-	m_pManager->init1(1, 12, 40, 480);
+	m_posX = 1;
+	m_posY = 12;
+	m_frameX = 40;
+	m_frameY = 480;
+
+	m_pManager->init1(m_posX, m_posY, m_frameX, m_frameY);
 	//m_pManager->initTest(1, 12, 40, 480, kStage::stage1, kVariable::StageWidth);
 }
 

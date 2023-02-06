@@ -3,7 +3,11 @@
 #include "../Util/GameManager.h"
 
 SceneStage11::SceneStage11() :
-	m_frameCount(0)
+	m_frameCount(0),
+	m_posX(0),
+	m_posY(0),
+	m_frameX(0),
+	m_frameY(0)
 {
 	m_pManager = new GameManager;
 }
@@ -16,7 +20,12 @@ SceneStage11::~SceneStage11()
 void SceneStage11::init()
 {
 	m_frameCount = 90;
-	m_pManager->init11();
+	m_posX = 11;
+	m_posY = 1;
+	m_frameX = 440;
+	m_frameY = 40;
+
+	m_pManager->init11(m_posX, m_posY, m_frameX, m_frameY);
 }
 
 void SceneStage11::end()

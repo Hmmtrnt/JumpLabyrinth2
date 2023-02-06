@@ -100,90 +100,90 @@ void GameManager::init1(int posX, int posY, int frameX, int frameY)
 	m_pBack->init();
 }
 
-void GameManager::init2()
+void GameManager::init2(int posX, int posY, int frameX, int frameY)
 {
 	initCommon();
-	m_pPlayer->init2();
+	m_pPlayer->initTest(posX, posY, frameX, frameY);
 	m_pStage->init2();
 	m_pBack->init();
 }
 
-void GameManager::init3()
+void GameManager::init3(int posX, int posY, int frameX, int frameY)
 {
 	initCommon();
-	m_pPlayer->init3();
+	m_pPlayer->initTest(posX, posY, frameX, frameY);
 	m_pStage->init3();
 	m_pBack->init();
 }
 
-void GameManager::init4()
+void GameManager::init4(int posX, int posY, int frameX, int frameY)
 {
 	initCommon();
-	m_pPlayer->init4();
+	m_pPlayer->initTest(posX, posY, frameX, frameY);
 	m_pStage->init4();
 	m_pBack->init();
 }
 
-void GameManager::init5()
+void GameManager::init5(int posX, int posY, int frameX, int frameY)
 {
 	initCommon();
-	m_pPlayer->init5();
+	m_pPlayer->initTest(posX, posY, frameX, frameY);
 	m_pStage->init5();
 	m_pBack->init();
 }
 
-void GameManager::init6()
+void GameManager::init6(int posX, int posY, int frameX, int frameY)
 {
 	initCommon();
-	m_pPlayer->init6();
+	m_pPlayer->initTest(posX, posY, frameX, frameY);
 	m_pStage->init6();
 	m_pBack->init();
 }
 
-void GameManager::init7()
+void GameManager::init7(int posX, int posY, int frameX, int frameY)
 {
 	initCommon();
-	m_pPlayer->init7();
+	m_pPlayer->initTest(posX, posY, frameX, frameY);
 	m_pStage->init7();
 	m_pBack->init();
 }
 
-void GameManager::init8()
+void GameManager::init8(int posX, int posY, int frameX, int frameY)
 {
 	initCommon();
-	m_pPlayer->init8();
+	m_pPlayer->initTest(posX, posY, frameX, frameY);
 	m_pStage->init8();
 	m_pBack->init();
 }
 
-void GameManager::init9()
+void GameManager::init9(int posX, int posY, int frameX, int frameY)
 {
 	initCommon();
-	m_pPlayer->init9();
+	m_pPlayer->initTest(posX, posY, frameX, frameY);
 	m_pStage->init9();
 	m_pBack->init();
 }
 
-void GameManager::init10()
+void GameManager::init10(int posX, int posY, int frameX, int frameY)
 {
 	initCommon();
-	m_pPlayer->init10();
+	m_pPlayer->initTest(posX, posY, frameX, frameY);
 	m_pStage->init10();
 	m_pBack->init();
 }
 
-void GameManager::init11()
+void GameManager::init11(int posX, int posY, int frameX, int frameY)
 {
 	initCommon();
-	m_pPlayer->init11();
+	m_pPlayer->initTest(posX, posY, frameX, frameY);
 	m_pStage->init11();
 	m_pBack->init();
 }
 
-void GameManager::init12()
+void GameManager::init12(int posX, int posY, int frameX, int frameY)
 {
 	initCommon();
-	m_pPlayer->init12();
+	m_pPlayer->initTest(posX, posY, frameX, frameY);
 	m_pStage->init12();
 	m_pBack->init();
 }

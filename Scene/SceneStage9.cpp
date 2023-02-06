@@ -3,7 +3,11 @@
 #include "../Util/GameManager.h"
 
 SceneStage9::SceneStage9() :
-	m_frameCount(0)
+	m_frameCount(0),
+	m_posX(0),
+	m_posY(0),
+	m_frameX(0),
+	m_frameY(0)
 {
 	m_pManager = new GameManager;
 }
@@ -15,8 +19,13 @@ SceneStage9::~SceneStage9()
 
 void SceneStage9::init()
 {
-	m_frameCount = 90;
-	m_pManager->init9();
+	m_frameCount = 90; 
+	m_posX = 1;
+	m_posY = 1;
+	m_frameX = 40;
+	m_frameY = 40;
+
+	m_pManager->init9(m_posX, m_posY, m_frameX, m_frameY);
 }
 
 void SceneStage9::end()
