@@ -3,32 +3,6 @@
 #include "DrawFunctions.h"
 #include "game.h"
 
-//// プレイヤーの幅
-//#define PLAYER_HEIGHT 3		// 縦
-//#define PLAYER_WIDTH 3		// 横
-//
-//// ショットの幅
-//#define SHOT_HEIGHT 3		// 縦
-//#define SHOT_WIDTH 3		// 横
-//
-//// ステージの幅
-//#define STAGE_HEIGHT 15		// 縦
-//#define STAGE_WIDTH 15		// 横
-//
-//// 背景の幅
-//#define BACK_HEIGHT 22		// 縦
-//#define BACK_WIDTH 25		// 横
-//
-//// ステージの描画する幅
-//#define DRAW_WIDTH 40
-//
-//// 背景の描画する幅
-//#define DRAW_BACK_WIDTH 32
-//
-//// 描画する位置変更
-//#define DRAW_POSITION_X 60
-//#define DRAW_POSITION_Y 50
-
 // 円周率(仮)
 #define PI    3.1415926535897932384626433832795f
 
@@ -371,6 +345,9 @@ namespace kStage
 		{9,0,0,0,9,  9,9,9,9,9,  9,9,9,9,9},
 		{9,9,9,9,9,  9,9,9,9,9,  9,9,9,9,9},
 	};
+
+
+
 }
 
 // プレイヤー

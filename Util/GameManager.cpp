@@ -76,12 +76,12 @@ void GameManager::initCommon()
 	m_pPause->init();
 }
 
-//void GameManager::initTest(int posX, int posY, int frameX, int frameY, int stage[][])
-//{
-//	m_pPlayer->initTest(posX, posY,frameX,frameY);
-//	m_pStage->initTest(stage);
-//	m_pBack->init();
-//}
+void GameManager::initTest(int posX, int posY, int frameX, int frameY, int stage[][kVariable::StageWidth], int stageWidth)
+{
+	m_pPlayer->initTest(posX, posY,frameX,frameY);
+	m_pStage->initTest(stage, stageWidth);
+	m_pBack->init();
+}
 
 void GameManager::initP()
 {

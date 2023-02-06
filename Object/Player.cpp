@@ -55,14 +55,14 @@ void Player::initCommon()
 	}
 }
 
-//void Player::initTest(int posX, int posY, int frameX, int frameY)
-//{
-//	m_posX = posX;
-//	m_posY = posY;
-//	m_frameX = frameX;
-//	m_frameY = frameY;
-//	initCommon();
-//}
+void Player::initTest(int posX, int posY, int frameX, int frameY)
+{
+	m_posX = posX;
+	m_posY = posY;
+	m_frameX = frameX;
+	m_frameY = frameY;
+	initCommon();
+}
 
 // プロトタイプ用初期化
 void Player::initP()

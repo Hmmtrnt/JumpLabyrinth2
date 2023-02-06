@@ -38,17 +38,17 @@ void Stage::initCommon()
 	m_verY = 0;
 }
 
-//void Stage::initTest(int stage[STAGE_HEIGHT][STAGE_WIDTH])
-//{
-//	initCommon();
-//	for (int y = 0; y < STAGE_HEIGHT; y++)
-//	{
-//		for (int x = 0; x < STAGE_WIDTH; x++)
-//		{
-//			m_stage[y][x] = stage[y][x];
-//		}
-//	}
-//}
+void Stage::initTest(int stage[][kVariable::StageWidth], int stageWidth)
+{
+	initCommon();
+	for (int y = 0; y < stageWidth; y++)
+	{
+		for (int x = 0; x < stageWidth; x++)
+		{
+			m_stage[y][x] = stage[y][x];
+		}
+	}
+}
 
 
 void Stage::initP()

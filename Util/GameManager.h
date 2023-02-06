@@ -17,7 +17,8 @@ public:
 	// 初期化一覧
 	void initCommon();			// 共通の初期化
 
-	//void initTest(int posX, int posY, int frameX, int frameY, int stage[][]);			// 実験用初期化
+	void initTest(int posX, int posY, int frameX, int frameY, 
+				  int stage[][kVariable::StageWidth], int stageWidth);			// 実験用初期化
 
 	void initP();				// プロトタイプ用初期化
 	void init1();				// ステージ1の初期化
