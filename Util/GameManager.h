@@ -21,7 +21,7 @@ public:
 				  int stage[][kVariable::StageWidth], int stageWidth);			// 実験用初期化
 
 	void initP();				// プロトタイプ用初期化
-	void init1();				// ステージ1の初期化
+	void init1(int posX, int posY, int frameX, int frameY);				// ステージ1の初期化
 	void init2();				// ステージ2の初期化
 	void init3();				// ステージ3の初期化
 	void init4();				// ステージ4の初期化
