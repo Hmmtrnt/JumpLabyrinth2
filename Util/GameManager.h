@@ -31,6 +31,8 @@ public:
 	void init8();				// ステージ8の初期化
 	void init9();				// ステージ9の初期化
 	void init10();				// ステージ10の初期化
+	void init11();				// ステージ11の初期化
+	void init12();				// ステージ12の初期化
 
 	void end();					// 終了
 	void update();				// 更新

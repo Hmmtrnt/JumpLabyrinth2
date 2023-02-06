@@ -183,6 +183,30 @@ void Stage::init10()
 	}
 }
 
+void Stage::init11()
+{
+	initCommon();
+	for (int y = 0; y < kVariable::StageWidth; y++)
+	{
+		for (int x = 0; x < kVariable::StageWidth; x++)
+		{
+			m_stage[y][x] = kStage::stage11[y][x];
+		}
+	}
+}
+
+void Stage::init12()
+{
+	initCommon();
+	for (int y = 0; y < kVariable::StageWidth; y++)
+	{
+		for (int x = 0; x < kVariable::StageWidth; x++)
+		{
+			m_stage[y][x] = kStage::stage12[y][x];
+		}
+	}
+}
+
 void Stage::end()
 {
 	DeleteGraph(m_handleWall);
