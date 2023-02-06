@@ -76,6 +76,13 @@ void GameManager::initCommon()
 	m_pPause->init();
 }
 
+//void GameManager::initTest(int posX, int posY, int frameX, int frameY, int stage[][])
+//{
+//	m_pPlayer->initTest(posX, posY,frameX,frameY);
+//	m_pStage->initTest(stage);
+//	m_pBack->init();
+//}
+
 void GameManager::initP()
 {
 	initCommon();
@@ -377,9 +384,9 @@ void GameManager::collisionNoShot()
 // 右
 void GameManager::collisionR()
 {
-	for (int y = 0; y < PLAYER_HEIGHT; y++)
+	for (int y = 0; y < kVariable::PlayerHeight; y++)
 	{
-		for (int x = 0; x < PLAYER_WIDTH; x++)
+		for (int x = 0; x < kVariable::PlayerWidth; x++)
 		{
 			if (m_pPlayer->m_player[y][x] != 0)
 			{
@@ -407,9 +414,9 @@ void GameManager::collisionR()
 // 左
 void GameManager::collisionL()
 {
-	for (int y = 0; y < PLAYER_HEIGHT; y++)
+	for (int y = 0; y < kVariable::PlayerHeight; y++)
 	{
-		for (int x = 0; x < PLAYER_WIDTH; x++)
+		for (int x = 0; x < kVariable::PlayerWidth; x++)
 		{
 			if (m_pPlayer->m_player[y][x] != 0)
 			{
@@ -437,9 +444,9 @@ void GameManager::collisionL()
 // 上
 void GameManager::collisionUP()
 {
-	for (int y = 0; y < PLAYER_HEIGHT; y++)
+	for (int y = 0; y < kVariable::PlayerHeight; y++)
 	{
-		for (int x = 0; x < PLAYER_WIDTH; x++)
+		for (int x = 0; x < kVariable::PlayerWidth; x++)
 		{
 			if (m_pPlayer->m_player[y][x] != 0)
 			{
@@ -467,9 +474,9 @@ void GameManager::collisionUP()
 // 下
 void GameManager::collisionBottom()
 {
-	for (int y = 0; y < PLAYER_HEIGHT; y++)
+	for (int y = 0; y < kVariable::PlayerHeight; y++)
 	{
-		for (int x = 0; x < PLAYER_WIDTH; x++)
+		for (int x = 0; x < kVariable::PlayerWidth; x++)
 		{
 			if (m_pPlayer->m_player[y][x] != 0)
 			{
@@ -500,9 +507,9 @@ void GameManager::collisionBulge()
 	EnemyElasticity();
 	if (m_gimmickFrame > m_inflate)
 	{
-		for (int y = 0; y < PLAYER_HEIGHT; y++)
+		for (int y = 0; y < kVariable::PlayerHeight; y++)
 		{
-			for (int x = 0; x < PLAYER_WIDTH; x++)
+			for (int x = 0; x < kVariable::PlayerWidth; x++)
 			{
 				if (m_pPlayer->m_player[y][x] != 0)
 				{
@@ -556,9 +563,9 @@ void GameManager::collisionBulge()
 // ギミック7:数フレーム後に針が出てゲームオーバーになる判定
 void GameManager::collisionTimeLag()
 {
-	for (int y = 0; y < PLAYER_HEIGHT; y++)
+	for (int y = 0; y < kVariable::PlayerHeight; y++)
 	{
-		for (int x = 0; x < PLAYER_WIDTH; x++)
+		for (int x = 0; x < kVariable::PlayerWidth; x++)
 		{
 			if (m_pPlayer->m_player[y][x] != 0)
 			{
@@ -618,9 +625,9 @@ void GameManager::collisionGameOver()
 {
 	collisionBulge();
 	collisionTimeLag();
-	for (int y = 0; y < PLAYER_HEIGHT; y++)
+	for (int y = 0; y < kVariable::PlayerHeight; y++)
 	{
-		for (int x = 0; x < PLAYER_WIDTH; x++)
+		for (int x = 0; x < kVariable::PlayerWidth; x++)
 		{
 			if (m_pPlayer->m_player[y][x] != 0)
 			{
@@ -637,9 +644,9 @@ void GameManager::collisionGameOver()
 // ゲームクリア
 void GameManager::collisionGameClear()
 {
-	for (int y = 0; y < PLAYER_HEIGHT; y++)
+	for (int y = 0; y < kVariable::PlayerHeight; y++)
 	{
-		for (int x = 0; x < PLAYER_WIDTH; x++)
+		for (int x = 0; x < kVariable::PlayerWidth; x++)
 		{
 			if (m_pPlayer->m_player[y][x] != 0)
 			{
@@ -667,9 +674,9 @@ void GameManager::colEnemy()
 // 右
 void GameManager::colEnemyR()
 {
-	for (int y = 0; y < SHOT_HEIGHT; y++)
+	for (int y = 0; y < kVariable::ShotHeight; y++)
 	{
-		for (int x = 0; x < SHOT_WIDTH; x++)
+		for (int x = 0; x < kVariable::ShotWidth; x++)
 		{
 			if (m_pShot->m_enemy[y][x] != 0)
 			{
@@ -690,9 +697,9 @@ void GameManager::colEnemyR()
 // 左
 void GameManager::colEnemyL()
 {
-	for (int y = 0; y < SHOT_HEIGHT; y++)
+	for (int y = 0; y < kVariable::ShotHeight; y++)
 	{
-		for (int x = 0; x < SHOT_WIDTH; x++)
+		for (int x = 0; x < kVariable::ShotWidth; x++)
 		{
 			if (m_pShot->m_enemy[y][x] != 0)
 			{
@@ -712,9 +719,9 @@ void GameManager::colEnemyL()
 // 上
 void GameManager::colEnemyUP()
 {
-	for (int y = 0; y < SHOT_HEIGHT; y++)
+	for (int y = 0; y < kVariable::ShotHeight; y++)
 	{
-		for (int x = 0; x < SHOT_WIDTH; x++)
+		for (int x = 0; x < kVariable::ShotWidth; x++)
 		{
 			if (m_pShot->m_enemy[y][x] != 0)
 			{
@@ -735,9 +742,9 @@ void GameManager::colEnemyUP()
 // 下
 void GameManager::colEnemyBottom()
 {
-	for (int y = 0; y < SHOT_HEIGHT; y++)
+	for (int y = 0; y < kVariable::ShotHeight; y++)
 	{
-		for (int x = 0; x < SHOT_WIDTH; x++)
+		for (int x = 0; x < kVariable::ShotWidth; x++)
 		{
 			if (m_pShot->m_enemy[y][x] != 0)
 			{
@@ -776,13 +783,14 @@ void GameManager::drawNeedle()
 
 	if (m_GameOverCount == 0)
 	{
-		for (int y = 0; y < PLAYER_HEIGHT; y++)
+		for (int y = 0; y < kVariable::PlayerHeight; y++)
 		{
-			for (int x = 0; x < PLAYER_WIDTH; x++)
+			for (int x = 0; x < kVariable::PlayerWidth; x++)
 			{
 				if (m_pPlayer->m_player[y][x] == 1)
 				{
-					draw::MyDrawRectRotaGraph((m_pPlayer->m_frameX + (x * DRAW_WIDTH)) + (DRAW_WIDTH / 2), (m_pPlayer->m_frameY + (y * DRAW_WIDTH)) + (DRAW_WIDTH / 2),
+					draw::MyDrawRectRotaGraph((m_pPlayer->m_frameX + (x * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2), 
+											  (m_pPlayer->m_frameY + (y * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
 											  0, 0,
 											  40, 40,
 											  1.0f, m_rota,

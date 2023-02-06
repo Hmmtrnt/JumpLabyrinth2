@@ -13,7 +13,7 @@ public:
 
 private:
 	// 背景配列のサイズ取得
-	int m_back[BACK_HEIGHT][BACK_WIDTH];
+	int m_back[kVariable::BackHeight][kVariable::BackWidth];
 	// 背景ハンドル
 	int m_handle;
 	// 切り取る左上の頂点

@@ -8,6 +8,9 @@ public:
 	virtual ~Stage();
 
 	void initCommon();	// 共通の初期化
+
+	//void initTest(int stage[STAGE_HEIGHT][STAGE_WIDTH]);	// 実験用初期化
+
 	void initP();		// プロトタイプ用初期化
 	void init1();		// ステージ1の初期化
 	void init2();		// ステージ2の初期化
@@ -24,7 +27,7 @@ public:
 	void update();		// 更新
 	void draw();		// 描画
 
-	int m_stage[STAGE_HEIGHT][STAGE_WIDTH];
+	int m_stage[kVariable::StageWidth][kVariable::StageWidth];
 
 private:
 	// ステージの描画

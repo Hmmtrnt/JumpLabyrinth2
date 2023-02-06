@@ -17,6 +17,7 @@ void SceneStage1::init()
 {
 	m_frameCount = 90;
 	m_pManager->init1();
+	//m_pManager->initTest(1, 12, 40, 480, kStage::stage1[STAGE_HEIGHT][STAGE_WIDTH]);
 }
 
 void SceneStage1::end()

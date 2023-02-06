@@ -47,12 +47,12 @@ SceneBase* SceneTitle::update()
 
 void SceneTitle::draw()
 {
-	DrawStringToHandle(50, 200, "Tomb of the Maskっぽいナニカ", kColor::White, m_textHandle);
+	DrawStringToHandle(50, 200, "Tomb of the Maskっぽいナニカ\n(仮タイトル)", kColor::White, m_textHandle);
 
 	// 点滅テキスト
 	if (m_textFlash < m_textShow)
 	{
 		DrawString(270, 500, "Ｂボタンを押してセレクト画面へ", kColor::White, true);
 	}
-
+	DrawString(280, 550, "ジョイパッドに対応しています", kColor::White, true);
 }

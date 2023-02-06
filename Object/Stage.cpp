@@ -10,9 +10,9 @@ Stage::Stage() :
 	m_verX(0),
 	m_verY(0)
 {
-	for (int y = 0; y < STAGE_HEIGHT; y++)
+	for (int y = 0; y < kVariable::StageWidth; y++)
 	{
-		for (int x = 0; x < STAGE_WIDTH; x++)
+		for (int x = 0; x < kVariable::StageWidth; x++)
 		{
 			m_stage[y][x] = 0;
 		}
@@ -38,12 +38,25 @@ void Stage::initCommon()
 	m_verY = 0;
 }
 
+//void Stage::initTest(int stage[STAGE_HEIGHT][STAGE_WIDTH])
+//{
+//	initCommon();
+//	for (int y = 0; y < STAGE_HEIGHT; y++)
+//	{
+//		for (int x = 0; x < STAGE_WIDTH; x++)
+//		{
+//			m_stage[y][x] = stage[y][x];
+//		}
+//	}
+//}
+
+
 void Stage::initP()
 {
 	initCommon();
-	for (int y = 0; y < STAGE_HEIGHT; y++)
+	for (int y = 0; y < kVariable::StageWidth; y++)
 	{
-		for (int x = 0; x < STAGE_WIDTH; x++)
+		for (int x = 0; x < kVariable::StageWidth; x++)
 		{
 			m_stage[y][x] = kStage::stageP[y][x];
 		}
@@ -53,9 +66,9 @@ void Stage::initP()
 void Stage::init1()
 {
 	initCommon();
-	for (int y = 0; y< STAGE_HEIGHT; y++)
+	for (int y = 0; y< kVariable::StageWidth; y++)
 	{
-		for (int x = 0; x < STAGE_WIDTH; x++)
+		for (int x = 0; x < kVariable::StageWidth; x++)
 		{
 			m_stage[y][x] = kStage::stage1[y][x];
 		}
@@ -65,9 +78,9 @@ void Stage::init1()
 void Stage::init2()
 {
 	initCommon();
-	for (int y = 0; y < STAGE_HEIGHT; y++)
+	for (int y = 0; y < kVariable::StageWidth; y++)
 	{
-		for (int x = 0; x < STAGE_WIDTH; x++)
+		for (int x = 0; x < kVariable::StageWidth; x++)
 		{
 			m_stage[y][x] = kStage::stage2[y][x];
 		}
@@ -77,9 +90,9 @@ void Stage::init2()
 void Stage::init3()
 {
 	initCommon();
-	for (int y = 0; y < STAGE_HEIGHT; y++)
+	for (int y = 0; y < kVariable::StageWidth; y++)
 	{
-		for (int x = 0; x < STAGE_WIDTH; x++)
+		for (int x = 0; x < kVariable::StageWidth; x++)
 		{
 			m_stage[y][x] = kStage::stage3[y][x];
 		}
@@ -89,9 +102,9 @@ void Stage::init3()
 void Stage::init4()
 {
 	initCommon();
-	for (int y = 0; y < STAGE_HEIGHT; y++)
+	for (int y = 0; y < kVariable::StageWidth; y++)
 	{
-		for (int x = 0; x < STAGE_WIDTH; x++)
+		for (int x = 0; x < kVariable::StageWidth; x++)
 		{
 			m_stage[y][x] = kStage::stage4[y][x];
 		}
@@ -101,9 +114,9 @@ void Stage::init4()
 void Stage::init5()
 {
 	initCommon();
-	for (int y = 0; y < STAGE_HEIGHT; y++)
+	for (int y = 0; y < kVariable::StageWidth; y++)
 	{
-		for (int x = 0; x < STAGE_WIDTH; x++)
+		for (int x = 0; x < kVariable::StageWidth; x++)
 		{
 			m_stage[y][x] = kStage::stage5[y][x];
 		}
@@ -113,9 +126,9 @@ void Stage::init5()
 void Stage::init6()
 {
 	initCommon();
-	for (int y = 0; y < STAGE_HEIGHT; y++)
+	for (int y = 0; y < kVariable::StageWidth; y++)
 	{
-		for (int x = 0; x < STAGE_WIDTH; x++)
+		for (int x = 0; x < kVariable::StageWidth; x++)
 		{
 			m_stage[y][x] = kStage::stage6[y][x];
 		}
@@ -125,9 +138,9 @@ void Stage::init6()
 void Stage::init7()
 {
 	initCommon();
-	for (int y = 0; y < STAGE_HEIGHT; y++)
+	for (int y = 0; y < kVariable::StageWidth; y++)
 	{
-		for (int x = 0; x < STAGE_WIDTH; x++)
+		for (int x = 0; x < kVariable::StageWidth; x++)
 		{
 			m_stage[y][x] = kStage::stage7[y][x];
 		}
@@ -137,9 +150,9 @@ void Stage::init7()
 void Stage::init8()
 {
 	initCommon();
-	for (int y = 0; y < STAGE_HEIGHT; y++)
+	for (int y = 0; y < kVariable::StageWidth; y++)
 	{
-		for (int x = 0; x < STAGE_WIDTH; x++)
+		for (int x = 0; x < kVariable::StageWidth; x++)
 		{
 			m_stage[y][x] = kStage::stage8[y][x];
 		}
@@ -149,9 +162,9 @@ void Stage::init8()
 void Stage::init9()
 {
 	initCommon();
-	for (int y = 0; y < STAGE_HEIGHT; y++)
+	for (int y = 0; y < kVariable::StageWidth; y++)
 	{
-		for (int x = 0; x < STAGE_WIDTH; x++)
+		for (int x = 0; x < kVariable::StageWidth; x++)
 		{
 			m_stage[y][x] = kStage::stage9[y][x];
 		}
@@ -161,9 +174,9 @@ void Stage::init9()
 void Stage::init10()
 {
 	initCommon();
-	for (int y = 0; y < STAGE_HEIGHT; y++)
+	for (int y = 0; y < kVariable::StageWidth; y++)
 	{
-		for (int x = 0; x < STAGE_WIDTH; x++)
+		for (int x = 0; x < kVariable::StageWidth; x++)
 		{
 			m_stage[y][x] = kStage::stage10[y][x];
 		}
@@ -187,9 +200,9 @@ void Stage::update()
 
 void Stage::draw()
 {
-	for (int y = 0; y < STAGE_HEIGHT; y++)
+	for (int y = 0; y < kVariable::StageWidth; y++)
 	{
-		for (int x = 0; x < STAGE_WIDTH; x++)
+		for (int x = 0; x < kVariable::StageWidth; x++)
 		{
 			stageDraw(x, y);
 		}
@@ -208,7 +221,8 @@ void Stage::stageDraw(int x, int y)
 	{
 		m_verX = 1;
 		m_verY = 0;
-		draw::MyDrawRectRotaGraph((x * DRAW_WIDTH) + (DRAW_WIDTH / 2), (y * DRAW_WIDTH) + (DRAW_WIDTH / 2),
+		draw::MyDrawRectRotaGraph((x * kVariable::DrawWidth) + (kVariable::DrawWidth / 2), 
+			(y * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
 			m_verX * 32, m_verY * 32,
 			32, 32,
 			1.3f, 0.0f,
@@ -221,7 +235,8 @@ void Stage::stageDraw(int x, int y)
 		{
 			m_verX = 3;
 			m_verY = 0;
-			draw::MyDrawRectRotaGraph((x * DRAW_WIDTH) + (DRAW_WIDTH / 2), (y * DRAW_WIDTH) + (DRAW_WIDTH / 2),
+			draw::MyDrawRectRotaGraph((x * kVariable::DrawWidth) + (kVariable::DrawWidth / 2), 
+				(y * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
 				m_verX * 32, m_verY * 32,
 				32, 32,
 				1.3f, 0.0f,
@@ -232,7 +247,8 @@ void Stage::stageDraw(int x, int y)
 		{
 			m_verX = 2;
 			m_verY = 0;
-			draw::MyDrawRectRotaGraph((x * DRAW_WIDTH) + (DRAW_WIDTH / 2), (y * DRAW_WIDTH) + (DRAW_WIDTH / 2),
+			draw::MyDrawRectRotaGraph((x * kVariable::DrawWidth) + (kVariable::DrawWidth / 2), 
+				(y * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
 				m_verX * 32, m_verY * 32,
 				32, 32,
 				3.6f, 0.0f,
@@ -244,7 +260,8 @@ void Stage::stageDraw(int x, int y)
 	{
 		m_verX = 13;
 		m_verY = 13;
-		draw::MyDrawRectRotaGraph((x * DRAW_WIDTH) + (DRAW_WIDTH / 2), (y * DRAW_WIDTH) + (DRAW_WIDTH / 2),
+		draw::MyDrawRectRotaGraph((x * kVariable::DrawWidth) + (kVariable::DrawWidth / 2), 
+			(y * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
 			m_verX * 16, m_verY * 16,
 			16, 16,
 			2.5f, 0.0f,
@@ -256,7 +273,8 @@ void Stage::stageDraw(int x, int y)
 	{
 		m_verX = 0;
 		m_verY = 0;
-		draw::MyDrawRectRotaGraph((x * DRAW_WIDTH) + (DRAW_WIDTH / 2), (y * DRAW_WIDTH) + (DRAW_WIDTH / 2),
+		draw::MyDrawRectRotaGraph((x * kVariable::DrawWidth) + (kVariable::DrawWidth / 2), 
+			(y * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
 			m_verX * 32, m_verY * 32,
 			32, 32,
 			1.3f, 0.0f,
@@ -267,7 +285,8 @@ void Stage::stageDraw(int x, int y)
 	{
 		m_verX = 1;
 		m_verY = 1;
-		draw::MyDrawRectRotaGraph((x * DRAW_WIDTH) + (DRAW_WIDTH / 2), (y * DRAW_WIDTH) + (DRAW_WIDTH / 2),
+		draw::MyDrawRectRotaGraph((x * kVariable::DrawWidth) + (kVariable::DrawWidth / 2), 
+			(y * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
 			m_verX * 32, m_verY * 32,
 			32, 32,
 			1.3f, 0.0f,
@@ -278,7 +297,8 @@ void Stage::stageDraw(int x, int y)
 	{
 		m_verX = 4;
 		m_verY = 0;
-		draw::MyDrawRectRotaGraph((x * DRAW_WIDTH) + (DRAW_WIDTH / 2), (y * DRAW_WIDTH) + (DRAW_WIDTH / 2),
+		draw::MyDrawRectRotaGraph((x * kVariable::DrawWidth) + (kVariable::DrawWidth / 2), 
+			(y * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
 			m_verX * 32, m_verY * 32,
 			32, 32,
 			1.3f, 0.0f,
@@ -290,7 +310,8 @@ void Stage::stageDraw(int x, int y)
 void Stage::needleDraw(int x, int y)
 {
 	// ‰E
-	draw::MyDrawRectRotaGraph(((x + 1) * DRAW_WIDTH) + (DRAW_WIDTH / 2), (y * DRAW_WIDTH) + (DRAW_WIDTH / 2),
+	draw::MyDrawRectRotaGraph(((x + 1) * kVariable::DrawWidth) + (kVariable::DrawWidth / 2), 
+		(y * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
 		0, 0,
 		40, 40,
 		1.0f, PI / 2,
@@ -298,7 +319,8 @@ void Stage::needleDraw(int x, int y)
 	// ¶
 	if (m_stage[y][x - 1] == 0)
 	{
-		draw::MyDrawRectRotaGraph(((x - 1) * DRAW_WIDTH) + (DRAW_WIDTH / 2), (y * DRAW_WIDTH) + (DRAW_WIDTH / 2),
+		draw::MyDrawRectRotaGraph(((x - 1) * kVariable::DrawWidth) + (kVariable::DrawWidth / 2), 
+			(y * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
 			0, 0,
 			40, 40,
 			1.0f, PI / -2,
@@ -307,14 +329,16 @@ void Stage::needleDraw(int x, int y)
 	// ã
 	if (m_stage[y - 1][x] == 0)
 	{
-		draw::MyDrawRectRotaGraph((x * DRAW_WIDTH) + (DRAW_WIDTH / 2), ((y - 1) * DRAW_WIDTH) + (DRAW_WIDTH / 2),
+		draw::MyDrawRectRotaGraph((x * kVariable::DrawWidth) + (kVariable::DrawWidth / 2), 
+			((y - 1) * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
 			0, 0,
 			40, 40,
 			1.0f, 0.0f,
 			m_handleSmallNeedle, true, false);
 	}
 	// ‰º
-	draw::MyDrawRectRotaGraph((x * DRAW_WIDTH) + (DRAW_WIDTH / 2), ((y + 1) * DRAW_WIDTH) + (DRAW_WIDTH / 2),
+	draw::MyDrawRectRotaGraph((x * kVariable::DrawWidth) + (kVariable::DrawWidth / 2), 
+		((y + 1) * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
 		0, 0,
 		40, 40,
 		1.0f, PI / 1,

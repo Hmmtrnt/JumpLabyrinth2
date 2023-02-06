@@ -10,6 +10,9 @@ public:
 
 	// 初期化一覧
 	void initCommon();	// 共通の初期化
+
+	//void initTest(int posX, int posY, int frameX, int frameY );	// 実験用初期化
+
 	void initP();		// プロトタイプ用初期化
 	void init1();		// ステージ1の初期化
 	void init2();		// ステージ2の初期化
@@ -40,7 +43,7 @@ public:
 	int m_speedY;		// Y座標
 
 	// プレイヤーの配列の受け渡し
-	int m_player[PLAYER_HEIGHT][PLAYER_WIDTH];
+	int m_player[kVariable::PlayerHeight][kVariable::PlayerWidth];
 
 	// プレイヤーの切り取る左上の頂点
 	int m_verXPlayer;

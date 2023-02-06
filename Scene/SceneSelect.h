@@ -20,4 +20,7 @@ private:
 	// テキストハンドル
 	int m_textHandle;
 	int m_textHandle2;
+
+	// 現存するステージ数
+	int m_createStage;
 };

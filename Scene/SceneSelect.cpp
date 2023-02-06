@@ -15,7 +15,8 @@
 SceneSelect::SceneSelect() :
 	m_stageSelect(0),
 	m_textHandle(-1),
-	m_textHandle2(-1)
+	m_textHandle2(-1),
+	m_createStage(0)
 {
 }
 
@@ -28,6 +29,7 @@ void SceneSelect::init()
 	m_stageSelect = 1;
 	m_textHandle = CreateFontToHandle(NULL, 100, 3);
 	m_textHandle2 = CreateFontToHandle(NULL, 50, 3);
+	m_createStage = 10;
 }
 
 void SceneSelect::end()
@@ -57,6 +59,10 @@ SceneBase* SceneSelect::update()
 	if (m_stageSelect <= 0)
 	{
 		m_stageSelect = 0;
+	}
+	else if (m_stageSelect >= m_createStage)
+	{
+		m_stageSelect = m_createStage;
 	}
 
 	// プロトタイプ用ステージへのシーン遷移
@@ -122,9 +128,16 @@ SceneBase* SceneSelect::update()
 void SceneSelect::draw()
 {
 	DrawStringToHandle(300, 180, "ステージ", kColor::White,m_textHandle2 );
-	DrawFormatStringToHandle(380, 240, kColor::White, m_textHandle ,"%d", m_stageSelect);
+	if (m_stageSelect <= 9)
+	{
+		DrawFormatStringToHandle(380, 240, kColor::White, m_textHandle, "%d", m_stageSelect);
+	}
+	else
+	{
+		DrawFormatStringToHandle(360, 240, kColor::White, m_textHandle, "%d", m_stageSelect);
+	}
 	DrawString(300, 500, "Bボタンでステージを選択", kColor::White);
-	DrawString(300, 550, "10ステージまで出来ています\n", kColor::White);
+	DrawFormatString(300, 550, kColor::White, "%dステージまで出来ています\n", m_createStage);
 	DrawString(300, 600, "0ステージは実験用ステージです\n", kColor::White);
 	DrawString(600, 200, "RBボタン＋5", kColor::White);
 	DrawFormatStringToHandle(600, 240, kColor::White, m_textHandle, "→");

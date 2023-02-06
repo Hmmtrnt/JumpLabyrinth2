@@ -33,7 +33,7 @@ public:
 	int m_stopFrame;	// •Ç‚É‚Â‚¢‚½‚Æ‚«‚ÉŽ~‚Ü‚Á‚Ä‚¢‚éŽžŠÔ
 
 	// ’e‚Ì”z—ñ‚ÌŽó‚¯“n‚µ
-	int m_enemy[SHOT_HEIGHT][SHOT_WIDTH];
+	int m_enemy[kVariable::ShotHeight][kVariable::ShotWidth];
 
 private:
 	// ’e‚Ì•`‰æ

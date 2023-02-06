@@ -1,40 +1,69 @@
 #pragma once
 #include "DxLib.h"
 #include "DrawFunctions.h"
+#include "game.h"
 
-// プレイヤーの幅
-#define PLAYER_HEIGHT 3		// 縦
-#define PLAYER_WIDTH 3		// 横
-
-// エネミーの幅
-#define SHOT_HEIGHT 3		// 縦
-#define SHOT_WIDTH 3		// 横
-
-// ステージの幅
-#define STAGE_HEIGHT 15		// 縦
-#define STAGE_WIDTH 15		// 横
-
-// 背景の幅
-#define BACK_HEIGHT 22		// 縦
-#define BACK_WIDTH 25		// 横
-
-// ステージの描画する幅
-#define DRAW_WIDTH 40
-
-// 背景の描画する幅
-#define DRAW_BACK_WIDTH 32
-
-// 描画する位置変更
-#define DRAW_POSITION_X 60
-#define DRAW_POSITION_Y 50
+//// プレイヤーの幅
+//#define PLAYER_HEIGHT 3		// 縦
+//#define PLAYER_WIDTH 3		// 横
+//
+//// ショットの幅
+//#define SHOT_HEIGHT 3		// 縦
+//#define SHOT_WIDTH 3		// 横
+//
+//// ステージの幅
+//#define STAGE_HEIGHT 15		// 縦
+//#define STAGE_WIDTH 15		// 横
+//
+//// 背景の幅
+//#define BACK_HEIGHT 22		// 縦
+//#define BACK_WIDTH 25		// 横
+//
+//// ステージの描画する幅
+//#define DRAW_WIDTH 40
+//
+//// 背景の描画する幅
+//#define DRAW_BACK_WIDTH 32
+//
+//// 描画する位置変更
+//#define DRAW_POSITION_X 60
+//#define DRAW_POSITION_Y 50
 
 // 円周率(仮)
 #define PI    3.1415926535897932384626433832795f
 
+namespace kVariable
+{
+	// プレイヤーの配列の幅
+	constexpr int PlayerHeight = 3;		// 縦
+	constexpr int PlayerWidth = 3;		// 横
+
+	// ショットの配列の幅
+	constexpr int ShotHeight = 3;		// 縦
+	constexpr int ShotWidth = 3;		// 横
+
+	// ステージの幅
+	constexpr int StageWidth = 15;
+
+	// 背景の幅
+	constexpr int BackHeight = 22;		// 縦
+	constexpr int BackWidth = 25;		// 横
+
+	// ステージの描画する幅
+	constexpr int DrawWidth = 40;
+
+	// 背景を描画する幅
+	constexpr int DrawBackWidth = 32;
+
+	// 描画する位置変更
+	constexpr int DrawPositionX = 60;
+	constexpr int DrawPositionY = 50;
+}
+
 // 背景
 namespace kBack
 {
-	constexpr int backs[BACK_HEIGHT][BACK_WIDTH] = {
+	constexpr int backs[kVariable::BackHeight][kVariable::BackWidth] = {
 		// 1行	    6行        11行       16行       21行     
 		{0,0,0,0,0, 1,0,0,0,0, 0,0,0,0,1, 0,1,1,0,0, 1,1,0,0,0},// 1行
 		{0,0,0,0,0, 0,1,0,0,0, 0,1,0,1,0, 1,0,0,0,0, 0,0,1,0,0},
@@ -78,7 +107,7 @@ namespace kStage
 	// 8:ゴール
 	// 9:壁
 	// プロトタイプ用ステージ
-	constexpr int stageP[STAGE_HEIGHT][STAGE_WIDTH] = {
+	constexpr int stageP[kVariable::StageWidth][kVariable::StageWidth] = {
 		// 1行       6行         11行     
 		{9,9,9,9,9,  9,9,9,9,9,  9,9,9,9,9},// 1行
 		{9,0,0,8,9,  0,0,0,7,9,  0,0,0,0,9},
@@ -102,7 +131,7 @@ namespace kStage
 	// ステージ１
 	// 8:ゴール
 	// 9:壁
-	constexpr int stage1[STAGE_HEIGHT][STAGE_WIDTH] = {
+	constexpr int stage1[kVariable::StageWidth][kVariable::StageWidth] = {
 		// 1行		 6行		 11行
 		{9,9,9,9,9,  9,9,9,9,9,  9,9,9,9,9},// 1行
 		{9,9,9,9,9,  9,0,0,0,0,  0,0,0,9,9},
@@ -122,12 +151,11 @@ namespace kStage
 		{9,0,0,0,9,  9,9,9,9,9,  9,9,9,9,9},
 		{9,9,9,9,9,  9,9,9,9,9,  9,9,9,9,9},
 	};
-
 	// ステージ２
 	// 6:即死判定
 	// 8:ゴール
 	// 9:壁
-	constexpr int stage2[STAGE_HEIGHT][STAGE_WIDTH] = {
+	constexpr int stage2[kVariable::StageWidth][kVariable::StageWidth] = {
 		// 1行		 6行		 11行
 		{9,9,9,9,9,  9,9,9,9,9,  9,9,9,9,9},// 1行
 		{9,0,0,0,0,  0,0,0,0,0,  0,0,0,0,9},
@@ -147,12 +175,11 @@ namespace kStage
 		{9,9,9,9,9,  9,9,0,0,0,  0,0,0,0,9},
 		{9,9,9,9,9,  9,9,9,9,9,  9,9,9,9,9},
 	};
-
 	// ステージ3
 	// 6:即死判定
 	// 8:ゴール
 	// 9:壁
-	constexpr int stage3[STAGE_HEIGHT][STAGE_WIDTH] = {
+	constexpr int stage3[kVariable::StageWidth][kVariable::StageWidth] = {
 		// 1行		 6行		 11行
 		{9,9,9,9,9,  9,9,9,9,9,  9,9,9,9,9},// 1行
 		{9,9,9,9,9,  9,9,9,9,9,  9,6,6,6,9},
@@ -176,7 +203,7 @@ namespace kStage
 	// 6:即死判定
 	// 8:ゴール
 	// 9:壁
-	constexpr int stage4[STAGE_HEIGHT][STAGE_WIDTH] = {
+	constexpr int stage4[kVariable::StageWidth][kVariable::StageWidth] = {
 		// 1行		 6行		 11行
 		{9,9,9,9,9,  9,9,9,9,9,  9,9,9,9,9},// 1行
 		{9,6,9,6,6,  6,6,6,6,6,  6,9,6,6,9},
@@ -200,7 +227,7 @@ namespace kStage
 	// 6:即死判定
 	// 8:ゴール
 	// 9:壁
-	constexpr int stage5[STAGE_HEIGHT][STAGE_WIDTH] = {
+	constexpr int stage5[kVariable::StageWidth][kVariable::StageWidth] = {
 		// 1行		 6行		 11行
 		{9,9,9,9,9,  9,9,9,9,9,  9,9,9,9,9},// 1行
 		{9,0,0,0,0,  0,0,0,0,0,  0,0,0,0,9},
@@ -224,7 +251,7 @@ namespace kStage
 	// 7:数フレーム後に針が出てゲームオーバーになる判定
 	// 8:ゴール
 	// 9:壁
-	constexpr int stage6[STAGE_HEIGHT][STAGE_WIDTH] = {
+	constexpr int stage6[kVariable::StageWidth][kVariable::StageWidth] = {
 		// 1行		 6行		 11行
 		{9,9,9,9,9,  9,9,9,9,9,  9,9,9,9,9},// 1行
 		{9,9,9,9,9,  9,7,7,9,0,  0,0,0,7,9},
@@ -249,7 +276,7 @@ namespace kStage
 	// 7:数フレーム後に針が出てゲームオーバーになる判定
 	// 8:ゴール
 	// 9:壁
-	constexpr int stage7[STAGE_HEIGHT][STAGE_WIDTH] = {
+	constexpr int stage7[kVariable::StageWidth][kVariable::StageWidth] = {
 		// 1行		 6行		 11行
 		{9,9,9,9,9,  9,9,9,9,9,  9,9,9,9,9},// 1行
 		{9,9,7,9,7,  6,9,0,0,0,  0,0,0,0,9},
@@ -274,7 +301,7 @@ namespace kStage
 	// 7:数フレーム後に針が出てゲームオーバーになる判定
 	// 8:ゴール
 	// 9:壁
-	constexpr int stage8[STAGE_HEIGHT][STAGE_WIDTH] = {
+	constexpr int stage8[kVariable::StageWidth][kVariable::StageWidth] = {
 		// 1行		 6行		 11行
 		{9,9,9,9,9,  9,9,9,9,9,  9,9,9,9,9},// 1行
 		{9,9,9,9,7,  0,0,0,9,0,  0,0,0,0,9},
@@ -299,7 +326,7 @@ namespace kStage
 	// 7:数フレーム後に針が出てゲームオーバーになる判定
 	// 8:ゴール
 	// 9:壁
-	constexpr int stage9[STAGE_HEIGHT][STAGE_WIDTH] = {
+	constexpr int stage9[kVariable::StageWidth][kVariable::StageWidth] = {
 		// 1行		 6行		 11行
 		{9,9,9,9,9,  9,9,9,9,9,  9,9,9,9,9},// 1行
 		{9,0,0,0,0,  0,0,0,0,0,  0,0,6,9,9},
@@ -324,7 +351,7 @@ namespace kStage
 	// 7:数フレーム後に針が出てゲームオーバーになる判定
 	// 8:ゴール
 	// 9:壁
-	constexpr int stage10[STAGE_HEIGHT][STAGE_WIDTH] = {
+	constexpr int stage10[kVariable::StageWidth][kVariable::StageWidth] = {
 		// 1行		 6行		 11行
 		{9,9,9,9,9,  9,9,9,9,9,  9,9,9,9,9},// 1行
 		{9,9,9,7,7,  9,9,9,9,9,  9,9,9,9,9},
@@ -352,7 +379,7 @@ namespace kPlayer
 	// プレイヤーの配列
 	// 0:無
 	// 1:プレイヤー
-	constexpr int playr[PLAYER_HEIGHT][PLAYER_WIDTH] = {
+	constexpr int playr[kVariable::PlayerHeight][kVariable::PlayerWidth] = {
 		{0,0,0},
 		{0,1,0},
 		{0,0,0},
@@ -365,7 +392,7 @@ namespace kShot
 	// エネミーの配列
 	// 0:無
 	// 1:エネミー
-	constexpr int shot[SHOT_HEIGHT][SHOT_WIDTH] = {
+	constexpr int shot[kVariable::ShotHeight][kVariable::ShotWidth] = {
 		{0,0,0},
 		{0,1,0},
 		{0,0,0},

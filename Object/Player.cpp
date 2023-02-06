@@ -22,9 +22,9 @@ Player::Player() :
 	m_frameCount(0),
 	m_rota(0.0f)
 {
-	for (int y = 0; y < PLAYER_HEIGHT; y++)
+	for (int y = 0; y < kVariable::PlayerHeight; y++)
 	{
-		for (int x = 0; x < PLAYER_WIDTH; x++)
+		for (int x = 0; x < kVariable::PlayerWidth; x++)
 		{
 			m_player[y][x] = 0;
 		}
@@ -46,14 +46,23 @@ void Player::initCommon()
 	m_handle2 = draw::MyLoadGraph("data/moveChar2.png");
 	m_handleEffect = draw::MyLoadGraph("data/charEffect2.png");
 
-	for (int y = 0; y < PLAYER_HEIGHT; y++)
+	for (int y = 0; y < kVariable::PlayerHeight; y++)
 	{
-		for (int x = 0; x < PLAYER_WIDTH; x++)
+		for (int x = 0; x < kVariable::PlayerWidth; x++)
 		{
 			m_player[y][x] = kPlayer::playr[y][x];
 		}
 	}
 }
+
+//void Player::initTest(int posX, int posY, int frameX, int frameY)
+//{
+//	m_posX = posX;
+//	m_posY = posY;
+//	m_frameX = frameX;
+//	m_frameY = frameY;
+//	initCommon();
+//}
 
 // プロトタイプ用初期化
 void Player::initP()
@@ -168,9 +177,9 @@ void Player::end()
 void Player::update()
 {
 	m_frameX += m_speedX;
-	m_posX = m_frameX / DRAW_WIDTH;
+	m_posX = m_frameX / kVariable::DrawWidth;
 	m_frameY += m_speedY;
-	m_posY = m_frameY / DRAW_WIDTH;
+	m_posY = m_frameY / kVariable::DrawWidth;
 	
 	//motion();
 	//standMotion();
@@ -180,9 +189,9 @@ void Player::update()
 // 描画
 void Player::draw()
 {
-	for (int y = 0; y < PLAYER_HEIGHT; y++)
+	for (int y = 0; y < kVariable::PlayerHeight; y++)
 	{
-		for (int x = 0; x < PLAYER_WIDTH; x++)
+		for (int x = 0; x < kVariable::PlayerWidth; x++)
 		{
 			if (m_player[y][x] == 1)
 			{
@@ -277,20 +286,22 @@ void Player::playerDraw(int x, int y)
 {
 	if (m_rota == PI / 2 && m_speedX == 0 && m_speedY == 0)
 	{
-		draw::MyDrawRectRotaGraph((m_frameX + (x * DRAW_WIDTH)) + (DRAW_WIDTH / 2), (m_frameY + (y * DRAW_WIDTH)) + (DRAW_WIDTH / 2),
-			m_verXPlayer * 32, m_verYPlayer * 32,
-			32, 32,
-			1.3f, m_rota,
-			m_handle, true, true);
+		draw::MyDrawRectRotaGraph((m_frameX + (x * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2), 
+								  (m_frameY + (y * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
+								  m_verXPlayer * 32, m_verYPlayer * 32,
+								  32, 32,
+								  1.3f, m_rota,
+								  m_handle, true, true);
 
 	}
 	else if (m_speedX == 0 && m_speedY == 0)
 	{
-		draw::MyDrawRectRotaGraph((m_frameX + (x * DRAW_WIDTH)) + (DRAW_WIDTH / 2), (m_frameY + (y * DRAW_WIDTH)) + (DRAW_WIDTH / 2),
-			m_verXPlayer * 32, m_verYPlayer * 32,
-			32, 32,
-			1.3f, m_rota,
-			m_handle, true, false);
+		draw::MyDrawRectRotaGraph((m_frameX + (x * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2), 
+								  (m_frameY + (y * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
+								  m_verXPlayer * 32, m_verYPlayer * 32,
+								  32, 32,
+								  1.3f, m_rota,
+								  m_handle, true, false);
 	}
 }
 
@@ -302,7 +313,8 @@ void Player::motion(int x, int y)
 	// 移動中のキャラエフェクト
 	if (m_speedY == -40)
 	{
-		draw::MyDrawRectRotaGraph((m_frameX + (x * DRAW_WIDTH)) + (DRAW_WIDTH / 2), (m_frameY + (y * DRAW_WIDTH)) + (DRAW_WIDTH / 2),
+		draw::MyDrawRectRotaGraph((m_frameX + (x * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2), 
+			(m_frameY + (y * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
 			0, 0,
 			40, 40,
 			1.0f, m_rota,
@@ -310,7 +322,8 @@ void Player::motion(int x, int y)
 	}
 	if (m_speedY == 40)
 	{
-		draw::MyDrawRectRotaGraph((m_frameX + (x * DRAW_WIDTH)) + (DRAW_WIDTH / 2), (m_frameY + (y * DRAW_WIDTH)) + (DRAW_WIDTH / 2),
+		draw::MyDrawRectRotaGraph((m_frameX + (x * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2), 
+			(m_frameY + (y * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
 			0, 0,
 			40, 40,
 			1.0f, m_rota,
@@ -318,7 +331,8 @@ void Player::motion(int x, int y)
 	}
 	if (m_speedX == -40)
 	{
-		draw::MyDrawRectRotaGraph((m_frameX + (x * DRAW_WIDTH)) + (DRAW_WIDTH / 2), (m_frameY + (y * DRAW_WIDTH)) + (DRAW_WIDTH / 2),
+		draw::MyDrawRectRotaGraph((m_frameX + (x * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2), 
+			(m_frameY + (y * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
 			0, 0,
 			40, 40,
 			1.0f, m_rota,
@@ -326,7 +340,8 @@ void Player::motion(int x, int y)
 	}
 	if (m_speedX == 40)
 	{
-		draw::MyDrawRectRotaGraph((m_frameX + (x * DRAW_WIDTH)) + (DRAW_WIDTH / 2), (m_frameY + (y * DRAW_WIDTH)) + (DRAW_WIDTH / 2),
+		draw::MyDrawRectRotaGraph((m_frameX + (x * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2), 
+			(m_frameY + (y * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
 			0, 0,
 			40, 40,
 			1.0f, m_rota,
@@ -336,7 +351,8 @@ void Player::motion(int x, int y)
 	// 移動中のキャラの見た目
 	if (m_speedX != 0 || m_speedY != 0)
 	{
-		draw::MyDrawRectRotaGraph((m_frameX + (x * DRAW_WIDTH)) + (DRAW_WIDTH / 2), (m_frameY + (y * DRAW_WIDTH)) + (DRAW_WIDTH / 2),
+		draw::MyDrawRectRotaGraph((m_frameX + (x * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2), 
+			(m_frameY + (y * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
 			0, 0,
 			40, 40,
 			1.0f, m_rota,

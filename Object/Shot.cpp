@@ -11,9 +11,9 @@ Shot::Shot() :
 	m_stopFrame(0),
 	m_handleArrow(0)
 {
-	for (int y = 0; y < SHOT_HEIGHT; y++)
+	for (int y = 0; y < kVariable::ShotHeight; y++)
 	{
-		for (int x = 0; x < SHOT_WIDTH; x++)
+		for (int x = 0; x < kVariable::ShotWidth; x++)
 		{
 			m_enemy[y][x] = 0;
 		}
@@ -43,9 +43,9 @@ void Shot::init()
 
 	m_handleArrow = draw::MyLoadGraph("data/arrow4.png");
 	
-	for (int y = 0; y < SHOT_HEIGHT; y++)
+	for (int y = 0; y < kVariable::ShotHeight; y++)
 	{
-		for (int x = 0; x < SHOT_WIDTH; x++)
+		for (int x = 0; x < kVariable::ShotWidth; x++)
 		{
 			m_enemy[y][x] = kShot::shot[y][x];
 		}
@@ -60,16 +60,16 @@ void Shot::end()
 void Shot::update()
 {
 	m_frameX += m_speedX;
-	m_posX = m_frameX / DRAW_WIDTH;
+	m_posX = m_frameX / kVariable::DrawWidth;
 	m_frameY += m_speedY;
-	m_posY = m_frameY / DRAW_WIDTH;
+	m_posY = m_frameY / kVariable::DrawWidth;
 }
 
 void Shot::draw()
 {
-	for (int y = 0; y < SHOT_HEIGHT; y++)
+	for (int y = 0; y < kVariable::ShotHeight; y++)
 	{
-		for (int x = 0; x < SHOT_WIDTH; x++)
+		for (int x = 0; x < kVariable::ShotWidth; x++)
 		{
 			shotDraw(x, y);
 		}
@@ -191,38 +191,42 @@ void Shot::shotDraw(int x, int y)
 		// ‰EŒü‚«
 		if (m_speedX == 40)
 		{
-			draw::MyDrawRectRotaGraph((m_frameX + (x * DRAW_WIDTH)) + (DRAW_WIDTH / 2), (m_frameY + (y * DRAW_WIDTH)) + (DRAW_WIDTH / 2),
-				0, 0,
-				40, 40,
-				1.0f, PI / 2,
-				m_handleArrow, true, false);
+			draw::MyDrawRectRotaGraph((m_frameX + (x * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2), 
+									  (m_frameY + (y * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
+									  0, 0,
+									  40, 40,
+									  1.0f, PI / 2,
+									  m_handleArrow, true, false);
 		}
 		// ¶Œü‚«
 		if (m_speedX == -40)
 		{
-			draw::MyDrawRectRotaGraph((m_frameX + (x * DRAW_WIDTH)) + (DRAW_WIDTH / 2), (m_frameY + (y * DRAW_WIDTH)) + (DRAW_WIDTH / 2),
-				0, 0,
-				40, 40,
-				1.0f, PI / -2,
-				m_handleArrow, true, false);
+			draw::MyDrawRectRotaGraph((m_frameX + (x * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2), 
+									  (m_frameY + (y * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
+									  0, 0,
+									  40, 40,
+									  1.0f, PI / -2,
+									  m_handleArrow, true, false);
 		}
 		// ‰ºŒü‚«
 		if (m_speedY == 40)
 		{
-			draw::MyDrawRectRotaGraph((m_frameX + (x * DRAW_WIDTH)) + (DRAW_WIDTH / 2), (m_frameY + (y * DRAW_WIDTH)) + (DRAW_WIDTH / 2),
-				0, 0,
-				40, 40,
-				1.0f, PI / 1,
-				m_handleArrow, true, false);
+			draw::MyDrawRectRotaGraph((m_frameX + (x * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2), 
+									  (m_frameY + (y * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
+									  0, 0,
+									  40, 40,
+									  1.0f, PI / 1,
+									  m_handleArrow, true, false);
 		}
 		// ãŒü‚«
 		if (m_speedY == -40)
 		{
-			draw::MyDrawRectRotaGraph((m_frameX + (x * DRAW_WIDTH)) + (DRAW_WIDTH / 2), (m_frameY + (y * DRAW_WIDTH)) + (DRAW_WIDTH / 2),
-				0, 0,
-				40, 40,
-				1.0f, 0,
-				m_handleArrow, true, false);
+			draw::MyDrawRectRotaGraph((m_frameX + (x * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2), 
+									  (m_frameY + (y * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
+									  0, 0,
+									  40, 40,
+									  1.0f, 0,
+									  m_handleArrow, true, false);
 		}
 	}
 }

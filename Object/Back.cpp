@@ -5,9 +5,9 @@ Back::Back() :
 	m_verX(0),
 	m_verY(0)
 {
-	for (int y = 0; y < BACK_HEIGHT; y++)
+	for (int y = 0; y < kVariable::BackHeight; y++)
 	{
-		for (int x = 0; x < BACK_WIDTH; x++)
+		for (int x = 0; x < kVariable::BackWidth; x++)
 		{
 			m_back[y][x] = 0;
 		}
@@ -28,9 +28,9 @@ void Back::init()
 	m_verY = 0;
 
 	// ”wŒi”z—ñ‚ÌƒTƒCƒYŽæ“¾
-	for (int y = 0; y < BACK_HEIGHT; y++)
+	for (int y = 0; y < kVariable::BackHeight; y++)
 	{
-		for (int x = 0; x < BACK_WIDTH; x++)
+		for (int x = 0; x < kVariable::BackWidth; x++)
 		{
 			m_back[y][x] = kBack::backs[y][x];
 		}
@@ -46,15 +46,16 @@ void Back::end()
 // •`‰æ
 void Back::draw()
 {
-	for (int y = 0; y < BACK_HEIGHT; y++)
+	for (int y = 0; y < kVariable::BackHeight; y++)
 	{
-		for (int x = 0; x < BACK_WIDTH; x++)
+		for (int x = 0; x < kVariable::BackWidth; x++)
 		{
 			if (m_back[y][x] == 0)
 			{
 				m_verX = 4;
 				m_verY = 1;
-				draw::MyDrawRectRotaGraph((x * DRAW_BACK_WIDTH) + (DRAW_BACK_WIDTH / 2), (y * DRAW_BACK_WIDTH) + (DRAW_BACK_WIDTH / 2),
+				draw::MyDrawRectRotaGraph((x * kVariable::DrawBackWidth) + (kVariable::DrawBackWidth / 2), 
+										  (y * kVariable::DrawBackWidth) + (kVariable::DrawBackWidth / 2),
 										  m_verX * 32, m_verY * 32,
 										  32, 32,
 										  1.0f, 0.0f,
@@ -64,11 +65,12 @@ void Back::draw()
 			{
 				m_verX = 0;
 				m_verY = 1;
-				draw::MyDrawRectRotaGraph((x * DRAW_BACK_WIDTH) + (DRAW_BACK_WIDTH / 2), (y * DRAW_BACK_WIDTH) + (DRAW_BACK_WIDTH / 2),
-					m_verX * 32, m_verY * 32,
-					32, 32,
-					1.0f, 0.0f,
-					m_handle, true, false);
+				draw::MyDrawRectRotaGraph((x * kVariable::DrawBackWidth) + (kVariable::DrawBackWidth / 2), 
+										  (y * kVariable::DrawBackWidth) + (kVariable::DrawBackWidth / 2),
+										  m_verX * 32, m_verY * 32,
+										  32, 32,
+										  1.0f, 0.0f,
+										  m_handle, true, false);
 			}
 		}
 	}
