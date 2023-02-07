@@ -152,6 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Object\Back.cpp" />
+    <ClCompile Include="Scene\SceneStage13.cpp" />
     <ClCompile Include="Scene\SceneStage12.cpp" />
     <ClCompile Include="Scene\SceneStage11.cpp" />
     <ClCompile Include="Scene\SceneStage10.cpp" />
@@ -180,6 +181,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Object\Back.h" />
+    <ClInclude Include="Scene\SceneStage13.h" />
     <ClInclude Include="Scene\SceneStage12.h" />
     <ClInclude Include="Scene\SceneStage11.h" />
     <ClInclude Include="Scene\SceneStage10.h" />

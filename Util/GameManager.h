@@ -30,9 +30,10 @@ public:
 	void init7(int posX, int posY, int frameX, int frameY);				// ステージ7の初期化
 	void init8(int posX, int posY, int frameX, int frameY);				// ステージ8の初期化
 	void init9(int posX, int posY, int frameX, int frameY);				// ステージ9の初期化
-	void init10(int posX, int posY, int frameX, int frameY);				// ステージ10の初期化
-	void init11(int posX, int posY, int frameX, int frameY);				// ステージ11の初期化
-	void init12(int posX, int posY, int frameX, int frameY);				// ステージ12の初期化
+	void init10(int posX, int posY, int frameX, int frameY);			// ステージ10の初期化
+	void init11(int posX, int posY, int frameX, int frameY);			// ステージ11の初期化
+	void init12(int posX, int posY, int frameX, int frameY);			// ステージ12の初期化
+	void init13(int posX, int posY, int frameX, int frameY);			// ステージ13の初期化
 
 	void end();					// 終了
 	void update();				// 更新

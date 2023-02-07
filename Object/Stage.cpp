@@ -207,6 +207,18 @@ void Stage::init12()
 	}
 }
 
+void Stage::init13()
+{
+	initCommon();
+	for (int y = 0; y < kVariable::StageWidth; y++)
+	{
+		for (int x = 0; x < kVariable::StageWidth; x++)
+		{
+			m_stage[y][x] = kStage::stage13[y][x];
+		}
+	}
+}
+
 void Stage::end()
 {
 	DeleteGraph(m_handleWall);

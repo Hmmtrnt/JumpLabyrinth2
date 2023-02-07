@@ -1,8 +1,8 @@
-#include "SceneStage1.h"
+#include "SceneStage13.h"
 #include "SceneSelect.h"
 #include "../Util/GameManager.h"
 
-SceneStage1::SceneStage1() :
+SceneStage13::SceneStage13() :
 	m_frameCount(0),
 	m_posX(0),
 	m_posY(0),
@@ -12,29 +12,28 @@ SceneStage1::SceneStage1() :
 	m_pManager = new GameManager;
 }
 
-SceneStage1::~SceneStage1()
+SceneStage13::~SceneStage13()
 {
 	delete m_pManager;
 }
 
-void SceneStage1::init()
+void SceneStage13::init()
 {
 	m_frameCount = 90;
 	m_posX = 1;
-	m_posY = 12;
+	m_posY = 6;
 	m_frameX = 40;
-	m_frameY = 480;
+	m_frameY = 240;
 
-	//m_pManager->init1(m_posX, m_posY, m_frameX, m_frameY);
-	m_pManager->initTest(1, 12, 40, 480, kStage::stage1[][kVariable::StageWidth], kVariable::StageWidth);
+	m_pManager->init13(m_posX, m_posY, m_frameX, m_frameY);
 }
 
-void SceneStage1::end()
+void SceneStage13::end()
 {
 	m_pManager->end();
 }
 
-SceneBase* SceneStage1::update()
+SceneBase* SceneStage13::update()
 {
 	m_pManager->updateNoShot();
 
@@ -47,7 +46,7 @@ SceneBase* SceneStage1::update()
 	}
 	else if (m_pManager->GetPushPause() == 3)
 	{
-		return(new SceneStage1);
+		return(new SceneStage13);
 	}
 
 	if (m_pManager->GameOver)
@@ -67,7 +66,7 @@ SceneBase* SceneStage1::update()
 	return this;
 }
 
-void SceneStage1::draw()
+void SceneStage13::draw()
 {
 	m_pManager->draw();
 }

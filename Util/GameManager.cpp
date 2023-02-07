@@ -188,6 +188,14 @@ void GameManager::init12(int posX, int posY, int frameX, int frameY)
 	m_pBack->init();
 }
 
+void GameManager::init13(int posX, int posY, int frameX, int frameY)
+{
+	initCommon();
+	m_pPlayer->initTest(posX, posY, frameX, frameY);
+	m_pStage->init13();
+	m_pBack->init();
+}
+
 void GameManager::end()
 {
 	m_pPlayer->end();

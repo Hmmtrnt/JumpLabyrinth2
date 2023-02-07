@@ -12,6 +12,7 @@
 #include "SceneStage10.h"
 #include "SceneStage11.h"
 #include "SceneStage12.h"
+#include "SceneStage13.h"
 #include "../Util/Pad.h"
 
 SceneSelect::SceneSelect() :
@@ -31,7 +32,7 @@ void SceneSelect::init()
 	m_stageSelect = 1;
 	m_textHandle = CreateFontToHandle(NULL, 100, 3);
 	m_textHandle2 = CreateFontToHandle(NULL, 50, 3);
-	m_createStage = 12;
+	m_createStage = 13;
 }
 
 void SceneSelect::end()
@@ -132,6 +133,11 @@ SceneBase* SceneSelect::update()
 	if (Pad::isTrigger(PAD_INPUT_2) == 1 && m_stageSelect == 12)
 	{
 		return (new SceneStage12);
+	}
+	// ステージ13
+	if (Pad::isTrigger(PAD_INPUT_2) == 1 && m_stageSelect == 13)
+	{
+		return (new SceneStage13);
 	}
 
 	return this;
