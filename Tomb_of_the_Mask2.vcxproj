@@ -153,6 +153,7 @@
   <ItemGroup>
     <ClCompile Include="Collision\collisionStage.cpp" />
     <ClCompile Include="Object\Back.cpp" />
+    <ClCompile Include="Scene\SceneStage15.cpp" />
     <ClCompile Include="Scene\SceneStage14.cpp" />
     <ClCompile Include="Scene\SceneStage13.cpp" />
     <ClCompile Include="Scene\SceneStage12.cpp" />
@@ -184,6 +185,7 @@
   <ItemGroup>
     <ClInclude Include="Collision\collisionStage.h" />
     <ClInclude Include="Object\Back.h" />
+    <ClInclude Include="Scene\SceneStage15.h" />
     <ClInclude Include="Scene\SceneStage14.h" />
     <ClInclude Include="Scene\SceneStage13.h" />
     <ClInclude Include="Scene\SceneStage12.h" />

@@ -126,6 +126,9 @@
     <ClCompile Include="Collision\collisionStage.cpp">
       <Filter>ソース ファイル\Collision</Filter>
     </ClCompile>
+    <ClCompile Include="Scene\SceneStage15.cpp">
+      <Filter>ソース ファイル\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Util\common.h">
@@ -217,6 +220,9 @@
     </ClInclude>
     <ClInclude Include="Collision\collisionStage.h">
       <Filter>ヘッダー ファイル\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\SceneStage15.h">
+      <Filter>ヘッダー ファイル\Scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
