@@ -15,6 +15,7 @@
 #include "SceneStage11.h"
 #include "SceneStage12.h"
 #include "SceneStage13.h"
+#include "SceneStage14.h"
 #include "SceneMain.h"
 #include "../Util/Pad.h"
 
