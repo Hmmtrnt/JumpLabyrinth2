@@ -25,7 +25,8 @@ void SceneStage7::init()
 	m_frameX = 400;
 	m_frameY = 480;
 
-	m_pManager->init7(m_posX, m_posY, m_frameX, m_frameY);
+	m_pManager->initManager(m_posX, m_posY, m_frameX, m_frameY,
+		kStage::stage7, kVariable::StageWidth, kVariable::StageWidth);
 }
 
 void SceneStage7::end()

@@ -25,7 +25,8 @@ void SceneStage8::init()
 	m_frameX = 440;
 	m_frameY = 40;
 
-	m_pManager->init8(m_posX, m_posY, m_frameX, m_frameY);
+	m_pManager->initManager(m_posX, m_posY, m_frameX, m_frameY,
+		kStage::stage8, kVariable::StageWidth, kVariable::StageWidth);
 }
 
 void SceneStage8::end()

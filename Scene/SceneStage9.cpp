@@ -25,7 +25,8 @@ void SceneStage9::init()
 	m_frameX = 40;
 	m_frameY = 40;
 
-	m_pManager->init9(m_posX, m_posY, m_frameX, m_frameY);
+	m_pManager->initManager(m_posX, m_posY, m_frameX, m_frameY,
+		kStage::stage9, kVariable::StageWidth, kVariable::StageWidth);
 }
 
 void SceneStage9::end()

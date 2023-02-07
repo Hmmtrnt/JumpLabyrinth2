@@ -55,7 +55,7 @@ void Player::initCommon()
 	}
 }
 
-void Player::initTest(int posX, int posY, int frameX, int frameY)
+void Player::initPlayer(int posX, int posY, int frameX, int frameY)
 {
 	m_posX = posX;
 	m_posY = posY;

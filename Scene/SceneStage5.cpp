@@ -24,7 +24,8 @@ void SceneStage5::init()
 	m_posY = 1;
 	m_frameX = 40;
 	m_frameY = 40;
-	m_pManager->init5(m_posX, m_posY, m_frameX, m_frameY);
+	m_pManager->initManager(m_posX, m_posY, m_frameX, m_frameY,
+		kStage::stage5, kVariable::StageWidth, kVariable::StageWidth);
 }
 
 void SceneStage5::end()

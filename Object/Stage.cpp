@@ -15,6 +15,7 @@ Stage::Stage() :
 		for (int x = 0; x < kVariable::StageWidth; x++)
 		{
 			m_stage[y][x] = 0;
+			m_pStage[y][x] = 0;
 		}
 	}
 }
@@ -38,10 +39,11 @@ void Stage::initCommon()
 	m_verY = 0;
 }
 
-void Stage::initTest(int stage[][kVariable::StageWidth], int stageWidth)
+// ダブルポインタ
+void Stage::initStage(const int stage[][kVariable::StageWidth], int stageHeight, int stageWidth)
 {
 	initCommon();
-	for (int y = 0; y < stageWidth; y++)
+	for (int y = 0; y < stageHeight; y++)
 	{
 		for (int x = 0; x < stageWidth; x++)
 		{
@@ -49,7 +51,6 @@ void Stage::initTest(int stage[][kVariable::StageWidth], int stageWidth)
 		}
 	}
 }
-
 
 void Stage::initP()
 {

@@ -24,7 +24,9 @@ void SceneStage3::init()
 	m_posY = 12;
 	m_frameX = 40;
 	m_frameY = 480;
-	m_pManager->init3(m_posX, m_posY, m_frameX, m_frameY);
+
+	m_pManager->initManager(m_posX, m_posY, m_frameX, m_frameY,
+		kStage::stage3, kVariable::StageWidth, kVariable::StageWidth);
 }
 
 void SceneStage3::end()

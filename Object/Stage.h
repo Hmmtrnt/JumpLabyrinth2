@@ -9,7 +9,7 @@ public:
 
 	void initCommon();	// 共通の初期化
 
-	void initTest(int stage[][kVariable::StageWidth], int stageWidth);	// 実験用初期化
+	void initStage(const int stage[][kVariable::StageWidth], int stageHeight, int stageWidth);	// 実験用初期化
 
 	void initP();		// プロトタイプ用初期化
 	void init1();		// ステージ1の初期化
@@ -31,6 +31,8 @@ public:
 	void draw();		// 描画
 
 	int m_stage[kVariable::StageWidth][kVariable::StageWidth];
+
+	int* m_pStage[kVariable::StageWidth][kVariable::StageWidth];
 
 private:
 	// ステージの描画

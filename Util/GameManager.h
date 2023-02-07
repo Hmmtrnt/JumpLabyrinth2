@@ -17,23 +17,11 @@ public:
 	// 初期化一覧
 	void initCommon();			// 共通の初期化
 
-	void initTest(int posX, int posY, int frameX, int frameY, 
-				  int stage[][kVariable::StageWidth], int stageWidth);			// 実験用初期化
+	void initManager(int posX, int posY, int frameX, int frameY, 
+		const int stage[][kVariable::StageWidth], int stageHeight, int stageWidth);			// 実験用初期化
 
 	void initP();				// プロトタイプ用初期化
-	void init1(int posX, int posY, int frameX, int frameY);				// ステージ1の初期化
-	void init2(int posX, int posY, int frameX, int frameY);				// ステージ2の初期化
-	void init3(int posX, int posY, int frameX, int frameY);				// ステージ3の初期化
-	void init4(int posX, int posY, int frameX, int frameY);				// ステージ4の初期化
-	void init5(int posX, int posY, int frameX, int frameY);				// ステージ5の初期化
-	void init6(int posX, int posY, int frameX, int frameY);				// ステージ6の初期化
-	void init7(int posX, int posY, int frameX, int frameY);				// ステージ7の初期化
-	void init8(int posX, int posY, int frameX, int frameY);				// ステージ8の初期化
-	void init9(int posX, int posY, int frameX, int frameY);				// ステージ9の初期化
-	void init10(int posX, int posY, int frameX, int frameY);			// ステージ10の初期化
-	void init11(int posX, int posY, int frameX, int frameY);			// ステージ11の初期化
-	void init12(int posX, int posY, int frameX, int frameY);			// ステージ12の初期化
-	void init13(int posX, int posY, int frameX, int frameY);			// ステージ13の初期化
+	
 
 	void end();					// 終了
 	void update();				// 更新
