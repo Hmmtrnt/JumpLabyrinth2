@@ -6,6 +6,7 @@
 #include "../Scene/ScenePause.h"
 #include "DrawFunctions.h"
 #include "../Util/Pad.h"
+#include "../Collision/collisionStage.h"
 
 GameManager::GameManager() :
 	GameOver(false),
@@ -123,7 +124,7 @@ void GameManager::update()
 	if (!m_pushFlag)
 	{
 		collision();
-		colEnemy();
+		colShot();
 
 		if (colFlagL || colFlagR || colFlagUp || colFlagBottom)
 		{
@@ -189,11 +190,21 @@ void GameManager::updateNoShot()
 			}
 		}
 	}
+	if (Pad::isTrigger(PAD_INPUT_1) == 1)
+	{
+		if (!GameOver)
+		{
+			if (m_pushFlag == true)
+			{
+				m_pushFlag = false;
+			}
+		}
+	}
 
 	if (!m_pushFlag)
 	{
 		collisionNoShot();
-		colEnemy();
+		colShot();
 
 		if (colFlagL || colFlagR || colFlagUp || colFlagBottom)
 		{
@@ -291,6 +302,7 @@ void GameManager::collisionNoShot()
 	collisionL();
 	collisionUP();
 	collisionBottom();
+	//m_pColStage->collision(colR, colL, colUp, colBottom);
 	collisionGameOver();
 	collisionGameClear();
 }
@@ -585,16 +597,16 @@ void GameManager::collisionGameClear()
 // エネミー
 // **********************************************
 // 全体
-void GameManager::colEnemy()
+void GameManager::colShot()
 {
-	colEnemyR();
-	colEnemyL();
+	colShotR();
+	colShotL();
 	//colEnemyUP();
 	//colEnemyBottom();
 }
 
 // 右
-void GameManager::colEnemyR()
+void GameManager::colShotR()
 {
 	for (int y = 0; y < kVariable::ShotHeight; y++)
 	{
@@ -617,7 +629,7 @@ void GameManager::colEnemyR()
 }
 
 // 左
-void GameManager::colEnemyL()
+void GameManager::colShotL()
 {
 	for (int y = 0; y < kVariable::ShotHeight; y++)
 	{
@@ -639,7 +651,7 @@ void GameManager::colEnemyL()
 }
 
 // 上
-void GameManager::colEnemyUP()
+void GameManager::colShotUP()
 {
 	for (int y = 0; y < kVariable::ShotHeight; y++)
 	{
@@ -662,7 +674,7 @@ void GameManager::colEnemyUP()
 }
 
 // 下
-void GameManager::colEnemyBottom()
+void GameManager::colShotBottom()
 {
 	for (int y = 0; y < kVariable::ShotHeight; y++)
 	{

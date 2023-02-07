@@ -1,12 +1,14 @@
 // ゲームマネージャー
 #pragma once
 #include "common.h"
+#include <memory>
 
 class Player;
 class Shot;
 class Stage;
 class Back;
 class ScenePause;
+//class collisionStage;
 
 class GameManager
 {
@@ -43,12 +45,12 @@ public:
 	void collisionGameOver();	// ギミック6:即死判定
 	void collisionGameClear();	// ゲームクリア
 
-	// エネミーとの
-	void colEnemy();			// 全体
-	void colEnemyR();			// 右
-	void colEnemyL();			// 左
-	void colEnemyUP();			// 上
-	void colEnemyBottom();		// 下
+	// 弾との
+	void colShot();			// 全体
+	void colShotR();			// 右
+	void colShotL();			// 左
+	void colShotUP();			// 上
+	void colShotBottom();		// 下
 
 	// 針の描画
 	void drawNeedle();
@@ -117,5 +119,6 @@ private:
 	Stage* m_pStage;
 	Back* m_pBack;
 	ScenePause* m_pPause;
+	//std::shared_ptr<collisionStage> m_pColStage;
 };
 
