@@ -12,19 +12,6 @@ public:
 	void initStage(const int stage[][kVariable::StageWidth], int stageHeight, int stageWidth);	// 実験用初期化
 
 	void initP();		// プロトタイプ用初期化
-	void init1();		// ステージ1の初期化
-	void init2();		// ステージ2の初期化
-	void init3();		// ステージ3の初期化
-	void init4();		// ステージ4の初期化
-	void init5();		// ステージ5の初期化
-	void init6();		// ステージ6の初期化
-	void init7();		// ステージ7の初期化
-	void init8();		// ステージ8の初期化
-	void init9();		// ステージ9の初期化
-	void init10();		// ステージ10の初期化
-	void init11();		// ステージ11の初期化
-	void init12();		// ステージ12の初期化
-	void init13();		// ステージ13の初期化
 
 	void end();			// 終了
 	void update();		// 更新
