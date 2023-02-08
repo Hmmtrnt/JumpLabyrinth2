@@ -4,11 +4,17 @@ Stage::Stage() :
 	m_gimmickFrame(0),
 	m_shrink(0),
 	m_inflate(0),
-	m_handleWall(-1),
-	m_handleTrap(-1),
-	m_handleSmallNeedle(-1),
+	m_handleWall(0),
+	m_handleTrap(0),
+	m_handleSmallNeedle(0),
+	m_handleGoal(0),
 	m_verX(0),
-	m_verY(0)
+	m_verY(0),
+	m_idxGoalX(0),
+	m_idxGoalY(0),
+	m_GoalFrame(0),
+	m_drawGoalFirst(0),
+	m_drawGoalSecond(0)
 {
 	for (int y = 0; y < kVariable::StageWidth; y++)
 	{
@@ -33,10 +39,18 @@ void Stage::initCommon()
 	m_handleWall = draw::MyLoadGraph("data/tileset/inca_front.png");
 	m_handleTrap = draw::MyLoadGraph("data/Textures-16.png");
 	m_handleSmallNeedle = draw::MyLoadGraph("data/smallneedle.png");
+	m_handleGoal = draw::MyLoadGraph("data/goal1.png");
 
 	// ステージ切り取り
 	m_verX = 0;
 	m_verY = 0;
+
+	m_idxGoalX = 0;
+	m_idxGoalY = 0;
+
+	m_GoalFrame = 0;
+	m_drawGoalFirst = 30;
+	m_drawGoalSecond = 30;
 }
 
 // ダブルポインタ
@@ -76,6 +90,13 @@ void Stage::update()
 	if (m_gimmickFrame >= m_shrink + m_inflate)
 	{
 		m_gimmickFrame = 0;
+	}
+
+	// ゴールの描画変更処理
+	m_GoalFrame++;
+	if (m_GoalFrame >= m_drawGoalFirst + m_drawGoalSecond)
+	{
+		m_GoalFrame = 0;
 	}
 }
 
@@ -164,14 +185,22 @@ void Stage::stageDraw(int x, int y)
 	}
 	else if (m_stage[y][x] == 8)
 	{
-		m_verX = 1;
-		m_verY = 1;
-		draw::MyDrawRectRotaGraph((x * kVariable::DrawWidth) + (kVariable::DrawWidth / 2), 
+		if (m_GoalFrame < m_drawGoalFirst)
+		{
+			m_idxGoalX = 0;
+			m_idxGoalY = 0;
+		}
+		if (m_GoalFrame > m_drawGoalSecond)
+		{
+			m_idxGoalX = 1;
+			m_idxGoalY = 0;
+		}
+		draw::MyDrawRectRotaGraph((x * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
 			(y * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
-			m_verX * 32, m_verY * 32,
-			32, 32,
-			1.3f, 0.0f,
-			m_handleWall, true, false);
+			m_idxGoalX * 40, m_idxGoalY * 40,
+			40, 40,
+			1.0f, 0.0f,
+			m_handleGoal, true, false);
 
 	}
 	else if (m_stage[y][x] == 9)

@@ -4,11 +4,11 @@
 #include <memory>
 
 class Player;
-class Shot;
 class Stage;
 class Back;
 class ScenePause;
 class collisionStage;
+class Shot;
 
 class GameManager
 {
@@ -41,16 +41,9 @@ public:
 	void collisionBottom();		// 下
 	void collisionBulge();		// 膨らんだら即死判定
 	void collisionTimeLag();	// 時間差で反応
-	void collisionEnemy();		// 敵
+	
 	void collisionGameOver();	// ギミック6:即死判定
 	void collisionGameClear();	// ゲームクリア
-
-	// 弾との
-	void colShot();				// 全体
-	void colShotR();			// 右
-	void colShotL();			// 左
-	void colShotUP();			// 上
-	void colShotBottom();		// 下
 
 	// 針の描画
 	void drawNeedle();
@@ -105,20 +98,14 @@ private:
 	bool colUp;			// 上
 	bool colBottom;		// 下
 
-	// エネミー当たり判定
-	bool colNL;			// 左
-	bool colNR;			// 右
-	bool colNUp;		// 上
-	bool colNBottom;	// 下
-
 	// ポーズボタンが押されたかどうか
 	bool m_pushFlag;
 
 	Player* m_pPlayer;
-	Shot* m_pShot;
 	Stage* m_pStage;
 	Back* m_pBack;
 	ScenePause* m_pPause;
 	std::shared_ptr<collisionStage> m_pColStage;
+	Shot* m_pShot;
 };
 

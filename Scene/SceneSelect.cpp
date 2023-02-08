@@ -15,6 +15,7 @@
 #include "SceneStage13.h"
 #include "SceneStage14.h"
 #include "SceneStage15.h"
+#include "SceneStage16.h"
 #include "../Util/Pad.h"
 
 SceneSelect::SceneSelect() :
@@ -34,7 +35,7 @@ void SceneSelect::init()
 	m_stageSelect = 1;
 	m_textHandle = CreateFontToHandle(NULL, 100, 3);
 	m_textHandle2 = CreateFontToHandle(NULL, 50, 3);
-	m_createStage = 15;
+	m_createStage = 16;
 }
 
 void SceneSelect::end()
@@ -61,9 +62,9 @@ SceneBase* SceneSelect::update()
 	{
 		m_stageSelect += 5;
 	}
-	if (m_stageSelect <= 0)
+	if (m_stageSelect <= 1)
 	{
-		m_stageSelect = 0;
+		m_stageSelect = 1;
 	}
 	else if (m_stageSelect >= m_createStage)
 	{
@@ -77,81 +78,37 @@ SceneBase* SceneSelect::update()
 	}
 	// ここからステージ選択
 	// ステージ1
-	if (Pad::isTrigger(PAD_INPUT_2) == 1 && m_stageSelect == 1)
-	{
-		return (new SceneStage1);
-	}
+	if (Pad::isTrigger(PAD_INPUT_2) == 1 && m_stageSelect == 1)		return (new SceneStage1);
 	// ステージ2
-	if (Pad::isTrigger(PAD_INPUT_2) == 1 && m_stageSelect == 2)
-	{
-		return (new SceneStage2);
-	}
+	if (Pad::isTrigger(PAD_INPUT_2) == 1 && m_stageSelect == 2)		return (new SceneStage2);
 	// ステージ3
-	if (Pad::isTrigger(PAD_INPUT_2) == 1 && m_stageSelect == 3)
-	{
-		return (new SceneStage3);
-	}
+	if (Pad::isTrigger(PAD_INPUT_2) == 1 && m_stageSelect == 3)		return (new SceneStage3);
 	// ステージ4
-	if (Pad::isTrigger(PAD_INPUT_2) == 1 && m_stageSelect == 4)
-	{
-		return (new SceneStage4);
-	}
+	if (Pad::isTrigger(PAD_INPUT_2) == 1 && m_stageSelect == 4)		return (new SceneStage4);
 	// ステージ5
-	if (Pad::isTrigger(PAD_INPUT_2) == 1 && m_stageSelect == 5)
-	{
-		return (new SceneStage5);
-	}
+	if (Pad::isTrigger(PAD_INPUT_2) == 1 && m_stageSelect == 5)		return (new SceneStage5);
 	// ステージ6
-	if (Pad::isTrigger(PAD_INPUT_2) == 1 && m_stageSelect == 6)
-	{
-		return (new SceneStage6);
-	}
+	if (Pad::isTrigger(PAD_INPUT_2) == 1 && m_stageSelect == 6)		return (new SceneStage6);
 	// ステージ7
-	if (Pad::isTrigger(PAD_INPUT_2) == 1 && m_stageSelect == 7)
-	{
-		return (new SceneStage7);
-	}
+	if (Pad::isTrigger(PAD_INPUT_2) == 1 && m_stageSelect == 7)		return (new SceneStage7);
 	// ステージ8
-	if (Pad::isTrigger(PAD_INPUT_2) == 1 && m_stageSelect == 8)
-	{
-		return (new SceneStage8);
-	}
+	if (Pad::isTrigger(PAD_INPUT_2) == 1 && m_stageSelect == 8)		return (new SceneStage8);
 	// ステージ9
-	if (Pad::isTrigger(PAD_INPUT_2) == 1 && m_stageSelect == 9)
-	{
-		return (new SceneStage9);
-	}
+	if (Pad::isTrigger(PAD_INPUT_2) == 1 && m_stageSelect == 9)		return (new SceneStage9);
 	// ステージ10
-	if (Pad::isTrigger(PAD_INPUT_2) == 1 && m_stageSelect == 10)
-	{
-		return (new SceneStage10);
-	}
+	if (Pad::isTrigger(PAD_INPUT_2) == 1 && m_stageSelect == 10)	return (new SceneStage10);
 	// ステージ11
-	if (Pad::isTrigger(PAD_INPUT_2) == 1 && m_stageSelect == 11)
-	{
-		return (new SceneStage11);
-	}
+	if (Pad::isTrigger(PAD_INPUT_2) == 1 && m_stageSelect == 11)	return (new SceneStage11);
 	// ステージ12
-	if (Pad::isTrigger(PAD_INPUT_2) == 1 && m_stageSelect == 12)
-	{
-		return (new SceneStage12);
-	}
+	if (Pad::isTrigger(PAD_INPUT_2) == 1 && m_stageSelect == 12)	return (new SceneStage12);
 	// ステージ13
-	if (Pad::isTrigger(PAD_INPUT_2) == 1 && m_stageSelect == 13)
-	{
-		return (new SceneStage13);
-	}
+	if (Pad::isTrigger(PAD_INPUT_2) == 1 && m_stageSelect == 13)	return (new SceneStage13);
 	// ステージ14
-	if (Pad::isTrigger(PAD_INPUT_2) == 1 && m_stageSelect == 14)
-	{
-		return (new SceneStage14);
-	}
+	if (Pad::isTrigger(PAD_INPUT_2) == 1 && m_stageSelect == 14)	return (new SceneStage14);
 	// ステージ15
-	if (Pad::isTrigger(PAD_INPUT_2) == 1 && m_stageSelect == 15)
-	{
-		return (new SceneStage15);
-	}
-
+	if (Pad::isTrigger(PAD_INPUT_2) == 1 && m_stageSelect == 15)	return (new SceneStage15);
+	// ステージ16
+	if (Pad::isTrigger(PAD_INPUT_2) == 1 && m_stageSelect == 16)	return (new SceneStage16);
 	return this;
 }
 
@@ -171,7 +128,7 @@ void SceneSelect::draw()
 	DrawString(300, 600, "0ステージは実験用ステージです\n", kColor::White);
 	DrawString(600, 200, "RBボタン＋5", kColor::White);
 	DrawFormatStringToHandle(600, 240, kColor::White, m_textHandle, "→");
-	if (m_stageSelect != 0)
+	if (m_stageSelect != 1)
 	{
 		DrawString(100, 200, "LBボタンー5", kColor::White);
 		DrawFormatStringToHandle(100, 240, kColor::White, m_textHandle, "←");

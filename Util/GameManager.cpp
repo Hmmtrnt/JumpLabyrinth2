@@ -1,12 +1,12 @@
 #include "GameManager.h"
 #include "../Object/Player.h"
-#include "../Object/Shot.h"
 #include "../Object/Stage.h"
 #include "../Object/Back.h"
 #include "../Scene/ScenePause.h"
 #include "DrawFunctions.h"
 #include "../Util/Pad.h"
 #include "../Collision/collisionStage.h"
+#include "../Object/Shot.h"
 
 GameManager::GameManager() :
 	GameOver(false),
@@ -28,15 +28,9 @@ GameManager::GameManager() :
 	colR(false),
 	colUp(false),
 	colBottom(false),
-	colNL(false),
-	colNR(false),
-	colNUp(false),
-	colNBottom(false),
 	m_pushFlag(false)
-
 {
 	m_pPlayer = new Player;
-	m_pShot = new Shot;
 	m_pStage = new Stage;
 	m_pBack = new Back;
 	m_pPause = new ScenePause;
@@ -45,7 +39,6 @@ GameManager::GameManager() :
 GameManager::~GameManager()
 {
 	delete m_pPlayer;
-	delete m_pShot;
 	delete m_pStage;
 	delete m_pBack;
 	delete m_pPause;
@@ -70,10 +63,6 @@ void GameManager::initCommon()
 	colR = false;
 	colUp = false;
 	colBottom = false;
-	colNL = false;
-	colNR = false;
-	colNUp = false;
-	colNBottom = false;
 	m_pPause->init();
 }
 
@@ -90,7 +79,6 @@ void GameManager::initP()
 {
 	initCommon();
 	m_pPlayer->initP();
-	m_pShot->init();
 	m_pStage->initP();
 	m_pBack->init();
 }
@@ -98,7 +86,6 @@ void GameManager::initP()
 void GameManager::end()
 {
 	m_pPlayer->end();
-	m_pShot->end();
 	m_pStage->end();
 	m_pBack->end();
 	m_pPause->end();
@@ -124,7 +111,6 @@ void GameManager::update()
 	if (!m_pushFlag)
 	{
 		collision();
-		colShot();
 
 		if (colFlagL || colFlagR || colFlagUp || colFlagBottom)
 		{
@@ -161,9 +147,6 @@ void GameManager::update()
 		}
 
 		m_pPlayer->update();
-		m_pShot->update();
-		m_pShot->moveWidth(colNL, colNR);
-		//m_pShot->moveHeight(colNUp, colNBottom);
 		m_pStage->update();
 	}
 	if (m_pushFlag)
@@ -204,7 +187,6 @@ void GameManager::updateNoShot()
 	if (!m_pushFlag)
 	{
 		collisionNoShot();
-		colShot();
 
 		if (colFlagL || colFlagR || colFlagUp || colFlagBottom)
 		{
@@ -273,7 +255,7 @@ void GameManager::updatePause()
 void GameManager::draw()
 {
 	m_pBack->draw();
-	m_pShot->draw();
+	
 	m_pStage->draw();
 	drawNeedle();
 	m_pPlayer->draw();
@@ -295,21 +277,21 @@ void GameManager::collision()
 		m_pPlayer->m_player,
 		m_pPlayer->m_posY, m_pPlayer->m_posX,
 		m_pStage->m_stage);*/
-	collisionEnemy();
+	
 	collisionGameOver();
 	collisionGameClear();
 }
 
 void GameManager::collisionNoShot()
 {
-	/*collisionR();
+	collisionR();
 	collisionL();
 	collisionUP();
-	collisionBottom();*/
-	m_pColStage->collision(colR, colL, colUp, colBottom, 
-		m_pPlayer->m_player,
+	collisionBottom();
+	/*m_pColStage->collision(colR, colL, colUp, colBottom, 
+		m_pPlayer->m_player, kVariable::PlayerWidth,
 		m_pPlayer->m_posY, m_pPlayer->m_posX,
-		m_pStage->m_stage);
+		m_pStage->m_stage);*/
 	collisionGameOver();
 	collisionGameClear();
 }
@@ -551,16 +533,6 @@ void GameManager::collisionTimeLag()
 	}
 }
 
-// 敵
-void GameManager::collisionEnemy()
-{
-	if (m_pPlayer->m_posX == m_pShot->m_posX && m_pPlayer->m_posY == m_pShot->m_posY)
-	{
-		GameOver = true;
-	}
-
-}
-
 // ギミック6:即死判定
 void GameManager::collisionGameOver()
 {
@@ -594,108 +566,6 @@ void GameManager::collisionGameClear()
 				if (m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + x] == 8)
 				{
 					GameClear = true;
-				}
-			}
-		}
-	}
-}
-
-// **********************************************
-// ショット
-// **********************************************
-// 全体
-void GameManager::colShot()
-{
-	colShotR();
-	colShotL();
-	//colEnemyUP();
-	//colEnemyBottom();
-}
-
-// 右
-void GameManager::colShotR()
-{
-	for (int y = 0; y < kVariable::ShotWidth; y++)
-	{
-		for (int x = 0; x < kVariable::ShotWidth; x++)
-		{
-			if (m_pShot->m_enemy[y][x] != 0)
-			{
-				if (m_pStage->m_stage[m_pShot->m_posY + y][m_pShot->m_posX + (x + 1)] != 0)
-				{
-					m_pShot->m_frameX = -40;
-					colNR = true;
-				}
-				else
-				{
-					colNR = false;
-				}
-			}
-		}
-	}
-}
-
-// 左
-void GameManager::colShotL()
-{
-	for (int y = 0; y < kVariable::ShotWidth; y++)
-	{
-		for (int x = 0; x < kVariable::ShotWidth; x++)
-		{
-			if (m_pShot->m_enemy[y][x] != 0)
-			{
-				if (m_pStage->m_stage[m_pShot->m_posY + y][m_pShot->m_posX + (x - 1)] != 0)
-				{
-					colNL = true;
-				}
-				else
-				{
-					colNL = false;
-				}
-			}
-		}
-	}
-}
-
-// 上
-void GameManager::colShotUP()
-{
-	for (int y = 0; y < kVariable::ShotWidth; y++)
-	{
-		for (int x = 0; x < kVariable::ShotWidth; x++)
-		{
-			if (m_pShot->m_enemy[y][x] != 0)
-			{
-				if (m_pStage->m_stage[m_pShot->m_posY + (y - 1)][m_pShot->m_posX + x] != 0)
-				{
-					m_pShot->m_frameY = 560;
-					colNUp = true;
-				}
-				else
-				{
-					colNUp = false;
-				}
-			}
-		}
-	}
-}
-
-// 下
-void GameManager::colShotBottom()
-{
-	for (int y = 0; y < kVariable::ShotWidth; y++)
-	{
-		for (int x = 0; x < kVariable::ShotWidth; x++)
-		{
-			if (m_pShot->m_enemy[y][x] != 0)
-			{
-				if (m_pStage->m_stage[m_pShot->m_posY + (y + 1)][m_pShot->m_posX + x] != 0)
-				{
-					colNBottom = true;
-				}
-				else
-				{
-					colNBottom = false;
 				}
 			}
 		}

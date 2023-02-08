@@ -38,8 +38,17 @@ private:
 	int m_handleWall;		// 触れる判定のハンドル
 	int m_handleTrap;		// 敵判定のハンドル
 	int m_handleSmallNeedle;// 少し出てる針
+	int m_handleGoal;
 
 	// 切り取る左上の頂点
 	int m_verX;
 	int m_verY;
+
+	// ゴールの左上頂点
+	int m_idxGoalX;
+	int m_idxGoalY;
+
+	int m_GoalFrame;
+	int m_drawGoalFirst;
+	int m_drawGoalSecond;
 };

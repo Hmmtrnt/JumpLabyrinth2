@@ -15,24 +15,24 @@ collisionStage::~collisionStage()
 }
 
 void collisionStage::collision(bool colR, bool colL, bool colUp, bool colBottom,
-	const int player[kVariable::PlayerWidth][kVariable::PlayerWidth],
+	const int player[][kVariable::PlayerWidth], int playerWidth,
 	int posY, int posX, 
-	const int stage[kVariable::StageWidth][kVariable::StageWidth])
+	const int stage[][kVariable::StageWidth])
 {
-	collisionR(colR, player, posY, posX, stage);
-	collisionL(colL, player, posY, posX, stage);
-	collisionUP(colUp, player, posY, posX, stage);
-	collisionBottom(colBottom, player, posY, posX, stage);
+	collisionR(colR, player, playerWidth, posY, posX, stage);
+	collisionL(colL, player, playerWidth, posY, posX, stage);
+	collisionUP(colUp, player, playerWidth, posY, posX, stage);
+	collisionBottom(colBottom, player, playerWidth, posY, posX, stage);
 }
 
 void collisionStage::collisionR(bool colR, 
-	const int player[kVariable::PlayerWidth][kVariable::PlayerWidth],
+	const int player[][kVariable::PlayerWidth], int playerWidth,
 	int posY, int posX,
-	const int stage[kVariable::StageWidth][kVariable::StageWidth])
+	const int stage[][kVariable::StageWidth])
 {
-	for (int y = 0; y < kVariable::PlayerWidth; y++)
+	for (int y = 0; y < playerWidth; y++)
 	{
-		for (int x = 0; x < kVariable::PlayerWidth; x++)
+		for (int x = 0; x < playerWidth; x++)
 		{
 			if (player[y][x] != 0)
 			{
@@ -58,13 +58,13 @@ void collisionStage::collisionR(bool colR,
 }
 
 void collisionStage::collisionL(bool colL,
-	const int player[kVariable::PlayerWidth][kVariable::PlayerWidth],
+	const int player[][kVariable::PlayerWidth], int playerWidth,
 	int posY, int posX,
-	const int stage[kVariable::StageWidth][kVariable::StageWidth])
+	const int stage[][kVariable::StageWidth])
 {
-	for (int y = 0; y < kVariable::PlayerWidth; y++)
+	for (int y = 0; y < playerWidth; y++)
 	{
-		for (int x = 0; x < kVariable::PlayerWidth; x++)
+		for (int x = 0; x < playerWidth; x++)
 		{
 			if (player[y][x] != 0)
 			{
@@ -90,13 +90,13 @@ void collisionStage::collisionL(bool colL,
 }
 
 void collisionStage::collisionUP(bool colUp,
-	const int player[kVariable::PlayerWidth][kVariable::PlayerWidth],
+	const int player[][kVariable::PlayerWidth], int playerWidth,
 	int posY, int posX,
-	const int stage[kVariable::StageWidth][kVariable::StageWidth])
+	const int stage[][kVariable::StageWidth])
 {
-	for (int y = 0; y < kVariable::PlayerWidth; y++)
+	for (int y = 0; y < playerWidth; y++)
 	{
-		for (int x = 0; x < kVariable::PlayerWidth; x++)
+		for (int x = 0; x < playerWidth; x++)
 		{
 			if (player[y][x] != 0)
 			{
@@ -122,13 +122,13 @@ void collisionStage::collisionUP(bool colUp,
 }
 
 void collisionStage::collisionBottom(bool colBottom,
-	const int player[kVariable::PlayerWidth][kVariable::PlayerWidth],
+	const int player[][kVariable::PlayerWidth], int playerWidth,
 	int posY, int posX,
-	const int stage[kVariable::StageWidth][kVariable::StageWidth])
+	const int stage[][kVariable::StageWidth])
 {
-	for (int y = 0; y < kVariable::PlayerWidth; y++)
+	for (int y = 0; y < playerWidth; y++)
 	{
-		for (int x = 0; x < kVariable::PlayerWidth; x++)
+		for (int x = 0; x < playerWidth; x++)
 		{
 			if (player[y][x] != 0)
 			{

@@ -2,6 +2,7 @@
 #pragma once
 #include "SceneBase.h"
 #include "../Util/common.h"
+#include <memory>
 
 class GameManager;
 
@@ -18,8 +19,11 @@ public:
 
 private:
 	// ゲームマネージャーポインタ
-	GameManager* m_pManager;
+	//GameManager* m_pManager;
 
 	// フレームカウント
 	int m_frameCount;
+	
+
+	std::shared_ptr<GameManager> m_pManager;
 };

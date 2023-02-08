@@ -5,12 +5,10 @@
 SceneMain::SceneMain() :
 	m_frameCount(0)
 {
-	m_pManager = new GameManager;
 }
 
 SceneMain::~SceneMain()
 {
-	delete m_pManager;
 }
 
 void SceneMain::init()

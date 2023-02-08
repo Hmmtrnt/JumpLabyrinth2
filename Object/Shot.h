@@ -13,29 +13,15 @@ public:
 	void update();		// 更新
 	void draw();		// 描画
 
-	void moveWidth(bool colL, bool colR);
-	void moveHeight(bool colUp, bool colDown);
-
-	// 弾の配列の位置
-	int m_posX;			// X座標
-	int m_posY;			// Y座標
-	// 弾の移動フレーム
-	int m_frameX;		// X座標
-	int m_frameY;		// Y座標
-	// 弾の移動速度
-	int m_speedX;		// X座標
-	int m_speedY;		// Y座標
-
-	int m_stopFrame;	// 壁についたときに止まっている時間
-
-	// 弾の配列の受け渡し
-	int m_enemy[kVariable::ShotWidth][kVariable::ShotWidth];
-
 private:
-	// 弾の描画
-	void shotDraw(int x, int y);
+	// 画像ハンドル
+	int m_handle;
 
-	int m_handleArrow;
+	// 弾の位置
+	int m_posX;
+	int m_posY;
 
+	// 弾の速さ
+	int m_speedX;
+	int m_speedY;
 };
-
