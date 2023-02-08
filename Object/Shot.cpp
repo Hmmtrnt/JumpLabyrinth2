@@ -11,7 +11,7 @@ Shot::Shot() :
 	m_stopFrame(0),
 	m_handleArrow(0)
 {
-	for (int y = 0; y < kVariable::ShotHeight; y++)
+	for (int y = 0; y < kVariable::ShotWidth; y++)
 	{
 		for (int x = 0; x < kVariable::ShotWidth; x++)
 		{
@@ -43,7 +43,7 @@ void Shot::init()
 
 	m_handleArrow = draw::MyLoadGraph("data/arrow4.png");
 	
-	for (int y = 0; y < kVariable::ShotHeight; y++)
+	for (int y = 0; y < kVariable::ShotWidth; y++)
 	{
 		for (int x = 0; x < kVariable::ShotWidth; x++)
 		{
@@ -67,7 +67,7 @@ void Shot::update()
 
 void Shot::draw()
 {
-	for (int y = 0; y < kVariable::ShotHeight; y++)
+	for (int y = 0; y < kVariable::ShotWidth; y++)
 	{
 		for (int x = 0; x < kVariable::ShotWidth; x++)
 		{
@@ -138,49 +138,6 @@ void Shot::moveHeight(bool colUp, bool colDown)
 	if (!colUp && !colDown)
 	{
 		m_stopFrame = 60;
-	}
-}
-
-void Shot::operation(bool colL, bool colR, bool colUp, bool colDown)
-{
-
-	if (colL || colR)
-	{
-		m_speedX = 0;
-	}
-	if (colUp || colDown)
-	{
-		m_speedY = 0;
-	}
-
-	if (Pad::isPress(PAD_INPUT_LEFT))
-	{
-		if (!colL)
-		{
-			m_speedX = -40;
-		}
-
-	}
-	if (Pad::isPress(PAD_INPUT_RIGHT))
-	{
-		if (!colR)
-		{
-			m_speedX = 40;
-		}
-	}
-	if (Pad::isPress(PAD_INPUT_UP))
-	{
-		if (!colUp)
-		{
-			m_speedY = -40;
-		}
-	}
-	if (Pad::isPress(PAD_INPUT_DOWN))
-	{
-		if (!colDown)
-		{
-			m_speedY = 40;
-		}
 	}
 }
 

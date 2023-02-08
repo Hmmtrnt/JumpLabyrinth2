@@ -14,31 +14,37 @@ collisionStage::~collisionStage()
 {
 }
 
-void collisionStage::collision(bool colR, bool colL, bool colUp, bool colBottom)
+void collisionStage::collision(bool colR, bool colL, bool colUp, bool colBottom,
+	const int player[kVariable::PlayerWidth][kVariable::PlayerWidth],
+	int posY, int posX, 
+	const int stage[kVariable::StageWidth][kVariable::StageWidth])
 {
-	collisionR(colR);
-	collisionL(colL);
-	collisionUP(colUp);
-	collisionBottom(colBottom);
+	collisionR(colR, player, posY, posX, stage);
+	collisionL(colL, player, posY, posX, stage);
+	collisionUP(colUp, player, posY, posX, stage);
+	collisionBottom(colBottom, player, posY, posX, stage);
 }
 
-void collisionStage::collisionR(bool colR)
+void collisionStage::collisionR(bool colR, 
+	const int player[kVariable::PlayerWidth][kVariable::PlayerWidth],
+	int posY, int posX,
+	const int stage[kVariable::StageWidth][kVariable::StageWidth])
 {
-	for (int y = 0; y < kVariable::PlayerHeight; y++)
+	for (int y = 0; y < kVariable::PlayerWidth; y++)
 	{
 		for (int x = 0; x < kVariable::PlayerWidth; x++)
 		{
-			if (m_pPlayer->m_player[y][x] != 0)
+			if (player[y][x] != 0)
 			{
-				if (m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + (x + 1)] == 8)
+				if (stage[posY + y][posX + (x + 1)] == 8)
 				{
 					colR = false;
 				}
-				else if (m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + (x + 1)] == 6)
+				else if (stage[posY + y][posX + (x + 1)] == 6)
 				{
 					colR = false;
 				}
-				else if (m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + (x + 1)] != 0)
+				else if (stage[posY + y][posX + (x + 1)] != 0)
 				{
 					colR = true;
 				}
@@ -51,23 +57,26 @@ void collisionStage::collisionR(bool colR)
 	}
 }
 
-void collisionStage::collisionL(bool colL)
+void collisionStage::collisionL(bool colL,
+	const int player[kVariable::PlayerWidth][kVariable::PlayerWidth],
+	int posY, int posX,
+	const int stage[kVariable::StageWidth][kVariable::StageWidth])
 {
-	for (int y = 0; y < kVariable::PlayerHeight; y++)
+	for (int y = 0; y < kVariable::PlayerWidth; y++)
 	{
 		for (int x = 0; x < kVariable::PlayerWidth; x++)
 		{
-			if (m_pPlayer->m_player[y][x] != 0)
+			if (player[y][x] != 0)
 			{
-				if (m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + (x - 1)] == 8)
+				if (stage[posY + y][posX + (x - 1)] == 8)
 				{
 					colL = false;
 				}
-				else if (m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + (x - 1)] == 6)
+				else if (stage[posY + y][posX + (x - 1)] == 6)
 				{
 					colL = false;
 				}
-				else if (m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + (x - 1)] != 0)
+				else if (stage[posY + y][posX + (x - 1)] != 0)
 				{
 					colL = true;
 				}
@@ -80,23 +89,26 @@ void collisionStage::collisionL(bool colL)
 	}
 }
 
-void collisionStage::collisionUP(bool colUp)
+void collisionStage::collisionUP(bool colUp,
+	const int player[kVariable::PlayerWidth][kVariable::PlayerWidth],
+	int posY, int posX,
+	const int stage[kVariable::StageWidth][kVariable::StageWidth])
 {
-	for (int y = 0; y < kVariable::PlayerHeight; y++)
+	for (int y = 0; y < kVariable::PlayerWidth; y++)
 	{
 		for (int x = 0; x < kVariable::PlayerWidth; x++)
 		{
-			if (m_pPlayer->m_player[y][x] != 0)
+			if (player[y][x] != 0)
 			{
-				if (m_pStage->m_stage[m_pPlayer->m_posY + (y - 1)][m_pPlayer->m_posX + x] == 8)
+				if (stage[posY + (y - 1)][posX + x] == 8)
 				{
 					colUp = false;
 				}
-				else if (m_pStage->m_stage[m_pPlayer->m_posY + (y - 1)][m_pPlayer->m_posX + x] == 6)
+				else if (stage[posY + (y - 1)][posX + x] == 6)
 				{
 					colUp = false;
 				}
-				else if (m_pStage->m_stage[m_pPlayer->m_posY + (y - 1)][m_pPlayer->m_posX + x] != 0)
+				else if (stage[posY + (y - 1)][posX + x] != 0)
 				{
 					colUp = true;
 				}
@@ -109,23 +121,26 @@ void collisionStage::collisionUP(bool colUp)
 	}
 }
 
-void collisionStage::collisionBottom(bool colBottom)
+void collisionStage::collisionBottom(bool colBottom,
+	const int player[kVariable::PlayerWidth][kVariable::PlayerWidth],
+	int posY, int posX,
+	const int stage[kVariable::StageWidth][kVariable::StageWidth])
 {
-	for (int y = 0; y < kVariable::PlayerHeight; y++)
+	for (int y = 0; y < kVariable::PlayerWidth; y++)
 	{
 		for (int x = 0; x < kVariable::PlayerWidth; x++)
 		{
-			if (m_pPlayer->m_player[y][x] != 0)
+			if (player[y][x] != 0)
 			{
-				if (m_pStage->m_stage[m_pPlayer->m_posY + (y + 1)][m_pPlayer->m_posX + x] == 8)
+				if (stage[posY + (y + 1)][posX + x] == 8)
 				{
 					colBottom = false;
 				}
-				else if (m_pStage->m_stage[m_pPlayer->m_posY + (y + 1)][m_pPlayer->m_posX + x] == 6)
+				else if (stage[posY + (y + 1)][posX + x] == 6)
 				{
 					colBottom = false;
 				}
-				else if (m_pStage->m_stage[m_pPlayer->m_posY + (y + 1)][m_pPlayer->m_posX + x] != 0)
+				else if (stage[posY + (y + 1)][posX + x] != 0)
 				{
 					colBottom = true;
 				}

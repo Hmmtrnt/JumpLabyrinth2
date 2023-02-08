@@ -291,6 +291,10 @@ void GameManager::collision()
 	collisionL();
 	collisionUP();
 	collisionBottom();
+	/*m_pColStage->collision(colR, colL, colUp, colBottom, 
+		m_pPlayer->m_player,
+		m_pPlayer->m_posY, m_pPlayer->m_posX,
+		m_pStage->m_stage);*/
 	collisionEnemy();
 	collisionGameOver();
 	collisionGameClear();
@@ -298,11 +302,14 @@ void GameManager::collision()
 
 void GameManager::collisionNoShot()
 {
-	collisionR();
+	/*collisionR();
 	collisionL();
 	collisionUP();
-	collisionBottom();
-	//m_pColStage->collision(colR, colL, colUp, colBottom);
+	collisionBottom();*/
+	m_pColStage->collision(colR, colL, colUp, colBottom, 
+		m_pPlayer->m_player,
+		m_pPlayer->m_posY, m_pPlayer->m_posX,
+		m_pStage->m_stage);
 	collisionGameOver();
 	collisionGameClear();
 }
@@ -318,7 +325,7 @@ void GameManager::collisionNoShot()
 // 右
 void GameManager::collisionR()
 {
-	for (int y = 0; y < kVariable::PlayerHeight; y++)
+	for (int y = 0; y < kVariable::PlayerWidth; y++)
 	{
 		for (int x = 0; x < kVariable::PlayerWidth; x++)
 		{
@@ -348,7 +355,7 @@ void GameManager::collisionR()
 // 左
 void GameManager::collisionL()
 {
-	for (int y = 0; y < kVariable::PlayerHeight; y++)
+	for (int y = 0; y < kVariable::PlayerWidth; y++)
 	{
 		for (int x = 0; x < kVariable::PlayerWidth; x++)
 		{
@@ -378,7 +385,7 @@ void GameManager::collisionL()
 // 上
 void GameManager::collisionUP()
 {
-	for (int y = 0; y < kVariable::PlayerHeight; y++)
+	for (int y = 0; y < kVariable::PlayerWidth; y++)
 	{
 		for (int x = 0; x < kVariable::PlayerWidth; x++)
 		{
@@ -408,7 +415,7 @@ void GameManager::collisionUP()
 // 下
 void GameManager::collisionBottom()
 {
-	for (int y = 0; y < kVariable::PlayerHeight; y++)
+	for (int y = 0; y < kVariable::PlayerWidth; y++)
 	{
 		for (int x = 0; x < kVariable::PlayerWidth; x++)
 		{
@@ -441,7 +448,7 @@ void GameManager::collisionBulge()
 	EnemyElasticity();
 	if (m_gimmickFrame > m_inflate)
 	{
-		for (int y = 0; y < kVariable::PlayerHeight; y++)
+		for (int y = 0; y < kVariable::PlayerWidth; y++)
 		{
 			for (int x = 0; x < kVariable::PlayerWidth; x++)
 			{
@@ -497,7 +504,7 @@ void GameManager::collisionBulge()
 // ギミック7:数フレーム後に針が出てゲームオーバーになる判定
 void GameManager::collisionTimeLag()
 {
-	for (int y = 0; y < kVariable::PlayerHeight; y++)
+	for (int y = 0; y < kVariable::PlayerWidth; y++)
 	{
 		for (int x = 0; x < kVariable::PlayerWidth; x++)
 		{
@@ -559,7 +566,7 @@ void GameManager::collisionGameOver()
 {
 	collisionBulge();
 	collisionTimeLag();
-	for (int y = 0; y < kVariable::PlayerHeight; y++)
+	for (int y = 0; y < kVariable::PlayerWidth; y++)
 	{
 		for (int x = 0; x < kVariable::PlayerWidth; x++)
 		{
@@ -578,7 +585,7 @@ void GameManager::collisionGameOver()
 // ゲームクリア
 void GameManager::collisionGameClear()
 {
-	for (int y = 0; y < kVariable::PlayerHeight; y++)
+	for (int y = 0; y < kVariable::PlayerWidth; y++)
 	{
 		for (int x = 0; x < kVariable::PlayerWidth; x++)
 		{
@@ -594,7 +601,7 @@ void GameManager::collisionGameClear()
 }
 
 // **********************************************
-// エネミー
+// ショット
 // **********************************************
 // 全体
 void GameManager::colShot()
@@ -608,7 +615,7 @@ void GameManager::colShot()
 // 右
 void GameManager::colShotR()
 {
-	for (int y = 0; y < kVariable::ShotHeight; y++)
+	for (int y = 0; y < kVariable::ShotWidth; y++)
 	{
 		for (int x = 0; x < kVariable::ShotWidth; x++)
 		{
@@ -631,7 +638,7 @@ void GameManager::colShotR()
 // 左
 void GameManager::colShotL()
 {
-	for (int y = 0; y < kVariable::ShotHeight; y++)
+	for (int y = 0; y < kVariable::ShotWidth; y++)
 	{
 		for (int x = 0; x < kVariable::ShotWidth; x++)
 		{
@@ -653,7 +660,7 @@ void GameManager::colShotL()
 // 上
 void GameManager::colShotUP()
 {
-	for (int y = 0; y < kVariable::ShotHeight; y++)
+	for (int y = 0; y < kVariable::ShotWidth; y++)
 	{
 		for (int x = 0; x < kVariable::ShotWidth; x++)
 		{
@@ -676,7 +683,7 @@ void GameManager::colShotUP()
 // 下
 void GameManager::colShotBottom()
 {
-	for (int y = 0; y < kVariable::ShotHeight; y++)
+	for (int y = 0; y < kVariable::ShotWidth; y++)
 	{
 		for (int x = 0; x < kVariable::ShotWidth; x++)
 		{
@@ -717,7 +724,7 @@ void GameManager::drawNeedle()
 
 	if (m_GameOverCount == 0)
 	{
-		for (int y = 0; y < kVariable::PlayerHeight; y++)
+		for (int y = 0; y < kVariable::PlayerWidth; y++)
 		{
 			for (int x = 0; x < kVariable::PlayerWidth; x++)
 			{

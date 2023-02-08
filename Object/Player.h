@@ -33,7 +33,7 @@ public:
 	int m_speedY;		// Y座標
 
 	// プレイヤーの配列の受け渡し
-	int m_player[kVariable::PlayerHeight][kVariable::PlayerWidth];
+	int m_player[kVariable::PlayerWidth][kVariable::PlayerWidth];
 
 	// プレイヤーの切り取る左上の頂点
 	int m_verXPlayer;

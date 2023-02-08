@@ -8,7 +8,7 @@ class Shot;
 class Stage;
 class Back;
 class ScenePause;
-//class collisionStage;
+class collisionStage;
 
 class GameManager
 {
@@ -46,7 +46,7 @@ public:
 	void collisionGameClear();	// ゲームクリア
 
 	// 弾との
-	void colShot();			// 全体
+	void colShot();				// 全体
 	void colShotR();			// 右
 	void colShotL();			// 左
 	void colShotUP();			// 上
@@ -119,6 +119,6 @@ private:
 	Stage* m_pStage;
 	Back* m_pBack;
 	ScenePause* m_pPause;
-	//std::shared_ptr<collisionStage> m_pColStage;
+	std::shared_ptr<collisionStage> m_pColStage;
 };
 

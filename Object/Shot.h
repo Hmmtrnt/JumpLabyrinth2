@@ -16,10 +16,6 @@ public:
 	void moveWidth(bool colL, bool colR);
 	void moveHeight(bool colUp, bool colDown);
 
-	// テスト関数
-	void operation(bool colL, bool colR, bool colUp, bool colDown);
-
-
 	// 弾の配列の位置
 	int m_posX;			// X座標
 	int m_posY;			// Y座標
@@ -33,7 +29,7 @@ public:
 	int m_stopFrame;	// 壁についたときに止まっている時間
 
 	// 弾の配列の受け渡し
-	int m_enemy[kVariable::ShotHeight][kVariable::ShotWidth];
+	int m_enemy[kVariable::ShotWidth][kVariable::ShotWidth];
 
 private:
 	// 弾の描画

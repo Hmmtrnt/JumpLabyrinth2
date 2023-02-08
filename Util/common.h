@@ -9,11 +9,9 @@
 namespace kVariable
 {
 	// プレイヤーの配列の幅
-	constexpr int PlayerHeight = 3;		// 縦
 	constexpr int PlayerWidth = 3;		// 横
 
 	// ショットの配列の幅
-	constexpr int ShotHeight = 3;		// 縦
 	constexpr int ShotWidth = 3;		// 横
 
 	// ステージの幅
@@ -473,6 +471,34 @@ namespace kStage
 		{9,9,6,9,6,  6,6,6,6,6,  7,7,7,6,9},
 		{9,9,9,9,9,  9,9,9,9,9,  9,9,9,9,9},
 	};
+	// ステージ16
+	// 0:無
+	// 4:弾発射開始位置
+	// 5:膨らんだら即死判定
+	// 6:即死判定
+	// 7:数フレーム後に針が出てゲームオーバーになる判定
+	// 8:ゴール
+	// 9:壁
+	constexpr int stage16[kVariable::StageWidth][kVariable::StageWidth] = {
+		// 1行		 6行		 11行
+		{9,9,9,9,9,  9,9,9,9,9,  9,9,9,9,9},// 1行
+		{9,0,0,0,0,  0,0,0,0,0,  0,0,0,0,9},
+		{9,0,0,0,0,  0,0,0,0,0,  0,0,0,0,9},
+		{9,0,0,0,0,  0,0,0,0,0,  0,0,0,0,9},
+		{9,0,0,0,0,  0,0,0,0,0,  0,0,0,0,9},
+
+		{9,0,0,0,0,  0,0,0,0,0,  0,0,0,0,9},// 6行
+		{9,0,0,0,0,  0,0,0,0,0,  0,0,0,0,9},
+		{9,0,0,0,0,  0,0,0,0,0,  0,0,0,0,9},
+		{9,0,0,0,0,  0,0,0,0,0,  0,0,0,0,9},
+		{9,0,0,0,0,  0,0,0,0,0,  0,0,0,0,9},
+
+		{9,0,0,0,0,  0,0,0,0,0,  0,0,0,0,9},// 11行
+		{9,0,0,0,0,  0,0,0,0,0,  0,0,0,0,9},
+		{9,0,0,0,0,  0,0,0,0,0,  0,0,0,0,9},
+		{9,0,0,0,0,  0,0,0,0,0,  0,0,0,0,9},
+		{9,9,9,9,9,  9,9,9,9,9,  9,9,9,9,9},
+	};
 }
 
 // プレイヤー
@@ -481,7 +507,7 @@ namespace kPlayer
 	// プレイヤーの配列
 	// 0:無
 	// 1:プレイヤー
-	constexpr int playr[kVariable::PlayerHeight][kVariable::PlayerWidth] = {
+	constexpr int playr[kVariable::PlayerWidth][kVariable::PlayerWidth] = {
 		{0,0,0},
 		{0,1,0},
 		{0,0,0},
@@ -494,7 +520,7 @@ namespace kShot
 	// エネミーの配列
 	// 0:無
 	// 1:エネミー
-	constexpr int shot[kVariable::ShotHeight][kVariable::ShotWidth] = {
+	constexpr int shot[kVariable::ShotWidth][kVariable::ShotWidth] = {
 		{0,0,0},
 		{0,1,0},
 		{0,0,0},

@@ -22,7 +22,7 @@ Player::Player() :
 	m_frameCount(0),
 	m_rota(0.0f)
 {
-	for (int y = 0; y < kVariable::PlayerHeight; y++)
+	for (int y = 0; y < kVariable::PlayerWidth; y++)
 	{
 		for (int x = 0; x < kVariable::PlayerWidth; x++)
 		{
@@ -46,7 +46,7 @@ void Player::initCommon()
 	m_handle2 = draw::MyLoadGraph("data/moveChar2.png");
 	m_handleEffect = draw::MyLoadGraph("data/charEffect2.png");
 
-	for (int y = 0; y < kVariable::PlayerHeight; y++)
+	for (int y = 0; y < kVariable::PlayerWidth; y++)
 	{
 		for (int x = 0; x < kVariable::PlayerWidth; x++)
 		{
@@ -98,7 +98,7 @@ void Player::update()
 // •`‰æ
 void Player::draw()
 {
-	for (int y = 0; y < kVariable::PlayerHeight; y++)
+	for (int y = 0; y < kVariable::PlayerWidth; y++)
 	{
 		for (int x = 0; x < kVariable::PlayerWidth; x++)
 		{
