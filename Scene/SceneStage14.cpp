@@ -22,8 +22,11 @@ void SceneStage14::init()
 	m_frameCount = 90;
 	m_posX = 6;
 	m_posY = 7;
-	m_frameX = 240;
-	m_frameY = 280;
+	/*m_frameX = 240;
+	m_frameY = 280;*/
+
+	m_frameX = 408;
+	m_frameY = 476;
 
 	m_pManager->initManager(m_posX, m_posY, m_frameX, m_frameY,
 		kStage::stage14, kVariable::StageWidth, kVariable::StageWidth);

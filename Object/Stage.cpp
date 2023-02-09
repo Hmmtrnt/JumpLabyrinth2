@@ -1,5 +1,13 @@
 #include "Stage.h"
 
+namespace
+{
+	// 針の描画サイズ
+	constexpr float kNeedleSize = 1.8f;
+	// ステージの描画サイズ
+	constexpr float kStageSize = 2.2f;
+}
+
 Stage::Stage() :
 	m_gimmickFrame(0),
 	m_shrink(0),
@@ -116,32 +124,35 @@ void Stage::draw()
 
 void Stage::stageDraw(int x, int y)
 {
+	// 0:無
 	if (m_stage[y][x] == 0)
 	{
 	}
+	// 4:弾発射開始位置
 	else if (m_stage[y][x] == 4)
 	{
 		m_verX = 1;
 		m_verY = 0;
-		draw::MyDrawRectRotaGraph((x * kVariable::DrawWidth) + (kVariable::DrawWidth / 2), 
+		draw::MyDrawRectRotaGraph(kVariable::DrawPositionX + (x * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
 			(y * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
 			m_verX * 32, m_verY * 32,
 			32, 32,
-			1.3f, 0.0f,
+			kStageSize, 0.0f,
 			m_handleWall, true, false);
 
 	}
+	// 5:膨らんだら即死判定
 	else if (m_stage[y][x] == 5)
 	{
 		if (m_gimmickFrame < m_shrink)
 		{
 			m_verX = 3;
 			m_verY = 0;
-			draw::MyDrawRectRotaGraph((x * kVariable::DrawWidth) + (kVariable::DrawWidth / 2), 
+			draw::MyDrawRectRotaGraph(kVariable::DrawPositionX + (x * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
 				(y * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
 				m_verX * 32, m_verY * 32,
 				32, 32,
-				1.3f, 0.0f,
+				kStageSize, 0.0f,
 				m_handleWall, true, false);
 
 		}
@@ -149,40 +160,43 @@ void Stage::stageDraw(int x, int y)
 		{
 			m_verX = 2;
 			m_verY = 0;
-			draw::MyDrawRectRotaGraph((x * kVariable::DrawWidth) + (kVariable::DrawWidth / 2), 
+			draw::MyDrawRectRotaGraph(kVariable::DrawPositionX + (x * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
 				(y * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
 				m_verX * 32, m_verY * 32,
 				32, 32,
-				3.6f, 0.0f,
+				kStageSize + 4.0f, 0.0f,
 				m_handleWall, true, false);
 
 		}
 	}
+	// 6:即死判定
 	else if (m_stage[y][x] == 6)
 	{
 		m_verX = 13;
 		m_verY = 13;
-		draw::MyDrawRectRotaGraph((x * kVariable::DrawWidth) + (kVariable::DrawWidth / 2), 
+		draw::MyDrawRectRotaGraph(kVariable::DrawPositionX + (x * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
 			(y * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
 			m_verX * 16, m_verY * 16,
 			16, 16,
-			2.5f, 0.0f,
+			4.2f, 0.0f,
 			m_handleTrap, true, false);
 
 
 	}
+	// 7:数フレーム後に針が出てゲームオーバーになる判定
 	else if (m_stage[y][x] == 7)
 	{
 		m_verX = 0;
 		m_verY = 0;
-		draw::MyDrawRectRotaGraph((x * kVariable::DrawWidth) + (kVariable::DrawWidth / 2), 
+		draw::MyDrawRectRotaGraph(kVariable::DrawPositionX + (x * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
 			(y * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
 			m_verX * 32, m_verY * 32,
 			32, 32,
-			1.3f, 0.0f,
+			kStageSize, 0.0f,
 			m_handleWall, true, false);
 		needleDraw(x, y);
 	}
+	// 8:ゴール
 	else if (m_stage[y][x] == 8)
 	{
 		if (m_GoalFrame < m_drawGoalFirst)
@@ -195,23 +209,24 @@ void Stage::stageDraw(int x, int y)
 			m_idxGoalX = 1;
 			m_idxGoalY = 0;
 		}
-		draw::MyDrawRectRotaGraph((x * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
+		draw::MyDrawRectRotaGraph(kVariable::DrawPositionX + (x * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
 			(y * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
 			m_idxGoalX * 40, m_idxGoalY * 40,
 			40, 40,
-			1.0f, 0.0f,
+			1.7f, 0.0f,
 			m_handleGoal, true, false);
 
 	}
+	// 9:壁
 	else if (m_stage[y][x] == 9)
 	{
 		m_verX = 4;
 		m_verY = 0;
-		draw::MyDrawRectRotaGraph((x * kVariable::DrawWidth) + (kVariable::DrawWidth / 2), 
+		draw::MyDrawRectRotaGraph(kVariable::DrawPositionX + (x * kVariable::DrawWidth) + (kVariable::DrawWidth / 2), 
 			(y * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
 			m_verX * 32, m_verY * 32,
 			32, 32,
-			1.3f, 0.0f,
+			kStageSize, 0.0f,
 			m_handleWall, true, false);
 
 	}
@@ -220,37 +235,43 @@ void Stage::stageDraw(int x, int y)
 void Stage::needleDraw(int x, int y)
 {
 	// 右
-	draw::MyDrawRectRotaGraph(((x + 1) * kVariable::DrawWidth) + (kVariable::DrawWidth / 2), 
-		(y * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
-		0, 0,
-		40, 40,
-		1.0f, PI / 2,
-		m_handleSmallNeedle, true, false);
-	// 左
-	if (m_stage[y][x - 1] == 0)
+	if (m_stage[y][x + 1] == 0)
 	{
-		draw::MyDrawRectRotaGraph(((x - 1) * kVariable::DrawWidth) + (kVariable::DrawWidth / 2), 
+		draw::MyDrawRectRotaGraph(kVariable::DrawPositionX + ((x + 1) * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
 			(y * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
 			0, 0,
 			40, 40,
-			1.0f, PI / -2,
+			kNeedleSize, PI / 2,
+			m_handleSmallNeedle, true, false);
+	}
+	// 左
+	if (m_stage[y][x - 1] == 0)
+	{
+		draw::MyDrawRectRotaGraph(kVariable::DrawPositionX + ((x - 1) * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
+			(y * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
+			0, 0,
+			40, 40,
+			kNeedleSize, PI / -2,
 			m_handleSmallNeedle, true, false);
 	}
 	// 上
 	if (m_stage[y - 1][x] == 0)
 	{
-		draw::MyDrawRectRotaGraph((x * kVariable::DrawWidth) + (kVariable::DrawWidth / 2), 
+		draw::MyDrawRectRotaGraph(kVariable::DrawPositionX + (x * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
 			((y - 1) * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
 			0, 0,
 			40, 40,
-			1.0f, 0.0f,
+			kNeedleSize, 0.0f,
 			m_handleSmallNeedle, true, false);
 	}
 	// 下
-	draw::MyDrawRectRotaGraph((x * kVariable::DrawWidth) + (kVariable::DrawWidth / 2), 
-		((y + 1) * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
-		0, 0,
-		40, 40,
-		1.0f, PI / 1,
-		m_handleSmallNeedle, true, false);
+	if (m_stage[y + 1][x] == 0)
+	{
+		draw::MyDrawRectRotaGraph(kVariable::DrawPositionX + (x * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
+			((y + 1) * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
+			0, 0,
+			40, 40,
+			kNeedleSize, PI / 1,
+			m_handleSmallNeedle, true, false);
+	}
 }

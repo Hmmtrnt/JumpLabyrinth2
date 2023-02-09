@@ -1,5 +1,10 @@
 #include "Back.h"
 
+namespace
+{
+	constexpr float kSize = 3.3f;
+}
+
 Back::Back() :
 	m_handle(-1),
 	m_verX(0),
@@ -54,23 +59,23 @@ void Back::draw()
 			{
 				m_verX = 4;
 				m_verY = 1;
-				draw::MyDrawRectRotaGraph((x * kVariable::DrawBackWidth) + (kVariable::DrawBackWidth / 2), 
-										  (y * kVariable::DrawBackWidth) + (kVariable::DrawBackWidth / 2),
-										  m_verX * 32, m_verY * 32,
-										  32, 32,
-										  1.0f, 0.0f,
-										  m_handle, true, false);
+				draw::MyDrawRectRotaGraph((x * kVariable::DrawBackWidth) + (kVariable::DrawBackWidth / 2),
+					(y * kVariable::DrawBackWidth) + (kVariable::DrawBackWidth / 2),
+					m_verX * 32, m_verY * 32,
+					32, 32,
+					kSize, 0.0f,
+					m_handle, true, false);
 			}
 			if (m_back[y][x] == 1)
 			{
 				m_verX = 0;
 				m_verY = 1;
-				draw::MyDrawRectRotaGraph((x * kVariable::DrawBackWidth) + (kVariable::DrawBackWidth / 2), 
-										  (y * kVariable::DrawBackWidth) + (kVariable::DrawBackWidth / 2),
-										  m_verX * 32, m_verY * 32,
-										  32, 32,
-										  1.0f, 0.0f,
-										  m_handle, true, false);
+				draw::MyDrawRectRotaGraph((x * kVariable::DrawBackWidth) + (kVariable::DrawBackWidth / 2),
+					(y * kVariable::DrawBackWidth) + (kVariable::DrawBackWidth / 2),
+					m_verX * 32, m_verY * 32,
+					32, 32,
+					kSize, 0.0f,
+					m_handle, true, false);
 			}
 		}
 	}

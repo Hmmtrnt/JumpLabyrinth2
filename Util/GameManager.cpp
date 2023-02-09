@@ -34,6 +34,7 @@ GameManager::GameManager() :
 	m_pStage = new Stage;
 	m_pBack = new Back;
 	m_pPause = new ScenePause;
+	m_pShot = new Shot;
 }
 
 GameManager::~GameManager()
@@ -42,6 +43,7 @@ GameManager::~GameManager()
 	delete m_pStage;
 	delete m_pBack;
 	delete m_pPause;
+	delete m_pShot;
 }
 
 void GameManager::initCommon()
@@ -575,6 +577,8 @@ void GameManager::collisionGameClear()
 // j‚Ì•`‰æ
 void GameManager::drawNeedle()
 {
+	float needleSize = 1.8f;
+
 	if (colFlagR)
 	{
 		m_rota = PI / -2;
@@ -600,12 +604,12 @@ void GameManager::drawNeedle()
 			{
 				if (m_pPlayer->m_player[y][x] == 1)
 				{
-					draw::MyDrawRectRotaGraph((m_pPlayer->m_frameX + (x * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2), 
-											  (m_pPlayer->m_frameY + (y * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
-											  0, 0,
-											  40, 40,
-											  1.0f, m_rota,
-											  m_handleNeedle, true, false);
+					draw::MyDrawRectRotaGraph((m_pPlayer->m_frameX + (x * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
+						(m_pPlayer->m_frameY + (y * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
+						0, 0,
+						40, 40,
+						needleSize, m_rota,
+						m_handleNeedle, true, false);
 				}
 			}
 		}

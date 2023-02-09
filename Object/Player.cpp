@@ -4,6 +4,7 @@
 namespace
 {
 	constexpr int motionCount = 40;
+	constexpr int speed = 68;
 }
 
 Player::Player() :
@@ -141,7 +142,7 @@ void Player::operation(bool colL, bool colR, bool colUp, bool colDown)
 				m_rota = PI / 1;
 				if (!colUp)
 				{
-					m_speedY = -40;
+					m_speedY = -speed;
 				}
 			}
 		}
@@ -155,7 +156,7 @@ void Player::operation(bool colL, bool colR, bool colUp, bool colDown)
 				m_rota = 0;
 				if (!colDown)
 				{
-					m_speedY = 40;
+					m_speedY = speed;
 				}
 			}
 		}
@@ -169,7 +170,7 @@ void Player::operation(bool colL, bool colR, bool colUp, bool colDown)
 				m_rota = PI / -2;
 				if (!colR)
 				{
-					m_speedX = 40;
+					m_speedX = speed;
 				}
 			}
 		}
@@ -183,7 +184,7 @@ void Player::operation(bool colL, bool colR, bool colUp, bool colDown)
 				m_rota = PI / 2;
 				if (!colL)
 				{
-					m_speedX = -40;
+					m_speedX = -speed;
 				}
 			}
 		}
@@ -195,21 +196,21 @@ void Player::playerDraw(int x, int y)
 {
 	if (m_rota == PI / 2 && m_speedX == 0 && m_speedY == 0)
 	{
-		draw::MyDrawRectRotaGraph((m_frameX + (x * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2), 
+		draw::MyDrawRectRotaGraph(kVariable::DrawPositionX + (m_frameX + (x * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
 								  (m_frameY + (y * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
 								  m_verXPlayer * 32, m_verYPlayer * 32,
 								  32, 32,
-								  1.3f, m_rota,
+								  2.2f, m_rota,
 								  m_handle, true, true);
 
 	}
 	else if (m_speedX == 0 && m_speedY == 0)
 	{
-		draw::MyDrawRectRotaGraph((m_frameX + (x * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2), 
+		draw::MyDrawRectRotaGraph(kVariable::DrawPositionX + (m_frameX + (x * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
 								  (m_frameY + (y * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
 								  m_verXPlayer * 32, m_verYPlayer * 32,
 								  32, 32,
-								  1.3f, m_rota,
+								  2.2f, m_rota,
 								  m_handle, true, false);
 	}
 }
@@ -222,7 +223,7 @@ void Player::motion(int x, int y)
 	// 移動中のキャラエフェクト
 	if (m_speedY == -40)
 	{
-		draw::MyDrawRectRotaGraph((m_frameX + (x * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2), 
+		draw::MyDrawRectRotaGraph(kVariable::DrawPositionX + (m_frameX + (x * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
 			(m_frameY + (y * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
 			0, 0,
 			40, 40,
@@ -231,7 +232,7 @@ void Player::motion(int x, int y)
 	}
 	if (m_speedY == 40)
 	{
-		draw::MyDrawRectRotaGraph((m_frameX + (x * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2), 
+		draw::MyDrawRectRotaGraph(kVariable::DrawPositionX + (m_frameX + (x * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
 			(m_frameY + (y * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
 			0, 0,
 			40, 40,
@@ -240,7 +241,7 @@ void Player::motion(int x, int y)
 	}
 	if (m_speedX == -40)
 	{
-		draw::MyDrawRectRotaGraph((m_frameX + (x * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2), 
+		draw::MyDrawRectRotaGraph(kVariable::DrawPositionX + (m_frameX + (x * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
 			(m_frameY + (y * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
 			0, 0,
 			40, 40,
@@ -249,7 +250,7 @@ void Player::motion(int x, int y)
 	}
 	if (m_speedX == 40)
 	{
-		draw::MyDrawRectRotaGraph((m_frameX + (x * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2), 
+		draw::MyDrawRectRotaGraph(kVariable::DrawPositionX + (m_frameX + (x * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
 			(m_frameY + (y * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
 			0, 0,
 			40, 40,
@@ -260,11 +261,11 @@ void Player::motion(int x, int y)
 	// 移動中のキャラの見た目
 	if (m_speedX != 0 || m_speedY != 0)
 	{
-		draw::MyDrawRectRotaGraph((m_frameX + (x * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2), 
+		draw::MyDrawRectRotaGraph(kVariable::DrawPositionX + (m_frameX + (x * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
 			(m_frameY + (y * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
 			0, 0,
 			40, 40,
-			1.0f, m_rota,
+			2.0f, m_rota,
 			m_handle2, true, false);
 		m_frameCount = motionCount;
 	}

@@ -22,14 +22,14 @@ namespace kVariable
 	constexpr int BackWidth = 25;		// ‰¡
 
 	// ƒXƒe[ƒW‚Ì•`‰æ‚·‚é•
-	constexpr int DrawWidth = 40;
+	constexpr int DrawWidth = 68;
 
 	// ”wŒi‚ğ•`‰æ‚·‚é•
-	constexpr int DrawBackWidth = 32;
+	constexpr int DrawBackWidth = 100;
 
 	// •`‰æ‚·‚éˆÊ’u•ÏX
-	constexpr int DrawPositionX = 60;
-	constexpr int DrawPositionY = 50;
+	constexpr int DrawPositionX = 450;
+	constexpr int DrawPositionY = 0;
 }
 
 // ”wŒi

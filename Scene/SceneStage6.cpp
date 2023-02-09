@@ -22,8 +22,11 @@ void SceneStage6::init()
 	m_frameCount = 90; 
 	m_posX = 11;
 	m_posY = 12;
-	m_frameX = 440;
-	m_frameY = 480;
+	/*m_frameX = 440;
+	m_frameY = 480;*/
+
+	m_frameX = 748;
+	m_frameY = 816;
 
 	m_pManager->initManager(m_posX, m_posY, m_frameX, m_frameY,
 		kStage::stage6, kVariable::StageWidth, kVariable::StageWidth);
