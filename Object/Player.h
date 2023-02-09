@@ -11,7 +11,7 @@ public:
 	// 初期化一覧
 	void initCommon();	// 共通の初期化
 
-	void initPlayer(int posX, int posY, int frameX, int frameY );	// 実験用初期化
+	void initPlayer(int posX, int posY, int frameX, int frameY);	// 実験用初期化
 
 	void initP();		// プロトタイプ用初期化
 	

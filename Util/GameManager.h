@@ -22,6 +22,10 @@ public:
 	void initManager(int posX, int posY, int frameX, int frameY, 
 		const int stage[][kVariable::StageWidth], int stageHeight, int stageWidth);			// 実験用初期化
 
+	void initManagerInShot(int posX, int posY, int frameX, int frameY,
+		const int stage[][kVariable::StageWidth], int stageHeight, int stageWidth,
+		int shotX, int shotY);
+
 	void initP();				// プロトタイプ用初期化
 	
 
@@ -30,6 +34,7 @@ public:
 	void updateNoShot();		// 弾の処理が入っていない更新
 	void updatePause();			// ポーズ画面の更新処理
 	void draw();				// 描画
+	void drawInShot(int &posX, int &posY);			// 弾が入った描画
 
 	// 当たり判定
 	// プレイヤーとの
@@ -50,6 +55,16 @@ public:
 
 	// ゲームオーバーモーション
 	void GameOverMotion();
+
+	// 弾道
+	void updateShotRight(int posX, int posY, int sizeX, int stagePosX);		// 右
+	void updateShotUp(int posX, int posY, int stagePosY);					// 上
+
+	// 弾の描画
+	void shotDraw(int &posX, int &posY);
+
+	// 弾の当たり判定
+	void collisionShot();
 
 	// ポーズ画面の項目を押した情報取得
 	int GetPushPause() { return m_pushPause; }
@@ -106,6 +121,7 @@ private:
 	Back* m_pBack;
 	ScenePause* m_pPause;
 	std::shared_ptr<collisionStage> m_pColStage;
+	//std::shared_ptr<Shot> m_pShot;
 	Shot* m_pShot;
 };
 

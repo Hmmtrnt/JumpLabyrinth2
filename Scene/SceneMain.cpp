@@ -24,7 +24,6 @@ void SceneMain::end()
 
 SceneBase* SceneMain::update()
 {
-	m_pManager->update();
 
 	if (m_pManager->GetPushPause() == 1)
 	{
@@ -57,5 +56,4 @@ SceneBase* SceneMain::update()
 
 void SceneMain::draw()
 {
-	m_pManager->draw();
 }

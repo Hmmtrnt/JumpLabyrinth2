@@ -66,6 +66,7 @@ void GameManager::initCommon()
 	colUp = false;
 	colBottom = false;
 	m_pPause->init();
+	
 }
 
 void GameManager::initManager(int posX, int posY, int frameX, int frameY, 
@@ -73,6 +74,17 @@ void GameManager::initManager(int posX, int posY, int frameX, int frameY,
 {
 	initCommon();
 	m_pPlayer->initPlayer(posX, posY,frameX,frameY);
+	m_pStage->initStage(stage, stageHeight, stageWidth);
+	m_pBack->init();
+}
+
+void GameManager::initManagerInShot(int posX, int posY, int frameX, int frameY, 
+	const int stage[][kVariable::StageWidth], int stageHeight, int stageWidth, 
+	int shotX, int shotY)
+{
+	initCommon();
+	m_pShot->init(shotX, shotY);
+	m_pPlayer->initPlayer(posX, posY, frameX, frameY);
 	m_pStage->initStage(stage, stageHeight, stageWidth);
 	m_pBack->init();
 }
@@ -91,6 +103,7 @@ void GameManager::end()
 	m_pStage->end();
 	m_pBack->end();
 	m_pPause->end();
+	m_pShot->end();
 }
 
 void GameManager::update()
@@ -156,7 +169,7 @@ void GameManager::update()
 		m_pPause->update();
 		updatePause();
 	}
-	
+	collisionShot();
 }
 
 void GameManager::updateNoShot()
@@ -267,6 +280,23 @@ void GameManager::draw()
 	}
 	// 確認描画
 	//DrawFormatString(0, 60, kColor::Black, "%d", m_pushPause);
+}
+
+void GameManager::drawInShot(int& posX, int& posY)
+{
+	m_pShot->draw(posX, posY);
+	m_pStage->draw();
+	drawNeedle();
+	m_pPlayer->draw();
+	if (m_pushFlag)
+	{
+		m_pPause->draw();
+	}
+
+	DrawFormatString(0, 30, kColor::White, "%d", m_pShot->m_posX);
+	DrawFormatString(0, 60, kColor::White, "%d", m_pShot->m_posY);
+	DrawFormatString(0, 90, kColor::White, "%d", m_pPlayer->m_frameX + (kVariable::DrawWidth + kVariable::DrawPositionX));
+	DrawFormatString(0, 120, kColor::White, "%d", m_pPlayer->m_frameY + kVariable::DrawWidth);
 }
 
 void GameManager::collision()
@@ -627,6 +657,31 @@ void GameManager::GameOverMotion()
 		m_frameCountGameOver = 0;
 		m_pPlayer->m_verXPlayer = 2;
 		m_pPlayer->m_verYPlayer = 6;
+	}
+}
+
+void GameManager::updateShotRight(int posX, int posY, int sizeX, int stagePosX)
+{
+	m_pShot->shotRight(posX, posY, sizeX, stagePosX);
+}
+
+void GameManager::updateShotUp(int posX, int posY, int stagePosY)
+{
+	m_pShot->shotUp(posX, posY, stagePosY);
+}
+
+void GameManager::shotDraw(int &posX, int &posY)
+{
+	m_pShot->draw(posX, posY);
+}
+
+void GameManager::collisionShot()
+{
+	if (m_pPlayer->m_frameX + (kVariable::DrawWidth + kVariable::DrawPositionX) == m_pShot->m_posX &&
+		m_pPlayer->m_frameY + kVariable::DrawWidth == m_pShot->m_posY)
+	{
+		// GameOver = true;
+		printfDx("ヤラレチャッタ\n");
 	}
 }
 

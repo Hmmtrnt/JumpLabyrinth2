@@ -4,6 +4,8 @@
 #include "../Util/common.h"
 
 class GameManager;
+class Shot;
+class Back;
 
 class SceneStage16 : public SceneBase
 {
@@ -12,13 +14,18 @@ public:
 	virtual ~SceneStage16();
 
 	virtual void init();			// 初期化
+	void initShot();				// 弾を初期位置に戻す
 	virtual void end();				// 終了
 	virtual SceneBase* update();	// 更新
 	virtual void draw();			// 描画
 
+	void collisionShot();			// 弾の当たり判定
+
 private:
 	// ゲームマネージャーポインタ
 	GameManager* m_pManager;
+	Shot* m_pShot;
+	Back* m_pBack;
 
 	// フレームカウント
 	int m_frameCount;
@@ -28,5 +35,20 @@ private:
 	// キャラの移動フレーム
 	int m_frameX;			// X座標
 	int m_frameY;			// Y座標
+
+	// 弾の座標
+	int m_shotPosX;			// X座標
+	int m_shotPosY;			// Y座標
+	int m_shotPosX2;		// X座標
+	int m_shotPosY2;		// Y座標
+
+	// 弾が壁に当たる座標
+	int m_colShotX;			// X座標
+	int m_colShotY;			// Y座標
+	int m_colShotX2;		// X座標
+	int m_colShotY2;		// Y座標
+
+	// フレームカウント
+	int m_frameCountShot;
 };
 

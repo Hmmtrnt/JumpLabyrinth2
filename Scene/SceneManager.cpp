@@ -28,7 +28,7 @@ SceneManager::SceneManager()
 // ‰Šú‰»
 void SceneManager::init()
 {
-	m_pScene = new SceneStage1;
+	m_pScene = new SceneStage16;
 	m_pScene->init();
 }
 // I—¹
