@@ -17,6 +17,9 @@ public:
 	
 	void end();			// 終了
 	void update();		// 更新
+
+	void updateTest(int &frameX, int &frameY);
+
 	void draw();		// 描画
 
 	// プレイヤー操作

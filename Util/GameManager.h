@@ -23,18 +23,20 @@ public:
 		const int stage[][kVariable::StageWidth], int stageHeight, int stageWidth);			// 実験用初期化
 
 	void initManagerInShot(int posX, int posY, int frameX, int frameY,
-		const int stage[][kVariable::StageWidth], int stageHeight, int stageWidth,
-		int shotX, int shotY);
+		const int stage[][kVariable::StageWidth], int stageHeight, int stageWidth);
 
 	void initP();				// プロトタイプ用初期化
 	
 
 	void end();					// 終了
 	void update();				// 更新
+
+	void updateTest(int &frameX, int &frameY);
+
 	void updateNoShot();		// 弾の処理が入っていない更新
 	void updatePause();			// ポーズ画面の更新処理
 	void draw();				// 描画
-	void drawInShot(int &posX, int &posY);			// 弾が入った描画
+	void drawInShot();			// 弾が入った描画
 
 	// 当たり判定
 	// プレイヤーとの
@@ -55,13 +57,6 @@ public:
 
 	// ゲームオーバーモーション
 	void GameOverMotion();
-
-	// 弾道
-	void updateShotRight(int posX, int posY, int sizeX, int stagePosX);		// 右
-	void updateShotUp(int posX, int posY, int stagePosY);					// 上
-
-	// 弾の描画
-	void shotDraw(int &posX, int &posY);
 
 	// 弾の当たり判定
 	void collisionShot();

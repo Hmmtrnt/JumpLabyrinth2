@@ -133,7 +133,7 @@ void Stage::stageDraw(int x, int y)
 	{
 		m_verX = 1;
 		m_verY = 0;
-		draw::MyDrawRectRotaGraph(kVariable::DrawPositionX + (x * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
+		draw::MyDrawRectRotaGraph(kVariable::DrawPosition + (x * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
 			(y * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
 			m_verX * 32, m_verY * 32,
 			32, 32,
@@ -148,7 +148,7 @@ void Stage::stageDraw(int x, int y)
 		{
 			m_verX = 3;
 			m_verY = 0;
-			draw::MyDrawRectRotaGraph(kVariable::DrawPositionX + (x * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
+			draw::MyDrawRectRotaGraph(kVariable::DrawPosition + (x * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
 				(y * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
 				m_verX * 32, m_verY * 32,
 				32, 32,
@@ -160,7 +160,7 @@ void Stage::stageDraw(int x, int y)
 		{
 			m_verX = 2;
 			m_verY = 0;
-			draw::MyDrawRectRotaGraph(kVariable::DrawPositionX + (x * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
+			draw::MyDrawRectRotaGraph(kVariable::DrawPosition + (x * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
 				(y * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
 				m_verX * 32, m_verY * 32,
 				32, 32,
@@ -174,7 +174,7 @@ void Stage::stageDraw(int x, int y)
 	{
 		m_verX = 13;
 		m_verY = 13;
-		draw::MyDrawRectRotaGraph(kVariable::DrawPositionX + (x * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
+		draw::MyDrawRectRotaGraph(kVariable::DrawPosition + (x * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
 			(y * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
 			m_verX * 16, m_verY * 16,
 			16, 16,
@@ -188,7 +188,7 @@ void Stage::stageDraw(int x, int y)
 	{
 		m_verX = 0;
 		m_verY = 0;
-		draw::MyDrawRectRotaGraph(kVariable::DrawPositionX + (x * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
+		draw::MyDrawRectRotaGraph(kVariable::DrawPosition + (x * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
 			(y * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
 			m_verX * 32, m_verY * 32,
 			32, 32,
@@ -209,7 +209,7 @@ void Stage::stageDraw(int x, int y)
 			m_idxGoalX = 1;
 			m_idxGoalY = 0;
 		}
-		draw::MyDrawRectRotaGraph(kVariable::DrawPositionX + (x * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
+		draw::MyDrawRectRotaGraph(kVariable::DrawPosition + (x * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
 			(y * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
 			m_idxGoalX * 40, m_idxGoalY * 40,
 			40, 40,
@@ -222,7 +222,7 @@ void Stage::stageDraw(int x, int y)
 	{
 		m_verX = 4;
 		m_verY = 0;
-		draw::MyDrawRectRotaGraph(kVariable::DrawPositionX + (x * kVariable::DrawWidth) + (kVariable::DrawWidth / 2), 
+		draw::MyDrawRectRotaGraph(kVariable::DrawPosition + (x * kVariable::DrawWidth) + (kVariable::DrawWidth / 2), 
 			(y * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
 			m_verX * 32, m_verY * 32,
 			32, 32,
@@ -237,7 +237,7 @@ void Stage::needleDraw(int x, int y)
 	// âE
 	if (m_stage[y][x + 1] == 0)
 	{
-		draw::MyDrawRectRotaGraph(kVariable::DrawPositionX + ((x + 1) * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
+		draw::MyDrawRectRotaGraph(kVariable::DrawPosition + ((x + 1) * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
 			(y * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
 			0, 0,
 			40, 40,
@@ -247,7 +247,7 @@ void Stage::needleDraw(int x, int y)
 	// ç∂
 	if (m_stage[y][x - 1] == 0)
 	{
-		draw::MyDrawRectRotaGraph(kVariable::DrawPositionX + ((x - 1) * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
+		draw::MyDrawRectRotaGraph(kVariable::DrawPosition + ((x - 1) * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
 			(y * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
 			0, 0,
 			40, 40,
@@ -257,7 +257,7 @@ void Stage::needleDraw(int x, int y)
 	// è„
 	if (m_stage[y - 1][x] == 0)
 	{
-		draw::MyDrawRectRotaGraph(kVariable::DrawPositionX + (x * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
+		draw::MyDrawRectRotaGraph(kVariable::DrawPosition + (x * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
 			((y - 1) * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
 			0, 0,
 			40, 40,
@@ -267,7 +267,7 @@ void Stage::needleDraw(int x, int y)
 	// â∫
 	if (m_stage[y + 1][x] == 0)
 	{
-		draw::MyDrawRectRotaGraph(kVariable::DrawPositionX + (x * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
+		draw::MyDrawRectRotaGraph(kVariable::DrawPosition + (x * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
 			((y + 1) * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
 			0, 0,
 			40, 40,

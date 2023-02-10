@@ -28,8 +28,7 @@ namespace kVariable
 	constexpr int DrawBackWidth = 100;
 
 	// 描画する位置変更
-	constexpr int DrawPositionX = 450;
-	constexpr int DrawPositionY = 0;
+	constexpr int DrawPosition = 450;
 }
 
 // 背景
@@ -454,7 +453,7 @@ namespace kStage
 	constexpr int stage15[kVariable::StageWidth][kVariable::StageWidth] = {
 		// 1行		 6行		 11行
 		{9,9,9,9,9,  9,9,9,9,9,  9,9,9,9,9},// 1行
-		{9,6,6,6,6,  6,8,6,6,7,  0,0,0,0,9},
+		{9,6,6,6,6,  6,6,6,6,7,  0,0,0,0,9},
 		{9,0,0,0,0,  7,0,0,0,0,  0,0,5,0,9},
 		{9,9,9,9,0,  0,0,0,5,0,  0,0,0,0,9},
 		{9,9,9,9,0,  0,0,0,0,0,  0,0,0,0,9},

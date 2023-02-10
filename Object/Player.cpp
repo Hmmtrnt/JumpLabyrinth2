@@ -96,6 +96,17 @@ void Player::update()
 	//jumpMotion();
 }
 
+void Player::updateTest(int& frameX, int& frameY)
+{
+	m_frameX += m_speedX;
+	m_posX = m_frameX / kVariable::DrawWidth;
+	m_frameY += m_speedY;
+	m_posY = m_frameY / kVariable::DrawWidth;
+
+	frameX = m_frameX + (kVariable::DrawPosition + kVariable::DrawWidth);
+	frameY = m_frameY;
+}
+
 // •`‰æ
 void Player::draw()
 {
@@ -196,7 +207,7 @@ void Player::playerDraw(int x, int y)
 {
 	if (m_rota == PI / 2 && m_speedX == 0 && m_speedY == 0)
 	{
-		draw::MyDrawRectRotaGraph(kVariable::DrawPositionX + (m_frameX + (x * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
+		draw::MyDrawRectRotaGraph(kVariable::DrawPosition + (m_frameX + (x * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
 								  (m_frameY + (y * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
 								  m_verXPlayer * 32, m_verYPlayer * 32,
 								  32, 32,
@@ -206,7 +217,7 @@ void Player::playerDraw(int x, int y)
 	}
 	else if (m_speedX == 0 && m_speedY == 0)
 	{
-		draw::MyDrawRectRotaGraph(kVariable::DrawPositionX + (m_frameX + (x * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
+		draw::MyDrawRectRotaGraph(kVariable::DrawPosition + (m_frameX + (x * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
 								  (m_frameY + (y * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
 								  m_verXPlayer * 32, m_verYPlayer * 32,
 								  32, 32,
@@ -261,7 +272,7 @@ void Player::motion(int x, int y)
 	// ˆÚ“®’†‚ÌƒLƒƒƒ‰‚ÌŒ©‚½–Ú
 	if (m_speedX != 0 || m_speedY != 0)
 	{
-		draw::MyDrawRectRotaGraph(kVariable::DrawPositionX + (m_frameX + (x * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
+		draw::MyDrawRectRotaGraph(kVariable::DrawPosition + (m_frameX + (x * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
 			(m_frameY + (y * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
 			0, 0,
 			40, 40,

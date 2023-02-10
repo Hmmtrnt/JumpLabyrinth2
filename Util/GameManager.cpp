@@ -79,11 +79,10 @@ void GameManager::initManager(int posX, int posY, int frameX, int frameY,
 }
 
 void GameManager::initManagerInShot(int posX, int posY, int frameX, int frameY, 
-	const int stage[][kVariable::StageWidth], int stageHeight, int stageWidth, 
-	int shotX, int shotY)
+	const int stage[][kVariable::StageWidth], int stageHeight, int stageWidth)
 {
 	initCommon();
-	m_pShot->init(shotX, shotY);
+	m_pShot->init();
 	m_pPlayer->initPlayer(posX, posY, frameX, frameY);
 	m_pStage->initStage(stage, stageHeight, stageWidth);
 	m_pBack->init();
@@ -162,6 +161,72 @@ void GameManager::update()
 		}
 
 		m_pPlayer->update();
+		m_pStage->update();
+	}
+	if (m_pushFlag)
+	{
+		m_pPause->update();
+		updatePause();
+	}
+	collisionShot();
+}
+
+void GameManager::updateTest(int& frameX, int& frameY)
+{
+	if (Pad::isTrigger(PAD_INPUT_R) == 1)
+	{
+		if (!GameOver)
+		{
+			if (m_pushFlag == false)
+			{
+				m_pushFlag = true;
+			}
+			else if (m_pushFlag == true)
+			{
+				m_pushFlag = false;
+			}
+		}
+	}
+
+	if (!m_pushFlag)
+	{
+		collision();
+
+		if (colFlagL || colFlagR || colFlagUp || colFlagBottom)
+		{
+			m_GameOverCount--;
+			if (m_GameOverCount <= 0)
+			{
+				m_GameOverCount = 0;
+				if (m_GameOverCount == 0)
+				{
+					GameOver = true;
+				}
+			}
+		}
+		if (!colFlagL && !colFlagR && !colFlagUp && !colFlagBottom)
+		{
+			m_GameOverCount = 30;
+		}
+
+		if (!GameOver)
+		{
+			m_pPlayer->operation(colL, colR, colUp, colBottom);
+		}
+		else if (GameOver)
+		{
+			GameOverMotion();
+			m_pPlayer->m_speedX = 0;
+			m_pPlayer->m_speedY = 0;
+		}
+
+		if (GameClear)
+		{
+			m_pPlayer->m_speedX = 0;
+			m_pPlayer->m_speedY = 0;
+		}
+
+		m_pPlayer->updateTest(frameX, frameY);
 		m_pStage->update();
 	}
 	if (m_pushFlag)
@@ -282,9 +347,8 @@ void GameManager::draw()
 	//DrawFormatString(0, 60, kColor::Black, "%d", m_pushPause);
 }
 
-void GameManager::drawInShot(int& posX, int& posY)
+void GameManager::drawInShot()
 {
-	m_pShot->draw(posX, posY);
 	m_pStage->draw();
 	drawNeedle();
 	m_pPlayer->draw();
@@ -293,10 +357,10 @@ void GameManager::drawInShot(int& posX, int& posY)
 		m_pPause->draw();
 	}
 
-	DrawFormatString(0, 30, kColor::White, "%d", m_pShot->m_posX);
+	/*DrawFormatString(0, 30, kColor::White, "%d", m_pShot->m_posX);
 	DrawFormatString(0, 60, kColor::White, "%d", m_pShot->m_posY);
 	DrawFormatString(0, 90, kColor::White, "%d", m_pPlayer->m_frameX + (kVariable::DrawWidth + kVariable::DrawPositionX));
-	DrawFormatString(0, 120, kColor::White, "%d", m_pPlayer->m_frameY + kVariable::DrawWidth);
+	DrawFormatString(0, 120, kColor::White, "%d", m_pPlayer->m_frameY + kVariable::DrawWidth);*/
 }
 
 void GameManager::collision()
@@ -634,7 +698,7 @@ void GameManager::drawNeedle()
 			{
 				if (m_pPlayer->m_player[y][x] == 1)
 				{
-					draw::MyDrawRectRotaGraph((m_pPlayer->m_frameX + (x * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
+					draw::MyDrawRectRotaGraph(kVariable::DrawPosition + (m_pPlayer->m_frameX + (x * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
 						(m_pPlayer->m_frameY + (y * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
 						0, 0,
 						40, 40,
@@ -660,29 +724,14 @@ void GameManager::GameOverMotion()
 	}
 }
 
-void GameManager::updateShotRight(int posX, int posY, int sizeX, int stagePosX)
-{
-	m_pShot->shotRight(posX, posY, sizeX, stagePosX);
-}
-
-void GameManager::updateShotUp(int posX, int posY, int stagePosY)
-{
-	m_pShot->shotUp(posX, posY, stagePosY);
-}
-
-void GameManager::shotDraw(int &posX, int &posY)
-{
-	m_pShot->draw(posX, posY);
-}
-
 void GameManager::collisionShot()
 {
-	if (m_pPlayer->m_frameX + (kVariable::DrawWidth + kVariable::DrawPositionX) == m_pShot->m_posX &&
-		m_pPlayer->m_frameY + kVariable::DrawWidth == m_pShot->m_posY)
-	{
-		// GameOver = true;
-		printfDx("ヤラレチャッタ\n");
-	}
+	//if (m_pPlayer->m_frameX + (kVariable::DrawWidth + kVariable::DrawPositionX) == m_pShot->m_posX &&
+	//	m_pPlayer->m_frameY + kVariable::DrawWidth == m_pShot->m_posY)
+	//{
+	//	// GameOver = true;
+	//	printfDx("ヤラレチャッタ\n");
+	//}
 }
 
 void GameManager::EnemyElasticity()

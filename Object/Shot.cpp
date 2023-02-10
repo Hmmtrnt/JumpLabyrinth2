@@ -15,6 +15,9 @@ Shot::Shot() :
 	m_posY(0),
 	m_speedX(0),
 	m_speedY(0),
+	m_speedX2(0),
+	m_speedY2(0),
+	m_speedX3(0),
 	m_frameCount(0)
 {
 
@@ -25,17 +28,17 @@ Shot::~Shot()
 }
 
 // èâä˙âª(é¿å±óp)
-void Shot::init(int posX, int posY)
+void Shot::init()
 {
 	m_handle = draw::MyLoadGraph("data/arrow4.png");
 
 	m_rota = 0;
 
-	m_posX = posX;
-	m_posY = posY;
-
 	m_speedX = 0;
 	m_speedY = 0;
+	m_speedX2 = 0;
+	m_speedY2 = 0;
+	m_speedX3 = 0;
 
 	m_frameCount = 60;
 }
@@ -52,20 +55,20 @@ void Shot::update()
 
 void Shot::draw(int &posX, int &posY)
 {
-	draw::MyDrawRectRotaGraph(m_posX + (kVariable::DrawWidth / 2), m_posY + (kVariable::DrawWidth / 2),
+	draw::MyDrawRectRotaGraph(posX + (kVariable::DrawWidth / 2), posY + (kVariable::DrawWidth / 2),
 		0, 0,
 		40, 40,
 		kShotSize, m_rota,
 		m_handle, true , false);
 }
 
-void Shot::shotRight(int posX, int posY, int sizeX, int stagePosX)
+void Shot::shotRight(int &posX, int &stagePosX)
 {
 	m_frameCount--;
 
-	m_posX += m_speedX;
+	posX += m_speedX;
 
-	if (stagePosX <= m_posX + sizeX)
+	if (stagePosX <= posX)
 	{
 		m_speedX = 0;
 	}
@@ -76,32 +79,38 @@ void Shot::shotRight(int posX, int posY, int sizeX, int stagePosX)
 	if (m_frameCount <= 0)
 	{
 		m_frameCount = 0;
-		init(posX, posY);
+		init();
 	}
 }
 
 void Shot::shotLeft(int &posX, int &stagePosX)
 {
-	posX += m_speedX;
+	m_frameCount--;
 
-	if (stagePosX >= posX)
+	posX += m_speedX2;
+
+	if (stagePosX >= posX &&m_frameCount > 0)
 	{
-		m_speedX = 0;
+		m_speedX2 = 0;
 	}
 	else
 	{
-		m_speedX = -kVec;
+		m_speedX2 = -kVec;
 	}
-	
+	if (m_frameCount <= 0)
+	{
+		m_frameCount = 0;
+		init();
+	}
 }
 
-void Shot::shotUp(int posX, int posY, int stagePosY)
+void Shot::shotUp(int &posY, int &stagePosY)
 {
 	m_frameCount--;
 
-	m_posY += m_speedY;
+	posY += m_speedY;
 
-	if (stagePosY >= m_posY && m_frameCount > 0)
+	if (stagePosY >= posY && m_frameCount > 0)
 	{
 		m_speedY = 0;
 	}
@@ -112,20 +121,48 @@ void Shot::shotUp(int posX, int posY, int stagePosY)
 	if (m_frameCount <= 0)
 	{
 		m_frameCount = 0;
-		init(posX, posY);
+		init();
 	}
 }
 
-void Shot::shotBottom(int &posY, int &sizeY, int &stagePosY)
+void Shot::shotBottom(int &posY, int &stagePosY)
 {
-	posY += m_speedY;
+	m_frameCount--;
 
-	if (stagePosY <= posY + sizeY)
+	posY += m_speedY2;
+
+	if (stagePosY <= posY && m_frameCount > 0)
 	{
-		m_speedY = 0;
+		m_speedY2 = 0;
 	}
 	else
 	{
-		m_speedY = kVec;
+		m_speedY2 = kVec;
+	}
+	if (m_frameCount <= 0)
+	{
+		m_frameCount = 0;
+		init();
+	}
+}
+
+void Shot::shotRight2(int& posX, int& stagePosX)
+{
+	m_frameCount--;
+
+	posX += m_speedX3;
+
+	if (stagePosX <= posX)
+	{
+		m_speedX3 = 0;
+	}
+	else
+	{
+		m_speedX3 = kVec;
+	}
+	if (m_frameCount <= 0)
+	{
+		m_frameCount = 0;
+		init();
 	}
 }

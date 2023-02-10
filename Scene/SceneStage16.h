@@ -2,10 +2,12 @@
 #pragma once
 #include "SceneBase.h"
 #include "../Util/common.h"
+#include <memory>
 
 class GameManager;
 class Shot;
 class Back;
+class Player;
 
 class SceneStage16 : public SceneBase
 {
@@ -26,6 +28,7 @@ private:
 	GameManager* m_pManager;
 	Shot* m_pShot;
 	Back* m_pBack;
+	Player* m_pPlayer;
 
 	// フレームカウント
 	int m_frameCount;
@@ -41,12 +44,27 @@ private:
 	int m_shotPosY;			// Y座標
 	int m_shotPosX2;		// X座標
 	int m_shotPosY2;		// Y座標
+	int m_shotPosX3;		// X座標
+	int m_shotPosY3;		// Y座標
+	int m_shotPosX4;		// X座標
+	int m_shotPosY4;		// Y座標
+	int m_shotPosX5;		// X座標
+	int m_shotPosY5;		// Y座標
 
 	// 弾が壁に当たる座標
 	int m_colShotX;			// X座標
 	int m_colShotY;			// Y座標
 	int m_colShotX2;		// X座標
 	int m_colShotY2;		// Y座標
+	int m_colShotX3;		// X座標
+	int m_colShotY3;		// Y座標
+	int m_colShotX4;		// X座標
+	int m_colShotY4;		// Y座標
+	int m_colShotX5;		// X座標
+	int m_colShotY5;		// Y座標
+
+	// サイズ
+	int m_size;
 
 	// フレームカウント
 	int m_frameCountShot;
