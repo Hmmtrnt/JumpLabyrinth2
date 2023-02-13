@@ -11,7 +11,12 @@ public:
 	void init();		// ‰Šú‰»(‰Šú‰»)
 	void end();			// I—¹
 	void update();		// XV
-	void draw(int &posX, int &posY);		// •`‰æ
+	void drawR(int &posX, int &posY);		// ‰EŒü‚«•`‰æ
+	void drawL(int& posX, int& posY);		// ¶Œü‚«•`‰æ
+	void drawU(int& posX, int& posY);		// ãŒü‚«•`‰æ
+	void drawB(int& posX, int& posY);		// ‰ºŒü‚«•`‰æ
+	void drawR2(int& posX, int& posY);		// ‰EŒü‚«•`‰æ‡A
+	void drawL2(int& posX, int& posY);		// ¶Œü‚«•`‰æ‡A
 
 	// Ëü
 	void shotRight(int &posX, int &stagePosX);			// ‰E
@@ -21,29 +26,23 @@ public:
 
 	// Ëü‡A
 	void shotRight2(int& posX, int& stagePosX);			// ‰E
+	void shotLeft2(int& posX, int& stagePosX);			// ¶
 
-	// ’e‚ÌˆÊ’u
-	int m_posX;
-	int m_posY;
-
-	int getSpeedX() { return m_speedX; }
-	int getSpeedY() { return m_speedY; }
-
+private:
 	// ’e‚Ì‘¬‚³
 	int m_speedX;
 	int m_speedY;
 	int m_speedX2;
 	int m_speedY2;
 	int m_speedX3;
+	int m_speedX4;
 
-private:
 	// ‰æ‘œƒnƒ“ƒhƒ‹
 	int m_handle;
 
 	// ‰ñ“]—¦
 	float m_rota;
 
-	
-
+	// ”­Ë‚·‚éƒtƒŒ[ƒ€”
 	int m_frameCount;
 };

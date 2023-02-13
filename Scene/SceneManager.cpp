@@ -18,6 +18,7 @@
 #include "SceneStage14.h"
 #include "SceneStage15.h"
 #include "SceneStage16.h"
+#include "SceneStage17.h"
 #include "SceneMain.h"
 #include "../Util/Pad.h"
 
@@ -28,7 +29,11 @@ SceneManager::SceneManager()
 // ‰Šú‰»
 void SceneManager::init()
 {
-	m_pScene = new SceneStage16;
+#ifdef _DEBUG
+	m_pScene = new SceneStage17;
+#else
+	m_pScene = new SceneTitle;
+#endif
 	m_pScene->init();
 }
 // I—¹
