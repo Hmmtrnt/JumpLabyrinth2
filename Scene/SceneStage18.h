@@ -40,18 +40,21 @@ private:
 	// 弾の座標
 	int m_shotPosX;			// X座標
 	int m_shotPosY;			// Y座標
-	int m_shotPosX2;			// X座標
-	int m_shotPosY2;			// Y座標
-	int m_shotPosX3;			// X座標
-	int m_shotPosY3;			// Y座標
-	int m_shotPosX4;			// X座標
-	int m_shotPosY4;			// Y座標
+	int m_shotPosX2;		// X座標
+	int m_shotPosY2;		// Y座標
+	int m_shotPosX3;		// X座標
+	int m_shotPosY3;		// Y座標
+	int m_shotPosX4;		// X座標
+	int m_shotPosY4;		// Y座標
+	int m_shotPosX5;		// X座標
+	int m_shotPosY5;		// Y座標
 
 	// 弾が壁に当たる座標
 	int m_colShotX;			// X座標
 	int m_colShotY2;		// Y座標
 	int m_colShotY3;		// Y座標
 	int m_colShotX4;		// X座標
+	int m_colShotY5;		// Y座標
 
 	// サイズ
 	int m_size;

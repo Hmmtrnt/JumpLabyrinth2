@@ -155,7 +155,7 @@ SceneBase* SceneStage16::update()
 
 		if (m_frameCount <= 0)
 		{
-			return(new SceneSelect);
+			return(new SceneStage16);
 		}
 	}
 	if (m_pManager->GameClear)

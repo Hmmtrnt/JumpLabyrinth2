@@ -17,6 +17,7 @@ public:
 	void drawB(int& posX, int& posY);		// ‰ºŒü‚«•`‰æ
 	void drawR2(int& posX, int& posY);		// ‰EŒü‚«•`‰æ‡A
 	void drawL2(int& posX, int& posY);		// ¶Œü‚«•`‰æ‡A
+	void drawB2(int& posX, int& posY);		// ‰ºŒü‚«•`‰æ‡B
 
 	// •Ï”‚ÌŠm”F
 	void drawTest();
@@ -30,6 +31,7 @@ public:
 	// Ëü‡A
 	void shotRight2(int& posX, int& stagePosX);			// ‰E
 	void shotLeft2(int& posX, int& stagePosX);			// ¶
+	void shotBottom2(int& posY, int& stagePosY);		// ‰º
 
 private:
 	// ’e‚Ì‘¬‚³
@@ -38,7 +40,9 @@ private:
 	int m_speedX2;
 	int m_speedY2;
 	int m_speedX3;
+	int m_speedY3;
 	int m_speedX4;
+
 
 	// ‰æ‘œƒnƒ“ƒhƒ‹
 	int m_handle;

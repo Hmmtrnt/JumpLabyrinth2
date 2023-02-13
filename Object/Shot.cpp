@@ -143,6 +143,19 @@ void Shot::drawL2(int& posX, int& posY)
 	}
 }
 
+void Shot::drawB2(int& posX, int& posY)
+{
+	if (m_speedY2 == kVec)
+	{
+		m_rota = PI / 1;
+		draw::MyDrawRectRotaGraph(posX + (kVariable::DrawWidth / 2), posY + (kVariable::DrawWidth / 2),
+			0, 0,
+			40, 40,
+			kShotSize, m_rota,
+			m_handle, true, false);
+	}
+}
+
 void Shot::drawTest()
 {
 	DrawFormatString(0, 50, kColor::White, "%d", m_frameCount);
@@ -290,6 +303,31 @@ void Shot::shotLeft2(int& posX, int& stagePosX)
 		else
 		{
 			m_speedX4 = -kVec;
+		}
+		if (m_frameCount <= 0)
+		{
+			m_frameCount = 0;
+			init();
+		}
+	}
+}
+
+void Shot::shotBottom2(int& posY, int& stagePosY)
+{
+	update();
+	if (!m_pushPause)
+	{
+		m_frameCount--;
+
+		posY += m_speedY3;
+
+		if (stagePosY <= posY && m_frameCount > 0)
+		{
+			m_speedY3 = 0;
+		}
+		else
+		{
+			m_speedY3 = kVec;
 		}
 		if (m_frameCount <= 0)
 		{

@@ -59,7 +59,7 @@ SceneBase* SceneStage13::update()
 
 		if (m_frameCount <= 0)
 		{
-			return(new SceneSelect);
+			return(new SceneStage13);
 		}
 	}
 	if (m_pManager->GameClear)
