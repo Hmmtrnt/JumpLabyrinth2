@@ -7,6 +7,7 @@
 class GameManager;
 class Shot;
 class Back;
+class ScenePause;
 
 class SceneStage16 : public SceneBase
 {
@@ -27,6 +28,7 @@ private:
 	GameManager* m_pManager;	// ゲームマネージャー
 	Shot* m_pShot;				// 弾
 	Back* m_pBack;				// 背景
+	ScenePause* m_pPause;		// ポーズ画面
 
 	// フレームカウント
 	int m_frameCount;

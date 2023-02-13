@@ -1,5 +1,6 @@
 #include "SceneStage16.h"
 #include "SceneSelect.h"
+#include "ScenePause.h"
 #include "../Object/Back.h"
 #include "../Object/Shot.h"
 #include "../Util/GameManager.h"
@@ -26,6 +27,7 @@ SceneStage16::SceneStage16() :
 	m_pManager = new GameManager;
 	m_pShot = new Shot;
 	m_pBack = new Back;
+	m_pPause = new ScenePause;
 }
 
 SceneStage16::~SceneStage16()
@@ -33,6 +35,7 @@ SceneStage16::~SceneStage16()
 	delete m_pManager;
 	delete m_pShot;
 	delete m_pBack;
+	delete m_pPause;
 }
 
 void SceneStage16::init()
@@ -56,6 +59,7 @@ void SceneStage16::init()
 		kStage::stage16, kVariable::StageWidth, kVariable::StageWidth);
 
 	m_pBack->init();
+	m_pPause->init();
 }
 
 void SceneStage16::initShot()
@@ -92,6 +96,7 @@ void SceneStage16::end()
 {
 	m_pManager->end();
 	m_pBack->end();
+	m_pPause->end();
 }
 
 SceneBase* SceneStage16::update()
@@ -131,6 +136,8 @@ SceneBase* SceneStage16::update()
 
 	collisionShot();
 
+	m_pPause->update();
+
 	if (m_pManager->GetPushPause() == 1)
 	{
 	}
@@ -142,7 +149,6 @@ SceneBase* SceneStage16::update()
 	{
 		return(new SceneStage16);
 	}
-
 	if (m_pManager->GameOver)
 	{
 		m_frameCount--;
@@ -169,7 +175,18 @@ void SceneStage16::draw()
 	m_pShot->drawL(m_shotPosX4, m_shotPosY4);
 	m_pShot->drawR2(m_shotPosX5, m_shotPosY5);
 	m_pManager->drawInShot();
-	m_pShot->drawTest();
+	// ゲームオーバー時のメニュー画面(途中)
+	if (m_pManager->GameOver)
+	{
+		m_frameCount--;
+
+		if (m_frameCount <= 0)
+		{
+			//return(new SceneSelect);
+			//m_pPause->GameOverDraw();
+		}
+	}
+	//m_pPause->GameOverDraw();
 }
 
 void SceneStage16::collisionShot()
