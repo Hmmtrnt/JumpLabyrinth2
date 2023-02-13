@@ -341,7 +341,7 @@ void GameManager::draw()
 	m_pPlayer->draw();
 	if (m_pushFlag)
 	{
-		m_pPause->draw();
+		m_pPause->pauseDraw();
 	}
 	// Šm”F•`‰æ
 	//DrawFormatString(0, 60, kColor::Black, "%d", m_pushPause);
@@ -354,7 +354,7 @@ void GameManager::drawInShot()
 	m_pPlayer->draw();
 	if (m_pushFlag)
 	{
-		m_pPause->draw();
+		m_pPause->pauseDraw();
 	}
 
 	/*DrawFormatString(0, 30, kColor::White, "%d", m_pShot->m_posX);

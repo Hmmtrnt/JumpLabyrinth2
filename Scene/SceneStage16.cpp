@@ -3,6 +3,7 @@
 #include "../Object/Back.h"
 #include "../Object/Shot.h"
 #include "../Util/GameManager.h"
+#include "../Util/Pad.h"
 
 SceneStage16::SceneStage16() :
 	m_frameCount(0),
@@ -19,7 +20,8 @@ SceneStage16::SceneStage16() :
 	m_colShotX4(0),
 	m_colShotX5(0),
 	m_size(0),
-	m_frameCountShot(0)
+	m_frameCountShot(0),
+	m_pushPause(false)
 {
 	m_pManager = new GameManager;
 	m_pShot = new Shot;
@@ -47,6 +49,8 @@ void SceneStage16::init()
 	m_size = kVariable::DrawWidth;
 
 	m_frameCountShot = 60;
+
+	m_pushPause = false;
 
 	m_pManager->initManagerInShot(m_posX, m_posY, m_frameX, m_frameY,
 		kStage::stage16, kVariable::StageWidth, kVariable::StageWidth);
@@ -92,6 +96,22 @@ void SceneStage16::end()
 
 SceneBase* SceneStage16::update()
 {
+	if (Pad::isTrigger(PAD_INPUT_R) == 1)
+	{
+		if (!m_pManager->GameOver)
+		{
+			if (m_pushPause == false)
+			{
+				m_pushPause = true;
+				initShot();
+			}
+			else if (m_pushPause == true)
+			{
+				m_pushPause = false;
+			}
+		}
+	}
+
 	m_pManager->updateTest(m_frameX, m_frameY);
 
 	m_frameCountShot--;
@@ -100,11 +120,14 @@ SceneBase* SceneStage16::update()
 		initShot();
 		m_frameCountShot = 60;
 	}
-	m_pShot->shotUp(m_shotPosY, m_colShotY);
-	m_pShot->shotRight(m_shotPosX2, m_colShotX2);
-	m_pShot->shotBottom(m_shotPosY3, m_colShotY3);
-	m_pShot->shotLeft(m_shotPosX4, m_colShotX4);
-	m_pShot->shotRight2(m_shotPosX5, m_colShotX5);
+	/*if (!m_pushPause)
+	{*/
+		m_pShot->shotUp(m_shotPosY, m_colShotY);
+		m_pShot->shotRight(m_shotPosX2, m_colShotX2);
+		m_pShot->shotBottom(m_shotPosY3, m_colShotY3);
+		m_pShot->shotLeft(m_shotPosX4, m_colShotX4);
+		m_pShot->shotRight2(m_shotPosX5, m_colShotX5);
+	//}
 
 	collisionShot();
 
@@ -146,6 +169,7 @@ void SceneStage16::draw()
 	m_pShot->drawL(m_shotPosX4, m_shotPosY4);
 	m_pShot->drawR2(m_shotPosX5, m_shotPosY5);
 	m_pManager->drawInShot();
+	m_pShot->drawTest();
 }
 
 void SceneStage16::collisionShot()

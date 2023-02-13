@@ -55,7 +55,7 @@ void ScenePause::update()
 	}
 }
 
-void ScenePause::draw()
+void ScenePause::pauseDraw()
 {
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 100);
 	DrawBox(100, 100, 700, 600, kColor::LightBlue, true);

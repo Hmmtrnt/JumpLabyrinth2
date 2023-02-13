@@ -16,7 +16,8 @@ Shot::Shot() :
 	m_speedX2(0),
 	m_speedY2(0),
 	m_speedX3(0),
-	m_frameCount(0)
+	m_frameCount(0),
+	m_pushPause(false)
 {
 
 }
@@ -39,6 +40,8 @@ void Shot::init()
 	m_speedX3 = 0;
 
 	m_frameCount = 60;
+
+	m_pushPause = false;
 }
 
 void Shot::end()
@@ -48,7 +51,18 @@ void Shot::end()
 
 void Shot::update()
 {
-
+	if (Pad::isTrigger(PAD_INPUT_R) == 1)
+	{
+		if (m_pushPause == false)
+		{
+			m_pushPause = true;
+			//init();
+		}
+		else if (m_pushPause == true)
+		{
+			m_pushPause = false;
+		}
+	}
 }
 
 void Shot::drawR(int& posX, int& posY)
@@ -129,128 +143,158 @@ void Shot::drawL2(int& posX, int& posY)
 	}
 }
 
+void Shot::drawTest()
+{
+	DrawFormatString(0, 50, kColor::White, "%d", m_frameCount);
+}
+
 void Shot::shotRight(int &posX, int &stagePosX)
 {
-	m_frameCount--;
+	update();
+	if (!m_pushPause)
+	{
+		m_frameCount--;
 
-	posX += m_speedX;
+		posX += m_speedX;
 
-	if (stagePosX <= posX)
-	{
-		m_speedX = 0;
-	}
-	else
-	{
-		m_speedX = kVec;
-	}
-	if (m_frameCount <= 0)
-	{
-		m_frameCount = 0;
-		init();
+		if (stagePosX <= posX)
+		{
+			m_speedX = 0;
+		}
+		else
+		{
+			m_speedX = kVec;
+		}
+		if (m_frameCount <= 0)
+		{
+			m_frameCount = 0;
+			init();
+		}
 	}
 }
 
 void Shot::shotLeft(int &posX, int &stagePosX)
 {
-	m_frameCount--;
+	update();
+	if (!m_pushPause)
+	{
+		m_frameCount--;
 
-	posX += m_speedX2;
+		posX += m_speedX2;
 
-	if (stagePosX >= posX &&m_frameCount > 0)
-	{
-		m_speedX2 = 0;
-	}
-	else
-	{
-		m_speedX2 = -kVec;
-	}
-	if (m_frameCount <= 0)
-	{
-		m_frameCount = 0;
-		init();
+		if (stagePosX >= posX && m_frameCount > 0)
+		{
+			m_speedX2 = 0;
+		}
+		else
+		{
+			m_speedX2 = -kVec;
+		}
+		if (m_frameCount <= 0)
+		{
+			m_frameCount = 0;
+			init();
+		}
 	}
 }
 
 void Shot::shotUp(int &posY, int &stagePosY)
 {
-	m_frameCount--;
+	update();
+	if (!m_pushPause)
+	{
+		m_frameCount--;
 
-	posY += m_speedY;
+		posY += m_speedY;
 
-	if (stagePosY >= posY && m_frameCount > 0)
-	{
-		m_speedY = 0;
-	}
-	else
-	{
-		m_speedY = -kVec;
-	}
-	if (m_frameCount <= 0)
-	{
-		m_frameCount = 0;
-		init();
+		if (stagePosY >= posY && m_frameCount > 0)
+		{
+			m_speedY = 0;
+		}
+		else
+		{
+			m_speedY = -kVec;
+		}
+		if (m_frameCount <= 0)
+		{
+			m_frameCount = 0;
+			init();
+		}
 	}
 }
 
 void Shot::shotBottom(int &posY, int &stagePosY)
 {
-	m_frameCount--;
+	update();
+	if (!m_pushPause)
+	{
+		m_frameCount--;
 
-	posY += m_speedY2;
+		posY += m_speedY2;
 
-	if (stagePosY <= posY && m_frameCount > 0)
-	{
-		m_speedY2 = 0;
-	}
-	else
-	{
-		m_speedY2 = kVec;
-	}
-	if (m_frameCount <= 0)
-	{
-		m_frameCount = 0;
-		init();
+		if (stagePosY <= posY && m_frameCount > 0)
+		{
+			m_speedY2 = 0;
+		}
+		else
+		{
+			m_speedY2 = kVec;
+		}
+		if (m_frameCount <= 0)
+		{
+			m_frameCount = 0;
+			init();
+		}
 	}
 }
 
 void Shot::shotRight2(int& posX, int& stagePosX)
 {
-	m_frameCount--;
+	update();
+	if (!m_pushPause)
+	{
+		m_frameCount--;
 
-	posX += m_speedX3;
+		posX += m_speedX3;
 
-	if (stagePosX <= posX)
-	{
-		m_speedX3 = 0;
+		if (stagePosX <= posX)
+		{
+			m_speedX3 = 0;
+		}
+		else
+		{
+			m_speedX3 = kVec;
+		}
+		if (m_frameCount <= 0)
+		{
+			m_frameCount = 0;
+			init();
+		}
 	}
-	else
-	{
-		m_speedX3 = kVec;
-	}
-	if (m_frameCount <= 0)
-	{
-		m_frameCount = 0;
-		init();
-	}
+	
 }
 
 void Shot::shotLeft2(int& posX, int& stagePosX)
 {
-	m_frameCount--;
+	update();
+	if (!m_pushPause)
+	{
+		m_frameCount--;
 
-	posX += m_speedX4;
+		posX += m_speedX4;
 
-	if (stagePosX >= posX && m_frameCount > 0)
-	{
-		m_speedX4 = 0;
-	}
-	else
-	{
-		m_speedX4 = -kVec;
-	}
-	if (m_frameCount <= 0)
-	{
-		m_frameCount = 0;
-		init();
+		if (stagePosX >= posX && m_frameCount > 0)
+		{
+			m_speedX4 = 0;
+		}
+		else
+		{
+			m_speedX4 = -kVec;
+		}
+		if (m_frameCount <= 0)
+		{
+			m_frameCount = 0;
+			init();
+		}
 	}
 }

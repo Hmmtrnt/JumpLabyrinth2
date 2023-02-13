@@ -8,10 +8,11 @@ public:
 	ScenePause();
 	virtual ~ScenePause();
 
-	virtual void init();
-	virtual void end();
-	virtual void update();
-	virtual void draw();
+	void init();
+	void end();
+	void update();
+	void pauseDraw();
+
 
 	int GetPushNum(){ return m_pushNum; }
 

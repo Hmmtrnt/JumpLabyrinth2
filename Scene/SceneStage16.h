@@ -61,5 +61,8 @@ private:
 
 	// フレームカウント
 	int m_frameCountShot;
+
+	// ポーズ画面をひらいたかどうか
+	bool m_pushPause;
 };
 

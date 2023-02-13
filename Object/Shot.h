@@ -18,6 +18,9 @@ public:
 	void drawR2(int& posX, int& posY);		// 右向き描画②
 	void drawL2(int& posX, int& posY);		// 左向き描画②
 
+	// 変数の確認
+	void drawTest();
+
 	// 射線
 	void shotRight(int &posX, int &stagePosX);			// 右
 	void shotLeft(int &posX, int &stagePosX);			// 左
@@ -45,4 +48,7 @@ private:
 
 	// 発射するフレーム数
 	int m_frameCount;
+
+	// ポーズ画面を開いたかどうか
+	bool m_pushPause;
 };
