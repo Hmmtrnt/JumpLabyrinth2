@@ -1,21 +1,19 @@
-#include "SceneStage17.h"
+ï»¿#include "SceneStage18.h"
 #include "SceneSelect.h"
 #include "../Object/Back.h"
 #include "../Object/Shot.h"
 #include "../Util/GameManager.h"
 
-SceneStage17::SceneStage17() :
+SceneStage18::SceneStage18() :
 	m_frameCount(0),
 	m_posX(0), m_posY(0),
 	m_frameX(0), m_frameY(0),
 	m_shotPosX(0), m_shotPosY(0),
 	m_shotPosX2(0), m_shotPosY2(0),
 	m_shotPosX3(0), m_shotPosY3(0),
-	m_shotPosX4(0), m_shotPosY4(0),
 	m_colShotX(0),
-	m_colShotX2(0),
-	m_colShotX3(0),
-	m_colShotY4(0),
+	m_colShotY2(0),
+	m_colShotY3(0),
 	m_size(0),
 	m_frameCountShot(0)
 {
@@ -24,21 +22,21 @@ SceneStage17::SceneStage17() :
 	m_pBack = new Back;
 }
 
-SceneStage17::~SceneStage17()
+SceneStage18::~SceneStage18()
 {
 	delete m_pManager;
 	delete m_pShot;
 	delete m_pBack;
 }
 
-void SceneStage17::init()
+void SceneStage18::init()
 {
 	m_frameCount = 90;
-	m_posX = 10;
-	m_posY = 1;
+	m_posX = 11;
+	m_posY = 7;
 
-	m_frameX = 680;
-	m_frameY = 68;
+	m_frameX = 748;
+	m_frameY = 476;
 
 	initShot();
 
@@ -47,37 +45,38 @@ void SceneStage17::init()
 	m_frameCountShot = 60;
 
 	m_pManager->initManagerInShot(m_posX, m_posY, m_frameX, m_frameY,
-		kStage::stage17, kVariable::StageWidth, kVariable::StageWidth);
+		kStage::stage18, kVariable::StageWidth, kVariable::StageWidth);
 
 	m_pBack->init();
 }
 
-void SceneStage17::initShot()
+void SceneStage18::initShot()
 {
-	// ’eÀ•W‚Ì‰Šú‰»
-	m_shotPosX = kVariable::DrawPosition + 476;
-	m_shotPosY = 68;
-	m_shotPosX2 = kVariable::DrawPosition + 340;
-	m_shotPosY2 = 476;
-	m_shotPosX3 = kVariable::DrawPosition + 544;
-	m_shotPosY3 = 680;
-	m_shotPosX4 = kVariable::DrawPosition + 136;
-	m_shotPosY4 = 612;
+	// å¼¾åº§æ¨™ã®åˆæœŸåŒ–
+	m_shotPosX = kVariable::DrawPosition + 544;
+	m_shotPosY = 272;
+	m_shotPosX2 = kVariable::DrawPosition + 884;
+	m_shotPosY2 = 340;
+	m_shotPosX3 = kVariable::DrawPosition + 272;
+	m_shotPosY3 = 68;
+	m_shotPosX4 = kVariable::DrawPosition + 204;
+	m_shotPosY4 = 272;
 
-	// ’e‚ÌÁ‚¦‚é“–‚½‚è”»’è
-	m_colShotX = kVariable::DrawPosition + 68;
-	m_colShotX2 = kVariable::DrawPosition + 0;
-	m_colShotX3 = kVariable::DrawPosition + 816;
-	m_colShotY4 = 952;
+	// å¼¾ãŒæ¶ˆãˆã‚‹åˆ¤å®š
+	m_colShotX = kVariable::DrawPosition + 952;
+	m_colShotY2 = 0;
+	m_colShotY3 = 272;
+	m_colShotX4 = kVariable::DrawPosition + 0;
+
 }
 
-void SceneStage17::end()
+void SceneStage18::end()
 {
 	m_pManager->end();
 	m_pBack->end();
 }
 
-SceneBase* SceneStage17::update()
+SceneBase* SceneStage18::update()
 {
 	m_pManager->updateTest(m_frameX, m_frameY);
 
@@ -88,10 +87,16 @@ SceneBase* SceneStage17::update()
 		m_frameCountShot = 60;
 	}
 
-	m_pShot->shotLeft(m_shotPosX, m_colShotX);
+	/*m_pShot->shotLeft(m_shotPosX, m_colShotX);
 	m_pShot->shotLeft2(m_shotPosX2, m_colShotX2);
 	m_pShot->shotRight(m_shotPosX3, m_colShotX3);
-	m_pShot->shotBottom(m_shotPosY4, m_colShotY4);
+	m_pShot->shotBottom(m_shotPosY4, m_colShotY4);*/
+
+	m_pShot->shotRight(m_shotPosX, m_colShotX);
+	m_pShot->shotUp(m_shotPosY2, m_colShotY2);
+	m_pShot->shotBottom(m_shotPosY3, m_colShotY3);
+	m_pShot->shotLeft(m_shotPosX4, m_colShotX4);
+
 
 	collisionShot();
 
@@ -104,7 +109,7 @@ SceneBase* SceneStage17::update()
 	}
 	else if (m_pManager->GetPushPause() == 3)
 	{
-		return(new SceneStage17);
+		return(new SceneStage18);
 	}
 
 	if (m_pManager->GameOver)
@@ -124,20 +129,25 @@ SceneBase* SceneStage17::update()
 	return this;
 }
 
-void SceneStage17::draw()
+void SceneStage18::draw()
 {
 	m_pBack->draw();
-	m_pShot->drawL(m_shotPosX, m_shotPosY);
+	/*m_pShot->drawL(m_shotPosX, m_shotPosY);
 	m_pShot->drawL2(m_shotPosX2, m_shotPosY2);
 	m_pShot->drawR(m_shotPosX3, m_shotPosY3);
-	m_pShot->drawB(m_shotPosX4, m_shotPosY4);
+	m_pShot->drawB(m_shotPosX4, m_shotPosY4);*/
+
+	m_pShot->drawR(m_shotPosX, m_shotPosY);
+	m_pShot->drawU(m_shotPosX2, m_shotPosY2);
+	m_pShot->drawB(m_shotPosX3, m_shotPosY3);
+	m_pShot->drawL(m_shotPosX4, m_shotPosY4);
 
 	m_pManager->drawInShot();
 }
 
-void SceneStage17::collisionShot()
+void SceneStage18::collisionShot()
 {
-	// ’e‚Ì“–‚½‚è”»’è‚Ì^‹U
+	// å¼¾ã®å½“ãŸã‚Šåˆ¤å®šã®çœŸå½
 	bool col1 = m_shotPosX == m_frameX && m_shotPosY == m_frameY + m_size;
 	bool col2 = m_shotPosX2 == m_frameX && m_shotPosY2 == m_frameY + m_size;
 	bool col3 = m_shotPosX3 == m_frameX && m_shotPosY3 == m_frameY + m_size;
@@ -146,6 +156,7 @@ void SceneStage17::collisionShot()
 	if (col1 || col2 || col3 || col4)
 	{
 		m_pManager->GameOver = true;
+		//printfDx("å½“ãŸã£ãŸãƒ¼!?\n");
 		return;
 	}
 }
