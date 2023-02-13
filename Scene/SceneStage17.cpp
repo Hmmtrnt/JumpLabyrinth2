@@ -12,10 +12,10 @@ SceneStage17::SceneStage17() :
 	m_shotPosX2(0), m_shotPosY2(0),
 	m_shotPosX3(0), m_shotPosY3(0),
 	m_shotPosX4(0), m_shotPosY4(0),
-	m_colShotX(0), m_colShotY(0),
-	m_colShotX2(0), m_colShotY2(0),
-	m_colShotX3(0), m_colShotY3(0),
-	m_colShotX4(0), m_colShotY4(0),
+	m_colShotX(0),
+	m_colShotX2(0),
+	m_colShotX3(0),
+	m_colShotY4(0),
 	m_size(0),
 	m_frameCountShot(0)
 {
@@ -66,12 +66,11 @@ void SceneStage17::initShot()
 
 	// íeÇÃè¡Ç¶ÇÈìñÇΩÇËîªíË
 	m_colShotX = kVariable::DrawPosition + 68;
-	m_colShotY = 68;
+
 	m_colShotX2 = kVariable::DrawPosition + 0;
-	m_colShotY2 = 476;
+
 	m_colShotX3 = kVariable::DrawPosition + 816;
-	m_colShotY3 = 680;
-	m_colShotX4 = kVariable::DrawPosition + 136;
+
 	m_colShotY4 = 952;
 }
 

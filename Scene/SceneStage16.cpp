@@ -13,11 +13,11 @@ SceneStage16::SceneStage16() :
 	m_shotPosX3(0), m_shotPosY3(0),
 	m_shotPosX4(0), m_shotPosY4(0),
 	m_shotPosX5(0), m_shotPosY5(0),
-	m_colShotX(0), m_colShotY(0),
-	m_colShotX2(0), m_colShotY2(0),
-	m_colShotX3(0), m_colShotY3(0),
-	m_colShotX4(0), m_colShotY4(0),
-	m_colShotX5(0), m_colShotY5(0),
+	m_colShotY(0),
+	m_colShotX2(0),
+	m_colShotY3(0),
+	m_colShotX4(0),
+	m_colShotX5(0),
 	m_size(0),
 	m_frameCountShot(0)
 {
@@ -73,20 +73,15 @@ void SceneStage16::initShot()
 	m_shotPosY5 = 884;
 
 	// íeÇÃè¡Ç¶ÇÈìñÇΩÇËîªíË
-	m_colShotX = kVariable::DrawPosition + 544;
 	m_colShotY = 544;
 
 	m_colShotX2 = kVariable::DrawPosition + 884;
-	m_colShotY2 = 68;
 
-	m_colShotX3 = kVariable::DrawPosition + 68;
 	m_colShotY3 = 476;
 
 	m_colShotX4 = kVariable::DrawPosition + 68;
-	m_colShotY4 = 680;
 
 	m_colShotX5 = kVariable::DrawPosition + 408;
-	m_colShotY5 = 884;
 }
 
 void SceneStage16::end()
