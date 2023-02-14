@@ -91,7 +91,6 @@ void GameManager::initManagerInShot(int posX, int posY, int frameX, int frameY,
 void GameManager::initP()
 {
 	initCommon();
-	m_pPlayer->initP();
 	m_pStage->initP();
 	m_pBack->init();
 }
@@ -338,7 +337,7 @@ void GameManager::draw()
 	
 	m_pStage->draw();
 	drawNeedle();
-	m_pPlayer->draw();
+	m_pPlayer->DrawGamePlay();
 	if (m_pushFlag)
 	{
 		m_pPause->pauseDraw();
@@ -351,7 +350,7 @@ void GameManager::drawInShot()
 {
 	m_pStage->draw();
 	drawNeedle();
-	m_pPlayer->draw();
+	m_pPlayer->DrawGamePlay();
 	if (m_pushFlag)
 	{
 		m_pPause->pauseDraw();

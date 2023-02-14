@@ -33,7 +33,7 @@ SceneManager::SceneManager()
 void SceneManager::init()
 {
 #ifdef _DEBUG
-	m_pScene = new SceneStage20;
+	m_pScene = new SceneTitle;
 #else
 	m_pScene = new SceneTitle;
 #endif

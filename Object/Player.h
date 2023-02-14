@@ -13,14 +13,19 @@ public:
 
 	void initPlayer(int posX, int posY, int frameX, int frameY);	// 実験用初期化
 
-	void initP();		// プロトタイプ用初期化
+	void initTitle();
 	
 	void end();			// 終了
+
+	void endTitle();	// タイトル画面の終了
+
 	void update();		// 更新
 
 	void updateTest(int &frameX, int &frameY);
 
-	void draw();		// 描画
+	// 描画
+	void DrawGamePlay();		// プレイ中
+	void DrawOthers(int posX, int posY);
 
 	// プレイヤー操作
 	void operation(bool colL,bool colR, bool colUp, bool colDown);

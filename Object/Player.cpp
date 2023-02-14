@@ -65,14 +65,9 @@ void Player::initPlayer(int posX, int posY, int frameX, int frameY)
 	initCommon();
 }
 
-// プロトタイプ用初期化
-void Player::initP()
+void Player::initTitle()
 {
-	m_posX = 11;
-	m_posY = 12;
-	m_frameX = 440;
-	m_frameY = 480;
-	initCommon();
+	m_handle = draw::MyLoadGraph("data/AnimationSheet_Character.png");
 }
 
 // 終了
@@ -81,6 +76,11 @@ void Player::end()
 	DeleteGraph(m_handle);
 	DeleteGraph(m_handle2);
 	DeleteGraph(m_handleEffect);
+}
+
+void Player::endTitle()
+{
+	DeleteGraph(m_handle);
 }
 
 // 更新
@@ -108,7 +108,7 @@ void Player::updateTest(int& frameX, int& frameY)
 }
 
 // 描画
-void Player::draw()
+void Player::DrawGamePlay()
 {
 	for (int y = 0; y < kVariable::PlayerWidth; y++)
 	{
@@ -125,6 +125,16 @@ void Player::draw()
 	DrawFormatString(600, 50, GetColor(255, 0, 0), "m_verXPlayer:%d", m_verXPlayer);
 	DrawFormatString(600, 100, GetColor(255, 0, 0), "m_verYPlayer:%d", m_verYPlayer);
 	DrawFormatString(600, 150, GetColor(255, 0, 0), "m_flameY:%d", m_frameY);*/
+}
+
+void Player::DrawOthers(int posX, int posY)
+{
+	draw::MyDrawRectRotaGraph(kVariable::DrawPosition + (m_frameX + (posX * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
+		(m_frameY + (posY * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
+		m_verXPlayer * 32, m_verYPlayer * 32,
+		32, 32,
+		2.2f, m_rota,
+		m_handle, true, true);
 }
 
 // プレイヤーの操作処理
