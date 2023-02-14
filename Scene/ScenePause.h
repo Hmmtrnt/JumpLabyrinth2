@@ -13,8 +13,6 @@ public:
 	void update();
 	void pauseDraw();
 
-	void GameOverDraw();
-
 	int GetPushNum(){ return m_pushNum; }
 
 private:

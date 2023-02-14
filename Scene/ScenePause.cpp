@@ -58,10 +58,10 @@ void ScenePause::update()
 void ScenePause::pauseDraw()
 {
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 100);
-	DrawBox(100, 100, 700, 600, kColor::LightBlue, true);
+	DrawBox(100, 100, 900, 600, kColor::LightBlue, true);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
-	DrawBox(100, 100, 700, 600, kColor::Black, false);
-	DrawStringToHandle(200, 200, "設定", kColor::Black, m_textHandle);
+	DrawBox(100, 100, 900, 600, kColor::Black, false);
+	DrawStringToHandle(200, 200, "ここの項目何にしよう？", kColor::Black, m_textHandle);
 	DrawStringToHandle(200, 270, "リタイア", kColor::Black, m_textHandle);
 	DrawStringToHandle(200, 340, "リトライ", kColor::Black, m_textHandle);
 	DrawStringToHandle(150, m_posArrow, "→", kColor::Black, m_textHandle);
@@ -70,15 +70,4 @@ void ScenePause::pauseDraw()
 	//DrawFormatString(0, 0, kColor::Black, "%d", m_pushNum);
 }
 
-void ScenePause::GameOverDraw()
-{
-	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 100);
-	DrawBox(100, 100, 700, 600, kColor::LightBlue, true);
-	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
-	DrawBox(100, 100, 700, 600, kColor::Black, false);
-	DrawStringToHandle(200, 200, "設定", kColor::Black, m_textHandle);
-	DrawStringToHandle(200, 270, "リタイア", kColor::Black, m_textHandle);
-	DrawStringToHandle(200, 340, "リトライ", kColor::Black, m_textHandle);
-	DrawStringToHandle(150, m_posArrow, "→", kColor::Black, m_textHandle);
-}
 

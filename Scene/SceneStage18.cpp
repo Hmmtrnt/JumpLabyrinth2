@@ -13,11 +13,13 @@ SceneStage18::SceneStage18() :
 	m_shotPosX3(0), m_shotPosY3(0),
 	m_shotPosX4(0), m_shotPosY4(0),
 	m_shotPosX5(0), m_shotPosY5(0),
+	m_shotPosX6(0), m_shotPosY6(0),
 	m_colShotX(0),
 	m_colShotY2(0),
 	m_colShotY3(0),
 	m_colShotX4(0),
-	m_colShotY5(0)
+	m_colShotY5(0),
+	m_colShotX6(0),
 	m_size(0),
 	m_frameCountShot(0)
 {
@@ -67,6 +69,8 @@ void SceneStage18::initShot()
 	m_shotPosY4 = 272;
 	m_shotPosX5 = kVariable::DrawPosition + 272;
 	m_shotPosY5 = 544;
+	m_shotPosX6 = kVariable::DrawPosition + 544;
+	m_shotPosY6 = 884;
 
 	// 弾が消える判定
 	m_colShotX = kVariable::DrawPosition + 952;
@@ -74,6 +78,7 @@ void SceneStage18::initShot()
 	m_colShotY3 = 272;
 	m_colShotX4 = kVariable::DrawPosition + 0;
 	m_colShotY5 = 680;
+	m_colShotX6 = kVariable::DrawPosition + 204;
 }
 
 void SceneStage18::end()
@@ -103,6 +108,7 @@ SceneBase* SceneStage18::update()
 	m_pShot->shotBottom(m_shotPosY3, m_colShotY3);
 	m_pShot->shotLeft(m_shotPosX4, m_colShotX4);
 	m_pShot->shotBottom2(m_shotPosY5, m_colShotY5);
+	m_pShot->shotLeft2(m_shotPosX6, m_colShotX6);
 
 
 	collisionShot();
@@ -149,8 +155,11 @@ void SceneStage18::draw()
 	m_pShot->drawB(m_shotPosX3, m_shotPosY3);
 	m_pShot->drawL(m_shotPosX4, m_shotPosY4);
 	m_pShot->drawB2(m_shotPosX5, m_shotPosY5);
+	m_pShot->drawL2(m_shotPosX6, m_shotPosY6);
 
 	m_pManager->drawInShot();
+
+	//DrawBox(m_shotPosX6, m_shotPosY6, m_shotPosX6 + 10, m_shotPosY6 + 10, kColor::White, true);
 }
 
 void SceneStage18::collisionShot()
@@ -161,8 +170,9 @@ void SceneStage18::collisionShot()
 	bool col3 = m_shotPosX3 == m_frameX && m_shotPosY3 == m_frameY + m_size;
 	bool col4 = m_shotPosX4 == m_frameX && m_shotPosY4 == m_frameY + m_size;
 	bool col5 = m_shotPosX5 == m_frameX && m_shotPosY5 == m_frameY + m_size;
+	bool col6 = m_shotPosX6 == m_frameX && m_shotPosY6 == m_frameY + m_size;
 
-	if (col1 || col2 || col3 || col4 || col5)
+	if (col1 || col2 || col3 || col4 || col5 || col6)
 	{
 		m_pManager->GameOver = true;
 		//printfDx("当たったー!?\n");
