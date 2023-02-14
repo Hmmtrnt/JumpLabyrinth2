@@ -129,12 +129,12 @@ void Player::DrawGamePlay()
 
 void Player::DrawOthers(int posX, int posY)
 {
-	draw::MyDrawRectRotaGraph(kVariable::DrawPosition + (m_frameX + (posX * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
-		(m_frameY + (posY * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
+	draw::MyDrawRectRotaGraph(posX,
+		posY,
 		m_verXPlayer * 32, m_verYPlayer * 32,
 		32, 32,
 		2.2f, m_rota,
-		m_handle, true, true);
+		m_handle, true, false);
 }
 
 // ƒvƒŒƒCƒ„[‚Ì‘€ìˆ—

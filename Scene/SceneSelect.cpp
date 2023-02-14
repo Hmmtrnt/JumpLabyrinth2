@@ -1,5 +1,4 @@
 #include "SceneSelect.h"
-#include "SceneMain.h"
 #include "SceneStage1.h"
 #include "SceneStage2.h"
 #include "SceneStage3.h"
@@ -75,11 +74,6 @@ SceneBase* SceneSelect::update()
 		m_stageSelect = m_createStage;
 	}
 
-	// プロトタイプ用ステージへのシーン遷移
-	if (Pad::isTrigger(PAD_INPUT_2) == 1 && m_stageSelect == 0)
-	{
-		return(new SceneMain);
-	}
 	// ここからステージ選択
 	// ステージ1
 	if (Pad::isTrigger(PAD_INPUT_2) == 1 && m_stageSelect == 1)		return (new SceneStage1);

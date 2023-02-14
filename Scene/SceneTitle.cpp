@@ -1,6 +1,5 @@
 #include "SceneTitle.h"
 #include "SceneSelect.h"
-#include "SceneMain.h"
 #include "../Object/Back.h"
 #include "../Object/Player.h"
 #include "../Util/Pad.h"

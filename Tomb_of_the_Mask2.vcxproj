@@ -183,7 +183,6 @@
     <ClCompile Include="Object\Stage.cpp" />
     <ClCompile Include="Util\Pad.cpp" />
     <ClCompile Include="Scene\SceneBase.cpp" />
-    <ClCompile Include="Scene\SceneMain.cpp" />
     <ClCompile Include="Scene\SceneManager.cpp" />
     <ClCompile Include="Scene\SceneTitle.cpp" />
   </ItemGroup>
@@ -221,7 +220,6 @@
     <ClInclude Include="Util\game.h" />
     <ClInclude Include="Util\Pad.h" />
     <ClInclude Include="Scene\SceneBase.h" />
-    <ClInclude Include="Scene\SceneMain.h" />
     <ClInclude Include="Scene\SceneManager.h" />
     <ClInclude Include="Scene\SceneTitle.h" />
   </ItemGroup>
