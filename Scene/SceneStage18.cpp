@@ -98,11 +98,6 @@ SceneBase* SceneStage18::update()
 		m_frameCountShot = 60;
 	}
 
-	/*m_pShot->shotLeft(m_shotPosX, m_colShotX);
-	m_pShot->shotLeft2(m_shotPosX2, m_colShotX2);
-	m_pShot->shotRight(m_shotPosX3, m_colShotX3);
-	m_pShot->shotBottom(m_shotPosY4, m_colShotY4);*/
-
 	m_pShot->shotRight(m_shotPosX, m_colShotX);
 	m_pShot->shotUp(m_shotPosY2, m_colShotY2);
 	m_pShot->shotBottom(m_shotPosY3, m_colShotY3);
@@ -145,10 +140,6 @@ SceneBase* SceneStage18::update()
 void SceneStage18::draw()
 {
 	m_pBack->draw();
-	/*m_pShot->drawL(m_shotPosX, m_shotPosY);
-	m_pShot->drawL2(m_shotPosX2, m_shotPosY2);
-	m_pShot->drawR(m_shotPosX3, m_shotPosY3);
-	m_pShot->drawB(m_shotPosX4, m_shotPosY4);*/
 
 	m_pShot->drawR(m_shotPosX, m_shotPosY);
 	m_pShot->drawU(m_shotPosX2, m_shotPosY2);
