@@ -36,16 +36,8 @@ void SceneStage19::init()
 	m_posX = 6;
 	m_posY = 2;
 
-	// デバッグ用座標
-	/*m_posX = 3;
-	m_posY = 9;*/
-
 	m_frameX = 408;
 	m_frameY = 136;
-
-	// デバッグ用座標
-	/*m_frameX = 204;
-	m_frameY = 612;*/
 
 	initShot();
 

@@ -52,8 +52,8 @@ void GameManager::initCommon()
 	GameClear = false;
 	m_pushPause = 0;
 	m_gimmickFrame = 0;
-	m_shrink = 40;
-	m_inflate = 40;
+	m_shrink = 50;
+	m_inflate = 50;
 	m_GameOverCount = 30;
 	m_frameCountGameOver = 30;
 	m_handleNeedle = draw::MyLoadGraph("data/needle2.png");

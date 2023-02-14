@@ -41,8 +41,8 @@ Stage::~Stage()
 void Stage::initCommon()
 {
 	m_gimmickFrame = 0;
-	m_shrink = 40;
-	m_inflate = 40;
+	m_shrink = 50;
+	m_inflate = 50;
 	// ステージハンドル
 	m_handleWall = draw::MyLoadGraph("data/tileset/inca_front.png");
 	m_handleTrap = draw::MyLoadGraph("data/Textures-16.png");
