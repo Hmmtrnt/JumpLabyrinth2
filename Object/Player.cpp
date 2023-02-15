@@ -129,11 +129,26 @@ void Player::DrawGamePlay()
 
 void Player::DrawOthers(int posX, int posY)
 {
+	// タイトル画面待機モーション
+	m_frameCount--;
+	if (m_frameCount <= 0 && m_verXPlayer != 1)
+	{
+		m_verXPlayer = 1;
+		m_verYPlayer = 0;
+		m_frameCount = motionCount;
+	}
+	else if (m_frameCount <= 0 && m_verXPlayer != 0)
+	{
+		m_verXPlayer = 0;
+		m_verYPlayer = 0;
+		m_frameCount = motionCount;
+	}
+
 	draw::MyDrawRectRotaGraph(posX,
 		posY,
 		m_verXPlayer * 32, m_verYPlayer * 32,
 		32, 32,
-		2.2f, m_rota,
+		3.0f, m_rota,
 		m_handle, true, false);
 }
 

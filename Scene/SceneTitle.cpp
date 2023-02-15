@@ -6,7 +6,7 @@
 
 namespace
 {
-	const char* const kTitleText = "jump Labyrinth";
+	const char* const kTitleText = "Jump Labyrinth";
 	const char* const kGuideText = "Bボタンを押してセレクト画面へ";
 	const char* const kGuideText2 = "ジョイパッド操作をオススメします";
 }
@@ -87,12 +87,6 @@ SceneBase* SceneTitle::update()
 	{
 		m_textFlashCount = 0;
 	}
-
-	// 仮のシーン遷移
-	/*if (Pad::isTrigger(PAD_INPUT_2) == 1)
-	{
-		return(new SceneSelect);
-	}*/
 
 	if (!isFading())
 	{

@@ -20,32 +20,51 @@
 #include "SceneStage18.h"
 #include "SceneStage19.h"
 #include "SceneStage20.h"
+#include "../Object/Back.h"
 #include "../Util/Pad.h"
 
 SceneSelect::SceneSelect() :
 	m_stageSelect(0),
 	m_textHandle(-1),
 	m_textHandle2(-1),
-	m_createStage(0)
+	m_createStage(0),
+	m_pushTitle(false)
 {
+	m_pBack = new Back;
 }
 
 SceneSelect::~SceneSelect()
 {
+	delete m_pBack;
 }
 
 void SceneSelect::init()
 {
+	// リソースの読み込み
+	LPCSTR font_path = "Font/Silver.ttf";// 読み込むフォントファイルのパス
+	if (AddFontResourceEx(font_path, FR_PRIVATE, NULL) > 0)
+	{
+
+	}
+	else
+	{
+		// フォント読み込みエラー処理
+		MessageBox(NULL, "フォント読み込み失敗", "", MB_OK);
+	}
 	m_stageSelect = 1;
-	m_textHandle = CreateFontToHandle(NULL, 100, 3);
-	m_textHandle2 = CreateFontToHandle(NULL, 50, 3);
+	m_textHandle = CreateFontToHandle("Silver", 100, -1, -1);
+	m_textHandle2 = CreateFontToHandle("Silver", 50, -1, -1);
 	m_createStage = 20;
+	m_textHandle = 
+	m_pushTitle = false;
+	m_pBack->init();
 }
 
 void SceneSelect::end()
 {
 	DeleteFontToHandle(m_textHandle);
 	DeleteFontToHandle(m_textHandle2);
+	m_pBack->end();
 }
 
 SceneBase* SceneSelect::update()
@@ -56,6 +75,7 @@ SceneBase* SceneSelect::update()
 		bool isOut = isFadingOut();
 		SceneBase::updateFade();
 		// フェードアウト終了時にシーン切り替え
+		if (!isFading() && isOut && m_pushTitle)			return (new SceneTitle);
 		if (!isFading() && isOut && m_stageSelect == 1)		return (new SceneStage1);
 		if (!isFading() && isOut && m_stageSelect == 2)		return (new SceneStage2);
 		if (!isFading() && isOut && m_stageSelect == 3)		return (new SceneStage3);
@@ -104,12 +124,11 @@ SceneBase* SceneSelect::update()
 		m_stageSelect = m_createStage;
 	}
 
-	// タイトル画面へ戻る
-	if (Pad::isTrigger(PAD_INPUT_1))	return (new SceneTitle);
+	if (Pad::isTrigger(PAD_INPUT_1))	m_pushTitle = true;
 
 	if (!isFading())
 	{
-		if (Pad::isTrigger(PAD_INPUT_2))
+		if (Pad::isTrigger(PAD_INPUT_2) || Pad::isTrigger(PAD_INPUT_1))
 		{
 			// フェードアウト開始
 			startFadeOut();
@@ -120,6 +139,7 @@ SceneBase* SceneSelect::update()
 
 void SceneSelect::draw()
 {
+	m_pBack->draw();
 	DrawStringToHandle(300, 180, "ステージ", kColor::White,m_textHandle2 );
 	if (m_stageSelect <= 9)
 	{
@@ -129,13 +149,13 @@ void SceneSelect::draw()
 	{
 		DrawFormatStringToHandle(360, 240, kColor::White, m_textHandle, "%d", m_stageSelect);
 	}
-	DrawString(300, 500, "Bボタンでステージを選択", kColor::White);
-	DrawFormatString(300, 550, kColor::White, "%dステージまで出来ています\n", m_createStage);
-	DrawString(600, 200, "RBボタン＋5", kColor::White);
+	DrawStringToHandle(300, 500, "Bボタンでステージを選択", kColor::White, m_textHandle2);
+	DrawFormatStringToHandle(300, 550, kColor::White, m_textHandle2, "%dステージまで出来ています\n", m_createStage);
+	DrawStringToHandle(600, 200, "RBボタン＋5", kColor::White, m_textHandle2);
 	DrawFormatStringToHandle(600, 240, kColor::White, m_textHandle, "→");
 	if (m_stageSelect != 1)
 	{
-		DrawString(100, 200, "LBボタンー5", kColor::White);
+		DrawStringToHandle(100, 200, "LBボタンー5", kColor::White, m_textHandle2);
 		DrawFormatStringToHandle(100, 240, kColor::White, m_textHandle, "←");
 	}
 	SceneBase::drawFade();

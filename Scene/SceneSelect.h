@@ -3,6 +3,8 @@
 #include "SceneBase.h"
 #include "../Util/common.h"
 
+class Back;
+
 class SceneSelect : public SceneBase
 {
 public:
@@ -23,4 +25,9 @@ private:
 
 	// 現存するステージ数
 	int m_createStage;
+
+	// タイトル画面に戻るかどうか
+	bool m_pushTitle;
+
+	Back* m_pBack;
 };

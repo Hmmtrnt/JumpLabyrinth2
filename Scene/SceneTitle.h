@@ -22,8 +22,8 @@ private:
 	int m_textHandle;
 	// テキストの点滅
 	int m_textFlashCount;		// フレーム
-	int m_textShow;			// 表示
-	int m_textHide;			// 非表示
+	int m_textShow;				// 表示
+	int m_textHide;				// 非表示
 
 	// フォントのデータ
 	int m_fontTitle;			// タイトル
