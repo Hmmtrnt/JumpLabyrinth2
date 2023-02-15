@@ -4,13 +4,21 @@
 #include "../Object/Player.h"
 #include "../Util/Pad.h"
 
+namespace
+{
+	const char* const kTitleText = "jump Labyrinth";
+	const char* const kGuideText = "Bボタンを押してセレクト画面へ";
+	const char* const kGuideText2 = "ジョイパッド操作をオススメします";
+}
+
 SceneTitle::SceneTitle() :
 	m_textHandle(-1),
-	m_textFlash(0),
+	m_textFlashCount(0),
 	m_textShow(0),
 	m_textHide(0),
 	m_fontTitle(0),
-	m_fontOthers(0)
+	m_fontOthers(0),
+	m_posX(0),	m_posY(0)
 {
 	m_pBack = new Back;
 	m_pPlayer = new Player;
@@ -25,12 +33,15 @@ SceneTitle::~SceneTitle()
 void SceneTitle::init()
 {
 	m_textHandle = CreateFontToHandle(NULL, 50, 4);
-	m_textFlash = 0;
+	m_textFlashCount = 0;
 	m_textShow = 40;
 	m_textHide = 20;
 
+	m_posX = 600;
+	m_posY = 730;
+
 	// リソースの読み込み
-	LPCSTR font_path = "Font/marukiya.ttf";// 読み込むフォントファイルのパス
+	LPCSTR font_path = "Font/Silver.ttf";// 読み込むフォントファイルのパス
 	if (AddFontResourceEx(font_path, FR_PRIVATE, NULL) > 0)
 	{
 
@@ -41,8 +52,8 @@ void SceneTitle::init()
 		MessageBox(NULL, "フォント読み込み失敗", "", MB_OK);
 	}
 
-	m_fontTitle = CreateFontToHandle("marukiya", 100, -1, -1);
-	m_fontOthers = CreateFontToHandle("marukiya", 64, -1, -1);
+	m_fontTitle = CreateFontToHandle("Silver", 200, -1, -1);
+	m_fontOthers = CreateFontToHandle("Silver", 64, -1, -1);
 	m_pBack->init();
 	m_pPlayer->initTitle();
 }
@@ -58,17 +69,38 @@ void SceneTitle::end()
 
 SceneBase* SceneTitle::update()
 {
-	// テキストの点滅
-	m_textFlash++;
-	if (m_textFlash >= m_textShow + m_textHide)
+	// フェード処理
+	if (isFading())
 	{
-		m_textFlash = 0;
+		bool isOut = isFadingOut();
+		SceneBase::updateFade();
+		// フェードアウト終了時にシーン切り替え
+		if (!isFading() && isOut)
+		{
+			return (new SceneSelect);
+		}
+	}
+
+	// テキストの点滅
+	m_textFlashCount++;
+	if (m_textFlashCount >= m_textShow + m_textHide)
+	{
+		m_textFlashCount = 0;
 	}
 
 	// 仮のシーン遷移
-	if (Pad::isTrigger(PAD_INPUT_2) == 1)
+	/*if (Pad::isTrigger(PAD_INPUT_2) == 1)
 	{
 		return(new SceneSelect);
+	}*/
+
+	if (!isFading())
+	{
+		if (Pad::isTrigger(PAD_INPUT_2))
+		{
+			// フェードアウト開始
+			startFadeOut();
+		}
 	}
 	return this;
 }
@@ -77,14 +109,16 @@ void SceneTitle::draw()
 {
 	m_pBack->draw();
 
-	DrawStringToHandle(450, 200, "jump Labyrinth", kColor::White, m_fontTitle);
+	DrawStringToHandle(500, 200, kTitleText, kColor::White, m_fontTitle);
 
 	// 点滅テキスト
-	if (m_textFlash < m_textShow)
+	if (m_textFlashCount < m_textShow)
 	{
-		DrawStringToHandle(500, 600, "Bボタンをオしてセレクトガメンへ", kColor::White, m_fontOthers);
+		DrawStringToHandle(650, 700, kGuideText, kColor::White, m_fontOthers);
 	}
-	DrawStringToHandle(500, 700, "ジョイパッドにタイオウしています", kColor::White, m_fontOthers);
+	DrawStringToHandle(625, 800, kGuideText2, kColor::White, m_fontOthers);
 
-	m_pPlayer->DrawOthers(100, 100);
+	m_pPlayer->DrawOthers(m_posX, m_posY);
+
+	SceneBase::drawFade();
 }

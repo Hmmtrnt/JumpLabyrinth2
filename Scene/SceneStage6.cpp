@@ -39,32 +39,31 @@ void SceneStage6::end()
 
 SceneBase* SceneStage6::update()
 {
+	// フェード処理
+	if (isFading())
+	{
+		bool isOut = isFadingOut();
+		SceneBase::updateFade();
+		// フェードアウト終了時にシーン切り替え
+		if (!isFading() && isOut &&
+			(m_pManager->GameClear || m_pManager->GetPushPause() == 2))	return (new SceneSelect);
+		if (!isFading() && isOut &&
+			(m_pManager->GetPushPause() == 3 || m_pManager->GameOver))	return (new SceneStage6);
+	}
+
 	m_pManager->updateNoShot();
 
 	if (m_pManager->GetPushPause() == 1)
 	{
 	}
-	else if (m_pManager->GetPushPause() == 2)
-	{
-		return(new SceneSelect);
-	}
-	else if (m_pManager->GetPushPause() == 3)
-	{
-		return(new SceneStage6);
-	}
 
-	if (m_pManager->GameOver)
+	if (!isFading())
 	{
-		m_frameCount--;
-
-		if (m_frameCount <= 0)
-		{
-			return(new SceneStage6);
-		}
-	}
-	if (m_pManager->GameClear)
-	{
-		return(new SceneSelect);
+		// フェードアウト開始
+		if (m_pManager->GameClear)				startFadeOut();
+		if (m_pManager->GameOver)				startFadeOut();
+		if (m_pManager->GetPushPause() == 2)	startFadeOut();
+		if (m_pManager->GetPushPause() == 3)	startFadeOut();
 	}
 
 	return this;
@@ -73,4 +72,6 @@ SceneBase* SceneStage6::update()
 void SceneStage6::draw()
 {
 	m_pManager->draw();
+
+	SceneBase::drawFade();
 }

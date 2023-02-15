@@ -101,6 +101,18 @@ void SceneStage16::end()
 
 SceneBase* SceneStage16::update()
 {
+	// フェード処理
+	if (isFading())
+	{
+		bool isOut = isFadingOut();
+		SceneBase::updateFade();
+		// フェードアウト終了時にシーン切り替え
+		if (!isFading() && isOut &&
+			(m_pManager->GameClear || m_pManager->GetPushPause() == 2))	return (new SceneSelect);
+		if (!isFading() && isOut &&
+			(m_pManager->GetPushPause() == 3 || m_pManager->GameOver))	return (new SceneStage16);
+	}
+
 	if (Pad::isTrigger(PAD_INPUT_R) == 1)
 	{
 		if (!m_pManager->GameOver)
@@ -141,26 +153,14 @@ SceneBase* SceneStage16::update()
 	if (m_pManager->GetPushPause() == 1)
 	{
 	}
-	else if (m_pManager->GetPushPause() == 2)
-	{
-		return(new SceneSelect);
-	}
-	else if (m_pManager->GetPushPause() == 3)
-	{
-		return(new SceneStage16);
-	}
-	if (m_pManager->GameOver)
-	{
-		m_frameCount--;
 
-		if (m_frameCount <= 0)
-		{
-			return(new SceneStage16);
-		}
-	}
-	if (m_pManager->GameClear)
+	if (!isFading())
 	{
-		return(new SceneSelect);
+		// フェードアウト開始
+		if (m_pManager->GameClear)				startFadeOut();
+		if (m_pManager->GameOver)				startFadeOut();
+		if (m_pManager->GetPushPause() == 2)	startFadeOut();
+		if (m_pManager->GetPushPause() == 3)	startFadeOut();
 	}
 
 	return this;
@@ -187,6 +187,8 @@ void SceneStage16::draw()
 		}
 	}
 	//m_pPause->GameOverDraw();
+
+	SceneBase::drawFade();
 }
 
 void SceneStage16::collisionShot()

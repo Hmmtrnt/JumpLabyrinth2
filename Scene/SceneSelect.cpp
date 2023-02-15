@@ -1,4 +1,5 @@
 #include "SceneSelect.h"
+#include "SceneTitle.h"
 #include "SceneStage1.h"
 #include "SceneStage2.h"
 #include "SceneStage3.h"
@@ -49,6 +50,35 @@ void SceneSelect::end()
 
 SceneBase* SceneSelect::update()
 {
+	//フェード処理
+	if (isFading())
+	{
+		bool isOut = isFadingOut();
+		SceneBase::updateFade();
+		// フェードアウト終了時にシーン切り替え
+		if (!isFading() && isOut && m_stageSelect == 1)		return (new SceneStage1);
+		if (!isFading() && isOut && m_stageSelect == 2)		return (new SceneStage2);
+		if (!isFading() && isOut && m_stageSelect == 3)		return (new SceneStage3);
+		if (!isFading() && isOut && m_stageSelect == 4)		return (new SceneStage4);
+		if (!isFading() && isOut && m_stageSelect == 5)		return (new SceneStage5);
+		if (!isFading() && isOut && m_stageSelect == 6)		return (new SceneStage6);
+		if (!isFading() && isOut && m_stageSelect == 7)		return (new SceneStage7);
+		if (!isFading() && isOut && m_stageSelect == 8)		return (new SceneStage8);
+		if (!isFading() && isOut && m_stageSelect == 9)		return (new SceneStage9);
+		if (!isFading() && isOut && m_stageSelect == 10)	return (new SceneStage10);
+		if (!isFading() && isOut && m_stageSelect == 11)	return (new SceneStage11);
+		if (!isFading() && isOut && m_stageSelect == 12)	return (new SceneStage12);
+		if (!isFading() && isOut && m_stageSelect == 13)	return (new SceneStage13);
+		if (!isFading() && isOut && m_stageSelect == 14)	return (new SceneStage14);
+		if (!isFading() && isOut && m_stageSelect == 15)	return (new SceneStage15);
+		if (!isFading() && isOut && m_stageSelect == 16)	return (new SceneStage16);
+		if (!isFading() && isOut && m_stageSelect == 17)	return (new SceneStage17);
+		if (!isFading() && isOut && m_stageSelect == 18)	return (new SceneStage18);
+		if (!isFading() && isOut && m_stageSelect == 19)	return (new SceneStage19);
+		if (!isFading() && isOut && m_stageSelect == 20)	return (new SceneStage20);
+	}
+
+	// ステージ選択
 	if (Pad::isTrigger(PAD_INPUT_RIGHT) == 1)
 	{
 		m_stageSelect++;
@@ -74,48 +104,17 @@ SceneBase* SceneSelect::update()
 		m_stageSelect = m_createStage;
 	}
 
-	// ここからステージ選択
-	// ステージ1
-	if (Pad::isTrigger(PAD_INPUT_2) == 1 && m_stageSelect == 1)		return (new SceneStage1);
-	// ステージ2
-	if (Pad::isTrigger(PAD_INPUT_2) == 1 && m_stageSelect == 2)		return (new SceneStage2);
-	// ステージ3
-	if (Pad::isTrigger(PAD_INPUT_2) == 1 && m_stageSelect == 3)		return (new SceneStage3);
-	// ステージ4
-	if (Pad::isTrigger(PAD_INPUT_2) == 1 && m_stageSelect == 4)		return (new SceneStage4);
-	// ステージ5
-	if (Pad::isTrigger(PAD_INPUT_2) == 1 && m_stageSelect == 5)		return (new SceneStage5);
-	// ステージ6
-	if (Pad::isTrigger(PAD_INPUT_2) == 1 && m_stageSelect == 6)		return (new SceneStage6);
-	// ステージ7
-	if (Pad::isTrigger(PAD_INPUT_2) == 1 && m_stageSelect == 7)		return (new SceneStage7);
-	// ステージ8
-	if (Pad::isTrigger(PAD_INPUT_2) == 1 && m_stageSelect == 8)		return (new SceneStage8);
-	// ステージ9
-	if (Pad::isTrigger(PAD_INPUT_2) == 1 && m_stageSelect == 9)		return (new SceneStage9);
-	// ステージ10
-	if (Pad::isTrigger(PAD_INPUT_2) == 1 && m_stageSelect == 10)	return (new SceneStage10);
-	// ステージ11
-	if (Pad::isTrigger(PAD_INPUT_2) == 1 && m_stageSelect == 11)	return (new SceneStage11);
-	// ステージ12
-	if (Pad::isTrigger(PAD_INPUT_2) == 1 && m_stageSelect == 12)	return (new SceneStage12);
-	// ステージ13
-	if (Pad::isTrigger(PAD_INPUT_2) == 1 && m_stageSelect == 13)	return (new SceneStage13);
-	// ステージ14
-	if (Pad::isTrigger(PAD_INPUT_2) == 1 && m_stageSelect == 14)	return (new SceneStage14);
-	// ステージ15
-	if (Pad::isTrigger(PAD_INPUT_2) == 1 && m_stageSelect == 15)	return (new SceneStage15);
-	// ステージ16
-	if (Pad::isTrigger(PAD_INPUT_2) == 1 && m_stageSelect == 16)	return (new SceneStage16);
-	// ステージ17
-	if (Pad::isTrigger(PAD_INPUT_2) == 1 && m_stageSelect == 17)	return (new SceneStage17);
-	// ステージ18
-	if (Pad::isTrigger(PAD_INPUT_2) == 1 && m_stageSelect == 18)	return (new SceneStage18);
-	// ステージ19
-	if (Pad::isTrigger(PAD_INPUT_2) == 1 && m_stageSelect == 19)	return (new SceneStage19);
-	// ステージ20
-	if (Pad::isTrigger(PAD_INPUT_2) == 1 && m_stageSelect == 20)	return (new SceneStage20);
+	// タイトル画面へ戻る
+	if (Pad::isTrigger(PAD_INPUT_1))	return (new SceneTitle);
 
+	if (!isFading())
+	{
+		if (Pad::isTrigger(PAD_INPUT_2))
+		{
+			// フェードアウト開始
+			startFadeOut();
+		}
+	}
 	return this;
 }
 
@@ -139,4 +138,5 @@ void SceneSelect::draw()
 		DrawString(100, 200, "LBボタンー5", kColor::White);
 		DrawFormatStringToHandle(100, 240, kColor::White, m_textHandle, "←");
 	}
+	SceneBase::drawFade();
 }

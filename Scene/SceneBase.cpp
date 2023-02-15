@@ -1,35 +1,62 @@
 #include "SceneBase.h"
+#include "../Util/common.h"
+#include "../Util/game.h"
+
+namespace
+{
+	// フェード速度
+	constexpr int kFadeSpeed = 5;
+}
 
 SceneBase::SceneBase()
 {
-
+	// 初期設定はフェードアウト状態
+	m_fadeColor = kColor::Black;
+	m_fadeBright = 255;
+	m_fadeSpeed = -kFadeSpeed;
 }
 
-SceneBase::~SceneBase()
+void SceneBase::updateFade()
 {
-
+	m_fadeBright += m_fadeSpeed;
+	if (m_fadeBright >= 255)
+	{
+		m_fadeBright = 255;
+		if (m_fadeSpeed > 0)
+		{
+			m_fadeSpeed = 0;
+		}
+	}
+	if (m_fadeBright <= 0)
+	{
+		m_fadeBright = 0;
+		if (m_fadeSpeed < 0)
+		{
+			m_fadeSpeed = 0;
+		}
+	}
 }
 
-// 初期化
-void SceneBase::init()
+void SceneBase::drawFade() const
 {
-
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, m_fadeBright);
+	DrawBox(0, 0, Game::kScreenWidth, Game::kScreenHeight, m_fadeColor, true);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 }
 
-// 終了処理
-void SceneBase::end()
+bool SceneBase::isFadingIn() const
 {
-
+	if (m_fadeSpeed < 0)	return true;
+	return false;
 }
 
-// 更新処理
-SceneBase* SceneBase::update()
+bool SceneBase::isFadingOut() const
 {
-	return this;
+	if (m_fadeSpeed > 0)	return true;
+	return false;
 }
 
-// 描画
-void SceneBase::draw()
+void SceneBase::startFadeOut()
 {
-
+	m_fadeSpeed = kFadeSpeed;
 }

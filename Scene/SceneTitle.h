@@ -21,13 +21,17 @@ private:
 	// テキストハンドル
 	int m_textHandle;
 	// テキストの点滅
-	int m_textFlash;		// フレーム
+	int m_textFlashCount;		// フレーム
 	int m_textShow;			// 表示
 	int m_textHide;			// 非表示
 
 	// フォントのデータ
 	int m_fontTitle;			// タイトル
 	int m_fontOthers;			// タイトル以外
+
+	// プレイヤー座標
+	int m_posX;			// X座標
+	int m_posY;			// Y座標
 
 	Back* m_pBack;
 	Player* m_pPlayer;

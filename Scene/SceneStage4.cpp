@@ -39,6 +39,18 @@ void SceneStage4::end()
 
 SceneBase* SceneStage4::update()
 {
+	// フェード処理
+	if (isFading())
+	{
+		bool isOut = isFadingOut();
+		SceneBase::updateFade();
+		// フェードアウト終了時にシーン切り替え
+		if (!isFading() && isOut &&
+			(m_pManager->GameClear || m_pManager->GetPushPause() == 2))	return (new SceneSelect);
+		if (!isFading() && isOut &&
+			(m_pManager->GetPushPause() == 3 || m_pManager->GameOver))	return (new SceneStage4);
+	}
+
 	m_pManager->updateNoShot();
 
 	if (m_pManager->GetPushPause() == 1)
@@ -62,9 +74,14 @@ SceneBase* SceneStage4::update()
 			return(new SceneStage4);
 		}
 	}
-	if (m_pManager->GameClear)
+
+	if (!isFading())
 	{
-		return(new SceneSelect);
+		if (m_pManager->GameClear)
+		{
+			// フェードアウト開始
+			startFadeOut();
+		}
 	}
 
 	return this;
@@ -73,4 +90,6 @@ SceneBase* SceneStage4::update()
 void SceneStage4::draw()
 {
 	m_pManager->draw();
+
+	SceneBase::drawFade();
 }
