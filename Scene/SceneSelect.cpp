@@ -23,11 +23,20 @@
 #include "../Object/Back.h"
 #include "../Util/Pad.h"
 
+namespace
+{
+	constexpr int kItemX = 100;
+	constexpr int kItemY = 50;
+}
+
 SceneSelect::SceneSelect() :
 	m_stageSelect(0),
 	m_textHandle(-1),
 	m_textHandle2(-1),
 	m_createStage(0),
+	m_stageNum(0),
+	m_stageNum2(0),
+	m_selectPos(0),
 	m_pushTitle(false)
 {
 	m_pBack = new Back;
@@ -55,7 +64,8 @@ void SceneSelect::init()
 	m_textHandle = CreateFontToHandle("Silver", 100, -1, -1);
 	m_textHandle2 = CreateFontToHandle("Silver", 50, -1, -1);
 	m_createStage = 20;
-	m_textHandle = 
+	m_stageNum = 20;
+	m_selectPos = 0;
 	m_pushTitle = false;
 	m_pBack->init();
 }
@@ -140,23 +150,68 @@ SceneBase* SceneSelect::update()
 void SceneSelect::draw()
 {
 	m_pBack->draw();
-	DrawStringToHandle(300, 180, "ステージ", kColor::White,m_textHandle2 );
-	if (m_stageSelect <= 9)
+
+	DrawBox(900, 50, 1800, 900, kColor::Black, true);
+
+	//DrawStringToHandle(300, 180, "ステージ", kColor::White,m_textHandle2 );
+	/*if (m_stageSelect <= 9)
 	{
 		DrawFormatStringToHandle(380, 240, kColor::White, m_textHandle, "%d", m_stageSelect);
 	}
 	else
 	{
 		DrawFormatStringToHandle(360, 240, kColor::White, m_textHandle, "%d", m_stageSelect);
+	}*/
+
+	DrawFormatString(0, 0, kColor::White, "%d", m_stageSelect);
+
+	//DrawStringToHandle(750, 750, "Bボタンでステージを選択", kColor::White, m_textHandle2);
+	//DrawFormatStringToHandle(750, 850, kColor::White, m_textHandle2, "%dステージまで出来ます\n", m_createStage);
+
+	int itemX = 0;
+	int itemY = 100;
+	int itemW = 200;
+	int itemH = 200;
+
+	int test0 = 950;
+	int test1 = 170;
+	int test2 = 260;
+	int test3 = 360;
+
+	for (int y = 0; y < m_stageNum; y++)
+	{
+		// ずれる
+		itemX = test0 + (test1 * y);
+		if (y > 4)
+		{
+			itemY = test2;
+			itemH = test3;
+			itemX = test0 + (test1 * (y - 5));
+		}
+		if (y > 9)
+		{
+			itemY = test2 + 150;
+			itemH = test3 + 150;
+			itemX = test0 + (test1 * (y - 10));
+		}
+		if (y > 14)
+		{
+			itemY = test2 + 300;
+			itemH = test3 + 300;
+			itemX = test0 + (test1 * (y - 15));
+		}
+		// 枠の描画
+		DrawBox(itemX, itemY, itemX + 100, itemH, kColor::White, false);
 	}
-	DrawStringToHandle(300, 500, "Bボタンでステージを選択", kColor::White, m_textHandle2);
-	DrawFormatStringToHandle(300, 550, kColor::White, m_textHandle2, "%dステージまで出来ています\n", m_createStage);
-	DrawStringToHandle(600, 200, "RBボタン＋5", kColor::White, m_textHandle2);
+
+	//DrawBox(500, 100, 600, 200, kColor::White, false);
+
+	/*DrawStringToHandle(600, 200, "RBボタン＋5", kColor::White, m_textHandle2);
 	DrawFormatStringToHandle(600, 240, kColor::White, m_textHandle, "→");
 	if (m_stageSelect != 1)
 	{
 		DrawStringToHandle(100, 200, "LBボタンー5", kColor::White, m_textHandle2);
 		DrawFormatStringToHandle(100, 240, kColor::White, m_textHandle, "←");
-	}
+	}*/
 	SceneBase::drawFade();
 }

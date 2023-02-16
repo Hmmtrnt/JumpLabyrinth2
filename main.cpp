@@ -39,6 +39,9 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, 
 		// セレクトボタンで終了７
 		if (Pad::isTrigger(PAD_INPUT_L)) break;
 
+		// パッド確認用
+		//if (Pad::isTrigger(PAD_INPUT_12)) break;
+
 		// escきーを押したら終了する
 		if (CheckHitKey(KEY_INPUT_ESCAPE))	break;
 		// fpsを60に固定

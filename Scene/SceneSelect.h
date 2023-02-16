@@ -2,6 +2,7 @@
 #pragma once
 #include "SceneBase.h"
 #include "../Util/common.h"
+#include <vector>
 
 class Back;
 
@@ -26,8 +27,18 @@ private:
 	// 現存するステージ数
 	int m_createStage;
 
+	// ステージ数
+	int m_stageNum;
+	int m_stageNum2;
+
+	// セレクト項目の位置
+	int m_selectPos;
+
 	// タイトル画面に戻るかどうか
 	bool m_pushTitle;
 
 	Back* m_pBack;
+
+	//std::vector<int> m_stageNum;
+
 };
