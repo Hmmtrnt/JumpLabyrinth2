@@ -47,7 +47,7 @@ void Stage::initCommon()
 	m_handleWall = draw::MyLoadGraph("data/tileset/inca_front.png");
 	m_handleTrap = draw::MyLoadGraph("data/Textures-16.png");
 	m_handleSmallNeedle = draw::MyLoadGraph("data/smallneedle.png");
-	m_handleGoal = draw::MyLoadGraph("data/goal1.png");
+	m_handleGoal = draw::MyLoadGraph("data/goal2.png");
 
 	// ステージ切り取り
 	m_verX = 0;

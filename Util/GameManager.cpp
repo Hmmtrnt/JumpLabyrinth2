@@ -337,7 +337,11 @@ void GameManager::draw()
 	
 	m_pStage->draw();
 	drawNeedle();
-	m_pPlayer->DrawGamePlay();
+	if (!GameClear)
+	{
+		m_pPlayer->DrawGamePlay();
+	}
+	
 	if (m_pushFlag)
 	{
 		m_pPause->pauseDraw();
@@ -350,7 +354,10 @@ void GameManager::drawInShot()
 {
 	m_pStage->draw();
 	drawNeedle();
-	m_pPlayer->DrawGamePlay();
+	if (!GameClear)
+	{
+		m_pPlayer->DrawGamePlay();
+	}
 	if (m_pushFlag)
 	{
 		m_pPause->pauseDraw();
