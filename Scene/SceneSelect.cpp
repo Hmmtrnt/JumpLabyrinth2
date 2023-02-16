@@ -151,7 +151,9 @@ void SceneSelect::draw()
 {
 	m_pBack->draw();
 
+	SetDrawBlendMode(DX_BLENDMODE_MULA, 100);
 	DrawBox(900, 50, 1800, 900, kColor::Black, true);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);
 
 	//DrawStringToHandle(300, 180, "ステージ", kColor::White,m_textHandle2 );
 	/*if (m_stageSelect <= 9)
@@ -165,18 +167,19 @@ void SceneSelect::draw()
 
 	DrawFormatString(0, 0, kColor::White, "%d", m_stageSelect);
 
-	//DrawStringToHandle(750, 750, "Bボタンでステージを選択", kColor::White, m_textHandle2);
+	DrawStringToHandle(300, 850, "Bボタンでステージを選択", kColor::White, m_textHandle2);
 	//DrawFormatStringToHandle(750, 850, kColor::White, m_textHandle2, "%dステージまで出来ます\n", m_createStage);
 
 	int itemX = 0;
-	int itemY = 100;
+	int itemY = 60;
 	int itemW = 200;
-	int itemH = 200;
+	int itemH = 250;
 
-	int test0 = 950;
-	int test1 = 170;
-	int test2 = 260;
-	int test3 = 360;
+	int test0 = 910;
+	int test1 = 180;
+	int test4 = 210;
+	int test2 = itemY + test4;
+	int test3 = itemH + test4;
 
 	for (int y = 0; y < m_stageNum; y++)
 	{
@@ -190,18 +193,18 @@ void SceneSelect::draw()
 		}
 		if (y > 9)
 		{
-			itemY = test2 + 150;
-			itemH = test3 + 150;
+			itemY = test2 + test4;
+			itemH = test3 + test4;
 			itemX = test0 + (test1 * (y - 10));
 		}
 		if (y > 14)
 		{
-			itemY = test2 + 300;
-			itemH = test3 + 300;
+			itemY = test2 + test4 + test4;
+			itemH = test3 + test4 + test4;
 			itemX = test0 + (test1 * (y - 15));
 		}
 		// 枠の描画
-		DrawBox(itemX, itemY, itemX + 100, itemH, kColor::White, false);
+		DrawBox(itemX, itemY, itemX + 160, itemH, kColor::White, false);
 	}
 
 	//DrawBox(500, 100, 600, 200, kColor::White, false);
