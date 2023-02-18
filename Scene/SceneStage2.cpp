@@ -1,6 +1,7 @@
 #include "SceneStage2.h"
 #include "SceneSelect.h"
 #include "../Util/GameManager.h"
+#include"../Object/Back.h"
 
 SceneStage2::SceneStage2() :
 	m_frameCount(0),
@@ -10,6 +11,7 @@ SceneStage2::SceneStage2() :
 	m_frameY(0)
 {
 	m_pManager = new GameManager;
+	m_pBack = new Back;
 }
 
 SceneStage2::~SceneStage2()

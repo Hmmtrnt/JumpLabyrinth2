@@ -134,6 +134,27 @@ void SceneSelect::end()
 {
 	DeleteFontToHandle(m_textHandle);
 	DeleteFontToHandle(m_textHandle2);
+	DeleteGraph(m_stageH1);
+	DeleteGraph(m_stageH2);
+	DeleteGraph(m_stageH3);
+	DeleteGraph(m_stageH4);
+	DeleteGraph(m_stageH5);
+	DeleteGraph(m_stageH6);
+	DeleteGraph(m_stageH7);
+	DeleteGraph(m_stageH8);
+	DeleteGraph(m_stageH9);
+	DeleteGraph(m_stageH10);
+	DeleteGraph(m_stageH11);
+	DeleteGraph(m_stageH12);
+	DeleteGraph(m_stageH13);
+	DeleteGraph(m_stageH14);
+	DeleteGraph(m_stageH15);
+	DeleteGraph(m_stageH16);
+	DeleteGraph(m_stageH17);
+	DeleteGraph(m_stageH18);
+	DeleteGraph(m_stageH19);
+	DeleteGraph(m_stageH20);
+
 	m_pBack->end();
 }
 
@@ -144,7 +165,7 @@ SceneBase* SceneSelect::update()
 	{
 		bool isOut = isFadingOut();
 		SceneBase::updateFade();
-		if (!isFading() && isOut && m_pushTitle)			return (new SceneTitle);
+		if (!isFading() && isOut && m_pushTitle)		return (new SceneTitle);
 		if (!isFading() && isOut)
 		{
 			if (m_cursorY == 1)

@@ -1,6 +1,7 @@
 #include "SceneStage1.h"
 #include "SceneSelect.h"
 #include "../Util/GameManager.h"
+#include"../Object/Back.h"
 
 SceneStage1::SceneStage1() :
 	m_frameCount(0),
@@ -10,6 +11,7 @@ SceneStage1::SceneStage1() :
 	m_frameY(0)
 {
 	m_pManager = new GameManager;
+	m_pBack = new Back;
 }
 
 SceneStage1::~SceneStage1()
@@ -22,19 +24,19 @@ void SceneStage1::init()
 	m_frameCount = 90;
 	m_posX = 1;
 	m_posY = 12;
-	/*m_frameX = 40;
-	m_frameY = 480;*/
 
 	m_frameX = 68;
 	m_frameY = 816;
 
 	m_pManager->initManager(m_posX, m_posY, m_frameX, m_frameY, 
 						 kStage::stage1, kVariable::StageWidth, kVariable::StageWidth);
+	m_pBack->init();
 }
 
 void SceneStage1::end()
 {
 	m_pManager->end();
+	m_pBack->end();
 }
 
 SceneBase* SceneStage1::update()
@@ -72,6 +74,8 @@ SceneBase* SceneStage1::update()
 void SceneStage1::draw()
 {
 	m_pManager->draw();
+
+	m_pBack->drawExplan1();
 
 	SceneBase::drawFade();
 }

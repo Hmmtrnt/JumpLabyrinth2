@@ -8,7 +8,10 @@ namespace
 Back::Back() :
 	m_handle(-1),
 	m_verX(0),
-	m_verY(0)
+	m_verY(0),
+	m_textHandle(0),
+	m_gimmickHandle(0),
+	m_gimmickHandle2(0)
 {
 	for (int y = 0; y < kVariable::BackHeight; y++)
 	{
@@ -32,6 +35,11 @@ void Back::init()
 	m_verX = 0;
 	m_verY = 0;
 
+	m_textHandle = CreateFontToHandle("Silver", 100, -1, -1);
+
+	m_gimmickHandle = draw::MyLoadGraph("data/tileset/inca_front.png");
+	m_gimmickHandle = draw::MyLoadGraph("data/Textures-16.png");
+
 	// 背景配列のサイズ取得
 	for (int y = 0; y < kVariable::BackHeight; y++)
 	{
@@ -46,6 +54,9 @@ void Back::init()
 void Back::end()
 {
 	DeleteGraph(m_handle);
+	DeleteFontToHandle(m_textHandle);
+	DeleteGraph(m_gimmickHandle);
+	DeleteGraph(m_gimmickHandle2);
 }
 
 // 描画
@@ -80,4 +91,56 @@ void Back::draw()
 		}
 	}
 
+}
+
+void Back::drawExplan1()
+{
+	DrawFormatStringToHandle(50, 50, kColor::White, m_textHandle, "ギミック説明");
+	DrawFormatStringToHandle(150, 200, kColor::White, m_textHandle, "?");
+	DrawFormatStringToHandle(150, 600, kColor::White, m_textHandle, "?");
+	DrawFormatStringToHandle(1650, 200, kColor::White, m_textHandle, "?");
+	DrawFormatStringToHandle(1650, 600, kColor::White, m_textHandle, "?");
+
+	DrawBox(0, 0, 10, 10, kColor::White, true);
+}
+
+void Back::drawExplan2_5()
+{
+	DrawFormatStringToHandle(50, 50, kColor::White, m_textHandle, "ギミック説明");
+	draw::MyDrawRectRotaGraph(200, 200, 
+		13 * 16, 13 * 16,
+		16, 16,
+		4.2f, 0.0f, 
+		m_gimmickHandle2, true, false);
+
+}
+
+void Back::drawExplan6()
+{
+	DrawFormatStringToHandle(50, 50, kColor::White, m_textHandle, "ギミック説明");
+}
+
+void Back::drawExplan7_10()
+{
+	DrawFormatStringToHandle(50, 50, kColor::White, m_textHandle, "ギミック説明");
+}
+
+void Back::drawExplan11()
+{
+	DrawFormatStringToHandle(50, 50, kColor::White, m_textHandle, "ギミック説明");
+}
+
+void Back::drawExplan12_15()
+{
+	DrawFormatStringToHandle(50, 50, kColor::White, m_textHandle, "ギミック説明");
+}
+
+void Back::drawExplan16()
+{
+	DrawFormatStringToHandle(50, 50, kColor::White, m_textHandle, "ギミック説明");
+}
+
+void Back::drawExplan17_20()
+{
+	DrawFormatStringToHandle(50, 50, kColor::White, m_textHandle, "ギミック説明");
 }
