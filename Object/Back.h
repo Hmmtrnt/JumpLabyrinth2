@@ -12,7 +12,6 @@ public:
 	void draw();		// •`‰æ
 
 	// à–¾•`‰æ
-	void drawExplan1();	
 	void drawExplan2_5();
 	void drawExplan6();
 	void drawExplan7_10();

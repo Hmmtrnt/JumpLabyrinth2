@@ -66,12 +66,6 @@ SceneSelect::SceneSelect() :
 	m_starEmpty(0),
 	m_starYellow(0),
 	m_starRed(0),
-	m_cursorH(0),
-	m_idxCursorX(0),
-	m_idxCursorY(0),
-	m_CursorFrame(0),
-	m_drawCursorFirst(0),
-	m_drawCursorSecond(0),
 	m_pushTitle(false)
 {
 	m_pBack = new Back;
@@ -132,8 +126,6 @@ void SceneSelect::init()
 	m_starYellow = draw::MyLoadGraph("data/starYellow.png");
 	m_starRed = draw::MyLoadGraph("data/starRed.png");
 
-	m_cursorH = draw::MyLoadGraph("data/goal1.png");
-
 	m_pushTitle = false;
 	m_pBack->init();
 }
@@ -166,15 +158,6 @@ void SceneSelect::end()
 	DeleteGraph(m_starEmpty);
 	DeleteGraph(m_starYellow);
 	DeleteGraph(m_starRed);
-
-	DeleteGraph(m_cursorH);
-
-	m_idxCursorX = 0;
-	m_idxCursorY = 0;
-
-	m_CursorFrame = 0;
-	m_drawCursorFirst = 30;
-	m_drawCursorSecond = 30;
 
 	m_pBack->end();
 }
@@ -224,7 +207,12 @@ SceneBase* SceneSelect::update()
 		}
 	}
 
+	
+
 	// ステージ選択
+
+	int cursorSpeed = 10;
+
 	if (Pad::isTrigger(PAD_INPUT_RIGHT))
 	{
 		m_cursorX++;

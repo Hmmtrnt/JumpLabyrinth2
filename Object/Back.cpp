@@ -93,17 +93,6 @@ void Back::draw()
 
 }
 
-void Back::drawExplan1()
-{
-	DrawFormatStringToHandle(50, 50, kColor::White, m_textHandle, "ギミック説明");
-	DrawFormatStringToHandle(150, 200, kColor::White, m_textHandle, "?");
-	DrawFormatStringToHandle(150, 600, kColor::White, m_textHandle, "?");
-	DrawFormatStringToHandle(1650, 200, kColor::White, m_textHandle, "?");
-	DrawFormatStringToHandle(1650, 600, kColor::White, m_textHandle, "?");
-
-	DrawBox(0, 0, 10, 10, kColor::White, true);
-}
-
 void Back::drawExplan2_5()
 {
 	DrawFormatStringToHandle(50, 50, kColor::White, m_textHandle, "ギミック説明");

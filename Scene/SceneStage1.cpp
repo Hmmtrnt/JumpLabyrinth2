@@ -75,7 +75,5 @@ void SceneStage1::draw()
 {
 	m_pManager->draw();
 
-	m_pBack->drawExplan1();
-
 	SceneBase::drawFade();
 }

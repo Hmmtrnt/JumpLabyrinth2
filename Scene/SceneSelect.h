@@ -21,8 +21,6 @@ private:
 
 	void difficultyDraw();	// 難易度表示
 
-
-
 	// テキストハンドル
 	int m_textHandle;
 	int m_textHandle2;
@@ -76,18 +74,6 @@ private:
 	int m_starEmpty;
 	int m_starYellow;
 	int m_starRed;
-
-	// 選択カーソルハンドル
-	int m_cursorH;
-
-	// カーソルの左上頂点
-	int m_idxCursorX;
-	int m_idxCursorY;
-
-	// カーソルのモーション引数
-	int m_CursorFrame;
-	int m_drawCursorFirst;
-	int m_drawCursorSecond;
 
 	// タイトル画面に戻るかどうか
 	bool m_pushTitle;
