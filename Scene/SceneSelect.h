@@ -21,6 +21,8 @@ private:
 
 	void difficultyDraw();	// 難易度表示
 
+
+
 	// テキストハンドル
 	int m_textHandle;
 	int m_textHandle2;
@@ -66,6 +68,7 @@ private:
 	int m_stageH18;
 	int m_stageH19;
 	int m_stageH20;
+
 	// 選択されているステージハンドル
 	int m_centerStageH;
 
@@ -74,11 +77,20 @@ private:
 	int m_starYellow;
 	int m_starRed;
 
+	// 選択カーソルハンドル
+	int m_cursorH;
+
+	// カーソルの左上頂点
+	int m_idxCursorX;
+	int m_idxCursorY;
+
+	// カーソルのモーション引数
+	int m_CursorFrame;
+	int m_drawCursorFirst;
+	int m_drawCursorSecond;
+
 	// タイトル画面に戻るかどうか
 	bool m_pushTitle;
 
 	Back* m_pBack;
-
-	//std::vector<int> m_stageNum;
-
 };

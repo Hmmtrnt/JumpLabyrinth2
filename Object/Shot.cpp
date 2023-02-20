@@ -16,6 +16,8 @@ Shot::Shot() :
 	m_speedX2(0),
 	m_speedY2(0),
 	m_speedX3(0),
+	m_speedY3(0),
+	m_speedX4(0),
 	m_frameCount(0),
 	m_pushPause(false)
 {

@@ -66,6 +66,12 @@ SceneSelect::SceneSelect() :
 	m_starEmpty(0),
 	m_starYellow(0),
 	m_starRed(0),
+	m_cursorH(0),
+	m_idxCursorX(0),
+	m_idxCursorY(0),
+	m_CursorFrame(0),
+	m_drawCursorFirst(0),
+	m_drawCursorSecond(0),
 	m_pushTitle(false)
 {
 	m_pBack = new Back;
@@ -126,6 +132,8 @@ void SceneSelect::init()
 	m_starYellow = draw::MyLoadGraph("data/starYellow.png");
 	m_starRed = draw::MyLoadGraph("data/starRed.png");
 
+	m_cursorH = draw::MyLoadGraph("data/goal1.png");
+
 	m_pushTitle = false;
 	m_pBack->init();
 }
@@ -154,6 +162,19 @@ void SceneSelect::end()
 	DeleteGraph(m_stageH18);
 	DeleteGraph(m_stageH19);
 	DeleteGraph(m_stageH20);
+
+	DeleteGraph(m_starEmpty);
+	DeleteGraph(m_starYellow);
+	DeleteGraph(m_starRed);
+
+	DeleteGraph(m_cursorH);
+
+	m_idxCursorX = 0;
+	m_idxCursorY = 0;
+
+	m_CursorFrame = 0;
+	m_drawCursorFirst = 30;
+	m_drawCursorSecond = 30;
 
 	m_pBack->end();
 }
@@ -309,54 +330,54 @@ void SceneSelect::draw()
 	int itemW = 200;
 	int itemH = 250;
 
-	int test0 = 910;
-	int test1 = 180;
-	int test4 = 210;
-	int test2 = itemY + test4;
-	int test3 = itemH + test4;
+	int imageWidth = 910;				// ògÇÃâ°ïù
+	int Width = 180;					// â°ïù
+	int lineHeight = 210;				// óÒÇ≤Ç∆ÇÃècïù
+	int linePosH = itemY + lineHeight;	// óÒÇ≤Ç∆ÇÃècç¿ïW
+	int Height = itemH + lineHeight;	// ècïù
 
-	DrawExtendGraph(test0 + (test1 * 0), itemY, (test0 + (test1 * 0)) + 160, itemH, m_stageH1, true);
-	DrawExtendGraph(test0 + (test1 * 1), itemY, (test0 + (test1 * 1)) + 160, itemH, m_stageH2, true);
-	DrawExtendGraph(test0 + (test1 * 2), itemY, (test0 + (test1 * 2)) + 160, itemH, m_stageH3, true);
-	DrawExtendGraph(test0 + (test1 * 3), itemY, (test0 + (test1 * 3)) + 160, itemH, m_stageH4, true);
-	DrawExtendGraph(test0 + (test1 * 4), itemY, (test0 + (test1 * 4)) + 160, itemH, m_stageH5, true);
-	DrawExtendGraph(test0 + (test1 * 0), test2, (test0 + (test1 * 0)) + 160, test3, m_stageH6, true);
-	DrawExtendGraph(test0 + (test1 * 1), test2, (test0 + (test1 * 1)) + 160, test3, m_stageH7, true);
-	DrawExtendGraph(test0 + (test1 * 2), test2, (test0 + (test1 * 2)) + 160, test3, m_stageH8, true);
-	DrawExtendGraph(test0 + (test1 * 3), test2, (test0 + (test1 * 3)) + 160, test3, m_stageH9, true);
-	DrawExtendGraph(test0 + (test1 * 4), test2, (test0 + (test1 * 4)) + 160, test3, m_stageH10, true);
-	DrawExtendGraph(test0 + (test1 * 0), test2 + test4, (test0 + (test1 * 0)) + 160, test3 + test4, m_stageH11, true);
-	DrawExtendGraph(test0 + (test1 * 1), test2 + test4, (test0 + (test1 * 1)) + 160, test3 + test4, m_stageH12, true);
-	DrawExtendGraph(test0 + (test1 * 2), test2 + test4, (test0 + (test1 * 2)) + 160, test3 + test4, m_stageH13, true);
-	DrawExtendGraph(test0 + (test1 * 3), test2 + test4, (test0 + (test1 * 3)) + 160, test3 + test4, m_stageH14, true);
-	DrawExtendGraph(test0 + (test1 * 4), test2 + test4, (test0 + (test1 * 4)) + 160, test3 + test4, m_stageH15, true);
-	DrawExtendGraph(test0 + (test1 * 0), test2 + test4 + test4, (test0 + (test1 * 0)) + 160, test3 + test4 + test4, m_stageH16, true);
-	DrawExtendGraph(test0 + (test1 * 1), test2 + test4 + test4, (test0 + (test1 * 1)) + 160, test3 + test4 + test4, m_stageH17, true);
-	DrawExtendGraph(test0 + (test1 * 2), test2 + test4 + test4, (test0 + (test1 * 2)) + 160, test3 + test4 + test4, m_stageH18, true);
-	DrawExtendGraph(test0 + (test1 * 3), test2 + test4 + test4, (test0 + (test1 * 3)) + 160, test3 + test4 + test4, m_stageH19, true);
-	DrawExtendGraph(test0 + (test1 * 4), test2 + test4 + test4, (test0 + (test1 * 4)) + 160, test3 + test4 + test4, m_stageH20, true);
+	DrawExtendGraph(imageWidth + (Width * 0), itemY, (imageWidth + (Width * 0)) + 160, itemH, m_stageH1, true);
+	DrawExtendGraph(imageWidth + (Width * 1), itemY, (imageWidth + (Width * 1)) + 160, itemH, m_stageH2, true);
+	DrawExtendGraph(imageWidth + (Width * 2), itemY, (imageWidth + (Width * 2)) + 160, itemH, m_stageH3, true);
+	DrawExtendGraph(imageWidth + (Width * 3), itemY, (imageWidth + (Width * 3)) + 160, itemH, m_stageH4, true);
+	DrawExtendGraph(imageWidth + (Width * 4), itemY, (imageWidth + (Width * 4)) + 160, itemH, m_stageH5, true);
+	DrawExtendGraph(imageWidth + (Width * 0), linePosH, (imageWidth + (Width * 0)) + 160, Height, m_stageH6, true);
+	DrawExtendGraph(imageWidth + (Width * 1), linePosH, (imageWidth + (Width * 1)) + 160, Height, m_stageH7, true);
+	DrawExtendGraph(imageWidth + (Width * 2), linePosH, (imageWidth + (Width * 2)) + 160, Height, m_stageH8, true);
+	DrawExtendGraph(imageWidth + (Width * 3), linePosH, (imageWidth + (Width * 3)) + 160, Height, m_stageH9, true);
+	DrawExtendGraph(imageWidth + (Width * 4), linePosH, (imageWidth + (Width * 4)) + 160, Height, m_stageH10, true);
+	DrawExtendGraph(imageWidth + (Width * 0), linePosH + lineHeight, (imageWidth + (Width * 0)) + 160, Height + lineHeight, m_stageH11, true);
+	DrawExtendGraph(imageWidth + (Width * 1), linePosH + lineHeight, (imageWidth + (Width * 1)) + 160, Height + lineHeight, m_stageH12, true);
+	DrawExtendGraph(imageWidth + (Width * 2), linePosH + lineHeight, (imageWidth + (Width * 2)) + 160, Height + lineHeight, m_stageH13, true);
+	DrawExtendGraph(imageWidth + (Width * 3), linePosH + lineHeight, (imageWidth + (Width * 3)) + 160, Height + lineHeight, m_stageH14, true);
+	DrawExtendGraph(imageWidth + (Width * 4), linePosH + lineHeight, (imageWidth + (Width * 4)) + 160, Height + lineHeight, m_stageH15, true);
+	DrawExtendGraph(imageWidth + (Width * 0), linePosH + lineHeight + lineHeight, (imageWidth + (Width * 0)) + 160, Height + lineHeight + lineHeight, m_stageH16, true);
+	DrawExtendGraph(imageWidth + (Width * 1), linePosH + lineHeight + lineHeight, (imageWidth + (Width * 1)) + 160, Height + lineHeight + lineHeight, m_stageH17, true);
+	DrawExtendGraph(imageWidth + (Width * 2), linePosH + lineHeight + lineHeight, (imageWidth + (Width * 2)) + 160, Height + lineHeight + lineHeight, m_stageH18, true);
+	DrawExtendGraph(imageWidth + (Width * 3), linePosH + lineHeight + lineHeight, (imageWidth + (Width * 3)) + 160, Height + lineHeight + lineHeight, m_stageH19, true);
+	DrawExtendGraph(imageWidth + (Width * 4), linePosH + lineHeight + lineHeight, (imageWidth + (Width * 4)) + 160, Height + lineHeight + lineHeight, m_stageH20, true);
 
 	for (int y = 0; y < m_stageNum; y++)
 	{
 		// Ç∏ÇÍÇÈ
-		itemX = test0 + (test1 * y);
+		itemX = imageWidth + (Width * y);
 		if (y > 4)
 		{
-			itemY = test2;
-			itemH = test3;
-			itemX = test0 + (test1 * (y - 5));
+			itemY = linePosH;
+			itemH = Height;
+			itemX = imageWidth + (Width * (y - 5));
 		}
 		if (y > 9)
 		{
-			itemY = test2 + test4;
-			itemH = test3 + test4;
-			itemX = test0 + (test1 * (y - 10));
+			itemY = linePosH + lineHeight;
+			itemH = Height + lineHeight;
+			itemX = imageWidth + (Width * (y - 10));
 		}
 		if (y > 14)
 		{
-			itemY = test2 + test4 + test4;
-			itemH = test3 + test4 + test4;
-			itemX = test0 + (test1 * (y - 15));
+			itemY = linePosH + lineHeight + lineHeight;
+			itemH = Height + lineHeight + lineHeight;
+			itemX = imageWidth + (Width * (y - 15));
 		}
 		// ògÇÃï`âÊ
 		DrawBox(itemX, itemY, itemX + 160, itemH, kColor::White, false);

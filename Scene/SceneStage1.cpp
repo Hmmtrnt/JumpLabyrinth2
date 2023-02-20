@@ -48,7 +48,7 @@ SceneBase* SceneStage1::update()
 		SceneBase::updateFade();
 		// フェードアウト終了時にシーン切り替え
 		if (!isFading() && isOut && 
-			(m_pManager->GameClear || m_pManager->GetPushPause() == 2))	return (new SceneSelect);
+			(m_pManager->GetPushPause() == 2 || m_pManager->GameClear))	return (new SceneSelect);
 		if (!isFading() && isOut && 
 			(m_pManager->GetPushPause() == 3 || m_pManager->GameOver))	return (new SceneStage1);
 	}
@@ -62,8 +62,8 @@ SceneBase* SceneStage1::update()
 	if (!isFading())
 	{
 		// フェードアウト開始
-		if (m_pManager->GameClear)		startFadeOut();
-		if (m_pManager->GameOver)		startFadeOut();
+		if (m_pManager->GameClear)				startFadeOut();
+		if (m_pManager->GameOver)				startFadeOut();
 		if (m_pManager->GetPushPause() == 2)	startFadeOut();
 		if (m_pManager->GetPushPause() == 3)	startFadeOut();
 	}

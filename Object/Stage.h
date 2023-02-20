@@ -48,6 +48,7 @@ private:
 	int m_idxGoalX;
 	int m_idxGoalY;
 
+	// ƒS[ƒ‹‚Ìƒ‚[ƒVƒ‡ƒ“ˆø”
 	int m_GoalFrame;
 	int m_drawGoalFirst;
 	int m_drawGoalSecond;
