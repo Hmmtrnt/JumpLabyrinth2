@@ -1,7 +1,8 @@
 #pragma once
 #include "DxLib.h"
-#include "DrawFunctions.h"
 #include "game.h"
+#include "DrawFunctions.h"
+#include "Pad.h"
 
 // ‰~Žü—¦(‰¼)
 #define PI    3.1415926535897932384626433832795f

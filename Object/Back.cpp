@@ -35,7 +35,7 @@ void Back::init()
 	m_verX = 0;
 	m_verY = 0;
 
-	m_textHandle = CreateFontToHandle("Silver", 100, -1, -1);
+	m_textHandle = CreateFontToHandle("Silver", 50, -1, -1);
 
 	m_gimmickHandle = draw::MyLoadGraph("data/tileset/inca_front.png");
 	m_gimmickHandle = draw::MyLoadGraph("data/Textures-16.png");
@@ -91,6 +91,11 @@ void Back::draw()
 		}
 	}
 
+}
+
+void Back::drawHelp()
+{
+	DrawFormatStringToHandle(50, 50, kColor::White, m_textHandle, "Yボタン：ヘルプ");
 }
 
 void Back::drawExplan2_5()

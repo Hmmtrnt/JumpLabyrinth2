@@ -30,5 +30,8 @@ private:
 	// キャラの移動フレーム
 	int m_frameX;			// X座標
 	int m_frameY;			// Y座標
+
+	// ヘルプを押したかの真偽
+	bool m_pushHelp;
 };
 

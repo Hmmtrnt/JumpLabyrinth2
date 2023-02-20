@@ -9,6 +9,7 @@ namespace
 	const char* const kTitleText = "Jump Labyrinth";
 	const char* const kGuideText = "Bボタンを押してセレクト画面へ";
 	const char* const kGuideText2 = "ジョイパッド操作をオススメします";
+	const char* const kGuideText3 = "BACKボタンでいつでも終了できます";
 }
 
 SceneTitle::SceneTitle() :
@@ -111,6 +112,8 @@ void SceneTitle::draw()
 		DrawStringToHandle(650, 700, kGuideText, kColor::White, m_fontOthers);
 	}
 	DrawStringToHandle(625, 800, kGuideText2, kColor::White, m_fontOthers);
+
+	DrawStringToHandle(625, 900, kGuideText3, kColor::White, m_fontOthers);
 
 	m_pPlayer->DrawOthers(m_posX, m_posY);
 

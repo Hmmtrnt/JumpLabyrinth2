@@ -11,7 +11,8 @@ public:
 	void end();			// I—¹
 	void draw();		// •`‰æ
 
-	// à–¾•`‰æ
+	// ƒwƒ‹ƒv•`‰æ
+	void drawHelp();
 	void drawExplan2_5();
 	void drawExplan6();
 	void drawExplan7_10();
