@@ -20,14 +20,13 @@ public:
 	void initCommon();			// 共通の初期化
 
 	void initManager(int posX, int posY, int frameX, int frameY, 
-		const int stage[][kVariable::StageWidth], int stageHeight, int stageWidth);			// 実験用初期化
+		const int stage[][kVariable::StageWidth], int stageHeight, int stageWidth);			// 初期化
 
 	void initManagerInShot(int posX, int posY, int frameX, int frameY,
 		const int stage[][kVariable::StageWidth], int stageHeight, int stageWidth);
 
 	void initP();				// プロトタイプ用初期化
 	
-
 	void end();					// 終了
 	void update();				// 更新
 
@@ -41,7 +40,6 @@ public:
 	// 当たり判定
 	// プレイヤーとの
 	void collision();			// 全体
-	void collisionNoShot();		// 弾以外の当たり判定
 	void collisionR();			// 右
 	void collisionL();			// 左
 	void collisionUP();			// 上
@@ -58,8 +56,6 @@ public:
 	// ゲームオーバーモーション
 	void GameOverMotion();
 
-	// 弾の当たり判定
-	void collisionShot();
 
 	// ポーズ画面の項目を押した情報取得
 	int GetPushPause() { return m_pushPause; }
@@ -116,7 +112,6 @@ private:
 	Back* m_pBack;
 	ScenePause* m_pPause;
 	std::shared_ptr<collisionStage> m_pColStage;
-	//std::shared_ptr<Shot> m_pShot;
 	Shot* m_pShot;
 };
 

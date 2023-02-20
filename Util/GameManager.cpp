@@ -167,7 +167,6 @@ void GameManager::update()
 		m_pPause->update();
 		updatePause();
 	}
-	collisionShot();
 }
 
 void GameManager::updateTest(int& frameX, int& frameY)
@@ -233,7 +232,6 @@ void GameManager::updateTest(int& frameX, int& frameY)
 		m_pPause->update();
 		updatePause();
 	}
-	collisionShot();
 }
 
 void GameManager::updateNoShot()
@@ -265,7 +263,7 @@ void GameManager::updateNoShot()
 
 	if (!m_pushFlag)
 	{
-		collisionNoShot();
+		collision();
 
 		if (colFlagL || colFlagR || colFlagUp || colFlagBottom)
 		{
@@ -376,24 +374,10 @@ void GameManager::collision()
 	collisionUP();
 	collisionBottom();
 	/*m_pColStage->collision(colR, colL, colUp, colBottom, 
-		m_pPlayer->m_player,
-		m_pPlayer->m_posY, m_pPlayer->m_posX,
-		m_pStage->m_stage);*/
-	
-	collisionGameOver();
-	collisionGameClear();
-}
-
-void GameManager::collisionNoShot()
-{
-	collisionR();
-	collisionL();
-	collisionUP();
-	collisionBottom();
-	/*m_pColStage->collision(colR, colL, colUp, colBottom, 
 		m_pPlayer->m_player, kVariable::PlayerWidth,
 		m_pPlayer->m_posY, m_pPlayer->m_posX,
 		m_pStage->m_stage);*/
+	
 	collisionGameOver();
 	collisionGameClear();
 }
@@ -728,16 +712,6 @@ void GameManager::GameOverMotion()
 		m_pPlayer->m_verXPlayer = 2;
 		m_pPlayer->m_verYPlayer = 6;
 	}
-}
-
-void GameManager::collisionShot()
-{
-	//if (m_pPlayer->m_frameX + (kVariable::DrawWidth + kVariable::DrawPositionX) == m_pShot->m_posX &&
-	//	m_pPlayer->m_frameY + kVariable::DrawWidth == m_pShot->m_posY)
-	//{
-	//	// GameOver = true;
-	//	printfDx("ƒ„ƒ‰ƒŒƒ`ƒƒƒbƒ^\n");
-	//}
 }
 
 void GameManager::EnemyElasticity()
