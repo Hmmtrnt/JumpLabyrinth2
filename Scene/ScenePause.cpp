@@ -14,8 +14,8 @@ ScenePause::~ScenePause()
 
 void ScenePause::init()
 {
-	m_textHandle = CreateFontToHandle(NULL, 50, 4);
-	m_posArrow = 200;
+	m_textHandle = CreateFontToHandle("Silver", 90, -1, -1);
+	m_posArrow = 400;
 	m_pushNum = 0;
 }
 
@@ -36,7 +36,7 @@ void ScenePause::update()
 			}
 			else
 			{
-				m_posArrow -= 70;
+				m_posArrow -= 100;
 				m_pushNum--;
 			}
 		}
@@ -48,7 +48,7 @@ void ScenePause::update()
 			}
 			else
 			{
-				m_posArrow += 70;
+				m_posArrow += 100;
 				m_pushNum++;
 			}
 		}
@@ -58,13 +58,13 @@ void ScenePause::update()
 void ScenePause::pauseDraw()
 {
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 100);
-	DrawBox(100, 100, 900, 600, kColor::LightBlue, true);
+	DrawBox(550, 350, 1350, 700, kColor::LightBlue, true);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
-	DrawBox(100, 100, 900, 600, kColor::Black, false);
-	DrawStringToHandle(200, 200, "ここの項目何にしよう？", kColor::Black, m_textHandle);
-	DrawStringToHandle(200, 270, "リタイア", kColor::Black, m_textHandle);
-	DrawStringToHandle(200, 340, "リトライ", kColor::Black, m_textHandle);
-	DrawStringToHandle(150, m_posArrow, "→", kColor::Black, m_textHandle);
+	DrawBox(550, 350, 1350, 700, kColor::Black, false);
+	DrawStringToHandle(700, 400, "ここの項目何にしよう？", kColor::Black, m_textHandle);
+	DrawStringToHandle(700, 500, "リタイア", kColor::Black, m_textHandle);
+	DrawStringToHandle(700, 600, "リトライ", kColor::Black, m_textHandle);
+	DrawStringToHandle(600, m_posArrow, "→", kColor::Black, m_textHandle);
 
 	// 確認描画
 	//DrawFormatString(0, 0, kColor::Black, "%d", m_pushNum);

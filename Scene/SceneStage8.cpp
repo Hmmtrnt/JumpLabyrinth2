@@ -1,20 +1,24 @@
 #include "SceneStage8.h"
 #include "SceneSelect.h"
 #include "../Util/GameManager.h"
+#include"../Object/Back.h"
 
 SceneStage8::SceneStage8() :
 	m_frameCount(0),
 	m_posX(0),
 	m_posY(0),
 	m_frameX(0),
-	m_frameY(0)
+	m_frameY(0),
+	m_pushHelp(false)
 {
 	m_pManager = new GameManager;
+	m_pBack = new Back;
 }
 
 SceneStage8::~SceneStage8()
 {
 	delete m_pManager;
+	delete m_pBack;
 }
 
 void SceneStage8::init()
@@ -22,19 +26,21 @@ void SceneStage8::init()
 	m_frameCount = 90; 
 	m_posX = 11;
 	m_posY = 1;
-	/*m_frameX = 440;
-	m_frameY = 40;*/
 
 	m_frameX = 748;
 	m_frameY = 68;
 
+	m_pushHelp = false;
+
 	m_pManager->initManager(m_posX, m_posY, m_frameX, m_frameY,
 		kStage::stage8, kVariable::StageWidth, kVariable::StageWidth);
+	m_pBack->init();
 }
 
 void SceneStage8::end()
 {
 	m_pManager->end();
+	m_pBack->end();
 }
 
 SceneBase* SceneStage8::update()
@@ -52,6 +58,18 @@ SceneBase* SceneStage8::update()
 	}
 
 	m_pManager->updateNoShot();
+
+	if (Pad::isTrigger(PAD_INPUT_4))
+	{
+		if (m_pushHelp == false)
+		{
+			m_pushHelp = true;
+		}
+		else if (m_pushHelp == true)
+		{
+			m_pushHelp = false;
+		}
+	}
 
 	if (m_pManager->GetPushPause() == 1)
 	{
@@ -72,6 +90,16 @@ SceneBase* SceneStage8::update()
 void SceneStage8::draw()
 {
 	m_pManager->draw();
+
+	if (m_pushHelp == false)
+	{
+		m_pBack->drawHelp();
+	}
+
+	if (m_pushHelp == true)
+	{
+		m_pBack->drawExplan7_10();
+	}
 
 	SceneBase::drawFade();
 }

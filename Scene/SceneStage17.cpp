@@ -17,7 +17,8 @@ SceneStage17::SceneStage17() :
 	m_colShotX3(0),
 	m_colShotY4(0),
 	m_size(0),
-	m_frameCountShot(0)
+	m_frameCountShot(0),
+	m_pushHelp(false)
 {
 	m_pManager = new GameManager;
 	m_pShot = new Shot;
@@ -107,6 +108,18 @@ SceneBase* SceneStage17::update()
 
 	collisionShot();
 
+	if (Pad::isTrigger(PAD_INPUT_4))
+	{
+		if (m_pushHelp == false)
+		{
+			m_pushHelp = true;
+		}
+		else if (m_pushHelp == true)
+		{
+			m_pushHelp = false;
+		}
+	}
+
 	if (m_pManager->GetPushPause() == 1)
 	{
 	}
@@ -132,6 +145,16 @@ void SceneStage17::draw()
 	m_pShot->drawB(m_shotPosX4, m_shotPosY4);
 
 	m_pManager->drawInShot();
+
+	if (m_pushHelp == false)
+	{
+		m_pBack->drawHelp();
+	}
+
+	if (m_pushHelp == true)
+	{
+		m_pBack->drawExplan17_20();
+	}
 
 	SceneBase::drawFade();
 }

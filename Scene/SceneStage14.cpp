@@ -1,20 +1,24 @@
 #include "SceneStage14.h"
 #include "SceneSelect.h"
 #include "../Util/GameManager.h"
+#include"../Object/Back.h"
 
 SceneStage14::SceneStage14() :
 	m_frameCount(0),
 	m_posX(0),
 	m_posY(0),
 	m_frameX(0),
-	m_frameY(0)
+	m_frameY(0),
+	m_pushHelp(false)
 {
 	m_pManager = new GameManager;
+	m_pBack = new Back;
 }
 
 SceneStage14::~SceneStage14()
 {
 	delete m_pManager;
+	delete m_pBack;
 }
 
 void SceneStage14::init()
@@ -26,13 +30,17 @@ void SceneStage14::init()
 	m_frameX = 408;
 	m_frameY = 476;
 
+	m_pushHelp = false;
+
 	m_pManager->initManager(m_posX, m_posY, m_frameX, m_frameY,
 		kStage::stage14, kVariable::StageWidth, kVariable::StageWidth);
+	m_pBack->init();
 }
 
 void SceneStage14::end()
 {
 	m_pManager->end();
+	m_pBack->end();
 }
 
 SceneBase* SceneStage14::update()
@@ -50,6 +58,18 @@ SceneBase* SceneStage14::update()
 	}
 
 	m_pManager->updateNoShot();
+
+	if (Pad::isTrigger(PAD_INPUT_4))
+	{
+		if (m_pushHelp == false)
+		{
+			m_pushHelp = true;
+		}
+		else if (m_pushHelp == true)
+		{
+			m_pushHelp = false;
+		}
+	}
 
 	if (m_pManager->GetPushPause() == 1)
 	{
@@ -70,6 +90,16 @@ SceneBase* SceneStage14::update()
 void SceneStage14::draw()
 {
 	m_pManager->draw();
+
+	if (m_pushHelp == false)
+	{
+		m_pBack->drawHelp();
+	}
+
+	if (m_pushHelp == true)
+	{
+		m_pBack->drawExplan12_15();
+	}
 
 	SceneBase::drawFade();
 }

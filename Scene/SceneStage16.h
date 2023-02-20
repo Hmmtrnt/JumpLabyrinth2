@@ -2,7 +2,6 @@
 #pragma once
 #include "SceneBase.h"
 #include "../Util/common.h"
-#include <memory>
 
 class GameManager;
 class Shot;
@@ -64,7 +63,9 @@ private:
 	// フレームカウント
 	int m_frameCountShot;
 
-	// ポーズ画面をひらいたかどうか
+	// ポーズ画面をひらいたかの真偽
 	bool m_pushPause;
+	// ヘルプを押したかの真偽
+	bool m_pushHelp;
 };
 

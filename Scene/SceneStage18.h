@@ -61,8 +61,10 @@ private:
 
 	// サイズ
 	int m_size;
-
 	// フレームカウント
 	int m_frameCountShot;
+
+	// ヘルプを押したかの真偽
+	bool m_pushHelp;
 };
 

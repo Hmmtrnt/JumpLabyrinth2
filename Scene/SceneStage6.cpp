@@ -1,20 +1,24 @@
 #include "SceneStage6.h"
 #include "SceneSelect.h"
 #include "../Util/GameManager.h"
+#include"../Object/Back.h"
 
 SceneStage6::SceneStage6() :
 	m_frameCount(0),
 	m_posX(0),
 	m_posY(0),
 	m_frameX(0),
-	m_frameY(0)
+	m_frameY(0),
+	m_pushHelp(false)
 {
 	m_pManager = new GameManager;
+	m_pBack = new Back;
 }
 
 SceneStage6::~SceneStage6()
 {
 	delete m_pManager;
+	delete m_pBack;
 }
 
 void SceneStage6::init()
@@ -22,19 +26,21 @@ void SceneStage6::init()
 	m_frameCount = 90; 
 	m_posX = 11;
 	m_posY = 12;
-	/*m_frameX = 440;
-	m_frameY = 480;*/
 
 	m_frameX = 748;
 	m_frameY = 816;
 
+	m_pushHelp = false;
+
 	m_pManager->initManager(m_posX, m_posY, m_frameX, m_frameY,
 		kStage::stage6, kVariable::StageWidth, kVariable::StageWidth);
+	m_pBack->init();
 }
 
 void SceneStage6::end()
 {
 	m_pManager->end();
+	m_pBack->end();
 }
 
 SceneBase* SceneStage6::update()
@@ -52,6 +58,18 @@ SceneBase* SceneStage6::update()
 	}
 
 	m_pManager->updateNoShot();
+
+	if (Pad::isTrigger(PAD_INPUT_4))
+	{
+		if (m_pushHelp == false)
+		{
+			m_pushHelp = true;
+		}
+		else if (m_pushHelp == true)
+		{
+			m_pushHelp = false;
+		}
+	}
 
 	if (m_pManager->GetPushPause() == 1)
 	{
@@ -72,6 +90,16 @@ SceneBase* SceneStage6::update()
 void SceneStage6::draw()
 {
 	m_pManager->draw();
+
+	if (m_pushHelp == false)
+	{
+		m_pBack->drawHelp();
+	}
+
+	if (m_pushHelp == true)
+	{
+		m_pBack->drawExplan6();
+	}
 
 	SceneBase::drawFade();
 }

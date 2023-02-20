@@ -22,7 +22,8 @@ SceneStage16::SceneStage16() :
 	m_colShotX5(0),
 	m_size(0),
 	m_frameCountShot(0),
-	m_pushPause(false)
+	m_pushPause(false),
+	m_pushHelp(false)
 {
 	m_pManager = new GameManager;
 	m_pShot = new Shot;
@@ -150,6 +151,18 @@ SceneBase* SceneStage16::update()
 
 	m_pPause->update();
 
+	if (Pad::isTrigger(PAD_INPUT_4))
+	{
+		if (m_pushHelp == false)
+		{
+			m_pushHelp = true;
+		}
+		else if (m_pushHelp == true)
+		{
+			m_pushHelp = false;
+		}
+	}
+
 	if (m_pManager->GetPushPause() == 1)
 	{
 	}
@@ -187,6 +200,16 @@ void SceneStage16::draw()
 		}
 	}
 	//m_pPause->GameOverDraw();
+
+	if (m_pushHelp == false)
+	{
+		m_pBack->drawHelp();
+	}
+
+	if (m_pushHelp == true)
+	{
+		m_pBack->drawExplan16();
+	}
 
 	SceneBase::drawFade();
 }

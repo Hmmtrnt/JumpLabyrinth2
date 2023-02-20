@@ -18,6 +18,7 @@ SceneStage2::SceneStage2() :
 SceneStage2::~SceneStage2()
 {
 	delete m_pManager;
+	delete m_pBack;
 }
 
 void SceneStage2::init()

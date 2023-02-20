@@ -4,6 +4,7 @@
 #include "../Util/common.h"
 
 class GameManager;
+class Back;
 
 class SceneStage5 : public SceneBase
 {
@@ -17,8 +18,9 @@ public:
 	virtual void draw();			// 描画
 
 private:
-	// ゲームマネージャーポインタ
-	GameManager* m_pManager;
+	// ポインタ
+	GameManager* m_pManager;	// ゲームマネージャー
+	Back* m_pBack;				// 背景
 
 	// フレームカウント
 	int m_frameCount;
@@ -28,5 +30,8 @@ private:
 	// キャラの移動フレーム
 	int m_frameX;			// X座標
 	int m_frameY;			// Y座標
+
+	// ヘルプを押したかの真偽
+	bool m_pushHelp;
 };
 
