@@ -3,6 +3,13 @@
 namespace
 {
 	constexpr float kSize = 3.3f;
+	const char* const kGuideOpenText = "Yボタン:ギミック説明";
+	const char* const kGuideCloseText = "Yボタン:閉じる";
+	const char* const kExplanText = "ギミック説明";
+	const char* const kExplanGimmickDeath = "このブロックに当たると\n死んでしまいます";
+	const char* const kExplanGimmickTimeRug = "このブロックの左右上下に\n一定時間いると\n死んでしまいます";
+	const char* const kExplanGimmickInflate = "このブロックが左のように\n縮んでいると\n着地できます\nしかし、右のように\n膨らんでいると\n死んでしまいます";
+	const char* const kExplanGimmickArrow = "このブロックから矢が\n左右上下いずれかの\n方向に発射され、\n当たると死んでしまいます";
 }
 
 Back::Back() :
@@ -91,17 +98,19 @@ void Back::draw()
 		}
 	}
 
+	DrawFormatStringToHandle(1500, 50, kColor::White, m_textHandle, "START:メニュー画面");
+
 }
 
 void Back::drawHelp()
 {
-	DrawFormatStringToHandle(50, 50, kColor::White, m_textHandle, "Yボタン：ギミック説明");
+	DrawFormatStringToHandle(50, 50, kColor::White, m_textHandle, kGuideOpenText);
 }
 
 void Back::drawExplan2_5()
 {
-	DrawFormatStringToHandle(50,50, kColor::White, m_textHandle, "Yボタン：閉じる");
-	DrawFormatStringToHandle(50, 100, kColor::White, m_textHandle, "ギミック説明");
+	DrawFormatStringToHandle(50,50, kColor::White, m_textHandle, kGuideCloseText);
+	DrawFormatStringToHandle(50, 100, kColor::White, m_textHandle, kExplanText);
 	draw::MyDrawRectRotaGraph(200, 200, 
 		13 * 16, 13 * 16,
 		16, 16,
@@ -110,14 +119,14 @@ void Back::drawExplan2_5()
 
 	DrawFormatStringToHandle(50, 300, 
 		kColor::White, m_textHandle, 
-		"このブロックに当たると\n死んでしまいます");
+		kExplanGimmickDeath);
 
 }
 
 void Back::drawExplan6()
 {
-	DrawFormatStringToHandle(50, 50, kColor::White, m_textHandle, "Yボタン：閉じる");
-	DrawFormatStringToHandle(50, 100, kColor::White, m_textHandle, "ギミック説明");
+	DrawFormatStringToHandle(50, 50, kColor::White, m_textHandle, kGuideCloseText);
+	DrawFormatStringToHandle(50, 100, kColor::White, m_textHandle, kExplanText);
 
 	draw::MyDrawRectRotaGraph(200, 200,
 		0, 0,
@@ -127,13 +136,13 @@ void Back::drawExplan6()
 
 	DrawFormatStringToHandle(50, 300, 
 		kColor::White, m_textHandle, 
-		"このブロックの左右上下に\n一定時間いると\n死んでしまいます");
+		kExplanGimmickTimeRug);
 }
 
 void Back::drawExplan7_10()
 {
-	DrawFormatStringToHandle(50, 50, kColor::White, m_textHandle, "Yボタン：閉じる");
-	DrawFormatStringToHandle(50, 100, kColor::White, m_textHandle, "ギミック説明");
+	DrawFormatStringToHandle(50, 50, kColor::White, m_textHandle, kGuideCloseText);
+	DrawFormatStringToHandle(50, 100, kColor::White, m_textHandle, kExplanText);
 	draw::MyDrawRectRotaGraph(200, 200,
 		13 * 16, 13 * 16,
 		16, 16,
@@ -142,7 +151,7 @@ void Back::drawExplan7_10()
 
 	DrawFormatStringToHandle(50, 300,
 		kColor::White, m_textHandle,
-		"このブロックに当たると\n死んでしまいます");
+		kExplanGimmickDeath);
 
 	draw::MyDrawRectRotaGraph(200, 650,
 		0, 0,
@@ -152,13 +161,13 @@ void Back::drawExplan7_10()
 
 	DrawFormatStringToHandle(50, 750,
 		kColor::White, m_textHandle,
-		"このブロックの左右上下に\n一定時間いると\n死んでしまいます");
+		kExplanGimmickTimeRug);
 }
 
 void Back::drawExplan11()
 {
-	DrawFormatStringToHandle(50, 50, kColor::White, m_textHandle, "Yボタン：閉じる");
-	DrawFormatStringToHandle(50, 100, kColor::White, m_textHandle, "ギミック説明");
+	DrawFormatStringToHandle(50, 50, kColor::White, m_textHandle, kGuideCloseText);
+	DrawFormatStringToHandle(50, 100, kColor::White, m_textHandle, kExplanText);
 	draw::MyDrawRectRotaGraph(300, 200,
 		64, 0,
 		32, 32,
@@ -171,13 +180,13 @@ void Back::drawExplan11()
 		m_gimmickHandle, true, false);
 	DrawFormatStringToHandle(50, 300,
 		kColor::White, m_textHandle,
-		"このブロックが左のように\n縮んでいると\n着地できます\nしかし、右のように\n膨らんでいると\n死んでしまいます");
+		kExplanGimmickInflate);
 }
 
 void Back::drawExplan12_15()
 {
-	DrawFormatStringToHandle(50, 50, kColor::White, m_textHandle, "Yボタン：閉じる");
-	DrawFormatStringToHandle(50, 100, kColor::White, m_textHandle, "ギミック説明");
+	DrawFormatStringToHandle(50, 50, kColor::White, m_textHandle, kGuideCloseText);
+	DrawFormatStringToHandle(50, 100, kColor::White, m_textHandle, kExplanText);
 	draw::MyDrawRectRotaGraph(200, 200,
 		13 * 16, 13 * 16,
 		16, 16,
@@ -186,7 +195,7 @@ void Back::drawExplan12_15()
 
 	DrawFormatStringToHandle(50, 300,
 		kColor::White, m_textHandle,
-		"このブロックに当たると\n死んでしまいます");
+		kExplanGimmickDeath);
 
 	draw::MyDrawRectRotaGraph(200, 650,
 		0, 0,
@@ -196,7 +205,7 @@ void Back::drawExplan12_15()
 
 	DrawFormatStringToHandle(50, 750,
 		kColor::White, m_textHandle,
-		"このブロックの左右上下に\n一定時間いると\n死んでしまいます");
+		kExplanGimmickTimeRug);
 
 	draw::MyDrawRectRotaGraph(1750, 200,
 		64, 0,
@@ -210,13 +219,13 @@ void Back::drawExplan12_15()
 		m_gimmickHandle, true, false);
 	DrawFormatStringToHandle(1500, 300,
 		kColor::White, m_textHandle,
-		"このブロックが左のように\n縮んでいると\n着地できます\nしかし、右のように\n膨らんでいると\n死んでしまいます");
+		kExplanGimmickInflate);
 }
 
 void Back::drawExplan16()
 {
-	DrawFormatStringToHandle(50, 50, kColor::White, m_textHandle, "Yボタン：閉じる");
-	DrawFormatStringToHandle(50, 100, kColor::White, m_textHandle, "ギミック説明");
+	DrawFormatStringToHandle(50, 50, kColor::White, m_textHandle, kGuideCloseText);
+	DrawFormatStringToHandle(50, 100, kColor::White, m_textHandle, kExplanText);
 	draw::MyDrawRectRotaGraph(200, 200,
 		32, 0,
 		32, 32,
@@ -225,13 +234,13 @@ void Back::drawExplan16()
 
 	DrawFormatStringToHandle(50, 300,
 		kColor::White, m_textHandle,
-		"このブロックから矢が\n左右上下いずれかの\n方向に発射され、\n当たると死んでしまいます");
+		kExplanGimmickArrow);
 }
 
 void Back::drawExplan17_20()
 {
-	DrawFormatStringToHandle(50, 50, kColor::White, m_textHandle, "Yボタン：閉じる");
-	DrawFormatStringToHandle(50, 100, kColor::White, m_textHandle, "ギミック説明");
+	DrawFormatStringToHandle(50, 50, kColor::White, m_textHandle, kGuideCloseText);
+	DrawFormatStringToHandle(50, 100, kColor::White, m_textHandle, kExplanText);
 	draw::MyDrawRectRotaGraph(200, 200,
 		13 * 16, 13 * 16,
 		16, 16,
@@ -240,7 +249,7 @@ void Back::drawExplan17_20()
 
 	DrawFormatStringToHandle(50, 300,
 		kColor::White, m_textHandle,
-		"このブロックに当たると\n死んでしまいます");
+		kExplanGimmickDeath);
 
 	draw::MyDrawRectRotaGraph(200, 650,
 		0, 0,
@@ -250,7 +259,7 @@ void Back::drawExplan17_20()
 
 	DrawFormatStringToHandle(50, 750,
 		kColor::White, m_textHandle,
-		"このブロックの左右上下に\n一定時間いると\n死んでしまいます");
+		kExplanGimmickTimeRug);
 
 	draw::MyDrawRectRotaGraph(1750, 200,
 		64, 0,
@@ -264,7 +273,7 @@ void Back::drawExplan17_20()
 		m_gimmickHandle, true, false);
 	DrawFormatStringToHandle(1500, 300,
 		kColor::White, m_textHandle,
-		"このブロックが左のように\n縮んでいると\n着地できます\nしかし、右のように\n膨らんでいると\n死んでしまいます");
+		kExplanGimmickInflate);
 
 	draw::MyDrawRectRotaGraph(1700, 650,
 		32, 0,
@@ -274,5 +283,5 @@ void Back::drawExplan17_20()
 
 	DrawFormatStringToHandle(1500, 750,
 		kColor::White, m_textHandle,
-		"このブロックから矢が\n左右上下いずれかの\n方向に発射され、\n当たると死んでしまいます");
+		kExplanGimmickArrow);
 }
