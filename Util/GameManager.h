@@ -25,8 +25,6 @@ public:
 	void initManagerInShot(int posX, int posY, int frameX, int frameY,
 		const int stage[][kVariable::StageWidth], int stageHeight, int stageWidth);
 
-	void initP();				// プロトタイプ用初期化
-	
 	void end();					// 終了
 	void update();				// 更新
 

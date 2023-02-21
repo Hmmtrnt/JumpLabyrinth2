@@ -88,13 +88,6 @@ void GameManager::initManagerInShot(int posX, int posY, int frameX, int frameY,
 	m_pBack->init();
 }
 
-void GameManager::initP()
-{
-	initCommon();
-	m_pStage->initP();
-	m_pBack->init();
-}
-
 void GameManager::end()
 {
 	m_pPlayer->end();
@@ -347,8 +340,6 @@ void GameManager::draw()
 	{
 		m_pPause->pauseDraw();
 	}
-	// Šm”F•`‰æ
-	//DrawFormatString(0, 60, kColor::Black, "%d", m_pushPause);
 }
 
 void GameManager::drawInShot()
@@ -358,7 +349,6 @@ void GameManager::drawInShot()
 	{
 		drawNeedle();
 	}
-	
 	if (!GameClear)
 	{
 		m_pPlayer->DrawGamePlay();
@@ -367,11 +357,6 @@ void GameManager::drawInShot()
 	{
 		m_pPause->pauseDraw();
 	}
-
-	/*DrawFormatString(0, 30, kColor::White, "%d", m_pShot->m_posX);
-	DrawFormatString(0, 60, kColor::White, "%d", m_pShot->m_posY);
-	DrawFormatString(0, 90, kColor::White, "%d", m_pPlayer->m_frameX + (kVariable::DrawWidth + kVariable::DrawPositionX));
-	DrawFormatString(0, 120, kColor::White, "%d", m_pPlayer->m_frameY + kVariable::DrawWidth);*/
 }
 
 void GameManager::collision()
