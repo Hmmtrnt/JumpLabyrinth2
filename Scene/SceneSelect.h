@@ -75,6 +75,10 @@ private:
 	int m_starYellow;
 	int m_starRed;
 
+	// 音ハンドル
+	int m_cursorSound;	// カーソル移動音
+	int m_decideSound;	// 決定音
+
 	// タイトル画面に戻るかどうか
 	bool m_pushTitle;
 

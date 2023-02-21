@@ -66,6 +66,8 @@ SceneSelect::SceneSelect() :
 	m_starEmpty(0),
 	m_starYellow(0),
 	m_starRed(0),
+	m_cursorSound(0),
+	m_decideSound(0),
 	m_pushTitle(false)
 {
 	m_pBack = new Back;
@@ -126,6 +128,9 @@ void SceneSelect::init()
 	m_starYellow = draw::MyLoadGraph("data/starYellow.png");
 	m_starRed = draw::MyLoadGraph("data/starRed.png");
 
+	m_cursorSound = LoadSoundMem("sound/cursorSound.mp3");
+	m_decideSound = LoadSoundMem("sound/decideSound.mp3");
+
 	m_pushTitle = false;
 	m_pBack->init();
 }
@@ -158,6 +163,9 @@ void SceneSelect::end()
 	DeleteGraph(m_starEmpty);
 	DeleteGraph(m_starYellow);
 	DeleteGraph(m_starRed);
+
+	DeleteSoundMem(m_cursorSound);
+	DeleteSoundMem(m_decideSound);
 
 	m_pBack->end();
 }
@@ -216,18 +224,22 @@ SceneBase* SceneSelect::update()
 	if (Pad::isTrigger(PAD_INPUT_RIGHT))
 	{
 		m_cursorX++;
+		PlaySoundMem(m_cursorSound, DX_PLAYTYPE_BACK, true);
 	}
 	if (Pad::isTrigger(PAD_INPUT_LEFT))
 	{
 		m_cursorX--;
+		PlaySoundMem(m_cursorSound, DX_PLAYTYPE_BACK, true);
 	}
 	if (Pad::isTrigger(PAD_INPUT_UP))
 	{
 		m_cursorY--;
+		PlaySoundMem(m_cursorSound, DX_PLAYTYPE_BACK, true);
 	}
 	if (Pad::isTrigger(PAD_INPUT_DOWN))
 	{
 		m_cursorY++;
+		PlaySoundMem(m_cursorSound, DX_PLAYTYPE_BACK, true);
 	}
 	if (m_cursorX <= 0)
 	{
@@ -293,6 +305,7 @@ SceneBase* SceneSelect::update()
 	{
 		if (Pad::isTrigger(PAD_INPUT_2) || Pad::isTrigger(PAD_INPUT_1))
 		{
+			PlaySoundMem(m_decideSound, DX_PLAYTYPE_BACK, true);
 			// フェードアウト開始
 			startFadeOut();
 		}

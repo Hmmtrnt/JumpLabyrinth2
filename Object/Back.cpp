@@ -97,14 +97,17 @@ void Back::draw()
 			}
 		}
 	}
+}
 
+void Back::drawMenuGuide()
+{
 	DrawFormatStringToHandle(1500, 50, kColor::White, m_textHandle, "START:ƒƒjƒ…[‰æ–Ê");
-
 }
 
 void Back::drawHelp()
 {
 	DrawFormatStringToHandle(50, 50, kColor::White, m_textHandle, kGuideOpenText);
+	drawMenuGuide();
 }
 
 void Back::drawExplan2_5()

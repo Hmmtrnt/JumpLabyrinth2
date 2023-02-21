@@ -33,6 +33,9 @@ private:
 	int m_posX;			// X座標
 	int m_posY;			// Y座標
 
+	// 音のハンドル
+	int m_pushSound;
+
 	Back* m_pBack;
 	Player* m_pPlayer;
 };

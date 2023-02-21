@@ -18,6 +18,8 @@ GameManager::GameManager() :
 	m_GameOverCount(0),
 	m_frameCountGameOver(0),
 	m_handleNeedle(-1),
+	m_goalSound(0),
+	m_deathSound(0),
 	m_rota(0.0f),
 	colNextFlag(false),
 	colFlagL(false),
@@ -28,7 +30,8 @@ GameManager::GameManager() :
 	colR(false),
 	colUp(false),
 	colBottom(false),
-	m_pushFlag(false)
+	m_pushFlag(false),
+	m_playSound(false)
 {
 	m_pPlayer = new Player;
 	m_pStage = new Stage;
@@ -57,6 +60,8 @@ void GameManager::initCommon()
 	m_GameOverCount = 30;
 	m_frameCountGameOver = 30;
 	m_handleNeedle = draw::MyLoadGraph("data/needle2.png");
+	m_goalSound = LoadSoundMem("sound/goalSound.mp3");
+	m_deathSound = LoadSoundMem("sound/damegeSound.mp3");
 	colFlagL = false;
 	colFlagR = false;
 	colFlagUp = false;
@@ -65,6 +70,9 @@ void GameManager::initCommon()
 	colR = false;
 	colUp = false;
 	colBottom = false;
+	m_playSound = false;
+
+	ChangeVolumeSoundMem(100, m_goalSound);
 	m_pPause->init();
 	
 }
@@ -90,76 +98,14 @@ void GameManager::initManagerInShot(int posX, int posY, int frameX, int frameY,
 
 void GameManager::end()
 {
+	DeleteGraph(m_handleNeedle);
+	DeleteSoundMem(m_goalSound);
+	DeleteSoundMem(m_deathSound);
 	m_pPlayer->end();
 	m_pStage->end();
 	m_pBack->end();
 	m_pPause->end();
 	m_pShot->end();
-}
-
-void GameManager::update()
-{
-	if (Pad::isTrigger(PAD_INPUT_R) == 1)
-	{
-		if (!GameOver)
-		{
-			if (m_pushFlag == false)
-			{
-				m_pushFlag = true;
-			}
-			else if (m_pushFlag == true)
-			{
-				m_pushFlag = false;
-			}
-		}
-	}
-
-	if (!m_pushFlag)
-	{
-		collision();
-
-		if (colFlagL || colFlagR || colFlagUp || colFlagBottom)
-		{
-			m_GameOverCount--;
-			if (m_GameOverCount <= 0)
-			{
-				m_GameOverCount = 0;
-				if (m_GameOverCount == 0)
-				{
-					GameOver = true;
-				}
-			}
-		}
-		if (!colFlagL && !colFlagR && !colFlagUp && !colFlagBottom)
-		{
-			m_GameOverCount = 30;
-		}
-
-		if (!GameOver)
-		{
-			m_pPlayer->operation(colL, colR, colUp, colBottom);
-		}
-		else if (GameOver)
-		{
-			GameOverMotion();
-			m_pPlayer->m_speedX = 0;
-			m_pPlayer->m_speedY = 0;
-		}
-
-		if (GameClear)
-		{
-			m_pPlayer->m_speedX = 0;
-			m_pPlayer->m_speedY = 0;
-		}
-
-		m_pPlayer->update();
-		m_pStage->update();
-	}
-	if (m_pushFlag)
-	{
-		m_pPause->update();
-		updatePause();
-	}
 }
 
 void GameManager::updateTest(int& frameX, int& frameY)
@@ -209,12 +155,22 @@ void GameManager::updateTest(int& frameX, int& frameY)
 			GameOverMotion();
 			m_pPlayer->m_speedX = 0;
 			m_pPlayer->m_speedY = 0;
+			if (!m_playSound)
+			{
+				PlaySoundMem(m_deathSound, DX_PLAYTYPE_BACK, true);
+			}
+			m_playSound = true;
 		}
 
 		if (GameClear)
 		{
 			m_pPlayer->m_speedX = 0;
 			m_pPlayer->m_speedY = 0;
+			if (!m_playSound)
+			{
+				PlaySoundMem(m_goalSound, DX_PLAYTYPE_BACK, true);
+			}
+			m_playSound = true;
 		}
 
 		m_pPlayer->updateTest(frameX, frameY);
@@ -284,12 +240,22 @@ void GameManager::updateNoShot()
 			GameOverMotion();
 			m_pPlayer->m_speedX = 0;
 			m_pPlayer->m_speedY = 0;
+			if (!m_playSound)
+			{
+				PlaySoundMem(m_deathSound, DX_PLAYTYPE_BACK, true);
+			}
+			m_playSound = true;
 		}
 
 		if (GameClear)
 		{
 			m_pPlayer->m_speedX = 0;
 			m_pPlayer->m_speedY = 0;
+			if (!m_playSound)
+			{
+				PlaySoundMem(m_goalSound, DX_PLAYTYPE_BACK, true);
+			}
+			m_playSound = true;
 		}
 
 		m_pPlayer->update();

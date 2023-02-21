@@ -64,6 +64,13 @@ private:
 	// フレームカウント
 	int m_frameCount;
 
+	// 音ハンドル
+	int m_jumpSound;	// ジャンプ
+	int m_landingSound;	// 着地
+
 	// プレイヤーの回転
 	float m_rota;
+
+	// 音が鳴ったかどうかの真偽
+	bool m_sound;
 };

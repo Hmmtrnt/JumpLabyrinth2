@@ -141,6 +141,8 @@ void SceneStage20::draw()
 {
 	m_pBack->draw();
 
+	
+
 	m_pShot->drawB(m_shotPosX, m_shotPosY);
 	m_pShot->drawL(m_shotPosX2, m_shotPosY2);
 	m_pShot->drawR(m_shotPosX3, m_shotPosY3);

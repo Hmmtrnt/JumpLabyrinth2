@@ -17,6 +17,7 @@ SceneStage1::SceneStage1() :
 SceneStage1::~SceneStage1()
 {
 	delete m_pManager;
+	delete m_pBack;
 }
 
 void SceneStage1::init()
@@ -74,6 +75,8 @@ SceneBase* SceneStage1::update()
 void SceneStage1::draw()
 {
 	m_pManager->draw();
+
+	m_pBack->drawMenuGuide();
 
 	SceneBase::drawFade();
 }

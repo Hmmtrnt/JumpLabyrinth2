@@ -19,7 +19,8 @@ SceneTitle::SceneTitle() :
 	m_textHide(0),
 	m_fontTitle(0),
 	m_fontOthers(0),
-	m_posX(0),	m_posY(0)
+	m_posX(0),	m_posY(0),
+	m_pushSound(0)
 {
 	m_pBack = new Back;
 	m_pPlayer = new Player;
@@ -55,6 +56,7 @@ void SceneTitle::init()
 
 	m_fontTitle = CreateFontToHandle("Silver", 200, -1, -1);
 	m_fontOthers = CreateFontToHandle("Silver", 64, -1, -1);
+	m_pushSound = LoadSoundMem("sound/titlePushSound.mp3");
 	m_pBack->init();
 	m_pPlayer->initTitle();
 }
@@ -64,6 +66,7 @@ void SceneTitle::end()
 	DeleteFontToHandle(m_textHandle);
 	DeleteFontToHandle(m_fontTitle);
 	DeleteFontToHandle(m_fontOthers);
+	DeleteSoundMem(m_pushSound);
 	m_pBack->end();
 	m_pPlayer->endTitle();
 }
@@ -93,6 +96,7 @@ SceneBase* SceneTitle::update()
 	{
 		if (Pad::isTrigger(PAD_INPUT_2))
 		{
+			PlaySoundMem(m_pushSound, DX_PLAYTYPE_BACK, true);
 			// フェードアウト開始
 			startFadeOut();
 		}

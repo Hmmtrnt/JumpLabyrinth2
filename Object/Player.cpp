@@ -21,7 +21,10 @@ Player::Player() :
 	m_verXPlayer(0),
 	m_verYPlayer(0),
 	m_frameCount(0),
-	m_rota(0.0f)
+	m_jumpSound(0),
+	m_landingSound(0),
+	m_rota(0.0f),
+	m_sound(false)
 {
 	for (int y = 0; y < kVariable::PlayerWidth; y++)
 	{
@@ -46,6 +49,11 @@ void Player::initCommon()
 	m_handle = draw::MyLoadGraph("data/AnimationSheet_Character.png");
 	m_handle2 = draw::MyLoadGraph("data/moveChar2.png");
 	m_handleEffect = draw::MyLoadGraph("data/charEffect2.png");
+	m_jumpSound = LoadSoundMem("sound/mero-n.mp3");
+	m_landingSound = LoadSoundMem("sound/landingSound.mp3");
+	m_sound = true;
+
+	ChangeVolumeSoundMem(100, m_landingSound);
 
 	for (int y = 0; y < kVariable::PlayerWidth; y++)
 	{
@@ -76,6 +84,8 @@ void Player::end()
 	DeleteGraph(m_handle);
 	DeleteGraph(m_handle2);
 	DeleteGraph(m_handleEffect);
+	DeleteSoundMem(m_jumpSound);
+	DeleteSoundMem(m_landingSound);
 }
 
 void Player::endTitle()
@@ -156,6 +166,11 @@ void Player::DrawOthers(int posX, int posY)
 void Player::operation(bool colL, bool colR, bool colUp, bool colDown)
 {
 
+	if (m_speedX != 0 || m_speedY != 0)
+	{
+		m_sound = false;
+	}
+
 	if (colL || colR)
 	{
 		m_speedX = 0;
@@ -163,6 +178,15 @@ void Player::operation(bool colL, bool colR, bool colUp, bool colDown)
 	if (colUp || colDown)
 	{
 		m_speedY = 0;
+	}
+
+	if (m_speedX == 0 && m_speedY == 0)
+	{
+		if (!m_sound)
+		{
+			PlaySoundMem(m_landingSound, DX_PLAYTYPE_BACK, true);
+		}
+		m_sound = true;
 	}
 
 	if (m_speedX == 0 && m_speedY == 0)
@@ -178,6 +202,7 @@ void Player::operation(bool colL, bool colR, bool colUp, bool colDown)
 				m_rota = PI / 1;
 				if (!colUp)
 				{
+					//PlaySoundMem(m_jumpSound, DX_PLAYTYPE_BACK, true);
 					m_speedY = -speed;
 				}
 			}
@@ -192,6 +217,7 @@ void Player::operation(bool colL, bool colR, bool colUp, bool colDown)
 				m_rota = 0;
 				if (!colDown)
 				{
+					//PlaySoundMem(m_jumpSound, DX_PLAYTYPE_BACK, true);
 					m_speedY = speed;
 				}
 			}
@@ -206,6 +232,7 @@ void Player::operation(bool colL, bool colR, bool colUp, bool colDown)
 				m_rota = PI / -2;
 				if (!colR)
 				{
+					//PlaySoundMem(m_jumpSound, DX_PLAYTYPE_BACK, true);
 					m_speedX = speed;
 				}
 			}
@@ -220,6 +247,7 @@ void Player::operation(bool colL, bool colR, bool colUp, bool colDown)
 				m_rota = PI / 2;
 				if (!colL)
 				{
+					//PlaySoundMem(m_jumpSound, DX_PLAYTYPE_BACK, true);
 					m_speedX = -speed;
 				}
 			}
@@ -255,44 +283,6 @@ void Player::playerDraw(int x, int y)
 void Player::motion(int x, int y)
 {
 	m_frameCount--;
-
-	// 移動中のキャラエフェクト
-	//if (m_speedY == -40)
-	//{
-	//	draw::MyDrawRectRotaGraph(kVariable::DrawPositionX + (m_frameX + (x * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
-	//		(m_frameY + (y * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
-	//		0, 0,
-	//		40, 40,
-	//		1.0f, m_rota,
-	//		m_handleEffect, true, false);
-	//}
-	//if (m_speedY == 40)
-	//{
-	//	draw::MyDrawRectRotaGraph(kVariable::DrawPositionX + (m_frameX + (x * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
-	//		(m_frameY + (y * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
-	//		0, 0,
-	//		40, 40,
-	//		1.0f, m_rota,
-	//		m_handleEffect, true, false);
-	//}
-	//if (m_speedX == -40)
-	//{
-	//	draw::MyDrawRectRotaGraph(kVariable::DrawPositionX + (m_frameX + (x * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
-	//		(m_frameY + (y * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
-	//		0, 0,
-	//		40, 40,
-	//		1.0f, m_rota,
-	//		m_handleEffect, true, false);
-	//}
-	//if (m_speedX == 40)
-	//{
-	//	draw::MyDrawRectRotaGraph(kVariable::DrawPositionX + (m_frameX + (x * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
-	//		(m_frameY + (y * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
-	//		0, 0,
-	//		40, 40,
-	//		1.0f, m_rota,
-	//		m_handleEffect, true, false);
-	//}
 
 	// 移動中のキャラの見た目
 	if (m_speedX != 0 || m_speedY != 0)

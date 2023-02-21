@@ -11,6 +11,8 @@ public:
 	void end();			// I—¹
 	void draw();		// •`‰æ
 
+	void drawMenuGuide();
+
 	// ƒwƒ‹ƒv•`‰æ
 	void drawHelp();
 	void drawExplan2_5();

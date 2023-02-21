@@ -26,7 +26,6 @@ public:
 		const int stage[][kVariable::StageWidth], int stageHeight, int stageWidth);
 
 	void end();					// 終了
-	void update();				// 更新
 
 	void updateTest(int &frameX, int &frameY);
 
@@ -86,6 +85,10 @@ private:
 	// 針のグラフィックハンドル
 	int m_handleNeedle;
 
+	// 音のハンドル
+	int m_goalSound;	// ゴール音
+	int m_deathSound;	// 死亡音
+
 	// 回転角度
 	float m_rota;
 
@@ -95,15 +98,18 @@ private:
 	bool colFlagR;
 	bool colFlagUp;
 	bool colFlagBottom;
-
+	
 	// プレイヤー当たり判定
 	bool colL;			// 左
 	bool colR;			// 右
 	bool colUp;			// 上
 	bool colBottom;		// 下
 
-	// ポーズボタンが押されたかどうか
+	// ポーズボタンが押されたかどうかの真偽
 	bool m_pushFlag;
+
+	// 音が流れたかどうかの真偽
+	bool m_playSound;
 
 	Player* m_pPlayer;
 	Stage* m_pStage;
