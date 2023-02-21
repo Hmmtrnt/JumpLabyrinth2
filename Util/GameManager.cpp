@@ -73,6 +73,7 @@ void GameManager::initCommon()
 	m_playSound = false;
 
 	ChangeVolumeSoundMem(100, m_goalSound);
+	ChangeVolumeSoundMem(100, m_deathSound);
 	m_pPause->init();
 	
 }
