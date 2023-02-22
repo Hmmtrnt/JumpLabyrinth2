@@ -31,12 +31,6 @@
     <Filter Include="ヘッダー ファイル\Object">
       <UniqueIdentifier>{fef8fb22-40e2-4bf2-bbaa-c243e753a28c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Collision">
-      <UniqueIdentifier>{f41d42f7-8f69-4b33-99a5-ad3dd1f42581}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Collision">
-      <UniqueIdentifier>{e5ebb083-0786-46f0-a79a-19e467748d78}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -119,9 +113,6 @@
     </ClCompile>
     <ClCompile Include="Scene\SceneStage14.cpp">
       <Filter>ソース ファイル\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Collision\collisionStage.cpp">
-      <Filter>ソース ファイル\Collision</Filter>
     </ClCompile>
     <ClCompile Include="Scene\SceneStage15.cpp">
       <Filter>ソース ファイル\Scene</Filter>
@@ -229,9 +220,6 @@
     </ClInclude>
     <ClInclude Include="Scene\SceneStage14.h">
       <Filter>ヘッダー ファイル\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Collision\collisionStage.h">
-      <Filter>ヘッダー ファイル\Collision</Filter>
     </ClInclude>
     <ClInclude Include="Scene\SceneStage15.h">
       <Filter>ヘッダー ファイル\Scene</Filter>

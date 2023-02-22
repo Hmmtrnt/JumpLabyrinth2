@@ -5,7 +5,6 @@
 #include "../Scene/ScenePause.h"
 #include "DrawFunctions.h"
 #include "../Util/Pad.h"
-#include "../Collision/collisionStage.h"
 #include "../Object/Shot.h"
 
 GameManager::GameManager() :
@@ -336,10 +335,6 @@ void GameManager::collision()
 	collisionL();
 	collisionUP();
 	collisionBottom();
-	/*m_pColStage->collision(colR, colL, colUp, colBottom, 
-		m_pPlayer->m_player, kVariable::PlayerWidth,
-		m_pPlayer->m_posY, m_pPlayer->m_posX,
-		m_pStage->m_stage);*/
 	
 	collisionGameOver();
 	collisionGameClear();
