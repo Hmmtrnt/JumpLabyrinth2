@@ -20,6 +20,7 @@ GameManager::GameManager() :
 	m_handleNeedle(-1),
 	m_goalSound(0),
 	m_deathSound(0),
+	m_decideSound(0),
 	m_rota(0.0f),
 	colNextFlag(false),
 	colFlagL(false),
@@ -62,6 +63,7 @@ void GameManager::initCommon()
 	m_handleNeedle = draw::MyLoadGraph("data/needle2.png");
 	m_goalSound = LoadSoundMem("sound/goalSound.mp3");
 	m_deathSound = LoadSoundMem("sound/damegeSound.mp3");
+	m_decideSound = LoadSoundMem("sound/decideSound.mp3");
 	colFlagL = false;
 	colFlagR = false;
 	colFlagUp = false;
@@ -102,6 +104,7 @@ void GameManager::end()
 	DeleteGraph(m_handleNeedle);
 	DeleteSoundMem(m_goalSound);
 	DeleteSoundMem(m_deathSound);
+	DeleteSoundMem(m_decideSound);
 	m_pPlayer->end();
 	m_pStage->end();
 	m_pBack->end();
@@ -109,7 +112,7 @@ void GameManager::end()
 	m_pShot->end();
 }
 
-void GameManager::updateTest(int& frameX, int& frameY)
+void GameManager::updateInShot(int& frameX, int& frameY)
 {
 	if (Pad::isTrigger(PAD_INPUT_R) == 1)
 	{
@@ -274,6 +277,7 @@ void GameManager::updatePause()
 {
 	if (Pad::isTrigger(PAD_INPUT_2) == 1)
 	{
+		PlaySoundMem(m_decideSound, DX_PLAYTYPE_BACK, true);
 		if (m_pPause->GetPushNum() == 0)
 		{
 			m_pushPause = 1;

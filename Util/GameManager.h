@@ -27,7 +27,7 @@ public:
 
 	void end();					// 終了
 
-	void updateTest(int &frameX, int &frameY);
+	void updateInShot(int &frameX, int &frameY);
 
 	void updateNoShot();		// 弾の処理が入っていない更新
 	void updatePause();			// ポーズ画面の更新処理
@@ -56,6 +56,8 @@ public:
 
 	// ポーズ画面の項目を押した情報取得
 	int GetPushPause() { return m_pushPause; }
+	// ポーズボタンが押されたかの情報取得
+	int GetPushPauseOpen() { return m_pushFlag; }
 
 	// ゲームオーバー
 	bool GameOver;
@@ -88,6 +90,7 @@ private:
 	// 音のハンドル
 	int m_goalSound;	// ゴール音
 	int m_deathSound;	// 死亡音
+	int m_decideSound;	// 決定音
 
 	// 回転角度
 	float m_rota;

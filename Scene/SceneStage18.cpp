@@ -102,7 +102,7 @@ SceneBase* SceneStage18::update()
 			(m_pManager->GetPushPause() == 3 || m_pManager->GameOver))	return (new SceneStage18);
 	}
 
-	m_pManager->updateTest(m_frameX, m_frameY);
+	m_pManager->updateInShot(m_frameX, m_frameY);
 
 	m_frameCountShot--;
 	if (m_frameCountShot <= 0)
@@ -152,13 +152,16 @@ SceneBase* SceneStage18::update()
 void SceneStage18::draw()
 {
 	m_pBack->draw();
+	if (!m_pManager->GetPushPauseOpen())
+	{
+		m_pShot->drawR(m_shotPosX, m_shotPosY);
+		m_pShot->drawU(m_shotPosX2, m_shotPosY2);
+		m_pShot->drawB(m_shotPosX3, m_shotPosY3);
+		m_pShot->drawL(m_shotPosX4, m_shotPosY4);
+		m_pShot->drawB2(m_shotPosX5, m_shotPosY5);
+		m_pShot->drawL2(m_shotPosX6, m_shotPosY6);
+	}
 
-	m_pShot->drawR(m_shotPosX, m_shotPosY);
-	m_pShot->drawU(m_shotPosX2, m_shotPosY2);
-	m_pShot->drawB(m_shotPosX3, m_shotPosY3);
-	m_pShot->drawL(m_shotPosX4, m_shotPosY4);
-	m_pShot->drawB2(m_shotPosX5, m_shotPosY5);
-	m_pShot->drawL2(m_shotPosX6, m_shotPosY6);
 
 	m_pManager->drawInShot();
 

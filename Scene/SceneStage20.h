@@ -1,3 +1,4 @@
+// ステージ20
 #pragma once
 #include "SceneBase.h"
 #include "../Util/common.h"

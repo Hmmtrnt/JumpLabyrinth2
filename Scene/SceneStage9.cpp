@@ -98,7 +98,7 @@ void SceneStage9::draw()
 
 	if (m_pushHelp == true)
 	{
-		m_pBack->drawExplan7_10();
+		m_pBack->drawExplan7_9();
 	}
 
 	SceneBase::drawFade();

@@ -4,7 +4,9 @@
 ScenePause::ScenePause() :
 	m_textHandle(-1),
 	m_posArrow(0),
-	m_pushNum(0)
+	m_pushNum(0),
+	m_cursorSound(0),
+	m_cursorNotSound(0)
 {
 }
 
@@ -17,11 +19,16 @@ void ScenePause::init()
 	m_textHandle = CreateFontToHandle("Silver", 90, -1, -1);
 	m_posArrow = 400;
 	m_pushNum = 0;
+	m_cursorSound = LoadSoundMem("sound/cursorSound.mp3");
+	m_cursorNotSound = LoadSoundMem("sound/landingSound.mp3");
+	ChangeVolumeSoundMem(100, m_cursorNotSound);
 }
 
 void ScenePause::end()
 {
 	DeleteFontToHandle(m_textHandle);
+	DeleteSoundMem(m_cursorSound);
+	DeleteSoundMem(m_cursorNotSound);
 }
 
 void ScenePause::update()
@@ -32,10 +39,12 @@ void ScenePause::update()
 		{
 			if (m_pushNum <= 0)
 			{
+				PlaySoundMem(m_cursorNotSound, DX_PLAYTYPE_BACK, true);
 				m_pushNum = 0;
 			}
 			else
 			{
+				PlaySoundMem(m_cursorSound, DX_PLAYTYPE_BACK, true);
 				m_posArrow -= 100;
 				m_pushNum--;
 			}
@@ -44,10 +53,12 @@ void ScenePause::update()
 		{
 			if (m_pushNum >= 2)
 			{
+				PlaySoundMem(m_cursorNotSound, DX_PLAYTYPE_BACK, true);
 				m_pushNum = 2;
 			}
 			else
 			{
+				PlaySoundMem(m_cursorSound, DX_PLAYTYPE_BACK, true);
 				m_posArrow += 100;
 				m_pushNum++;
 			}

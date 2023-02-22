@@ -22,4 +22,7 @@ private:
 	int m_posArrow;
 	// 押した回数
 	int m_pushNum;
+	// 音ハンドル
+	int m_cursorSound;		// カーソル移動音
+	int m_cursorNotSound;	// カーソル移動できない音
 };

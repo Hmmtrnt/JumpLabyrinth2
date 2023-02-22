@@ -93,7 +93,7 @@ SceneBase* SceneStage20::update()
 			(m_pManager->GetPushPause() == 3 || m_pManager->GameOver))	return (new SceneStage20);
 	}
 
-	m_pManager->updateTest(m_frameX, m_frameY);
+	m_pManager->updateInShot(m_frameX, m_frameY);
 
 	m_frameCountShot--;
 	if (m_frameCountShot <= 0)
@@ -140,14 +140,13 @@ SceneBase* SceneStage20::update()
 void SceneStage20::draw()
 {
 	m_pBack->draw();
-
-	
-
-	m_pShot->drawB(m_shotPosX, m_shotPosY);
-	m_pShot->drawL(m_shotPosX2, m_shotPosY2);
-	m_pShot->drawR(m_shotPosX3, m_shotPosY3);
-	m_pShot->drawU(m_shotPosX4, m_shotPosY4);
-
+	if (!m_pManager->GetPushPauseOpen())
+	{
+		m_pShot->drawB(m_shotPosX, m_shotPosY);
+		m_pShot->drawL(m_shotPosX2, m_shotPosY2);
+		m_pShot->drawR(m_shotPosX3, m_shotPosY3);
+		m_pShot->drawU(m_shotPosX4, m_shotPosY4);
+	}
 	m_pManager->drawInShot();
 
 	if (m_pushHelp == false)
@@ -174,7 +173,6 @@ void SceneStage20::collisionShot()
 	if (col1 || col2 || col3 || col4)
 	{
 		m_pManager->GameOver = true;
-		//printfDx("ìñÇΩÇ¡ÇΩÅ[!?\n");
 		return;
 	}
 }

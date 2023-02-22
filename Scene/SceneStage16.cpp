@@ -68,28 +68,20 @@ void SceneStage16::initShot()
 	// ’eÀ•W‚Ì‰Šú‰»
 	m_shotPosX = kVariable::DrawPosition + 544;
 	m_shotPosY = 952;
-
 	m_shotPosX2 = kVariable::DrawPosition + 476;
 	m_shotPosY2 = 68;
-
 	m_shotPosX3 = kVariable::DrawPosition + 68;
 	m_shotPosY3 = 68;
-
 	m_shotPosX4 = kVariable::DrawPosition + 408;
 	m_shotPosY4 = 680;
-
 	m_shotPosX5 = kVariable::DrawPosition + 68;
 	m_shotPosY5 = 884;
 
 	// ’e‚ÌÁ‚¦‚é“–‚½‚è”»’è
 	m_colShotY = 544;
-
 	m_colShotX2 = kVariable::DrawPosition + 884;
-
 	m_colShotY3 = 476;
-
 	m_colShotX4 = kVariable::DrawPosition + 68;
-
 	m_colShotX5 = kVariable::DrawPosition + 408;
 }
 
@@ -114,23 +106,7 @@ SceneBase* SceneStage16::update()
 			(m_pManager->GetPushPause() == 3 || m_pManager->GameOver))	return (new SceneStage16);
 	}
 
-	if (Pad::isTrigger(PAD_INPUT_R) == 1)
-	{
-		if (!m_pManager->GameOver)
-		{
-			if (m_pushPause == false)
-			{
-				m_pushPause = true;
-				initShot();
-			}
-			else if (m_pushPause == true)
-			{
-				m_pushPause = false;
-			}
-		}
-	}
-
-	m_pManager->updateTest(m_frameX, m_frameY);
+	m_pManager->updateInShot(m_frameX, m_frameY);
 
 	m_frameCountShot--;
 	if (m_frameCountShot <= 0)
@@ -138,18 +114,14 @@ SceneBase* SceneStage16::update()
 		initShot();
 		m_frameCountShot = 60;
 	}
-	/*if (!m_pushPause)
-	{*/
-		m_pShot->shotUp(m_shotPosY, m_colShotY);
-		m_pShot->shotRight(m_shotPosX2, m_colShotX2);
-		m_pShot->shotBottom(m_shotPosY3, m_colShotY3);
-		m_pShot->shotLeft(m_shotPosX4, m_colShotX4);
-		m_pShot->shotRight2(m_shotPosX5, m_colShotX5);
-	//}
 
+	m_pShot->shotUp(m_shotPosY, m_colShotY);
+	m_pShot->shotRight(m_shotPosX2, m_colShotX2);
+	m_pShot->shotBottom(m_shotPosY3, m_colShotY3);
+	m_pShot->shotLeft(m_shotPosX4, m_colShotX4);
+	m_pShot->shotRight2(m_shotPosX5, m_colShotX5);
+	
 	collisionShot();
-
-	m_pPause->update();
 
 	if (Pad::isTrigger(PAD_INPUT_4))
 	{
@@ -161,10 +133,6 @@ SceneBase* SceneStage16::update()
 		{
 			m_pushHelp = false;
 		}
-	}
-
-	if (m_pManager->GetPushPause() == 1)
-	{
 	}
 
 	if (!isFading())
@@ -182,31 +150,23 @@ SceneBase* SceneStage16::update()
 void SceneStage16::draw()
 {
 	m_pBack->draw();
-	m_pShot->drawU(m_shotPosX, m_shotPosY);
-	m_pShot->drawR(m_shotPosX2, m_shotPosY2);
-	m_pShot->drawB(m_shotPosX3, m_shotPosY3);
-	m_pShot->drawL(m_shotPosX4, m_shotPosY4);
-	m_pShot->drawR2(m_shotPosX5, m_shotPosY5);
-	m_pManager->drawInShot();
-	// ƒQ[ƒ€ƒI[ƒo[Žž‚Ìƒƒjƒ…[‰æ–Ê(“r’†)
-	if (m_pManager->GameOver)
+	if (!m_pManager->GetPushPauseOpen())
 	{
-		m_frameCount--;
-
-		if (m_frameCount <= 0)
-		{
-			//return(new SceneSelect);
-			//m_pPause->GameOverDraw();
-		}
+		m_pShot->drawU(m_shotPosX, m_shotPosY);
+		m_pShot->drawR(m_shotPosX2, m_shotPosY2);
+		m_pShot->drawB(m_shotPosX3, m_shotPosY3);
+		m_pShot->drawL(m_shotPosX4, m_shotPosY4);
+		m_pShot->drawR2(m_shotPosX5, m_shotPosY5);
 	}
-	//m_pPause->GameOverDraw();
+	
+	m_pManager->drawInShot();
 
-	if (m_pushHelp == false)
+	if (!m_pushHelp)
 	{
 		m_pBack->drawHelp();
 	}
 
-	if (m_pushHelp == true)
+	if (m_pushHelp)
 	{
 		m_pBack->drawExplan16();
 	}

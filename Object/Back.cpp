@@ -112,6 +112,7 @@ void Back::drawHelp()
 
 void Back::drawExplan2_5()
 {
+	drawMenuGuide();
 	DrawFormatStringToHandle(50,50, kColor::White, m_textHandle, kGuideCloseText);
 	DrawFormatStringToHandle(50, 100, kColor::White, m_textHandle, kExplanText);
 	draw::MyDrawRectRotaGraph(200, 200, 
@@ -126,8 +127,9 @@ void Back::drawExplan2_5()
 
 }
 
-void Back::drawExplan6()
+void Back::drawExplan6And10()
 {
+	drawMenuGuide();
 	DrawFormatStringToHandle(50, 50, kColor::White, m_textHandle, kGuideCloseText);
 	DrawFormatStringToHandle(50, 100, kColor::White, m_textHandle, kExplanText);
 
@@ -142,8 +144,9 @@ void Back::drawExplan6()
 		kExplanGimmickTimeRug);
 }
 
-void Back::drawExplan7_10()
+void Back::drawExplan7_9()
 {
+	drawMenuGuide();
 	DrawFormatStringToHandle(50, 50, kColor::White, m_textHandle, kGuideCloseText);
 	DrawFormatStringToHandle(50, 100, kColor::White, m_textHandle, kExplanText);
 	draw::MyDrawRectRotaGraph(200, 200,
@@ -169,6 +172,7 @@ void Back::drawExplan7_10()
 
 void Back::drawExplan11()
 {
+	drawMenuGuide();
 	DrawFormatStringToHandle(50, 50, kColor::White, m_textHandle, kGuideCloseText);
 	DrawFormatStringToHandle(50, 100, kColor::White, m_textHandle, kExplanText);
 	draw::MyDrawRectRotaGraph(300, 200,
@@ -188,6 +192,7 @@ void Back::drawExplan11()
 
 void Back::drawExplan12_15()
 {
+	drawMenuGuide();
 	DrawFormatStringToHandle(50, 50, kColor::White, m_textHandle, kGuideCloseText);
 	DrawFormatStringToHandle(50, 100, kColor::White, m_textHandle, kExplanText);
 	draw::MyDrawRectRotaGraph(200, 200,
@@ -227,6 +232,7 @@ void Back::drawExplan12_15()
 
 void Back::drawExplan16()
 {
+	drawMenuGuide();
 	DrawFormatStringToHandle(50, 50, kColor::White, m_textHandle, kGuideCloseText);
 	DrawFormatStringToHandle(50, 100, kColor::White, m_textHandle, kExplanText);
 	draw::MyDrawRectRotaGraph(200, 200,
@@ -242,6 +248,7 @@ void Back::drawExplan16()
 
 void Back::drawExplan17_20()
 {
+	drawMenuGuide();
 	DrawFormatStringToHandle(50, 50, kColor::White, m_textHandle, kGuideCloseText);
 	DrawFormatStringToHandle(50, 100, kColor::White, m_textHandle, kExplanText);
 	draw::MyDrawRectRotaGraph(200, 200,

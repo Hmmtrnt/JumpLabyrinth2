@@ -98,7 +98,7 @@ void SceneStage6::draw()
 
 	if (m_pushHelp == true)
 	{
-		m_pBack->drawExplan6();
+		m_pBack->drawExplan6And10();
 	}
 
 	SceneBase::drawFade();

@@ -92,7 +92,7 @@ SceneBase* SceneStage17::update()
 			(m_pManager->GetPushPause() == 3 || m_pManager->GameOver))	return (new SceneStage17);
 	}
 
-	m_pManager->updateTest(m_frameX, m_frameY);
+	m_pManager->updateInShot(m_frameX, m_frameY);
 
 	m_frameCountShot--;
 	if (m_frameCountShot <= 0)
@@ -139,10 +139,13 @@ SceneBase* SceneStage17::update()
 void SceneStage17::draw()
 {
 	m_pBack->draw();
-	m_pShot->drawL(m_shotPosX, m_shotPosY);
-	m_pShot->drawL2(m_shotPosX2, m_shotPosY2);
-	m_pShot->drawR(m_shotPosX3, m_shotPosY3);
-	m_pShot->drawB(m_shotPosX4, m_shotPosY4);
+	if (!m_pManager->GetPushPauseOpen())
+	{
+		m_pShot->drawL(m_shotPosX, m_shotPosY);
+		m_pShot->drawL2(m_shotPosX2, m_shotPosY2);
+		m_pShot->drawR(m_shotPosX3, m_shotPosY3);
+		m_pShot->drawB(m_shotPosX4, m_shotPosY4);
+	}
 
 	m_pManager->drawInShot();
 

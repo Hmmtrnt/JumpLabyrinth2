@@ -16,8 +16,8 @@ public:
 	// ƒwƒ‹ƒv•`‰æ
 	void drawHelp();
 	void drawExplan2_5();
-	void drawExplan6();
-	void drawExplan7_10();
+	void drawExplan6And10();
+	void drawExplan7_9();
 	void drawExplan11();
 	void drawExplan12_15();
 	void drawExplan16();
