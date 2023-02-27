@@ -113,15 +113,29 @@ void GameManager::end()
 
 void GameManager::updateInShot(int& frameX, int& frameY)
 {
+	// ポーズボタンを押したときの処理
 	if (Pad::isTrigger(PAD_INPUT_R) == 1)
 	{
 		if (!GameOver)
 		{
+			// 開く
 			if (m_pushFlag == false)
 			{
 				m_pushFlag = true;
 			}
+			// 閉じる
 			else if (m_pushFlag == true)
+			{
+				m_pushFlag = false;
+			}
+		}
+	}
+	// ポーズボタンを閉じるときの処理
+	if (Pad::isTrigger(PAD_INPUT_1))
+	{
+		if (!GameOver)
+		{
+			if (m_pushFlag == true)
 			{
 				m_pushFlag = false;
 			}
@@ -175,36 +189,46 @@ void GameManager::updateInShot(int& frameX, int& frameY)
 			}
 			m_playSound = true;
 		}
-
-		m_pPlayer->updateTest(frameX, frameY);
+		// 弾との当たり判定を得るための更新処理
+		m_pPlayer->updateInCollision(frameX, frameY);
 		m_pStage->update();
 	}
 	if (m_pushFlag)
 	{
-		m_pPause->update();
+		m_pPause->updatePause();
 		updatePause();
+	}
+	if (GameClear)
+	{
+		m_pPause->updateClearPause();
+		updatePause();
+		GameOver = false;
 	}
 }
 
 void GameManager::updateNoShot()
 {
+	// ポーズボタンを押したときの処理
 	if (Pad::isTrigger(PAD_INPUT_R) == 1)
 	{
-		if (!GameOver)
+		if (!GameOver && !GameClear)
 		{
+			// 開く
 			if (m_pushFlag == false)
 			{
 				m_pushFlag = true;
 			}
+			// 閉じる
 			else if (m_pushFlag == true)
 			{
 				m_pushFlag = false;
 			}
 		}
 	}
-	if (Pad::isTrigger(PAD_INPUT_1) == 1)
+	// ポーズボタンを閉じるときの処理
+	if (Pad::isTrigger(PAD_INPUT_1))
 	{
-		if (!GameOver)
+		if (!GameOver && !GameClear)
 		{
 			if (m_pushFlag == true)
 			{
@@ -267,8 +291,14 @@ void GameManager::updateNoShot()
 	
 	if (m_pushFlag)
 	{
-		m_pPause->update();
+		m_pPause->updatePause();
 		updatePause();
+	}
+	if (GameClear)
+	{
+		m_pPause->updateClearPause();
+		updatePause();
+		GameOver = false;
 	}
 }
 
@@ -285,47 +315,32 @@ void GameManager::updatePause()
 		{
 			m_pushPause = 2;
 		}
-		else if (m_pPause->GetPushNum() == 2)
+		if (GameClear)
 		{
-			m_pushPause = 3;
+			if (m_pPause->GetPushNum() == 2)
+			{
+				m_pushPause = 3;
+			}
 		}
+		
 	}
 }
 
 void GameManager::draw()
 {
-	m_pBack->draw();
-	
 	m_pStage->draw();
 	if (!GameClear)
 	{
 		drawNeedle();
-	}
-	if (!GameClear)
-	{
 		m_pPlayer->DrawGamePlay();
 	}
-	
-	if (m_pushFlag)
+	if (GameClear)
 	{
-		m_pPause->pauseDraw();
-	}
-}
-
-void GameManager::drawInShot()
-{
-	m_pStage->draw();
-	if (!GameClear)
-	{
-		drawNeedle();
-	}
-	if (!GameClear)
-	{
-		m_pPlayer->DrawGamePlay();
+		m_pPause->drawClearPause();
 	}
 	if (m_pushFlag)
 	{
-		m_pPause->pauseDraw();
+		m_pPause->drawPause();
 	}
 }
 

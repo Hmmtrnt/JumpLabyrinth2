@@ -5,9 +5,6 @@
 #include "../Util/GameManager.h"
 
 SceneStage20::SceneStage20() :
-	m_frameCount(0),
-	m_posX(0), m_posY(0),
-	m_frameX(0), m_frameY(0),
 	m_shotPosX(0), m_shotPosY(0),
 	m_shotPosX2(0), m_shotPosY2(0),
 	m_shotPosX3(0), m_shotPosY3(0),
@@ -20,16 +17,12 @@ SceneStage20::SceneStage20() :
 	m_frameCountShot(0),
 	m_pushHelp(false)
 {
-	m_pManager = new GameManager;
 	m_pShot = new Shot;
-	m_pBack = new Back;
 }
 
 SceneStage20::~SceneStage20()
 {
-	delete m_pManager;
 	delete m_pShot;
-	delete m_pBack;
 }
 
 void SceneStage20::init()
@@ -48,10 +41,12 @@ void SceneStage20::init()
 
 	m_frameCountShot = 60;
 
-	m_pManager->initManagerInShot(m_posX, m_posY, m_frameX, m_frameY,
+	m_pShot->init();
+
+	m_pManager->initManager(m_posX, m_posY, m_frameX, m_frameY,
 		kStage::stage20, kVariable::StageWidth, kVariable::StageWidth);
 
-	m_pBack->init();
+	SceneStageBase::init();
 }
 
 void SceneStage20::initShot()
@@ -75,8 +70,7 @@ void SceneStage20::initShot()
 
 void SceneStage20::end()
 {
-	m_pManager->end();
-	m_pBack->end();
+	SceneStageBase::end();
 }
 
 SceneBase* SceneStage20::update()
@@ -87,10 +81,17 @@ SceneBase* SceneStage20::update()
 		bool isOut = isFadingOut();
 		SceneBase::updateFade();
 		// フェードアウト終了時にシーン切り替え
+		//if (!isFading() && isOut &&
+		//	m_pManager->GetPushPause() == 1 && m_pManager->GameClear)// 未実装
 		if (!isFading() && isOut &&
-			(m_pManager->GameClear || m_pManager->GetPushPause() == 2))	return (new SceneSelect);
+			m_pManager->GetPushPause() == 2 && m_pManager->GameClear) return (new SceneSelect);
 		if (!isFading() && isOut &&
-			(m_pManager->GetPushPause() == 3 || m_pManager->GameOver))	return (new SceneStage20);
+			m_pManager->GetPushPause() == 3 && m_pManager->GameClear) return (new SceneStage20);
+
+		if (!isFading() && isOut &&
+			(m_pManager->GetPushPause() == 1 /*|| m_pManager->GameClear*/))	return (new SceneSelect);
+		if (!isFading() && isOut &&
+			(m_pManager->GetPushPause() == 2 || m_pManager->GameOver))	return (new SceneStage20);
 	}
 
 	m_pManager->updateInShot(m_frameX, m_frameY);
@@ -121,25 +122,30 @@ SceneBase* SceneStage20::update()
 		}
 	}
 
-	if (m_pManager->GetPushPause() == 1)
-	{
-	}
+	//if (m_pManager->GetPushPause() == 1)
+	//{
+	//}
 
-	if (!isFading())
-	{
-		// フェードアウト開始
-		if (m_pManager->GameClear)				startFadeOut();
-		if (m_pManager->GameOver)				startFadeOut();
-		if (m_pManager->GetPushPause() == 2)	startFadeOut();
-		if (m_pManager->GetPushPause() == 3)	startFadeOut();
-	}
+	//if (!isFading())
+	//{
+	//	// フェードアウト開始
+	//	if (m_pManager->GameClear)				startFadeOut();
+	//	if (m_pManager->GameOver)				startFadeOut();
+	//	if (m_pManager->GetPushPause() == 2)	startFadeOut();
+	//	if (m_pManager->GetPushPause() == 3)	startFadeOut();
+	//}
+
+	SceneStageBase::update();
 
 	return this;
 }
 
 void SceneStage20::draw()
 {
-	m_pBack->draw();
+	//m_pBack->draw();
+
+	SceneStageBase::draw();
+
 	if (!m_pManager->GetPushPauseOpen())
 	{
 		m_pShot->drawB(m_shotPosX, m_shotPosY);
@@ -147,7 +153,7 @@ void SceneStage20::draw()
 		m_pShot->drawR(m_shotPosX3, m_shotPosY3);
 		m_pShot->drawU(m_shotPosX4, m_shotPosY4);
 	}
-	m_pManager->drawInShot();
+	//m_pManager->draw();
 
 	if (m_pushHelp == false)
 	{
@@ -159,7 +165,7 @@ void SceneStage20::draw()
 		m_pBack->drawExplan17_20();
 	}
 
-	SceneBase::drawFade();
+	//SceneBase::drawFade();
 }
 
 void SceneStage20::collisionShot()

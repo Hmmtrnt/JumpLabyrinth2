@@ -21,7 +21,7 @@ public:
 
 	void update();		// 更新
 
-	void updateTest(int &frameX, int &frameY);
+	void updateInCollision(int &frameX, int &frameY);	// キャラクターの当たり判定入り更新
 
 	// 描画
 	void DrawGamePlay();		// プレイ中

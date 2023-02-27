@@ -1,13 +1,11 @@
 // ステージ20
 #pragma once
-#include "SceneBase.h"
-#include "../Util/common.h"
+//#include "SceneBase.h"
+#include "SceneStageBase.h"
 
-class GameManager;
 class Shot;
-class Back;
 
-class SceneStage20 : public SceneBase
+class SceneStage20 : public SceneStageBase
 {
 public:
 	SceneStage20();
@@ -23,19 +21,7 @@ public:
 
 private:
 	// ポインタ
-	GameManager* m_pManager;	// ゲームマネージャー
-	Shot* m_pShot;				// 弾
-	Back* m_pBack;				// 背景
-
-	// フレームカウント
-	int m_frameCount;
-	// キャラの座標
-	int m_posX;				// X座標
-	int m_posY;				// Y座標
-
-	// キャラの移動フレーム
-	int m_frameX;			// X座標
-	int m_frameY;			// Y座標
+	Shot* m_pShot;				// ショット
 
 	// 弾の座標
 	int m_shotPosX;			// X座標
@@ -55,7 +41,7 @@ private:
 
 	// サイズ
 	int m_size;
-	// フレームカウント
+	// ショットのフレームカウント
 	int m_frameCountShot;
 
 	// ヘルプを押したかの真偽

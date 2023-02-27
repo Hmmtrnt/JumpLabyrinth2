@@ -1,24 +1,24 @@
 #include "SceneSelect.h"
 #include "SceneTitle.h"
 #include "SceneStage1.h"
-#include "SceneStage2.h"
-#include "SceneStage3.h"
-#include "SceneStage4.h"
+//#include "SceneStage2.h"
+//#include "SceneStage3.h"
+//#include "SceneStage4.h"
 #include "SceneStage5.h"
-#include "SceneStage6.h"
-#include "SceneStage7.h"
-#include "SceneStage8.h"
-#include "SceneStage9.h"
+//#include "SceneStage6.h"
+//#include "SceneStage7.h"
+//#include "SceneStage8.h"
+//#include "SceneStage9.h"
 #include "SceneStage10.h"
-#include "SceneStage11.h"
-#include "SceneStage12.h"
-#include "SceneStage13.h"
-#include "SceneStage14.h"
+//#include "SceneStage11.h"
+//#include "SceneStage12.h"
+//#include "SceneStage13.h"
+//#include "SceneStage14.h"
 #include "SceneStage15.h"
-#include "SceneStage16.h"
-#include "SceneStage17.h"
-#include "SceneStage18.h"
-#include "SceneStage19.h"
+//#include "SceneStage16.h"
+//#include "SceneStage17.h"
+//#include "SceneStage18.h"
+//#include "SceneStage19.h"
 #include "SceneStage20.h"
 #include "../Object/Back.h"
 #include "../Util/Pad.h"
@@ -183,33 +183,33 @@ SceneBase* SceneSelect::update()
 			if (m_cursorY == 1)
 			{
 				if (m_cursorX == 1)	return(new SceneStage1);
-				if (m_cursorX == 2) return(new SceneStage2);
+				/*if (m_cursorX == 2) return(new SceneStage2);
 				if (m_cursorX == 3) return(new SceneStage3);
-				if (m_cursorX == 4) return(new SceneStage4);
+				if (m_cursorX == 4) return(new SceneStage4);*/
 				if (m_cursorX == 5) return(new SceneStage5);
 			}
 			if (m_cursorY == 2)
 			{
-				if (m_cursorX == 1)	return(new SceneStage6);
+				/*if (m_cursorX == 1)	return(new SceneStage6);
 				if (m_cursorX == 2) return(new SceneStage7);
 				if (m_cursorX == 3) return(new SceneStage8);
-				if (m_cursorX == 4) return(new SceneStage9);
+				if (m_cursorX == 4) return(new SceneStage9);*/
 				if (m_cursorX == 5) return(new SceneStage10);
 			}
 			if (m_cursorY == 3)
 			{
-				if (m_cursorX == 1)	return(new SceneStage11);
+				/*if (m_cursorX == 1)	return(new SceneStage11);
 				if (m_cursorX == 2) return(new SceneStage12);
 				if (m_cursorX == 3) return(new SceneStage13);
-				if (m_cursorX == 4) return(new SceneStage14);
+				if (m_cursorX == 4) return(new SceneStage14);*/
 				if (m_cursorX == 5) return(new SceneStage15);
 			}
 			if (m_cursorY == 4)
 			{
-				if (m_cursorX == 1)	return(new SceneStage16);
+				/*if (m_cursorX == 1)	return(new SceneStage16);
 				if (m_cursorX == 2) return(new SceneStage17);
 				if (m_cursorX == 3) return(new SceneStage18);
-				if (m_cursorX == 4) return(new SceneStage19);
+				if (m_cursorX == 4) return(new SceneStage19);*/
 				if (m_cursorX == 5) return(new SceneStage20);
 			}
 		}

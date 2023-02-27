@@ -12,10 +12,10 @@ public:
 	SceneStageBase();
 	virtual ~SceneStageBase();
 
-	virtual void init() = 0;			// 初期化
-	virtual void end() = 0;				// 終了
-	virtual SceneBase* update() = 0;	// 更新
-	virtual void draw() = 0;			// 描画
+	virtual void init();				// 初期化
+	virtual void end();					// 終了
+	virtual SceneBase* update();	// 更新
+	virtual void draw();				// 描画
 
 protected:
 	// ポインタ

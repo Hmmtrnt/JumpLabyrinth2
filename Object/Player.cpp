@@ -106,7 +106,7 @@ void Player::update()
 	//jumpMotion();
 }
 
-void Player::updateTest(int& frameX, int& frameY)
+void Player::updateInCollision(int& frameX, int& frameY)
 {
 	m_frameX += m_speedX;
 	m_posX = m_frameX / kVariable::DrawWidth;

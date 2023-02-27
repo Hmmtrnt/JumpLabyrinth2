@@ -31,8 +31,8 @@ public:
 
 	void updateNoShot();		// 弾の処理が入っていない更新
 	void updatePause();			// ポーズ画面の更新処理
+	//void updateClearPause();	// クリアポーズ画面の更新処理
 	void draw();				// 描画
-	void drawInShot();			// 弾が入った描画
 
 	// 当たり判定
 	// プレイヤーとの

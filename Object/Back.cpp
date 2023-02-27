@@ -2,14 +2,52 @@
 
 namespace
 {
+	// ステージにギミックが一つしかないときの描画座標
+	constexpr int kTrapOnlyHandleX = 200;
+	constexpr int kTrapOnlyHandleY = 200;
+	constexpr int kTrapOnlyTextX = 50;
+	constexpr int kTrapOnlyTextY = 300;
+	// ステージに膨らんだりするギミックしかないときの描画座標
+	constexpr int kTrapOnlyInflateHandleX = 300;
+	constexpr int kTrapOnlyInflateHandleY = 200;
+	constexpr int kTrapOnlyInflateHandleX2 = 150;
+	constexpr int kTrapOnlyInflateHandleY2 = 200;
+
+	// ステージギミックの説明描画座標
+	// 即死
+	constexpr int kTrapDeathHandleX = 200;		// 画像
+	constexpr int kTrapDeathHandleY = 200;
+	constexpr int kTrapDeathTextX = 50;			// テキスト
+	constexpr int kTrapDeathTextY = 300;
+	// 時間差罠
+	constexpr int kTrapLagHandleX = 200;		// 画像
+	constexpr int kTrapLagHandleY = 650;
+	constexpr int kTrapLagTextX = 50;			// テキスト
+	constexpr int kTrapLagTextY = 750;
+	// 膨らむ罠
+	constexpr int kTrapInflateHandleX = 1750;	// 画像
+	constexpr int kTrapInflateHandleY = 200;
+	constexpr int kTrapInflateHandleX2 = 1600;
+	constexpr int kTrapInflateHandleY2 = 200;
+	constexpr int kTrapInflateTextX = 1550;		// テキスト
+	constexpr int kTrapInflateTextY = 300;
+	// ショット
+	constexpr int kTrapShotHandleX = 1700;		// 画像
+	constexpr int kTrapShotHandleY = 650;
+	constexpr int kTrapShotTextX = 1550;		// テキスト
+	constexpr int kTrapShotTextY = 750;
+
+	// 背景の描画サイズ
 	constexpr float kSize = 3.3f;
+
+	// テキスト
 	const char* const kGuideOpenText = "Yボタン:ギミック説明";
 	const char* const kGuideCloseText = "Yボタン:閉じる";
 	const char* const kExplanText = "ギミック説明";
 	const char* const kExplanGimmickDeath = "このブロックに当たると\n死んでしまいます";
 	const char* const kExplanGimmickTimeRug = "このブロックの左右上下に\n一定時間いると\n死んでしまいます";
-	const char* const kExplanGimmickInflate = "このブロックが左のように\n縮んでいると\n着地できます\nしかし、右のように\n膨らんでいると\n死んでしまいます";
-	const char* const kExplanGimmickArrow = "このブロックから矢が\n左右上下いずれかの\n方向に発射され、\n当たると死んでしまいます";
+	const char* const kExplanGimmickInflate = "膨らんでいるときに\n当たってはいけません";
+	const char* const kExplanGimmickArrow = "このブロックから矢が\n発射されます";
 }
 
 Back::Back() :
@@ -104,194 +142,155 @@ void Back::drawMenuGuide()
 	DrawFormatStringToHandle(1500, 50, kColor::White, m_textHandle, "START:メニュー画面");
 }
 
+void Back::drawHelpGuide()
+{
+	DrawFormatStringToHandle(50, 50, kColor::White, m_textHandle, kGuideCloseText);
+	DrawFormatStringToHandle(50, 100, kColor::White, m_textHandle, kExplanText);
+}
+
 void Back::drawHelp()
 {
-	DrawFormatStringToHandle(50, 50, kColor::White, m_textHandle, kGuideOpenText);
+	DrawFormatStringToHandle(50, 50, kColor::White, 
+		m_textHandle, kGuideOpenText);
 	drawMenuGuide();
 }
 
 void Back::drawExplan2_5()
 {
 	drawMenuGuide();
-	DrawFormatStringToHandle(50,50, kColor::White, m_textHandle, kGuideCloseText);
-	DrawFormatStringToHandle(50, 100, kColor::White, m_textHandle, kExplanText);
-	draw::MyDrawRectRotaGraph(200, 200, 
-		13 * 16, 13 * 16,
-		16, 16,
-		4.2f, 0.0f, 
-		m_gimmickHandle2, true, false);
+	drawHelpGuide();
 
-	DrawFormatStringToHandle(50, 300, 
-		kColor::White, m_textHandle, 
-		kExplanGimmickDeath);
-
+	drawExplanDeath(kTrapDeathHandleX, kTrapDeathHandleY, 
+		kTrapDeathTextX, kTrapDeathTextY);
 }
 
 void Back::drawExplan6And10()
 {
 	drawMenuGuide();
-	DrawFormatStringToHandle(50, 50, kColor::White, m_textHandle, kGuideCloseText);
-	DrawFormatStringToHandle(50, 100, kColor::White, m_textHandle, kExplanText);
+	drawHelpGuide();
 
-	draw::MyDrawRectRotaGraph(200, 200,
-		0, 0,
-		32, 32,
-		2.0f, 0.0f,
-		m_gimmickHandle, true, false);
-
-	DrawFormatStringToHandle(50, 300, 
-		kColor::White, m_textHandle, 
-		kExplanGimmickTimeRug);
+	drawExplanLagTrap(kTrapOnlyHandleX, kTrapOnlyHandleY,
+		kTrapOnlyTextX, kTrapOnlyTextY);
 }
 
 void Back::drawExplan7_9()
 {
 	drawMenuGuide();
-	DrawFormatStringToHandle(50, 50, kColor::White, m_textHandle, kGuideCloseText);
-	DrawFormatStringToHandle(50, 100, kColor::White, m_textHandle, kExplanText);
-	draw::MyDrawRectRotaGraph(200, 200,
-		13 * 16, 13 * 16,
-		16, 16,
-		4.2f, 0.0f,
-		m_gimmickHandle2, true, false);
+	drawHelpGuide();
 
-	DrawFormatStringToHandle(50, 300,
-		kColor::White, m_textHandle,
-		kExplanGimmickDeath);
-
-	draw::MyDrawRectRotaGraph(200, 650,
-		0, 0,
-		32, 32,
-		2.0f, 0.0f,
-		m_gimmickHandle, true, false);
-
-	DrawFormatStringToHandle(50, 750,
-		kColor::White, m_textHandle,
-		kExplanGimmickTimeRug);
+	drawExplanDeath(kTrapDeathHandleX, kTrapDeathHandleY,
+		kTrapDeathTextX, kTrapDeathTextY);
+	drawExplanLagTrap(kTrapLagHandleX, kTrapLagHandleY,
+		kTrapLagTextX, kTrapLagTextY);
 }
 
 void Back::drawExplan11()
 {
 	drawMenuGuide();
-	DrawFormatStringToHandle(50, 50, kColor::White, m_textHandle, kGuideCloseText);
-	DrawFormatStringToHandle(50, 100, kColor::White, m_textHandle, kExplanText);
-	draw::MyDrawRectRotaGraph(300, 200,
-		64, 0,
-		32, 32,
-		4.0f, 0.0f,
-		m_gimmickHandle, true, false);
-	draw::MyDrawRectRotaGraph(150, 200,
-		96, 0,
-		32, 32,
-		2.0f, 0.0f,
-		m_gimmickHandle, true, false);
-	DrawFormatStringToHandle(50, 300,
-		kColor::White, m_textHandle,
-		kExplanGimmickInflate);
+	drawHelpGuide();
+
+	drawExplanInflateTrap(kTrapOnlyInflateHandleX, kTrapOnlyInflateHandleY,
+		kTrapOnlyInflateHandleX2, kTrapOnlyInflateHandleY2,
+		kTrapOnlyTextX, kTrapDeathTextY);
 }
 
 void Back::drawExplan12_15()
 {
 	drawMenuGuide();
-	DrawFormatStringToHandle(50, 50, kColor::White, m_textHandle, kGuideCloseText);
-	DrawFormatStringToHandle(50, 100, kColor::White, m_textHandle, kExplanText);
-	draw::MyDrawRectRotaGraph(200, 200,
-		13 * 16, 13 * 16,
-		16, 16,
-		4.2f, 0.0f,
-		m_gimmickHandle2, true, false);
+	drawHelpGuide();
 
-	DrawFormatStringToHandle(50, 300,
-		kColor::White, m_textHandle,
-		kExplanGimmickDeath);
-
-	draw::MyDrawRectRotaGraph(200, 650,
-		0, 0,
-		32, 32,
-		2.0f, 0.0f,
-		m_gimmickHandle, true, false);
-
-	DrawFormatStringToHandle(50, 750,
-		kColor::White, m_textHandle,
-		kExplanGimmickTimeRug);
-
-	draw::MyDrawRectRotaGraph(1750, 200,
-		64, 0,
-		32, 32,
-		4.0f, 0.0f,
-		m_gimmickHandle, true, false);
-	draw::MyDrawRectRotaGraph(1600, 200,
-		96, 0,
-		32, 32,
-		2.0f, 0.0f,
-		m_gimmickHandle, true, false);
-	DrawFormatStringToHandle(1500, 300,
-		kColor::White, m_textHandle,
-		kExplanGimmickInflate);
+	drawExplanDeath(kTrapDeathHandleX, kTrapDeathHandleY,
+		kTrapDeathTextX, kTrapDeathTextY);
+	drawExplanLagTrap(kTrapLagHandleX, kTrapLagHandleY,
+		kTrapLagTextX, kTrapLagTextY);
+	drawExplanInflateTrap(kTrapInflateHandleX, kTrapInflateHandleY,
+		kTrapInflateHandleX2, kTrapInflateHandleY2,
+		kTrapInflateTextX, kTrapInflateTextY);
 }
 
 void Back::drawExplan16()
 {
 	drawMenuGuide();
-	DrawFormatStringToHandle(50, 50, kColor::White, m_textHandle, kGuideCloseText);
-	DrawFormatStringToHandle(50, 100, kColor::White, m_textHandle, kExplanText);
-	draw::MyDrawRectRotaGraph(200, 200,
-		32, 0,
-		32, 32,
-		2.0f, 0.0f,
-		m_gimmickHandle, true, false);
+	drawHelpGuide();
 
-	DrawFormatStringToHandle(50, 300,
-		kColor::White, m_textHandle,
-		kExplanGimmickArrow);
+	drawExplanShotTrap(kTrapOnlyHandleX, kTrapOnlyHandleY, 
+		kTrapOnlyTextX, kTrapOnlyTextY);
 }
 
 void Back::drawExplan17_20()
 {
 	drawMenuGuide();
-	DrawFormatStringToHandle(50, 50, kColor::White, m_textHandle, kGuideCloseText);
-	DrawFormatStringToHandle(50, 100, kColor::White, m_textHandle, kExplanText);
-	draw::MyDrawRectRotaGraph(200, 200,
+	drawHelpGuide();
+
+	drawExplanDeath(kTrapDeathHandleX, kTrapDeathHandleY, 
+		kTrapDeathTextX, kTrapDeathTextY);
+	drawExplanLagTrap(kTrapLagHandleX, kTrapLagHandleY, 
+		kTrapLagTextX, kTrapLagTextY);
+	drawExplanInflateTrap(kTrapInflateHandleX, kTrapInflateHandleY, 
+		kTrapInflateHandleX2, kTrapInflateHandleY2, 
+		kTrapInflateTextX, kTrapInflateTextY);
+	drawExplanShotTrap(kTrapShotHandleX, kTrapShotHandleY, 
+		kTrapShotTextX, kTrapShotTextY);
+}
+
+void Back::drawExplanDeath(int posXHandle, int posYHandle,
+	int posXText, int posYText)
+{
+	draw::MyDrawRectRotaGraph(posXHandle, posYHandle,
 		13 * 16, 13 * 16,
 		16, 16,
 		4.2f, 0.0f,
 		m_gimmickHandle2, true, false);
 
-	DrawFormatStringToHandle(50, 300,
+	DrawFormatStringToHandle(posXText, posYText,
 		kColor::White, m_textHandle,
 		kExplanGimmickDeath);
+}
 
-	draw::MyDrawRectRotaGraph(200, 650,
+void Back::drawExplanLagTrap(int posXHandle, int posYHandle,
+	int posXText, int posYText)
+{
+	draw::MyDrawRectRotaGraph(posXHandle, posYHandle,
 		0, 0,
 		32, 32,
 		2.0f, 0.0f,
 		m_gimmickHandle, true, false);
 
-	DrawFormatStringToHandle(50, 750,
+	DrawFormatStringToHandle(posXText, posYText,
 		kColor::White, m_textHandle,
 		kExplanGimmickTimeRug);
+}
 
-	draw::MyDrawRectRotaGraph(1750, 200,
+void Back::drawExplanInflateTrap(int posXHandle, int posYHandle,
+	int posXHandle2, int posYHandle2,
+	int posXText, int posYText)
+{
+	draw::MyDrawRectRotaGraph(posXHandle, posYHandle,
 		64, 0,
 		32, 32,
 		4.0f, 0.0f,
 		m_gimmickHandle, true, false);
-	draw::MyDrawRectRotaGraph(1600, 200,
+	draw::MyDrawRectRotaGraph(posXHandle2, posYHandle2,
 		96, 0,
 		32, 32,
 		2.0f, 0.0f,
 		m_gimmickHandle, true, false);
-	DrawFormatStringToHandle(1500, 300,
+
+	DrawFormatStringToHandle(posXText, posYText,
 		kColor::White, m_textHandle,
 		kExplanGimmickInflate);
+}
 
-	draw::MyDrawRectRotaGraph(1700, 650,
+void Back::drawExplanShotTrap(int posXHandle, int posYHandle,
+	int posXText, int posYText)
+{
+	draw::MyDrawRectRotaGraph(posXHandle, posYHandle,
 		32, 0,
 		32, 32,
 		2.0f, 0.0f,
 		m_gimmickHandle, true, false);
 
-	DrawFormatStringToHandle(1500, 750,
+	DrawFormatStringToHandle(posXText, posYText,
 		kColor::White, m_textHandle,
 		kExplanGimmickArrow);
 }
