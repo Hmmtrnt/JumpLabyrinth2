@@ -66,8 +66,9 @@ SceneSelect::SceneSelect() :
 	m_starEmpty(0),
 	m_starYellow(0),
 	m_starRed(0),
-	m_cursorSound(0),
-	m_decideSound(0),
+	m_cursorSound(-1),
+	m_decideSound(-1),
+	m_BackGroundSound(-1),
 	m_pushTitle(false)
 {
 	m_pBack = new Back;

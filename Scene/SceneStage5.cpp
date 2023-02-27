@@ -26,11 +26,6 @@ void SceneStage5::init()
 	SceneStageBase::init();
 }
 
-void SceneStage5::end()
-{
-	SceneStageBase::end();
-}
-
 SceneBase* SceneStage5::update()
 {
 	// フェード処理
@@ -47,7 +42,7 @@ SceneBase* SceneStage5::update()
 			m_pManager->GetPushPause() == 3 && m_pManager->GameClear) return (new SceneStage5);
 
 		if (!isFading() && isOut &&
-			(m_pManager->GetPushPause() == 1 /*|| m_pManager->GameClear*/))	return (new SceneSelect);
+			(m_pManager->GetPushPause() == 1 && !m_pManager->GameClear))	return (new SceneSelect);
 		if (!isFading() && isOut &&
 			(m_pManager->GetPushPause() == 2 || m_pManager->GameOver))	return (new SceneStage5);
 	}

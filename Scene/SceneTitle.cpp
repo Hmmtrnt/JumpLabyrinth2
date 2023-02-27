@@ -7,9 +7,9 @@
 namespace
 {
 	const char* const kTitleText = "Jump Labyrinth";
-	const char* const kGuideText = "Bボタンを押してセレクト画面へ";
-	const char* const kGuideText2 = "ジョイパッド操作をオススメします";
-	const char* const kGuideText3 = "BACKボタンでいつでも終了できます";
+	const char* const kGuideText = "Press Any Botton";
+	//const char* const kGuideText2 = "ジョイパッド操作をオススメします";
+	//const char* const kGuideText3 = "BACKボタンでいつでも終了できます";
 }
 
 SceneTitle::SceneTitle() :
@@ -18,7 +18,7 @@ SceneTitle::SceneTitle() :
 	m_textShow(0),
 	m_textHide(0),
 	m_fontTitle(0),
-	m_fontOthers(0),
+	m_fontGuide(0),
 	m_posX(0),	m_posY(0),
 	m_pushSound(0)
 {
@@ -39,8 +39,8 @@ void SceneTitle::init()
 	m_textShow = 40;
 	m_textHide = 20;
 
-	m_posX = 600;
-	m_posY = 730;
+	m_posX = 650;
+	m_posY = 205;
 
 	// リソースの読み込み
 	LPCSTR font_path = "Font/Silver.ttf";// 読み込むフォントファイルのパス
@@ -55,7 +55,7 @@ void SceneTitle::init()
 	}
 
 	m_fontTitle = CreateFontToHandle("Silver", 200, -1, -1);
-	m_fontOthers = CreateFontToHandle("Silver", 64, -1, -1);
+	m_fontGuide = CreateFontToHandle("Silver", 100, -1, -1);
 	m_pushSound = LoadSoundMem("sound/titlePushSound.mp3");
 	m_pBack->init();
 	m_pPlayer->initTitle();
@@ -65,7 +65,7 @@ void SceneTitle::end()
 {
 	DeleteFontToHandle(m_textHandle);
 	DeleteFontToHandle(m_fontTitle);
-	DeleteFontToHandle(m_fontOthers);
+	DeleteFontToHandle(m_fontGuide);
 	DeleteSoundMem(m_pushSound);
 	m_pBack->end();
 	m_pPlayer->endTitle();
@@ -94,7 +94,10 @@ SceneBase* SceneTitle::update()
 
 	if (!isFading())
 	{
-		if (Pad::isTrigger(PAD_INPUT_2))
+		if (Pad::isTrigger(PAD_INPUT_1) || Pad::isTrigger(PAD_INPUT_2) || Pad::isTrigger(PAD_INPUT_3) || 
+			Pad::isTrigger(PAD_INPUT_4) || Pad::isTrigger(PAD_INPUT_UP) || Pad::isTrigger(PAD_INPUT_DOWN) || 
+			Pad::isTrigger(PAD_INPUT_RIGHT) || Pad::isTrigger(PAD_INPUT_LEFT) || Pad::isTrigger(PAD_INPUT_5) ||
+			Pad::isTrigger(PAD_INPUT_6) || Pad::isTrigger(PAD_INPUT_8))
 		{
 			PlaySoundMem(m_pushSound, DX_PLAYTYPE_BACK, true);
 			// フェードアウト開始
@@ -108,16 +111,18 @@ void SceneTitle::draw()
 {
 	m_pBack->draw();
 
+	DrawStringToHandle(505, 205, kTitleText, kColor::RedBlack, m_fontTitle);
 	DrawStringToHandle(500, 200, kTitleText, kColor::White, m_fontTitle);
 
 	// 点滅テキスト
 	if (m_textFlashCount < m_textShow)
 	{
-		DrawStringToHandle(650, 700, kGuideText, kColor::White, m_fontOthers);
+		DrawStringToHandle(702, 702, kGuideText, kColor::RedBlack, m_fontGuide);
+		DrawStringToHandle(700, 700, kGuideText, kColor::White, m_fontGuide);
 	}
-	DrawStringToHandle(625, 800, kGuideText2, kColor::White, m_fontOthers);
+	//DrawStringToHandle(625, 800, kGuideText2, kColor::White, m_fontGuide);
 
-	DrawStringToHandle(625, 900, kGuideText3, kColor::White, m_fontOthers);
+	//DrawStringToHandle(625, 900, kGuideText3, kColor::White, m_fontGuide);
 
 	m_pPlayer->DrawOthers(m_posX, m_posY);
 

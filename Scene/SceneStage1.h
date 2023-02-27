@@ -10,7 +10,6 @@ public:
 	virtual ~SceneStage1(){}
 
 	virtual void init();			// ‰Šú‰»
-	virtual void end();				// I—¹
 	virtual SceneBase* update();	// XV
 	virtual void draw();			// •`‰æ
 };

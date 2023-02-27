@@ -18,6 +18,7 @@ ScenePause::ScenePause() :
 	m_sizeClearPauseX(0),
 	m_sizeClearPauseY(0),
 	m_posClearTextX(0),
+	m_posClearCursorX(0),
 	m_posClearTextY1(0),
 	m_posClearTextY2(0),
 	m_posClearTextY3(0),
@@ -36,11 +37,12 @@ void ScenePause::init()
 	m_posCursor = 400;
 	m_posClearCursor = 400;
 	m_pushNum = 0;
-	m_posClearPauseX = 700;
-	m_posClearPauseY = 350;
-	m_sizeClearPauseX = 1300;
+	m_posClearPauseX = 650;
+	m_posClearPauseY = 250;
+	m_sizeClearPauseX = 1250;
 	m_sizeClearPauseY = 700;
-	m_posClearTextX = 860;
+	m_posClearTextX = 800;
+	m_posClearCursorX = 700;
 	m_posClearTextY1 = 400;
 	m_posClearTextY2 = 500;
 	m_posClearTextY3 = 600;
@@ -144,15 +146,24 @@ void ScenePause::updateClearPause()
 void ScenePause::drawClearPause()
 {
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 100);
+	DrawBox(0, 0, Game::kScreenWidth, Game::kScreenHeight, kColor::Black, true);
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 150);
 	DrawBox(m_posClearPauseX, m_posClearPauseY, 
 		m_sizeClearPauseX, m_sizeClearPauseY, kColor::Yellow, true);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 	DrawBox(m_posClearPauseX, m_posClearPauseY, 
 		m_sizeClearPauseX, m_sizeClearPauseY, kColor::Black, false);
+
+	DrawStringToHandle(m_posClearTextX - 18, 302, "ゲームクリア!", kColor::Black, m_textHandle);
+	DrawStringToHandle(m_posClearTextX -20, 300, "ゲームクリア!", kColor::White, m_textHandle);
+	DrawStringToHandle(m_posClearTextX + 2, m_posClearTextY1 + 2, "次のステージへ　(未実装)", kColor::Black, m_textHandle);
 	DrawStringToHandle(m_posClearTextX, m_posClearTextY1, "次のステージへ　(未実装)", kColor::White, m_textHandle);
+	DrawStringToHandle(m_posClearTextX + 2, m_posClearTextY2 + 2, "セレクト画面へ", kColor::Black, m_textHandle);
 	DrawStringToHandle(m_posClearTextX, m_posClearTextY2, "セレクト画面へ", kColor::White, m_textHandle);
+	DrawStringToHandle(m_posClearTextX + 2, m_posClearTextY3 + 2, "リトライ", kColor::Black, m_textHandle);
 	DrawStringToHandle(m_posClearTextX, m_posClearTextY3, "リトライ", kColor::White, m_textHandle);
-	DrawStringToHandle(kWidthCursor, m_posClearCursor, "→", kColor::White, m_textHandle);
+	DrawStringToHandle(m_posClearCursorX + 2, m_posClearCursor + 2, "→", kColor::Black, m_textHandle);
+	DrawStringToHandle(m_posClearCursorX, m_posClearCursor, "→", kColor::White, m_textHandle);
 
 	// 確認描画
 	//DrawFormatString(0, 0, kColor::Black, "%d", m_pushNum);

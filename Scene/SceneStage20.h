@@ -13,7 +13,6 @@ public:
 
 	virtual void init();			// ‰Šú‰»
 	void initShot();				// ’e‚Ì‰Šú‰»
-	virtual void end();				// I—¹
 	virtual SceneBase* update();	// XV
 	virtual void draw();			// •`‰æ
 

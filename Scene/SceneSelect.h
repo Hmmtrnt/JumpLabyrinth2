@@ -76,8 +76,9 @@ private:
 	int m_starRed;
 
 	// 音ハンドル
-	int m_cursorSound;	// カーソル移動音
-	int m_decideSound;	// 決定音
+	int m_cursorSound;		// カーソル移動音
+	int m_decideSound;		// 決定音
+	int m_BackGroundSound;	// bgm
 
 	// タイトル画面に戻るかどうか
 	bool m_pushTitle;

@@ -74,18 +74,6 @@ void Stage::initStage(const int stage[][kVariable::StageWidth], int stageHeight,
 	}
 }
 
-void Stage::initP()
-{
-	initCommon();
-	for (int y = 0; y < kVariable::StageWidth; y++)
-	{
-		for (int x = 0; x < kVariable::StageWidth; x++)
-		{
-			m_stage[y][x] = kStage::stageP[y][x];
-		}
-	}
-}
-
 void Stage::end()
 {
 	DeleteGraph(m_handleWall);

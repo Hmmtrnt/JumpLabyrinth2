@@ -27,7 +27,7 @@ private:
 
 	// フォントのデータ
 	int m_fontTitle;			// タイトル
-	int m_fontOthers;			// タイトル以外
+	int m_fontGuide;			// タイトル以外
 
 	// プレイヤー座標
 	int m_posX;			// X座標

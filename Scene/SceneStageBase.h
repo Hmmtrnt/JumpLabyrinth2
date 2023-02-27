@@ -30,5 +30,10 @@ protected:
 	// キャラの移動フレーム
 	int m_frameX;			// X座標
 	int m_frameY;			// Y座標
+	// bgm
+	int m_backGroundSound;
+
+	// bgmが鳴っているかどうか
+	bool m_playSound;
 };
 

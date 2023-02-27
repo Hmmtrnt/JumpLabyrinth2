@@ -68,11 +68,6 @@ void SceneStage20::initShot()
 	m_colShotY4 = 0;
 }
 
-void SceneStage20::end()
-{
-	SceneStageBase::end();
-}
-
 SceneBase* SceneStage20::update()
 {
 	// フェード処理
@@ -89,7 +84,7 @@ SceneBase* SceneStage20::update()
 			m_pManager->GetPushPause() == 3 && m_pManager->GameClear) return (new SceneStage20);
 
 		if (!isFading() && isOut &&
-			(m_pManager->GetPushPause() == 1 /*|| m_pManager->GameClear*/))	return (new SceneSelect);
+			(m_pManager->GetPushPause() == 1 && !m_pManager->GameClear))	return (new SceneSelect);
 		if (!isFading() && isOut &&
 			(m_pManager->GetPushPause() == 2 || m_pManager->GameOver))	return (new SceneStage20);
 	}
