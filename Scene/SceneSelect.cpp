@@ -68,7 +68,7 @@ SceneSelect::SceneSelect() :
 	m_starRed(0),
 	m_cursorSound(-1),
 	m_decideSound(-1),
-	m_BackGroundSound(-1),
+	m_backGroundSound(-1),
 	m_pushTitle(false)
 {
 	m_pBack = new Back;
@@ -131,6 +131,7 @@ void SceneSelect::init()
 
 	m_cursorSound = LoadSoundMem("sound/cursorSound.mp3");
 	m_decideSound = LoadSoundMem("sound/decideSound.mp3");
+	m_backGroundSound = LoadSoundMem("sound/Selectbgm.mp3");
 
 	m_pushTitle = false;
 	m_pBack->init();
@@ -167,6 +168,7 @@ void SceneSelect::end()
 
 	DeleteSoundMem(m_cursorSound);
 	DeleteSoundMem(m_decideSound);
+	DeleteSoundMem(m_backGroundSound);
 
 	m_pBack->end();
 }
@@ -219,7 +221,6 @@ SceneBase* SceneSelect::update()
 	
 
 	// ステージ選択
-
 	int cursorSpeed = 10;
 
 	if (Pad::isTrigger(PAD_INPUT_RIGHT))
