@@ -14,8 +14,11 @@ public:
 
 	virtual void init();				// 初期化
 	virtual void end();					// 終了
-	virtual SceneBase* update();	// 更新
+	virtual SceneBase* update();		// 更新
 	virtual void draw();				// 描画
+
+	virtual SceneBase* CreateRetryStage() = 0;	// シーン遷移
+	virtual SceneBase* updateBefore();
 
 protected:
 	// ポインタ

@@ -30,7 +30,7 @@ private:
 
 	// ステージ数
 	int m_stageNum;
-	int m_stageNum2;
+	int m_stageNumText;
 
 	// セレクト項目の位置
 	int m_selectPos;
@@ -80,7 +80,9 @@ private:
 	int m_decideSound;		// 決定音
 	int m_backGroundSound;	// bgm
 
-	// タイトル画面に戻るかどうか
+	// bgmが鳴っているか真偽
+	bool m_playSound;
+	// タイトル画面に戻るか真偽
 	bool m_pushTitle;
 
 	Back* m_pBack;

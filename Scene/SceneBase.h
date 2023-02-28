@@ -7,14 +7,14 @@ public:
 	SceneBase();
 	virtual ~SceneBase(){}
 
-	virtual void init(){}				// 初期化
-	virtual void end(){}				// 終了処理
+	virtual void init() = 0;			// 初期化
+	virtual void end() = 0;				// 終了処理
 	virtual SceneBase* update() { return this; }		// 更新処理
-	virtual void draw(){}				// 描画
+	virtual void draw() = 0;			// 描画
 
 	// フェード関連
-	void updateFade();
-	void drawFade() const;
+	void updateFade();			// フェード更新
+	void drawFade() const;		// フェード描画
 
 	bool isFadingIn() const;	// フェードイン中
 	bool isFadingOut() const;	// フェードアウト中

@@ -3,8 +3,6 @@
 #include "../Util/GameManager.h"
 #include"../Object/Back.h"
 
-
-
 SceneStage5::SceneStage5() :
 	m_pushHelp(false)
 {
@@ -26,26 +24,14 @@ void SceneStage5::init()
 	SceneStageBase::init();
 }
 
+SceneBase* SceneStage5::CreateRetryStage()
+{
+	return new SceneStage5;
+}
+
 SceneBase* SceneStage5::update()
 {
-	// フェード処理
-	if (isFading())
-	{
-		bool isOut = isFadingOut();
-		SceneBase::updateFade();
-		// フェードアウト終了時にシーン切り替え
-		//if (!isFading() && isOut &&
-		//	m_pManager->GetPushPause() == 1 && m_pManager->GameClear)// 未実装
-		if (!isFading() && isOut &&
-			m_pManager->GetPushPause() == 2 && m_pManager->GameClear) return (new SceneSelect);
-		if (!isFading() && isOut &&
-			m_pManager->GetPushPause() == 3 && m_pManager->GameClear) return (new SceneStage5);
-
-		if (!isFading() && isOut &&
-			(m_pManager->GetPushPause() == 1 && !m_pManager->GameClear))	return (new SceneSelect);
-		if (!isFading() && isOut &&
-			(m_pManager->GetPushPause() == 2 || m_pManager->GameOver))	return (new SceneStage5);
-	}
+	SceneBase* pScene = updateBefore();
 
 	m_pManager->updateNoShot();
 
@@ -61,27 +47,13 @@ SceneBase* SceneStage5::update()
 		}
 	}
 
-	//if (m_pManager->GetPushPause() == 1)
-	//{
-	//}
-
-	//if (!isFading())
-	//{
-	//	// フェードアウト開始
-	//	if (m_pManager->GameClear)				startFadeOut();
-	//	if (m_pManager->GameOver)				startFadeOut();
-	//	if (m_pManager->GetPushPause() == 2)	startFadeOut();
-	//	if (m_pManager->GetPushPause() == 3)	startFadeOut();
-	//}
 	SceneStageBase::update();
 
-	return this;
+	return pScene;
 }
 
 void SceneStage5::draw()
 {
-	//m_pBack->draw();
-	//m_pManager->draw();
 
 	SceneStageBase::draw();
 
@@ -94,7 +66,4 @@ void SceneStage5::draw()
 	{
 		m_pBack->drawExplan2_5();
 	}
-
-
-	//SceneBase::drawFade();
 }

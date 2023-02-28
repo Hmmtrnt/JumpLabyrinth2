@@ -3,6 +3,12 @@
 #include "../Util/GameManager.h"
 #include "../Object/Back.h"
 
+namespace
+{
+	// BGMの音量
+	constexpr int kVolumeBgm = 100;
+}
+
 SceneStageBase::SceneStageBase() :
 	m_frameCount(0),
 	m_posX(0),
@@ -24,9 +30,10 @@ SceneStageBase::~SceneStageBase()
 
 void SceneStageBase::init()
 {
+	m_frameCount = 90;
 	m_pBack->init();
 	m_backGroundSound = LoadSoundMem("sound/stageBgm.mp3");
-	ChangeVolumeSoundMem(100, m_backGroundSound);
+	ChangeVolumeSoundMem(kVolumeBgm, m_backGroundSound);
 	m_playSound = false;
 }
 
@@ -51,6 +58,22 @@ SceneBase* SceneStageBase::update()
 	//		(m_pManager->GetPushPause() == 3 || m_pManager->GameOver))	return (new SceneStage1);
 	//}
 
+	// 実験用
+	/*if (isFading())
+	{
+		bool isOut = isFadingOut();
+		SceneBase::updateFade();
+
+		if (!isFading() && isOut &&
+			m_pManager->GetPushPause() == 2 && m_pManager->GameClear) return (new SceneSelect);
+
+		if (!isFading() && isOut &&
+			m_pManager->GetPushPause() == 1 && !m_pManager->GameClear)	return (new SceneSelect);
+	}*/
+	
+
+	
+
 	//m_pManager->updateNoShot();
 
 	// BGM再生
@@ -59,12 +82,12 @@ SceneBase* SceneStageBase::update()
 		PlaySoundMem(m_backGroundSound, DX_PLAYTYPE_BACK, true);
 		m_playSound = true;
 	}
-	
-
-	if (m_pManager->GetPushPause() == 1)
+	// BGM流れなくなったらループするようにする
+	if (CheckSoundMem(m_backGroundSound) == 0)
 	{
+		m_playSound = false;
 	}
-
+	
 	if (!isFading())
 	{
 		// フェードアウト開始
@@ -78,21 +101,6 @@ SceneBase* SceneStageBase::update()
 		if (m_pManager->GetPushPause() == 1 && !m_pManager->GameClear)	startFadeOut();// ポーズ画面の項目①, 仮の条件付き
 		if (m_pManager->GetPushPause() == 2)	startFadeOut();// ポーズ画面の項目②
 	}
-	/*if (CheckSoundMem(m_backGroundSound) == 1)
-	{
-		PlaySoundMem(m_backGroundSound, DX_PLAYTYPE_BACK, true);
-	}*/
-	
-	
-	/*if (CheckSoundMem(m_backGroundSound) == 1)
-	{
-		printfDx("なっているよ\n");
-
-	}
-	else
-	{
-		printfDx("なってないよ\n");
-	}*/
 
 	return this;
 }
@@ -103,4 +111,28 @@ void SceneStageBase::draw()
 	m_pManager->draw();
 
 	SceneBase::drawFade();
+}
+
+SceneBase* SceneStageBase::updateBefore()
+{
+	// フェード処理
+	if (isFading())
+	{
+		bool isOut = isFadingOut();
+		SceneBase::updateFade();
+		// フェードアウト終了時にシーン切り替え
+		//if (!isFading() && isOut &&
+		//	m_pManager->GetPushPause() == 1 && m_pManager->GameClear)// 未実装
+		if (!isFading() && isOut &&
+			m_pManager->GetPushPause() == 2 && m_pManager->GameClear) return (new SceneSelect);
+		if (!isFading() && isOut &&
+			m_pManager->GetPushPause() == 3 && m_pManager->GameClear) return CreateRetryStage();
+
+		if (!isFading() && isOut &&
+			(m_pManager->GetPushPause() == 1 && !m_pManager->GameClear))	return (new SceneSelect);
+		if (!isFading() && isOut &&
+			(m_pManager->GetPushPause() == 2 || m_pManager->GameOver))	return CreateRetryStage();
+	}
+
+	return this;
 }

@@ -13,6 +13,7 @@ public:
 
 	virtual void init();			// 初期化
 	void initShot();				// 弾の初期化
+	virtual SceneBase* CreateRetryStage();	// シーンリトライ
 	virtual SceneBase* update();	// 更新
 	virtual void draw();			// 描画
 

@@ -24,26 +24,14 @@ void SceneStage10::init()
 	SceneStageBase::init();
 }
 
+SceneBase* SceneStage10::CreateRetryStage()
+{
+	return new SceneStage10;
+}
+
 SceneBase* SceneStage10::update()
 {
-	// フェード処理
-	if (isFading())
-	{
-		bool isOut = isFadingOut();
-		SceneBase::updateFade();
-		// フェードアウト終了時にシーン切り替え
-		//if (!isFading() && isOut &&
-		//	m_pManager->GetPushPause() == 1 && m_pManager->GameClear)// 未実装
-		if (!isFading() && isOut &&
-			m_pManager->GetPushPause() == 2 && m_pManager->GameClear) return (new SceneSelect);
-		if (!isFading() && isOut &&
-			m_pManager->GetPushPause() == 3 && m_pManager->GameClear) return (new SceneStage10);
-
-		if (!isFading() && isOut &&
-			(m_pManager->GetPushPause() == 1 && !m_pManager->GameClear))	return (new SceneSelect);
-		if (!isFading() && isOut &&
-			(m_pManager->GetPushPause() == 2 || m_pManager->GameOver))	return (new SceneStage10);
-	}
+	SceneBase* pScene = updateBefore();
 
 	m_pManager->updateNoShot();
 
@@ -59,28 +47,13 @@ SceneBase* SceneStage10::update()
 		}
 	}
 
-	//if (m_pManager->GetPushPause() == 1)
-	//{
-	//}
-
-	//if (!isFading())
-	//{
-	//	// フェードアウト開始
-	//	if (m_pManager->GameClear)				startFadeOut();
-	//	if (m_pManager->GameOver)				startFadeOut();
-	//	if (m_pManager->GetPushPause() == 2)	startFadeOut();
-	//	if (m_pManager->GetPushPause() == 3)	startFadeOut();
-	//}
-
 	SceneStageBase::update();
 
-	return this;
+	return pScene;
 }
 
 void SceneStage10::draw()
 {
-	//m_pManager->draw();
-
 	SceneStageBase::draw();
 
 	if (m_pushHelp == false)
@@ -92,6 +65,4 @@ void SceneStage10::draw()
 	{
 		m_pBack->drawExplan6And10();
 	}
-
-	//SceneBase::drawFade();
 }

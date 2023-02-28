@@ -10,7 +10,6 @@ SceneStage15::SceneStage15() :
 
 void SceneStage15::init()
 {
-	m_frameCount = 90;
 	m_posX = 1;
 	m_posY = 1;
 
@@ -24,34 +23,14 @@ void SceneStage15::init()
 	SceneStageBase::init();
 }
 
+SceneBase* SceneStage15::CreateRetryStage()
+{
+	return new SceneStage15;
+}
+
 SceneBase* SceneStage15::update()
 {
-	// フェード処理
-	if (isFading())
-	{
-		bool isOut = isFadingOut();
-		SceneBase::updateFade();
-		// フェードアウト終了時にシーン切り替え
-		//if (!isFading() && isOut &&
-		//	m_pManager->GetPushPause() == 1 && m_pManager->GameClear)// 未実装
-		if (!isFading() && isOut &&
-			m_pManager->GetPushPause() == 2 && m_pManager->GameClear)
-		{
-			return (new SceneSelect);
-			printfDx("セレクト画面へ\n");
-		}
-		if (!isFading() && isOut &&
-			m_pManager->GetPushPause() == 3 && m_pManager->GameClear)
-		{
-			return (new SceneStage15);
-			printfDx("リトライ\n");
-		}
-
-		if (!isFading() && isOut &&
-			(m_pManager->GetPushPause() == 1 && !m_pManager->GameClear))	return (new SceneSelect);
-		if (!isFading() && isOut &&
-			(m_pManager->GetPushPause() == 2 || m_pManager->GameOver))	return (new SceneStage15);
-	}
+	SceneBase* pScene = updateBefore();
 
 	m_pManager->updateNoShot();
 
@@ -67,28 +46,13 @@ SceneBase* SceneStage15::update()
 		}
 	}
 
-	//if (m_pManager->GetPushPause() == 1)
-	//{
-	//}
-
-	//if (!isFading())
-	//{
-	//	// フェードアウト開始
-	//	if (m_pManager->GameClear)				startFadeOut();
-	//	if (m_pManager->GameOver)				startFadeOut();
-	//	if (m_pManager->GetPushPause() == 2)	startFadeOut();
-	//	if (m_pManager->GetPushPause() == 3)	startFadeOut();
-	//}
-
 	SceneStageBase::update();
 
-	return this;
+	return pScene;
 }
 
 void SceneStage15::draw()
 {
-	//m_pManager->draw();
-
 	SceneStageBase::draw();
 
 	if (m_pushHelp == false)
@@ -100,6 +64,4 @@ void SceneStage15::draw()
 	{
 		m_pBack->drawExplan12_15();
 	}
-
-	//SceneBase::drawFade();
 }

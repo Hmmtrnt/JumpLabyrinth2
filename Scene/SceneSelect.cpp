@@ -25,8 +25,8 @@
 
 namespace
 {
-	constexpr int kItemX = 100;
-	constexpr int kItemY = 50;
+	// BGMの音量
+	constexpr int kVolumeBgm = 100;
 }
 
 SceneSelect::SceneSelect() :
@@ -34,7 +34,7 @@ SceneSelect::SceneSelect() :
 	m_textHandle2(0),
 	m_createStage(0),
 	m_stageNum(0),
-	m_stageNum2(0),
+	m_stageNumText(0),
 	m_selectPos(0),
 	m_cursorX(0),
 	m_cursorY(0),
@@ -68,7 +68,8 @@ SceneSelect::SceneSelect() :
 	m_starRed(0),
 	m_cursorSound(-1),
 	m_decideSound(-1),
-	m_backGroundSound(-1),
+	m_backGroundSound(-1), 
+	m_playSound(false),
 	m_pushTitle(false)
 {
 	m_pBack = new Back;
@@ -96,6 +97,7 @@ void SceneSelect::init()
 	m_textHandle2 = CreateFontToHandle("Silver", 50, -1, -1);
 	m_createStage = 20;
 	m_stageNum = 20;
+	m_stageNumText = 0;
 	m_selectPos = 0;
 	m_cursorX = 1;
 	m_cursorY = 1;
@@ -134,6 +136,10 @@ void SceneSelect::init()
 	m_backGroundSound = LoadSoundMem("sound/Selectbgm.mp3");
 
 	m_pushTitle = false;
+	m_playSound = false;
+
+	ChangeVolumeSoundMem(kVolumeBgm, m_backGroundSound);
+
 	m_pBack->init();
 }
 
@@ -175,6 +181,18 @@ void SceneSelect::end()
 
 SceneBase* SceneSelect::update()
 {
+	// BGM再生
+	if (!m_playSound)
+	{
+		PlaySoundMem(m_backGroundSound, DX_PLAYTYPE_BACK, true);
+		m_playSound = true;
+	}
+	// BGM流れなくなったらループするようにする
+	if (CheckSoundMem(m_backGroundSound) == 0)
+	{
+		m_playSound = false;
+	}
+
 	//フェード処理
 	if (isFading())
 	{
@@ -360,8 +378,13 @@ void SceneSelect::draw()
 	DrawExtendGraph(imageWidth + (Width * 3), linePosH + lineHeight + lineHeight, (imageWidth + (Width * 3)) + 160, Height + lineHeight + lineHeight, m_stageH19, true);
 	DrawExtendGraph(imageWidth + (Width * 4), linePosH + lineHeight + lineHeight, (imageWidth + (Width * 4)) + 160, Height + lineHeight + lineHeight, m_stageH20, true);
 
+	// ステージ数の初期化
+	m_stageNumText = 0;
+	// 枠の描画　
 	for (int y = 0; y < m_stageNum; y++)
 	{
+			m_stageNumText++;
+		
 		// ずれる
 		itemX = imageWidth + (Width * y);
 		if (y > 4)
@@ -384,11 +407,38 @@ void SceneSelect::draw()
 		}
 		// 枠の描画
 		DrawBox(itemX, itemY, itemX + 160, itemH, kColor::White, false);
+		DrawFormatStringToHandle(itemX + 7, itemY + 152, kColor::Black, m_textHandle2, "%dステージ", m_stageNumText);
+		DrawFormatStringToHandle(itemX + 5, itemY + 150, kColor::White, m_textHandle2, "%dステージ", m_stageNumText);
 	}
+	// テキストの描画
+	//for (int y = 0; y < m_stageNum; y++)
+	//{
+	//	m_stageNumText++;
+	//	// ずれる
+	//	itemX = imageWidth + (Width * y);
+	//	if (y > 4)
+	//	{
+	//		itemY = linePosH;
+	//		itemX = imageWidth + (Width * (y - 5));
+	//	}
+	//	if (y > 9)
+	//	{
+	//		itemY = linePosH + lineHeight;
+	//		itemX = imageWidth + (Width * (y - 10));
+	//	}
+	//	if (y > 14)
+	//	{
+	//		itemY = linePosH + lineHeight + lineHeight;
+	//		itemX = imageWidth + (Width * (y - 15));
+	//	}
+	//	
+	//	//m_stageNumText++;
+	//}
 
 	// カーソル表示
-	DrawBox(m_cursorPosX, m_cursorPosY, m_cursorPosW, m_cursorPosH, kColor::Red, false);
-
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 100);
+	DrawBox(m_cursorPosX, m_cursorPosY, m_cursorPosW, m_cursorPosH, kColor::Yellow, true);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 	// 選ばれているステージが表示される
 	DrawExtendGraph(120, 120, 780, 730, m_centerStageH, true);
 	DrawBox(120, 120, 780, 730, kColor::White, false);
@@ -399,6 +449,7 @@ void SceneSelect::draw()
 	SceneBase::drawFade();
 }
 
+// 難易度表示
 void SceneSelect::difficultyDraw()
 {
 	draw::MyDrawRectRotaGraph(250, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starEmpty, true, false);
