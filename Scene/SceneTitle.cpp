@@ -8,8 +8,8 @@ namespace
 {
 	const char* const kTitleText = "Jump Labyrinth";
 	const char* const kGuideText = "Press Any Botton";
-	//const char* const kGuideText2 = "ジョイパッド操作をオススメします";
-	//const char* const kGuideText3 = "BACKボタンでいつでも終了できます";
+	// BGMの音量
+	constexpr int kVolumeBgm = 100;
 }
 
 SceneTitle::SceneTitle() :
@@ -20,7 +20,9 @@ SceneTitle::SceneTitle() :
 	m_fontTitle(0),
 	m_fontGuide(0),
 	m_posX(0),	m_posY(0),
-	m_pushSound(0)
+	m_pushSound(0),
+	m_backGroundSound(0),
+	m_playSound(false)
 {
 	m_pBack = new Back;
 	m_pPlayer = new Player;
@@ -42,6 +44,8 @@ void SceneTitle::init()
 	m_posX = 650;
 	m_posY = 205;
 
+	m_playSound = false;
+
 	// リソースの読み込み
 	LPCSTR font_path = "Font/Silver.ttf";// 読み込むフォントファイルのパス
 	if (AddFontResourceEx(font_path, FR_PRIVATE, NULL) > 0)
@@ -54,11 +58,13 @@ void SceneTitle::init()
 		MessageBox(NULL, "フォント読み込み失敗", "", MB_OK);
 	}
 
-	m_fontTitle = CreateFontToHandle("Silver", 200, -1, -1);
+	m_fontTitle = CreateFontToHandle("Silver", 200, -1, 3);
 	m_fontGuide = CreateFontToHandle("Silver", 100, -1, -1);
 	m_pushSound = LoadSoundMem("sound/titlePushSound.mp3");
+	m_backGroundSound = LoadSoundMem("sound/titleSound.mp3");
 	m_pBack->init();
 	m_pPlayer->initTitle();
+	ChangeVolumeSoundMem(kVolumeBgm, m_backGroundSound);
 }
 
 void SceneTitle::end()
@@ -67,12 +73,25 @@ void SceneTitle::end()
 	DeleteFontToHandle(m_fontTitle);
 	DeleteFontToHandle(m_fontGuide);
 	DeleteSoundMem(m_pushSound);
+	DeleteSoundMem(m_backGroundSound);
 	m_pBack->end();
 	m_pPlayer->endTitle();
 }
 
 SceneBase* SceneTitle::update()
 {
+	// BGM再生
+	if (!m_playSound)
+	{
+		PlaySoundMem(m_backGroundSound, DX_PLAYTYPE_BACK, true);
+		m_playSound = true;
+	}
+	// BGM流れなくなったらループするようにする
+	if (CheckSoundMem(m_backGroundSound) == 0)
+	{
+		m_playSound = false;
+	}
+
 	// フェード処理
 	if (isFading())
 	{
@@ -99,6 +118,8 @@ SceneBase* SceneTitle::update()
 			Pad::isTrigger(PAD_INPUT_RIGHT) || Pad::isTrigger(PAD_INPUT_LEFT) || Pad::isTrigger(PAD_INPUT_5) ||
 			Pad::isTrigger(PAD_INPUT_6) || Pad::isTrigger(PAD_INPUT_8))
 		{
+			m_textShow = 5;
+			m_textHide = 5;
 			PlaySoundMem(m_pushSound, DX_PLAYTYPE_BACK, true);
 			// フェードアウト開始
 			startFadeOut();

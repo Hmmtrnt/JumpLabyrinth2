@@ -153,12 +153,7 @@
   <ItemGroup>
     <ClCompile Include="Object\Back.cpp" />
     <ClCompile Include="Scene\SceneStageBase.cpp" />
-    <ClCompile Include="Scene\SceneStage20.cpp" />
-    <ClCompile Include="Scene\SceneStage15.cpp" />
-    <ClCompile Include="Scene\SceneStage10.cpp" />
     <ClCompile Include="Scene\ScenePause.cpp" />
-    <ClCompile Include="Scene\SceneStage5.cpp" />
-    <ClCompile Include="Scene\SceneStage1.cpp" />
     <ClCompile Include="Scene\SceneSelect.cpp" />
     <ClCompile Include="Util\DrawFunctions.cpp" />
     <ClCompile Include="Object\Shot.cpp" />
@@ -174,12 +169,7 @@
   <ItemGroup>
     <ClInclude Include="Object\Back.h" />
     <ClInclude Include="Scene\SceneStageBase.h" />
-    <ClInclude Include="Scene\SceneStage20.h" />
-    <ClInclude Include="Scene\SceneStage15.h" />
-    <ClInclude Include="Scene\SceneStage10.h" />
     <ClInclude Include="Scene\ScenePause.h" />
-    <ClInclude Include="Scene\SceneStage5.h" />
-    <ClInclude Include="Scene\SceneStage1.h" />
     <ClInclude Include="Scene\SceneSelect.h" />
     <ClInclude Include="Util\DrawFunctions.h" />
     <ClInclude Include="Object\Shot.h" />

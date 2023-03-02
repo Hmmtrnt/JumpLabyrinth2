@@ -158,9 +158,14 @@ void Shot::drawB2(int& posX, int& posY)
 	}
 }
 
-void Shot::drawTest()
+void Shot::drawTest(int& posX, int& posY, float& rota)
 {
-	DrawFormatString(0, 50, kColor::White, "%d", m_frameCount);
+	m_rota = rota;
+	draw::MyDrawRectRotaGraph(posX + (kVariable::DrawWidth / 2), posY + (kVariable::DrawWidth / 2),
+		0, 0,
+		40, 40,
+		kShotSize, m_rota,
+		m_handle, true, false);
 }
 
 void Shot::shotRight(int &posX, int &stagePosX)

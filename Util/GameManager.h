@@ -1,13 +1,11 @@
 // ゲームマネージャー
 #pragma once
 #include "common.h"
-#include <memory>
 
 class Player;
 class Stage;
 class Back;
 class ScenePause;
-class collisionStage;
 class Shot;
 
 class GameManager
@@ -91,6 +89,7 @@ private:
 	int m_goalSound;	// ゴール音
 	int m_deathSound;	// 死亡音
 	int m_decideSound;	// 決定音
+	//int m_menuOpenSound;// メニューを開いたときの音
 
 	// 回転角度
 	float m_rota;
@@ -118,7 +117,6 @@ private:
 	Stage* m_pStage;
 	Back* m_pBack;
 	ScenePause* m_pPause;
-	std::shared_ptr<collisionStage> m_pColStage;
 	Shot* m_pShot;
 };
 

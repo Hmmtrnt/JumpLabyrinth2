@@ -99,9 +99,8 @@ void ScenePause::drawPause()
 	DrawBox(700, 350, 1100, 600, kColor::Black, true);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 	DrawBox(700, 350, 1100, 600, kColor::Black, false);
-	//DrawStringToHandle(kLengthText, 400, "ここの項目何にしよう？", kColor::White, m_textHandle);
 	DrawStringToHandle(kWidthText, 400, "リタイア", kColor::White, m_textHandle);
-	DrawStringToHandle(kWidthText, 500, "リトライ", kColor::White, m_textHandle);
+	DrawStringToHandle(kWidthText, 500, "リスタート", kColor::White, m_textHandle);
 	DrawStringToHandle(kWidthCursor, m_posCursor, "→", kColor::White, m_textHandle);
 
 	// 確認描画
@@ -156,8 +155,8 @@ void ScenePause::drawClearPause()
 
 	DrawStringToHandle(m_posClearTextX - 18, 302, "ゲームクリア!", kColor::Black, m_textHandle);
 	DrawStringToHandle(m_posClearTextX -20, 300, "ゲームクリア!", kColor::White, m_textHandle);
-	DrawStringToHandle(m_posClearTextX + 2, m_posClearTextY1 + 2, "次のステージへ　(未実装)", kColor::Black, m_textHandle);
-	DrawStringToHandle(m_posClearTextX, m_posClearTextY1, "次のステージへ　(未実装)", kColor::White, m_textHandle);
+	DrawStringToHandle(m_posClearTextX + 2, m_posClearTextY1 + 2, "次のステージへ", kColor::Black, m_textHandle);
+	DrawStringToHandle(m_posClearTextX, m_posClearTextY1, "次のステージへ", kColor::White, m_textHandle);
 	DrawStringToHandle(m_posClearTextX + 2, m_posClearTextY2 + 2, "セレクト画面へ", kColor::Black, m_textHandle);
 	DrawStringToHandle(m_posClearTextX, m_posClearTextY2, "セレクト画面へ", kColor::White, m_textHandle);
 	DrawStringToHandle(m_posClearTextX + 2, m_posClearTextY3 + 2, "リトライ", kColor::Black, m_textHandle);

@@ -34,7 +34,11 @@ private:
 	int m_posY;			// Y座標
 
 	// 音のハンドル
-	int m_pushSound;
+	int m_pushSound;		// 押したとき
+	int m_backGroundSound;	// bgm
+
+	// bgmが鳴っているか真偽
+	bool m_playSound;
 
 	Back* m_pBack;
 	Player* m_pPlayer;

@@ -5,6 +5,8 @@ namespace
 {
 	constexpr int motionCount = 40;
 	constexpr int speed = 68;
+	// BGM‚Ì‰¹—Ê
+	constexpr int kVolumeBgm = 100;
 }
 
 Player::Player() :
@@ -49,11 +51,12 @@ void Player::initCommon()
 	m_handle = draw::MyLoadGraph("data/AnimationSheet_Character.png");
 	m_handle2 = draw::MyLoadGraph("data/moveChar2.png");
 	m_handleEffect = draw::MyLoadGraph("data/charEffect2.png");
-	m_jumpSound = LoadSoundMem("sound/mero-n.mp3");
+	m_jumpSound = LoadSoundMem("sound/jumpSound.mp3");
 	m_landingSound = LoadSoundMem("sound/landingSound.mp3");
 	m_sound = true;
 
-	ChangeVolumeSoundMem(100, m_landingSound);
+	ChangeVolumeSoundMem(kVolumeBgm, m_landingSound);
+	ChangeVolumeSoundMem(kVolumeBgm, m_jumpSound);
 
 	for (int y = 0; y < kVariable::PlayerWidth; y++)
 	{

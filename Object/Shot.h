@@ -11,6 +11,7 @@ public:
 	void init();		// ‰Šú‰»(‰Šú‰»)
 	void end();			// I—¹
 	void update();		// XV
+	// ’e‚Ì•`‰æ
 	void drawR(int &posX, int &posY);		// ‰EŒü‚«•`‰æ
 	void drawL(int& posX, int& posY);		// ¶Œü‚«•`‰æ
 	void drawU(int& posX, int& posY);		// ãŒü‚«•`‰æ
@@ -20,7 +21,7 @@ public:
 	void drawB2(int& posX, int& posY);		// ‰ºŒü‚«•`‰æ‡B
 
 	// •Ï”‚ÌŠm”F
-	void drawTest();
+	void drawTest(int& posX, int& posY, float& rota);
 
 	// Ëü
 	void shotRight(int &posX, int &stagePosX);			// ‰E
