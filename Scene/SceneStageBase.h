@@ -35,7 +35,6 @@ protected:
 	GameManager* m_pManager;	// ゲームマネージャー
 	Back* m_pBack;				// 背景
 	Shot* m_pShot;				// ショット
-	common* m_pCommon;			// 共通
 
 	// ステージを保存する
 	//int m_stage[kVariable::StageWidth][kVariable::StageWidth];
@@ -82,9 +81,13 @@ protected:
 
 	// 画面効果用スクリーンハンドル
 	int m_screenHandle;
+	float m_quakeX;	// 横ブレ
+	int m_quakeTime;
 	// bgm
 	int m_backGroundSound;
 
+	// ブレの変数に代入したかどうか
+	bool m_isAllocation;
 	// ヘルプを押したかの真偽
 	bool m_pushHelp;
 	// ステージにショット処理が入っているかどうか

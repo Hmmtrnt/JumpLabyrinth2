@@ -9,13 +9,6 @@
 
 _declspec(selectany) int m_stageSelectNumTest = 0;
 
-class common
-{
-public:
-	int GetStageSelectNum() { return m_stageSelectNum; }
-	int m_stageSelectNum = 0;
-};
-
 namespace kVariable
 {
 	// プレイヤーの配列の幅

@@ -76,9 +76,10 @@ private:
 	// 膨らんている時間
 	int m_inflate;
 
-	// ゲームオーバーのカウントダウン
-	int m_GameOverCount;
-
+	// 時間差トラップのカウントダウン
+	int m_timeLagCount;
+	// ゲームオーバーになってからのカウント
+	int m_gameOverCount;
 	// フレームカウント
 	int m_frameCountGameOver;
 
@@ -87,7 +88,12 @@ private:
 
 	// 音のハンドル
 	int m_goalSound;	// ゴール音
-	int m_deathSound;	// 死亡音
+	// 死亡音
+	int m_bakeDeathSound;	// 焼かれる
+	int m_stickDeathSound;	// 針に刺される
+	int m_hitDeathSound;	// 膨れたやつに当たる
+	int m_isShotDeathSound;	// 撃たれる
+
 	int m_decideSound;	// 決定音
 	//int m_menuOpenSound;// メニューを開いたときの音
 

@@ -299,6 +299,7 @@ void Player::motion(int x, int y)
 		m_frameCount = motionCount;
 	}
 
+	// ‘Ò‹@ƒ‚[ƒVƒ‡ƒ“
 	if (m_speedX == 0 && m_speedY == 0)
 	{
 		if (m_frameCount <= 0 && m_verXPlayer != 1)

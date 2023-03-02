@@ -4,7 +4,7 @@
 namespace
 {
 	// 座標
-	constexpr int kWidthText = 850;	// テキスト
+	constexpr int kWidthText = 850;		// テキスト
 	constexpr int kWidthCursor = 750;	// カーソル
 }
 
@@ -96,9 +96,9 @@ void ScenePause::updatePause()
 void ScenePause::drawPause()
 {
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 100);
-	DrawBox(700, 350, 1100, 600, kColor::Black, true);
+	DrawBox(700, 350, 1150, 600, kColor::Black, true);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
-	DrawBox(700, 350, 1100, 600, kColor::Black, false);
+	DrawBox(700, 350, 1150, 600, kColor::Black, false);
 	DrawStringToHandle(kWidthText, 400, "リタイア", kColor::White, m_textHandle);
 	DrawStringToHandle(kWidthText, 500, "リスタート", kColor::White, m_textHandle);
 	DrawStringToHandle(kWidthCursor, m_posCursor, "→", kColor::White, m_textHandle);

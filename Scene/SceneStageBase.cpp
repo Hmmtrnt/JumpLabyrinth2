@@ -10,6 +10,8 @@ namespace
 {
 	// BGMの音量
 	constexpr int kVolumeBgm = 100;
+	constexpr float kQuakeFrame = 20.0f;// ブレるフレーム
+	constexpr int kQuakeTime = 60;	// ブレ続ける時間
 }
 
 SceneStageBase::SceneStageBase() :
@@ -32,7 +34,10 @@ SceneStageBase::SceneStageBase() :
 	m_size(0),
 	m_frameCountShot(0),
 	m_screenHandle(0),
+	m_quakeX(0.0f),
+	m_quakeTime(0),
 	m_backGroundSound(-1),
+	m_isAllocation(false),
 	m_pushHelp(false),
 	m_playSound(false),
 	m_inShot(false)
@@ -47,7 +52,6 @@ SceneStageBase::SceneStageBase() :
 	m_pManager = new GameManager;
 	m_pBack = new Back;
 	m_pShot = new Shot;
-	m_pCommon = new common;
 }
 
 SceneStageBase::~SceneStageBase()
@@ -55,7 +59,6 @@ SceneStageBase::~SceneStageBase()
 	delete m_pManager;
 	delete m_pBack;
 	delete m_pShot;
-	delete m_pCommon;
 }
 
 void SceneStageBase::init()
@@ -99,6 +102,7 @@ void SceneStageBase::init()
 	m_backGroundSound = LoadSoundMem("sound/stageBgm.mp3");
 	ChangeVolumeSoundMem(kVolumeBgm, m_backGroundSound);
 	m_frameCountShot = 60;
+	m_isAllocation = false;
 	m_pushHelp = false;
 	m_playSound = false;
 }
@@ -108,13 +112,12 @@ void SceneStageBase::end()
 	m_pManager->end();
 	m_pBack->end();
 	m_pShot->end();
+	DeleteGraph(m_screenHandle);
 	DeleteSoundMem(m_backGroundSound);
 }
 
 SceneBase* SceneStageBase::update()
 {
-	//m_pManager->updateNoShot();
-
 	SceneBase* pScene = updateBefore();
 
 	updateGame();
@@ -148,6 +151,25 @@ SceneBase* SceneStageBase::update()
 		collisionShot();
 	}
 
+	if (m_pManager->GameOver && !m_isAllocation)
+	{
+		m_quakeX = kQuakeFrame;
+		m_quakeTime = kQuakeTime;
+		m_isAllocation = true;
+	}
+
+	if (m_quakeTime > 0 && m_isAllocation)
+	{
+		m_quakeX = -m_quakeX;
+		m_quakeX *= 0.95f;
+		--m_quakeTime;
+	}
+	else
+	{
+		m_quakeX = 0;
+		//m_quakeTime = 0;
+	}
+
 	if (!isFading())
 	{
 		// フェードアウト開始
@@ -157,7 +179,7 @@ SceneBase* SceneStageBase::update()
 		if (m_pManager->GameClear && m_pManager->GetPushPause() == 2)				startFadeOut();// ポーズ画面の項目②
 		if (m_pManager->GameClear && m_pManager->GetPushPause() == 3)				startFadeOut();// ポーズ画面の項目③
 
-		if (m_pManager->GameOver)				startFadeOut();// ゲームオーバー
+		if (m_pManager->GameOver && m_quakeTime == 0)				startFadeOut();// ゲームオーバー
 		if (m_pManager->GetPushPause() == 1 && !m_pManager->GameClear)	startFadeOut();// ポーズ画面の項目①, 仮の条件付き
 		if (m_pManager->GetPushPause() == 2)	startFadeOut();// ポーズ画面の項目②
 	}
@@ -167,6 +189,9 @@ SceneBase* SceneStageBase::update()
 
 void SceneStageBase::draw()
 {
+	// 加工用スクリーンセット
+	SetDrawScreen(m_screenHandle);
+
 	m_pBack->draw();
 
 	if (m_inShot)
@@ -176,6 +201,12 @@ void SceneStageBase::draw()
 
 	m_pManager->draw();
 	drawGuide();
+
+	SetDrawScreen(DX_SCREEN_BACK);
+	DrawGraph(m_quakeX, 0, m_screenHandle, false);
+
+
+	//printfDx("m_quakeTime%d\n", m_quakeTime);
 
 	SceneBase::drawFade();
 }
@@ -538,13 +569,21 @@ void SceneStageBase::shotInit()
 
 void SceneStageBase::updateGame()
 {
-	if (m_inShot)
+	if (m_quakeTime == 0)
 	{
-		m_pManager->updateInShot(m_frameX, m_frameY);
+		if (m_inShot)
+		{
+			m_pManager->updateInShot(m_frameX, m_frameY);
+		}
+		else
+		{
+			m_pManager->updateNoShot();
+
+		}
 	}
 	else
 	{
-		m_pManager->updateNoShot();
+		m_pManager->GameOverMotion();
 	}
 	if (m_stageSelectNumTest != 1)
 	{
@@ -564,42 +603,45 @@ void SceneStageBase::updateGame()
 
 void SceneStageBase::updateShot()
 {
-	if (m_stageSelectNumTest == 16)
+	if (m_quakeTime == 0)
 	{
-		m_pShot->shotUp(m_shotPosY, m_colShotY);
-		m_pShot->shotRight(m_shotPosX2, m_colShotX2);
-		m_pShot->shotBottom(m_shotPosY3, m_colShotY3);
-		m_pShot->shotLeft(m_shotPosX4, m_colShotX4);
-		m_pShot->shotRight2(m_shotPosX5, m_colShotX5);
-	}
-	if (m_stageSelectNumTest == 17)
-	{
-		m_pShot->shotLeft(m_shotPosX, m_colShotX);
-		m_pShot->shotLeft2(m_shotPosX2, m_colShotX2);
-		m_pShot->shotRight(m_shotPosX3, m_colShotX3);
-		m_pShot->shotBottom(m_shotPosY4, m_colShotY4);
-	}
-	if (m_stageSelectNumTest == 18)
-	{
-		m_pShot->shotRight(m_shotPosX, m_colShotX);
-		m_pShot->shotUp(m_shotPosY2, m_colShotY2);
-		m_pShot->shotBottom(m_shotPosY3, m_colShotY3);
-		m_pShot->shotLeft(m_shotPosX4, m_colShotX4);
-		m_pShot->shotBottom2(m_shotPosY5, m_colShotY5);
-		m_pShot->shotLeft2(m_shotPosX6, m_colShotX6);
-	}
-	if (m_stageSelectNumTest == 19)
-	{
-		m_pShot->shotBottom(m_shotPosY, m_colShotY);
-		m_pShot->shotRight(m_shotPosX2, m_colShotX2);
-		m_pShot->shotUp(m_shotPosY3, m_colShotY3);
-	}
-	if (m_stageSelectNumTest == 20)
-	{
-		m_pShot->shotBottom(m_shotPosY, m_colShotY);
-		m_pShot->shotLeft(m_shotPosX2, m_colShotX2);
-		m_pShot->shotRight(m_shotPosX3, m_colShotX3);
-		m_pShot->shotUp(m_shotPosY4, m_colShotY4);
+		if (m_stageSelectNumTest == 16)
+		{
+			m_pShot->shotUp(m_shotPosY, m_colShotY);
+			m_pShot->shotRight(m_shotPosX2, m_colShotX2);
+			m_pShot->shotBottom(m_shotPosY3, m_colShotY3);
+			m_pShot->shotLeft(m_shotPosX4, m_colShotX4);
+			m_pShot->shotRight2(m_shotPosX5, m_colShotX5);
+		}
+		if (m_stageSelectNumTest == 17)
+		{
+			m_pShot->shotLeft(m_shotPosX, m_colShotX);
+			m_pShot->shotLeft2(m_shotPosX2, m_colShotX2);
+			m_pShot->shotRight(m_shotPosX3, m_colShotX3);
+			m_pShot->shotBottom(m_shotPosY4, m_colShotY4);
+		}
+		if (m_stageSelectNumTest == 18)
+		{
+			m_pShot->shotRight(m_shotPosX, m_colShotX);
+			m_pShot->shotUp(m_shotPosY2, m_colShotY2);
+			m_pShot->shotBottom(m_shotPosY3, m_colShotY3);
+			m_pShot->shotLeft(m_shotPosX4, m_colShotX4);
+			m_pShot->shotBottom2(m_shotPosY5, m_colShotY5);
+			m_pShot->shotLeft2(m_shotPosX6, m_colShotX6);
+		}
+		if (m_stageSelectNumTest == 19)
+		{
+			m_pShot->shotBottom(m_shotPosY, m_colShotY);
+			m_pShot->shotRight(m_shotPosX2, m_colShotX2);
+			m_pShot->shotUp(m_shotPosY3, m_colShotY3);
+		}
+		if (m_stageSelectNumTest == 20)
+		{
+			m_pShot->shotBottom(m_shotPosY, m_colShotY);
+			m_pShot->shotLeft(m_shotPosX2, m_colShotX2);
+			m_pShot->shotRight(m_shotPosX3, m_colShotX3);
+			m_pShot->shotUp(m_shotPosY4, m_colShotY4);
+		}
 	}
 }
 

@@ -7,6 +7,12 @@
 #include "../Util/Pad.h"
 #include "../Object/Shot.h"
 
+namespace
+{
+	// ‰¹—Ê
+	constexpr int kVolumeSound = 100;
+}
+
 GameManager::GameManager() :
 	GameOver(false),
 	GameClear(false),
@@ -14,12 +20,16 @@ GameManager::GameManager() :
 	m_gimmickFrame(0),
 	m_shrink(0),
 	m_inflate(0),
-	m_GameOverCount(0),
+	m_timeLagCount(0),
+	m_gameOverCount(60),
 	m_frameCountGameOver(0),
 	m_handleNeedle(-1),
 	m_goalSound(0),
-	m_deathSound(0),
+	m_bakeDeathSound(0),
 	m_decideSound(0),
+	m_stickDeathSound(0),
+	m_hitDeathSound(0),
+	m_isShotDeathSound(0),
 	m_rota(0.0f),
 	colNextFlag(false),
 	colFlagL(false),
@@ -57,11 +67,11 @@ void GameManager::initCommon()
 	m_gimmickFrame = 0;
 	m_shrink = 50;
 	m_inflate = 50;
-	m_GameOverCount = 30;
+	m_timeLagCount = 30;
 	m_frameCountGameOver = 30;
 	m_handleNeedle = draw::MyLoadGraph("data/needle2.png");
 	m_goalSound = LoadSoundMem("sound/goalSound.mp3");
-	m_deathSound = LoadSoundMem("sound/damegeSound.mp3");
+	m_bakeDeathSound = LoadSoundMem("sound/bakeSound.mp3");
 	m_decideSound = LoadSoundMem("sound/decideSound.mp3");
 	colFlagL = false;
 	colFlagR = false;
@@ -73,8 +83,8 @@ void GameManager::initCommon()
 	colBottom = false;
 	m_playSound = false;
 
-	ChangeVolumeSoundMem(100, m_goalSound);
-	ChangeVolumeSoundMem(100, m_deathSound);
+	ChangeVolumeSoundMem(kVolumeSound, m_goalSound);
+	ChangeVolumeSoundMem(kVolumeSound, m_bakeDeathSound);
 	m_pPause->init();
 	
 }
@@ -102,7 +112,7 @@ void GameManager::end()
 {
 	DeleteGraph(m_handleNeedle);
 	DeleteSoundMem(m_goalSound);
-	DeleteSoundMem(m_deathSound);
+	DeleteSoundMem(m_bakeDeathSound);
 	DeleteSoundMem(m_decideSound);
 	m_pPlayer->end();
 	m_pStage->end();
@@ -148,11 +158,11 @@ void GameManager::updateInShot(int& frameX, int& frameY)
 
 		if (colFlagL || colFlagR || colFlagUp || colFlagBottom)
 		{
-			m_GameOverCount--;
-			if (m_GameOverCount <= 0)
+			m_timeLagCount--;
+			if (m_timeLagCount <= 0)
 			{
-				m_GameOverCount = 0;
-				if (m_GameOverCount == 0)
+				m_timeLagCount = 0;
+				if (m_timeLagCount == 0)
 				{
 					GameOver = true;
 				}
@@ -160,7 +170,7 @@ void GameManager::updateInShot(int& frameX, int& frameY)
 		}
 		if (!colFlagL && !colFlagR && !colFlagUp && !colFlagBottom)
 		{
-			m_GameOverCount = 30;
+			m_timeLagCount = 30;
 		}
 
 		if (!GameOver)
@@ -172,11 +182,11 @@ void GameManager::updateInShot(int& frameX, int& frameY)
 			GameOverMotion();
 			m_pPlayer->m_speedX = 0;
 			m_pPlayer->m_speedY = 0;
-			if (!m_playSound)
-			{
-				PlaySoundMem(m_deathSound, DX_PLAYTYPE_BACK, true);
-			}
-			m_playSound = true;
+			//if (!m_playSound)
+			//{
+			//	//PlaySoundMem(m_deathSound, DX_PLAYTYPE_BACK, true);
+			//}
+			//m_playSound = true;
 		}
 
 		if (GameClear)
@@ -243,11 +253,11 @@ void GameManager::updateNoShot()
 
 		if (colFlagL || colFlagR || colFlagUp || colFlagBottom)
 		{
-			m_GameOverCount--;
-			if (m_GameOverCount <= 0)
+			m_timeLagCount--;
+			if (m_timeLagCount <= 0)
 			{
-				m_GameOverCount = 0;
-				if (m_GameOverCount == 0)
+				m_timeLagCount = 0;
+				if (m_timeLagCount == 0)
 				{
 					GameOver = true;
 				}
@@ -255,7 +265,7 @@ void GameManager::updateNoShot()
 		}
 		if (!colFlagL && !colFlagR && !colFlagUp && !colFlagBottom)
 		{
-			m_GameOverCount = 30;
+			m_timeLagCount = 30;
 		}
 
 		if (!GameOver)
@@ -267,11 +277,11 @@ void GameManager::updateNoShot()
 			GameOverMotion();
 			m_pPlayer->m_speedX = 0;
 			m_pPlayer->m_speedY = 0;
-			if (!m_playSound)
-			{
-				PlaySoundMem(m_deathSound, DX_PLAYTYPE_BACK, true);
-			}
-			m_playSound = true;
+			//if (!m_playSound)
+			//{
+			//	//PlaySoundMem(m_deathSound, DX_PLAYTYPE_BACK, true);
+			//}
+			//m_playSound = true;
 		}
 
 		if (GameClear)
@@ -535,6 +545,7 @@ void GameManager::collisionBulge()
 					{
 						GameOver = true;
 					}
+					
 				}
 			}
 		}
@@ -608,6 +619,11 @@ void GameManager::collisionGameOver()
 				{
 					GameOver = true;
 				}
+				if (!m_playSound && GameOver)
+				{
+					PlaySoundMem(m_bakeDeathSound, DX_PLAYTYPE_BACK, true);
+				}
+				m_playSound = true;
 			}
 		}
 	}
@@ -653,7 +669,7 @@ void GameManager::drawNeedle()
 		m_rota = 0.0f;
 	}
 
-	if (m_GameOverCount == 0)
+	if (m_timeLagCount == 0)
 	{
 		for (int y = 0; y < kVariable::PlayerWidth; y++)
 		{
@@ -675,15 +691,23 @@ void GameManager::drawNeedle()
 
 void GameManager::GameOverMotion()
 {
-	m_frameCountGameOver--;
-	m_pPlayer->m_verXPlayer = 1;
-	m_pPlayer->m_verYPlayer = 6;
-	
-	if (m_frameCountGameOver <= 0)
+	if (GameOver)
 	{
-		m_frameCountGameOver = 0;
-		m_pPlayer->m_verXPlayer = 2;
+		m_gameOverCount--;
+	}
+	if (m_gameOverCount <= 0)
+	{
+		m_gameOverCount = 0;
+		m_frameCountGameOver--;
+		m_pPlayer->m_verXPlayer = 1;
 		m_pPlayer->m_verYPlayer = 6;
+
+		if (m_frameCountGameOver <= 0)
+		{
+			m_frameCountGameOver = 0;
+			m_pPlayer->m_verXPlayer = 2;
+			m_pPlayer->m_verYPlayer = 6;
+		}
 	}
 }
 
