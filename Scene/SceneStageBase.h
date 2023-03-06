@@ -28,7 +28,8 @@ public:
 	void updateShot();			// ショットの処理
 	void drawGuide();			// 各ステージのガイド描画
 	void drawShot();			// ショットの描画
-	void collisionShot();
+	void collisionShot();		// ショットとプレイヤーの当たり判定
+	void deathSound();			// 死亡時の音
 
 protected:
 	// ポインタ
@@ -83,16 +84,24 @@ protected:
 	int m_screenHandle;
 	float m_quakeX;	// 横ブレ
 	int m_quakeTime;
-	// bgm
-	int m_backGroundSound;
 
+	// 音のハンドル
+	int m_backGroundSound;// bgm
+	int m_burnSound;	// 即死判定音
+	int m_needleSound;	// 針判定音
+	int m_inflateSound;	// 膨らむ判定音
+	int m_arrowSound;	// 矢判定音
+
+	// 矢に当たったかどうか
+	bool m_arrowTrap;
 	// ブレの変数に代入したかどうか
 	bool m_isAllocation;
 	// ヘルプを押したかの真偽
 	bool m_pushHelp;
 	// ステージにショット処理が入っているかどうか
 	bool m_inShot;
-	// bgmが鳴っているかどうか
-	bool m_playSound;
+	// 鳴っているかどうか
+	bool m_playSound;	// bgm
+	bool m_deathSound;	// 死亡音
 };
 

@@ -8,8 +8,10 @@
 
 namespace
 {
-	// BGMの音量
-	constexpr int kVolumeBgm = 100;
+	// 音量
+	constexpr int kVolumeBgm = 100;		// bgm
+	constexpr int kVolumeDeath = 150;	// 死亡音
+
 	constexpr float kQuakeFrame = 20.0f;// ブレるフレーム
 	constexpr int kQuakeTime = 60;	// ブレ続ける時間
 }
@@ -36,19 +38,18 @@ SceneStageBase::SceneStageBase() :
 	m_screenHandle(0),
 	m_quakeX(0.0f),
 	m_quakeTime(0),
-	m_backGroundSound(-1),
+	m_backGroundSound(0),
+	m_burnSound(0),
+	m_needleSound(0),
+	m_inflateSound(0),
+	m_arrowSound(0),
+	m_arrowTrap(false),
 	m_isAllocation(false),
 	m_pushHelp(false),
+	m_inShot(false),
 	m_playSound(false),
-	m_inShot(false)
+	m_deathSound(false)
 {
-	/*for (int y = 0; y < kVariable::StageWidth; y++)
-	{
-		for (int x = 0; x < kVariable::StageWidth; x++)
-		{
-			m_stage[y][x] = 0;
-		}
-	}*/
 	m_pManager = new GameManager;
 	m_pBack = new Back;
 	m_pShot = new Shot;
@@ -100,11 +101,17 @@ void SceneStageBase::init()
 	m_screenHandle = MakeScreen(ScreenW, ScreenH);// 加工用画面
 	assert(m_screenHandle >= 0);// 作れているか確認
 	m_backGroundSound = LoadSoundMem("sound/stageBgm.mp3");
+	m_burnSound = LoadSoundMem("sound/burnSound.mp3");
+	m_needleSound = LoadSoundMem("sound/damegeSound.mp3");
+	m_inflateSound = LoadSoundMem("sound/inflate.mp3");
+	m_arrowSound = LoadSoundMem("sound/arrowSound.mp3");
 	ChangeVolumeSoundMem(kVolumeBgm, m_backGroundSound);
+	ChangeVolumeSoundMem(kVolumeDeath, m_burnSound);
 	m_frameCountShot = 60;
 	m_isAllocation = false;
 	m_pushHelp = false;
 	m_playSound = false;
+	m_deathSound = false;
 }
 
 void SceneStageBase::end()
@@ -167,8 +174,9 @@ SceneBase* SceneStageBase::update()
 	else
 	{
 		m_quakeX = 0;
-		//m_quakeTime = 0;
 	}
+
+	deathSound();
 
 	if (!isFading())
 	{
@@ -203,7 +211,7 @@ void SceneStageBase::draw()
 	drawGuide();
 
 	SetDrawScreen(DX_SCREEN_BACK);
-	DrawGraph(m_quakeX, 0, m_screenHandle, false);
+	DrawGraph(static_cast<int>(m_quakeX), 0, m_screenHandle, false);
 
 
 	//printfDx("m_quakeTime%d\n", m_quakeTime);
@@ -226,7 +234,7 @@ SceneBase* SceneStageBase::updateBefore()
 			m_stageSelectNumTest++;
 			if (m_stageSelectNumTest > 20)
 			{
-				m_stageSelectNumTest = 1;
+				m_stageSelectNumTest = 20;
 			}
 			return(new SceneStageBase);
 		}
@@ -784,7 +792,45 @@ void SceneStageBase::collisionShot()
 	if (col1 || col2 || col3 || col4 || col5 || col6)
 	{
 		m_pManager->GameOver = true;
-		//printfDx("当たったー!?\n");
-		return;
+		m_arrowTrap = true;
+	}
+}
+
+void SceneStageBase::deathSound()
+{
+	if (!m_pManager->GameClear)
+	{
+		if (m_pManager->m_burnTrap)
+		{
+			if (!m_deathSound)
+			{
+				PlaySoundMem(m_burnSound, DX_PLAYTYPE_BACK, true);
+			}
+			m_deathSound = true;
+		}
+		if (m_pManager->m_needleTrap)
+		{
+			if (!m_deathSound)
+			{
+				PlaySoundMem(m_needleSound, DX_PLAYTYPE_BACK, true);
+			}
+			m_deathSound = true;
+		}
+		if (m_pManager->m_inflateTrap)
+		{
+			if (!m_deathSound)
+			{
+				PlaySoundMem(m_inflateSound, DX_PLAYTYPE_BACK, true);
+			}
+			m_deathSound = true;
+		}
+		if (m_arrowTrap)
+		{
+			if (!m_deathSound)
+			{
+				PlaySoundMem(m_arrowSound, DX_PLAYTYPE_BACK, true);
+			}
+			m_deathSound = true;
+		}
 	}
 }

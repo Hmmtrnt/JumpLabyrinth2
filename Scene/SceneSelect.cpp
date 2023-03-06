@@ -44,12 +44,13 @@ SceneSelect::SceneSelect() :
 	m_stageH19(0),
 	m_stageH20(0),
 	m_centerStageH(0),
+	m_starTest(0),
 	m_starEmpty(0),
 	m_starYellow(0),
 	m_starRed(0),
-	m_cursorSound(-1),
-	m_decideSound(-1),
-	m_backGroundSound(-1), 
+	m_cursorSound(0),
+	m_decideSound(0),
+	m_backGroundSound(0), 
 	m_playSound(false),
 	m_pushTitle(false)
 {
@@ -108,6 +109,7 @@ void SceneSelect::init()
 	m_stageH19 = draw::MyLoadGraph("data/stage/stage19.png");
 	m_stageH20 = draw::MyLoadGraph("data/stage/stage20.png");
 
+	m_starTest = draw::MyLoadGraph("data/Star.png");
 	m_starEmpty = draw::MyLoadGraph("data/starEmpty.png");
 	m_starYellow = draw::MyLoadGraph("data/starYellow.png");
 	m_starRed = draw::MyLoadGraph("data/starRed.png");
@@ -304,8 +306,8 @@ SceneBase* SceneSelect::update()
 	// カーソル移動
 	m_cursorPosX = (180 * (m_cursorX - 1)) + 910;
 	m_cursorPosW = m_cursorPosX + 160;
-	m_cursorPosY = (210 * (m_cursorY - 1)) + 60;
-	m_cursorPosH = m_cursorPosY + 190;
+	m_cursorPosY = (210 * (m_cursorY - 1)) + 100;
+	m_cursorPosH = m_cursorPosY + 150;
 
 	if (m_cursorY == 1)
 	{
@@ -358,9 +360,9 @@ void SceneSelect::draw()
 {
 	m_pBack->draw();
 
-	SetDrawBlendMode(DX_BLENDMODE_MULA, 100);
+	SetDrawBlendMode(DX_BLENDMODE_MULA, 150);
 	// セレクトステージ
-	DrawBox(900, 50, 1800, 900, kColor::Black, true);
+	DrawBox(900, 90, 1800, 930, kColor::Black, true);
 	// センターステージ
 	DrawBox(100, 100, 800, 750, kColor::Black, true);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);
@@ -368,7 +370,7 @@ void SceneSelect::draw()
 	DrawStringToHandle(300, 900, "Bボタンでステージを選択", kColor::White, m_textHandle2);
 
 	int itemX = 0;
-	int itemY = 60;
+	int itemY = 100;
 	int itemW = 200;
 	int itemH = 250;
 
@@ -428,8 +430,8 @@ void SceneSelect::draw()
 		}
 		// 枠の描画
 		DrawBox(itemX, itemY, itemX + 160, itemH, kColor::White, false);
-		DrawFormatStringToHandle(itemX + 7, itemY + 152, kColor::Black, m_textHandle2, "%dステージ", m_stageNumText);
-		DrawFormatStringToHandle(itemX + 5, itemY + 150, kColor::White, m_textHandle2, "%dステージ", m_stageNumText);
+		DrawFormatStringToHandle(itemX + 10, itemY + 157, kColor::Black, m_textHandle2, "%dステージ", m_stageNumText);
+		DrawFormatStringToHandle(itemX + 8, itemY + 155, kColor::White, m_textHandle2, "%dステージ", m_stageNumText);
 	}
 
 	// カーソル表示
@@ -449,145 +451,162 @@ void SceneSelect::draw()
 // 難易度表示
 void SceneSelect::difficultyDraw()
 {
-	draw::MyDrawRectRotaGraph(250, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starEmpty, true, false);
+	draw::MyDrawRectRotaGraph(250, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starTest, true, false);
 	//SetDrawBright(255, 255, 0);
-	draw::MyDrawRectRotaGraph(350, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starEmpty, true, false);
+	draw::MyDrawRectRotaGraph(350, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starTest, true, false);
 	//SetDrawBright(255, 255, 255);
-	draw::MyDrawRectRotaGraph(450, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starEmpty, true, false);
-	draw::MyDrawRectRotaGraph(550, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starEmpty, true, false);
-	draw::MyDrawRectRotaGraph(650, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starEmpty, true, false);
+	draw::MyDrawRectRotaGraph(450, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starTest, true, false);
+	draw::MyDrawRectRotaGraph(550, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starTest, true, false);
+	draw::MyDrawRectRotaGraph(650, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starTest, true, false);
 
 	if (m_cursorY == 1)
 	{
 		if (m_cursorX == 1)
 		{
-			draw::MyDrawRectRotaGraph(250, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starYellow, true, false);
+			difficulty1Draw();
 		}
 		if (m_cursorX == 2)
 		{
-			draw::MyDrawRectRotaGraph(250, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starYellow, true, false);
+			difficulty1Draw();
 		}
 		if (m_cursorX == 3)
 		{
-			draw::MyDrawRectRotaGraph(250, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starYellow, true, false);
+			difficulty1Draw();
 		}
 		if (m_cursorX == 4)
 		{
-			draw::MyDrawRectRotaGraph(250, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starYellow, true, false);
-			draw::MyDrawRectRotaGraph(350, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starYellow, true, false);
+			difficulty2Draw();
 		}
 		if (m_cursorX == 5)
 		{
-			draw::MyDrawRectRotaGraph(250, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starYellow, true, false);
-			draw::MyDrawRectRotaGraph(350, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starYellow, true, false);
+			difficulty2Draw();
 		}
 	}
 	if (m_cursorY == 2)
 	{
 		if (m_cursorX == 1)
 		{
-			draw::MyDrawRectRotaGraph(250, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starYellow, true, false);
+			difficulty1Draw();
 		}
 		if (m_cursorX == 2)
 		{
-			draw::MyDrawRectRotaGraph(250, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starYellow, true, false);
-			draw::MyDrawRectRotaGraph(350, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starYellow, true, false);
+			difficulty2Draw();
 		}
 		if (m_cursorX == 3)
 		{
-			draw::MyDrawRectRotaGraph(250, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starYellow, true, false);
-			draw::MyDrawRectRotaGraph(350, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starYellow, true, false);
+			difficulty2Draw();
 		}
 		if (m_cursorX == 4)
 		{
-			draw::MyDrawRectRotaGraph(250, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starYellow, true, false);
-			draw::MyDrawRectRotaGraph(350, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starYellow, true, false);
-			draw::MyDrawRectRotaGraph(450, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starYellow, true, false);
+			difficulty3Draw();
 		}
 		if (m_cursorX == 5)
 		{
-			draw::MyDrawRectRotaGraph(250, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starYellow, true, false);
-			draw::MyDrawRectRotaGraph(350, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starYellow, true, false);
-			draw::MyDrawRectRotaGraph(450, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starYellow, true, false);
+			difficulty3Draw();
 		}
 	}
 	if (m_cursorY == 3)
 	{
 		if (m_cursorX == 1)
 		{
-			draw::MyDrawRectRotaGraph(250, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starYellow, true, false);
-			draw::MyDrawRectRotaGraph(350, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starYellow, true, false);
+			difficulty2Draw();
 		}
 		if (m_cursorX == 2)
 		{
-			draw::MyDrawRectRotaGraph(250, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starYellow, true, false);
-			draw::MyDrawRectRotaGraph(350, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starYellow, true, false);
-			draw::MyDrawRectRotaGraph(450, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starYellow, true, false);
+			difficulty3Draw();
 		}
 		if (m_cursorX == 3)
 		{
-			draw::MyDrawRectRotaGraph(250, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starYellow, true, false);
-			draw::MyDrawRectRotaGraph(350, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starYellow, true, false);
-			draw::MyDrawRectRotaGraph(450, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starYellow, true, false);
-			draw::MyDrawRectRotaGraph(550, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starYellow, true, false);
+			difficulty4Draw();
 		}
 		if (m_cursorX == 4)
 		{
-			draw::MyDrawRectRotaGraph(250, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starYellow, true, false);
-			draw::MyDrawRectRotaGraph(350, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starYellow, true, false);
-			draw::MyDrawRectRotaGraph(450, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starYellow, true, false);
-			draw::MyDrawRectRotaGraph(550, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starYellow, true, false);
+			difficulty4Draw();
 		}
 		if (m_cursorX == 5)
 		{
-			draw::MyDrawRectRotaGraph(250, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starYellow, true, false);
-			draw::MyDrawRectRotaGraph(350, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starYellow, true, false);
-			draw::MyDrawRectRotaGraph(450, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starYellow, true, false);
-			draw::MyDrawRectRotaGraph(550, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starYellow, true, false);
-			draw::MyDrawRectRotaGraph(650, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starYellow, true, false);
+			difficulty5Draw();
 		}
 	}
 	if (m_cursorY == 4)
 	{
 		if (m_cursorX == 1)
 		{
-			draw::MyDrawRectRotaGraph(250, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starYellow, true, false);
-			draw::MyDrawRectRotaGraph(350, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starYellow, true, false);
-			draw::MyDrawRectRotaGraph(450, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starYellow, true, false);
+			difficulty3Draw();
 		}
 		if (m_cursorX == 2)
 		{
-			draw::MyDrawRectRotaGraph(250, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starYellow, true, false);
-			draw::MyDrawRectRotaGraph(350, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starYellow, true, false);
-			draw::MyDrawRectRotaGraph(450, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starYellow, true, false);
-			draw::MyDrawRectRotaGraph(550, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starYellow, true, false);
-			draw::MyDrawRectRotaGraph(650, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starYellow, true, false);
+			difficulty5Draw();
 		}
 		if (m_cursorX == 3)
 		{
-			draw::MyDrawRectRotaGraph(250, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starYellow, true, false);
-			draw::MyDrawRectRotaGraph(350, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starYellow, true, false);
-			draw::MyDrawRectRotaGraph(450, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starYellow, true, false);
-			draw::MyDrawRectRotaGraph(550, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starYellow, true, false);
-			draw::MyDrawRectRotaGraph(650, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starYellow, true, false);
+			difficulty5Draw();
 		}
 		if (m_cursorX == 4)
 		{
-			draw::MyDrawRectRotaGraph(250, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starYellow, true, false);
-			draw::MyDrawRectRotaGraph(350, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starYellow, true, false);
-			draw::MyDrawRectRotaGraph(450, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starYellow, true, false);
-			draw::MyDrawRectRotaGraph(550, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starYellow, true, false);
-			draw::MyDrawRectRotaGraph(650, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starYellow, true, false);
-			draw::MyDrawRectRotaGraph(750, 50, 0, 0, 32, 32, 2.5f, 0.0f, m_starRed, true, false);
+			difficulty6Draw();
 		}
 		if (m_cursorX == 5)
 		{
-			draw::MyDrawRectRotaGraph(250, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starYellow, true, false);
-			draw::MyDrawRectRotaGraph(350, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starYellow, true, false);
-			draw::MyDrawRectRotaGraph(450, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starYellow, true, false);
-			draw::MyDrawRectRotaGraph(550, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starYellow, true, false);
-			draw::MyDrawRectRotaGraph(650, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starYellow, true, false);
-			draw::MyDrawRectRotaGraph(750, 50, 0, 0, 32, 32, 2.5f, 0.0f, m_starRed, true, false);
+			difficulty6Draw();
 		}
 	}
+}
+
+void SceneSelect::difficulty1Draw()
+{
+	SetDrawBright(255, 255, 0);
+	draw::MyDrawRectRotaGraph(250, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starTest, true, false);
+	SetDrawBright(255, 255, 255);
+}
+
+void SceneSelect::difficulty2Draw()
+{
+	SetDrawBright(255, 255, 0);
+	draw::MyDrawRectRotaGraph(250, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starTest, true, false);
+	draw::MyDrawRectRotaGraph(350, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starTest, true, false);
+	SetDrawBright(255, 255, 255);
+}
+
+void SceneSelect::difficulty3Draw()
+{
+	SetDrawBright(255, 255, 0);
+	draw::MyDrawRectRotaGraph(250, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starTest, true, false);
+	draw::MyDrawRectRotaGraph(350, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starTest, true, false);
+	draw::MyDrawRectRotaGraph(450, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starTest, true, false);
+	SetDrawBright(255, 255, 255);
+}
+
+void SceneSelect::difficulty4Draw()
+{
+	SetDrawBright(255, 255, 0);
+	draw::MyDrawRectRotaGraph(250, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starTest, true, false);
+	draw::MyDrawRectRotaGraph(350, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starTest, true, false);
+	draw::MyDrawRectRotaGraph(450, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starTest, true, false);
+	draw::MyDrawRectRotaGraph(550, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starTest, true, false);
+	SetDrawBright(255, 255, 255);
+}
+
+void SceneSelect::difficulty5Draw()
+{
+	SetDrawBright(255, 255, 0);
+	draw::MyDrawRectRotaGraph(250, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starTest, true, false);
+	draw::MyDrawRectRotaGraph(350, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starTest, true, false);
+	draw::MyDrawRectRotaGraph(450, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starTest, true, false);
+	draw::MyDrawRectRotaGraph(550, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starTest, true, false);
+	draw::MyDrawRectRotaGraph(650, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starTest, true, false);
+	SetDrawBright(255, 255, 255);
+}
+
+void SceneSelect::difficulty6Draw()
+{
+	SetDrawBright(255, 255, 0);
+	draw::MyDrawRectRotaGraph(250, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starTest, true, false);
+	draw::MyDrawRectRotaGraph(350, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starTest, true, false);
+	draw::MyDrawRectRotaGraph(450, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starTest, true, false);
+	draw::MyDrawRectRotaGraph(550, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starTest, true, false);
+	draw::MyDrawRectRotaGraph(650, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starTest, true, false);
+	SetDrawBright(255, 0, 0);
+	draw::MyDrawRectRotaGraph(750, 50, 0, 0, 32, 32, 2.5f, 0.0f, m_starTest, true, false);
+	SetDrawBright(255, 255, 255);
 }

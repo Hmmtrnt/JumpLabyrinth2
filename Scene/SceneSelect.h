@@ -20,6 +20,12 @@ public:
 private:
 
 	void difficultyDraw();	// 難易度表示
+	void difficulty1Draw();	// 難易度1
+	void difficulty2Draw();	// 難易度2
+	void difficulty3Draw();	// 難易度3
+	void difficulty4Draw();	// 難易度4
+	void difficulty5Draw();	// 難易度5
+	void difficulty6Draw();	// 難易度6
 
 	// テキストハンドル
 	int m_textHandle;
@@ -71,6 +77,7 @@ private:
 	int m_centerStageH;
 
 	// 難易度を表示する星ハンドル
+	int m_starTest;
 	int m_starEmpty;
 	int m_starYellow;
 	int m_starRed;

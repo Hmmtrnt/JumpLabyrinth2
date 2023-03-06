@@ -39,8 +39,8 @@ public:
 	void collisionL();			// 左
 	void collisionUP();			// 上
 	void collisionBottom();		// 下
-	void collisionBulge();		// 膨らんだら即死判定
-	void collisionTimeLag();	// 時間差で反応
+	void collisionBulge();		// ギミック5:膨らんだら即死判定
+	void collisionTimeLag();	// ギミック7:時間差で反応
 	
 	void collisionGameOver();	// ギミック6:即死判定
 	void collisionGameClear();	// ゲームクリア
@@ -62,6 +62,10 @@ public:
 	// ゲームクリア
 	bool GameClear;
 
+	// プレイヤーがどのトラップにやられたか
+	bool m_burnTrap;
+	bool m_needleTrap;
+	bool m_inflateTrap;
 
 private:
 	// しぼんだり、膨らんだりする処理
@@ -88,12 +92,6 @@ private:
 
 	// 音のハンドル
 	int m_goalSound;	// ゴール音
-	// 死亡音
-	int m_bakeDeathSound;	// 焼かれる
-	int m_stickDeathSound;	// 針に刺される
-	int m_hitDeathSound;	// 膨れたやつに当たる
-	int m_isShotDeathSound;	// 撃たれる
-
 	int m_decideSound;	// 決定音
 	//int m_menuOpenSound;// メニューを開いたときの音
 
