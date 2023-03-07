@@ -78,9 +78,9 @@ private:
 
 	// 難易度を表示する星ハンドル
 	int m_starTest;
-	int m_starEmpty;
-	int m_starYellow;
-	int m_starRed;
+
+	// ボタンの描画ハンドル
+	int m_buttonHandle;
 
 	// 音ハンドル
 	int m_cursorSound;		// カーソル移動音

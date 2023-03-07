@@ -45,9 +45,7 @@ SceneSelect::SceneSelect() :
 	m_stageH20(0),
 	m_centerStageH(0),
 	m_starTest(0),
-	m_starEmpty(0),
-	m_starYellow(0),
-	m_starRed(0),
+	m_buttonHandle(0),
 	m_cursorSound(0),
 	m_decideSound(0),
 	m_backGroundSound(0), 
@@ -111,6 +109,8 @@ void SceneSelect::init()
 
 	m_starTest = draw::MyLoadGraph("data/Star.png");
 
+	m_buttonHandle = draw::MyLoadGraph("data/button.png");
+
 	m_cursorSound = LoadSoundMem("sound/cursorSound.mp3");
 	m_decideSound = LoadSoundMem("sound/decideSound.mp3");
 	m_backGroundSound = LoadSoundMem("sound/SelectSound.mp3");
@@ -152,9 +152,7 @@ void SceneSelect::end()
 
 	DeleteGraph(m_starTest);
 
-	DeleteGraph(m_starEmpty);
-	DeleteGraph(m_starYellow);
-	DeleteGraph(m_starRed);
+	DeleteGraph(m_buttonHandle);
 
 	DeleteSoundMem(m_cursorSound);
 	DeleteSoundMem(m_decideSound);
@@ -443,6 +441,10 @@ void SceneSelect::draw()
 	//DrawGraph(0, 0, m_starEmpty, true);
 
 	difficultyDraw();
+
+
+
+	draw::MyDrawRectRotaGraph(200, 800, )
 
 	SceneBase::drawFade();
 }

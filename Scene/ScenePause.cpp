@@ -126,6 +126,21 @@ void ScenePause::drawPause()
 		m_posCursorY++;
 	}
 
+	int posX = 800;
+	int posY = 495;
+	for (int y = 0; y < 2; y++)
+	{
+		for (int x = 0; x < 2; x++)
+		{
+			DrawBox(posX, posY, posX + 250, posY + 70, kColor::Black, false);
+			posX++;
+			posY++;
+		}
+		posX = 800;
+		posY -= 2;
+		posY += 100;
+	}
+
 	DrawStringToHandle(kWidthText + 2, 502, "RETIRE", kColor::Black, m_textHandle);
 	if (m_FillBox && m_pushNum == 0)
 	{
@@ -209,6 +224,22 @@ void ScenePause::drawClearPause()
 		m_posClearCursorX++;
 		m_posClearCursorY++;
 	}
+	int posX = 750;
+	int posY = 395;
+	for (int y = 0; y < 3; y++)
+	{
+		for (int x = 0; x < 2; x++)
+		{
+			DrawBox(posX, posY, posX + 400, posY + 70, kColor::Black, false);
+			posX++;
+			posY++;
+		}
+		posX = 750;
+		posY -= 2;
+		posY += 100;
+	}
+	
+
 	if (m_stageSelectNumTest == 20)
 	{
 		DrawStringToHandle(m_posClearTextX - 48, m_posClearTextY1 + 2, "CONGRATULATION!", kColor::Black, m_textHandle);
