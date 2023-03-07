@@ -11,7 +11,7 @@ namespace
 ScenePause::ScenePause() :
 	m_textHandle(-1),
 	m_posCursor(0),
-	m_posClearCursor(0),
+	m_posClearCursorY(0),
 	m_pushNum(0),
 	m_posClearPauseX(0),
 	m_posClearPauseY(0),
@@ -22,6 +22,7 @@ ScenePause::ScenePause() :
 	m_posClearTextY1(0),
 	m_posClearTextY2(0),
 	m_posClearTextY3(0),
+	m_itemNum(0),
 	m_cursorSound(-1),
 	m_cursorNotSound(-1)
 {
@@ -35,7 +36,7 @@ void ScenePause::init()
 {
 	m_textHandle = CreateFontToHandle("Silver", 90, -1, -1);
 	m_posCursor = 400;
-	m_posClearCursor = 400;
+	m_posClearCursorY = 400;
 	m_pushNum = 0;
 	m_posClearPauseX = 650;
 	m_posClearPauseY = 250;
@@ -109,7 +110,15 @@ void ScenePause::drawPause()
 
 void ScenePause::updateClearPause()
 {
-	if (m_pushNum >= 0 && m_pushNum <= 2)
+	if (m_stageSelectNumTest == 20)
+	{
+		m_itemNum = 1;
+	}
+	else
+	{
+		m_itemNum = 2;
+	}
+	if (m_pushNum >= 0 && m_pushNum <= m_itemNum)
 	{
 		if (Pad::isTrigger(PAD_INPUT_UP) == 1)
 		{
@@ -121,21 +130,21 @@ void ScenePause::updateClearPause()
 			else
 			{
 				PlaySoundMem(m_cursorSound, DX_PLAYTYPE_BACK, true);
-				m_posClearCursor -= 100;
+				m_posClearCursorY -= 100;
 				m_pushNum--;
 			}
 		}
 		if (Pad::isTrigger(PAD_INPUT_DOWN) == 1)
 		{
-			if (m_pushNum >= 2)
+			if (m_pushNum >= m_itemNum)
 			{
 				PlaySoundMem(m_cursorNotSound, DX_PLAYTYPE_BACK, true);
-				m_pushNum = 2;
+				m_pushNum = m_itemNum;
 			}
 			else
 			{
 				PlaySoundMem(m_cursorSound, DX_PLAYTYPE_BACK, true);
-				m_posClearCursor += 100;
+				m_posClearCursorY += 100;
 				m_pushNum++;
 			}
 		}
@@ -153,16 +162,30 @@ void ScenePause::drawClearPause()
 	DrawBox(m_posClearPauseX, m_posClearPauseY, 
 		m_sizeClearPauseX, m_sizeClearPauseY, kColor::Black, false);
 
-	DrawStringToHandle(m_posClearTextX - 18, 302, "ゲームクリア!", kColor::Black, m_textHandle);
-	DrawStringToHandle(m_posClearTextX -20, 300, "ゲームクリア!", kColor::White, m_textHandle);
-	DrawStringToHandle(m_posClearTextX + 2, m_posClearTextY1 + 2, "次のステージへ", kColor::Black, m_textHandle);
-	DrawStringToHandle(m_posClearTextX, m_posClearTextY1, "次のステージへ", kColor::White, m_textHandle);
-	DrawStringToHandle(m_posClearTextX + 2, m_posClearTextY2 + 2, "セレクト画面へ", kColor::Black, m_textHandle);
-	DrawStringToHandle(m_posClearTextX, m_posClearTextY2, "セレクト画面へ", kColor::White, m_textHandle);
-	DrawStringToHandle(m_posClearTextX + 2, m_posClearTextY3 + 2, "リトライ", kColor::Black, m_textHandle);
-	DrawStringToHandle(m_posClearTextX, m_posClearTextY3, "リトライ", kColor::White, m_textHandle);
-	DrawStringToHandle(m_posClearCursorX + 2, m_posClearCursor + 2, "→", kColor::Black, m_textHandle);
-	DrawStringToHandle(m_posClearCursorX, m_posClearCursor, "→", kColor::White, m_textHandle);
+	DrawStringToHandle(m_posClearTextX - 2, 302, "GAMECLEAR!", kColor::Black, m_textHandle);
+	DrawStringToHandle(m_posClearTextX, 300, "GAMECLEAR!", kColor::White, m_textHandle);
+	if (m_stageSelectNumTest == 20)
+	{
+		DrawStringToHandle(m_posClearTextX - 48, m_posClearTextY1 + 2, "CONGRATULATION!", kColor::Black, m_textHandle);
+		DrawStringToHandle(m_posClearTextX - 50, m_posClearTextY1, "CONGRATULATION!", kColor::White, m_textHandle);
+		if (!isInit)
+		{
+			m_posClearCursorY = 500;
+			isInit = true;
+		}
+	}
+	else
+	{
+		DrawStringToHandle(m_posClearTextX + 2, m_posClearTextY1 + 2, "NEXT STAGE", kColor::Black, m_textHandle);
+		DrawStringToHandle(m_posClearTextX, m_posClearTextY1, "NEXT STAGE", kColor::White, m_textHandle);
+	}
+	
+	DrawStringToHandle(m_posClearTextX + 2, m_posClearTextY2 + 2, "SELECT SCENE", kColor::Black, m_textHandle);
+	DrawStringToHandle(m_posClearTextX, m_posClearTextY2, "SELECT SCENE", kColor::White, m_textHandle);
+	DrawStringToHandle(m_posClearTextX + 2, m_posClearTextY3 + 2, "RETRY", kColor::Black, m_textHandle);
+	DrawStringToHandle(m_posClearTextX, m_posClearTextY3, "RETRY", kColor::White, m_textHandle);
+	DrawStringToHandle(m_posClearCursorX + 2, m_posClearCursorY + 2, "→", kColor::Black, m_textHandle);
+	DrawStringToHandle(m_posClearCursorX, m_posClearCursorY, "→", kColor::White, m_textHandle);
 
 	// 確認描画
 	//DrawFormatString(0, 0, kColor::Black, "%d", m_pushNum);

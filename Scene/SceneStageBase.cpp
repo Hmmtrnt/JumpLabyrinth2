@@ -227,6 +227,17 @@ SceneBase* SceneStageBase::updateBefore()
 		bool isOut = isFadingOut();
 		SceneBase::updateFade();
 		// フェードアウト終了時にシーン切り替え
+		// ステージ20の処理
+		// セレクト画面へ
+		if (!isFading() && isOut &&
+			m_pManager->GetPushPause() == 1 && m_pManager->GameClear &&
+			m_stageSelectNumTest == 20)		return (new SceneSelect);
+
+		// リトライ
+		if (!isFading() && isOut &&
+			m_pManager->GetPushPause() == 2 && m_pManager->GameClear &&
+			m_stageSelectNumTest == 20)		return(new SceneStageBase);
+
 		// 次のステージ
 		if (!isFading() && isOut &&
 			m_pManager->GetPushPause() == 1 && m_pManager->GameClear)
@@ -240,8 +251,7 @@ SceneBase* SceneStageBase::updateBefore()
 		}
 		// セレクト画面へ
 		if (!isFading() && isOut &&
-			m_pManager->GetPushPause() == 2 && m_pManager->GameClear) 
-			return (new SceneSelect);
+			m_pManager->GetPushPause() == 2 && m_pManager->GameClear)		return (new SceneSelect);
 		// リトライ
 		if (!isFading() && isOut &&
 			m_pManager->GetPushPause() == 3 && m_pManager->GameClear)		return(new SceneStageBase);

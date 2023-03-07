@@ -8,7 +8,7 @@ namespace
 }
 
 // パーティクルデータ型
-struct SPARK
+struct PARTICLE
 {
 	bool UsingFlag; // 使用中かどうか
 	int X, Y;		// パーティクル位置
@@ -46,7 +46,7 @@ public:
 	void operation(bool colL,bool colR, bool colUp, bool colDown);
 
 	// プレイヤーの着地のパーティクル
-	void landingParticle(int x, int y);
+	void CreateParticle(int x, int y);
 	// パーティクルを動かす
 	void moveParticle();
 
@@ -94,6 +94,11 @@ private:
 	// 音が鳴ったかどうかの真偽
 	bool m_sound;
 
+	// パーティクルテスト
+	int BrightTest = 255;
+	int testX = 0;
+	int testY = 0;
+
 	// パーティクルデータ
-	SPARK Spark[kMaxSpark];
+	PARTICLE Particle[kMaxSpark];
 };

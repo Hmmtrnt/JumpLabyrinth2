@@ -119,6 +119,8 @@ void GameManager::end()
 
 void GameManager::updateInShot(int& frameX, int& frameY)
 {
+	
+
 	// ポーズボタンを押したときの処理
 	if (Pad::isTrigger(PAD_INPUT_R) == 1)
 	{
@@ -206,6 +208,8 @@ void GameManager::updateInShot(int& frameX, int& frameY)
 		updatePause();
 		GameOver = false;
 	}
+
+	if (GameClear && m_pushFlag)	m_pushFlag = false;
 }
 
 void GameManager::updateNoShot()
@@ -305,21 +309,37 @@ void GameManager::updatePause()
 	if (Pad::isTrigger(PAD_INPUT_2) == 1)
 	{
 		PlaySoundMem(m_decideSound, DX_PLAYTYPE_BACK, true);
-		if (m_pPause->GetPushNum() == 0)
+
+		if (m_stageSelectNumTest == 20)
 		{
-			m_pushPause = 1;
-		}
-		else if (m_pPause->GetPushNum() == 1)
-		{
-			m_pushPause = 2;
-		}
-		if (GameClear)
-		{
-			if (m_pPause->GetPushNum() == 2)
+			if (m_pPause->GetPushNum() == 0)
 			{
-				m_pushPause = 3;
+				m_pushPause = 1;
+			}
+			else if (m_pPause->GetPushNum() == 1)
+			{
+				m_pushPause = 2;
 			}
 		}
+		else
+		{
+			if (m_pPause->GetPushNum() == 0)
+			{
+				m_pushPause = 1;
+			}
+			else if (m_pPause->GetPushNum() == 1)
+			{
+				m_pushPause = 2;
+			}
+			if (GameClear)
+			{
+				if (m_pPause->GetPushNum() == 2)
+				{
+					m_pushPause = 3;
+				}
+			}
+		}
+		
 		
 	}
 }

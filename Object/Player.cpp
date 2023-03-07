@@ -50,7 +50,6 @@ void Player::initCommon()
 	m_rota = 0.0f;
 	m_handle = draw::MyLoadGraph("data/AnimationSheet_Character.png");
 	m_handle2 = draw::MyLoadGraph("data/moveChar2.png");
-	m_handleEffect = draw::MyLoadGraph("data/charEffect2.png");
 	m_jumpSound = LoadSoundMem("sound/jumpSound.mp3");
 	m_landingSound = LoadSoundMem("sound/landingSound.mp3");
 	m_sound = true;
@@ -104,7 +103,7 @@ void Player::update()
 	m_frameY += m_speedY;
 	m_posY = m_frameY / kVariable::DrawWidth;
 	
-	moveParticle();
+	
 
 	//motion();
 	//standMotion();
@@ -136,7 +135,7 @@ void Player::DrawGamePlay()
 			{
 				playerDraw(x, y);
 				motion(x, y);
-
+				//moveParticle();
 				
 			}
 		}
@@ -267,34 +266,34 @@ void Player::operation(bool colL, bool colR, bool colUp, bool colDown)
 	}
 }
 
-void Player::landingParticle(int x, int y)
+void Player::CreateParticle(int x, int y)
 {
 	int i;
 	// 使われていないパーティクルデータ
 	for (i = 0; i < kMaxSpark; i++)
 	{
-		if (!Spark[i].UsingFlag) break;
+		if (!Particle[i].UsingFlag) break;
 		
 	}
 
 	// 使われていないデータを出す
 	if (i != kMaxSpark)
 	{
-		Spark[i].X = x * 100;
-		Spark[i].Y = y * 100;
+		Particle[i].X = x /** 100*/;
+		Particle[i].Y = y /** 100*/;
 
 		// 移動直設定
-		Spark[i].VecX = GetRand(1000) - 500;
-		Spark[i].VecY = -GetRand(500);
+		Particle[i].VecX = GetRand(100);
+		Particle[i].VecY = -GetRand(50);
 
 		// パーティクルの重さ
-		Spark[i].gravity = GetRand(10);
+		Particle[i].gravity = GetRand(10);
 
 		// パーティクルの明るさ
-		Spark[i].Bright = 255;
+		Particle[i].Bright = 255;
 
 		// データを使用中
-		Spark[i].UsingFlag = true;
+		Particle[i].UsingFlag = true;
 	}
 }
 
@@ -303,20 +302,20 @@ void Player::moveParticle()
 	for (int i = 0; i < kMaxSpark; i++)
 	{
 		// データ無効ならスキップ
-		if (!Spark[i].UsingFlag)	continue;
+		if (!Particle[i].UsingFlag)	continue;
 
 		// 位置をずらす
-		Spark[i].Y += Spark[i].VecY;
-		Spark[i].X += Spark[i].VecX;
+		Particle[i].Y += Particle[i].VecY;
+		Particle[i].X += Particle[i].VecX;
 
 		// 移動力変更
-		Spark[i].VecY += Spark[i].gravity;
+		Particle[i].VecY += Particle[i].gravity;
 
 		// パーティクルの明るさを下げる
-		Spark[i].Bright -= 2;
+		Particle[i].Bright -= 2;
 
 		// パーティクルの明るさが０になったら無効化
-		if (Spark[i].Bright < 0)	Spark[i].UsingFlag = false;
+		if (Particle[i].Bright < 0)	Particle[i].UsingFlag = false;
 	}
 }
 
@@ -345,24 +344,43 @@ void Player::playerDraw(int x, int y)
 
 	
 
-	int a = GetRand(60);
+	//int a = GetRand(60);
 
-	for (int i = 0; i < a; i++)
-	{
-		landingParticle(kVariable::DrawPosition + (m_frameX + (x * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
-			(m_frameY + (y * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2));
-	}
+	//for (int i = 0; i < a; i++)
+	//{
+	//	CreateParticle(kVariable::DrawPosition + (m_frameX + (x * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
+	//		(m_frameY + (y * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2));
+	//}
 
-	// パーティクル描画
-	for (int i = 0; i < kMaxSpark; i++)
+	//// パーティクル描画
+	//for (int i = 0; i < kMaxSpark; i++)
+	//{
+	//	if (Particle[i].UsingFlag)
+	//	{
+	//		DrawPixel(kVariable::DrawPosition + (m_frameX + (x * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2), 
+	//			(m_frameY + (y * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2), 
+	//			GetColor(Particle[i].Bright, Particle[i].Bright, Particle[i].Bright));
+	//	}
+	//}
+
+	//printfDx("%d\n", a);
+
+	/*BrightTest-=2;
+
+	if (BrightTest <= 0)
 	{
-		if (Spark[i].UsingFlag)
-		{
-			DrawPixel(kVariable::DrawPosition + (m_frameX + (x * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2), 
-				(m_frameY + (y * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2), 
-				GetColor(Spark[i].Bright, Spark[i].Bright, Spark[i].Bright));
-		}
+		BrightTest = 255;
+		testX = GetRand(100);
+		testY = -GetRand(100);
 	}
+	int posx = kVariable::DrawPosition + (m_frameX + (x * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2);
+	int posy = (m_frameY + (y * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2);
+	
+	posx += testX;
+	posy += testY;
+
+	DrawPixel(posx, posy, GetColor(BrightTest, BrightTest, BrightTest));*/
+	
 }
 
 // プレイヤーのモーション

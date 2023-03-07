@@ -110,9 +110,6 @@ void SceneSelect::init()
 	m_stageH20 = draw::MyLoadGraph("data/stage/stage20.png");
 
 	m_starTest = draw::MyLoadGraph("data/Star.png");
-	m_starEmpty = draw::MyLoadGraph("data/starEmpty.png");
-	m_starYellow = draw::MyLoadGraph("data/starYellow.png");
-	m_starRed = draw::MyLoadGraph("data/starRed.png");
 
 	m_cursorSound = LoadSoundMem("sound/cursorSound.mp3");
 	m_decideSound = LoadSoundMem("sound/decideSound.mp3");
