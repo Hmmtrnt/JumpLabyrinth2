@@ -23,8 +23,11 @@ private:
 	// テキストハンドル
 	int m_textHandle;
 	// 矢印の位置
-	int m_posCursor;		// ポーズ画面
-	int m_posClearCursorY;	// クリア画面
+	int m_posCursorX;		// ポーズ画面のカーソル位置
+	int m_posCursorY;
+
+	int m_posClearCursorX;	// クリアポーズ画面のカーソル位置
+	int m_posClearCursorY;	
 	// 押した回数
 	int m_pushNum;
 	// クリア時のポーズ位置
@@ -33,15 +36,17 @@ private:
 	int m_sizeClearPauseX;		// サイズ座標
 	int m_sizeClearPauseY;
 	int m_posClearTextX;		// クリアポーズ画面のテキスト座標
-	int m_posClearCursorX;		// クリアポーズ画面のカーソル位置
+	int m_pauseCursorNum;		// ポーズ画面のカーソル位置
+	int m_clearCursorNum;		// クリア画面のカーソル位置
 	int m_posClearTextY1;		// 項目1
 	int m_posClearTextY2;		// 2
 	int m_posClearTextY3;		// 3
-	int m_itemNum;
+	int m_itemNum;				// 選択できる範囲
 
 	// 音ハンドル
 	int m_cursorSound;		// カーソル移動音
 	int m_cursorNotSound;	// カーソル移動できない音
 
-	bool isInit = false;
+	bool m_isCursorInit;
+	bool m_FillBox;
 };
