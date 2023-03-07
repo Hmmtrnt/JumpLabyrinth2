@@ -104,6 +104,8 @@ void Player::update()
 	m_frameY += m_speedY;
 	m_posY = m_frameY / kVariable::DrawWidth;
 	
+	moveParticle();
+
 	//motion();
 	//standMotion();
 	//jumpMotion();
@@ -118,6 +120,9 @@ void Player::updateInCollision(int& frameX, int& frameY)
 
 	frameX = m_frameX + (kVariable::DrawPosition + kVariable::DrawWidth);
 	frameY = m_frameY;
+	
+	
+	
 }
 
 // 描画
@@ -131,16 +136,20 @@ void Player::DrawGamePlay()
 			{
 				playerDraw(x, y);
 				motion(x, y);
+
+				
 			}
 		}
 	}
+
+	
 	/*DrawFormatString(600, 0, GetColor(255, 0, 0), "m_frameCount:%d", m_frameCount);
 	DrawFormatString(600, 50, GetColor(255, 0, 0), "m_verXPlayer:%d", m_verXPlayer);
 	DrawFormatString(600, 100, GetColor(255, 0, 0), "m_verYPlayer:%d", m_verYPlayer);
 	DrawFormatString(600, 150, GetColor(255, 0, 0), "m_flameY:%d", m_frameY);*/
 }
 
-void Player::DrawOthers(int posX, int posY)
+void Player::DrawTitle(int posX, int posY)
 {
 	// タイトル画面待機モーション
 	m_frameCount--;
@@ -258,6 +267,59 @@ void Player::operation(bool colL, bool colR, bool colUp, bool colDown)
 	}
 }
 
+void Player::landingParticle(int x, int y)
+{
+	int i;
+	// 使われていないパーティクルデータ
+	for (i = 0; i < kMaxSpark; i++)
+	{
+		if (!Spark[i].UsingFlag) break;
+		
+	}
+
+	// 使われていないデータを出す
+	if (i != kMaxSpark)
+	{
+		Spark[i].X = x * 100;
+		Spark[i].Y = y * 100;
+
+		// 移動直設定
+		Spark[i].VecX = GetRand(1000) - 500;
+		Spark[i].VecY = -GetRand(500);
+
+		// パーティクルの重さ
+		Spark[i].gravity = GetRand(10);
+
+		// パーティクルの明るさ
+		Spark[i].Bright = 255;
+
+		// データを使用中
+		Spark[i].UsingFlag = true;
+	}
+}
+
+void Player::moveParticle()
+{
+	for (int i = 0; i < kMaxSpark; i++)
+	{
+		// データ無効ならスキップ
+		if (!Spark[i].UsingFlag)	continue;
+
+		// 位置をずらす
+		Spark[i].Y += Spark[i].VecY;
+		Spark[i].X += Spark[i].VecX;
+
+		// 移動力変更
+		Spark[i].VecY += Spark[i].gravity;
+
+		// パーティクルの明るさを下げる
+		Spark[i].Bright -= 2;
+
+		// パーティクルの明るさが０になったら無効化
+		if (Spark[i].Bright < 0)	Spark[i].UsingFlag = false;
+	}
+}
+
 // プレイヤーの描画
 void Player::playerDraw(int x, int y)
 {
@@ -279,6 +341,27 @@ void Player::playerDraw(int x, int y)
 								  32, 32,
 								  2.2f, m_rota,
 								  m_handle, true, false);
+	}
+
+	
+
+	int a = GetRand(60);
+
+	for (int i = 0; i < a; i++)
+	{
+		landingParticle(kVariable::DrawPosition + (m_frameX + (x * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
+			(m_frameY + (y * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2));
+	}
+
+	// パーティクル描画
+	for (int i = 0; i < kMaxSpark; i++)
+	{
+		if (Spark[i].UsingFlag)
+		{
+			DrawPixel(kVariable::DrawPosition + (m_frameX + (x * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2), 
+				(m_frameY + (y * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2), 
+				GetColor(Spark[i].Bright, Spark[i].Bright, Spark[i].Bright));
+		}
 	}
 }
 

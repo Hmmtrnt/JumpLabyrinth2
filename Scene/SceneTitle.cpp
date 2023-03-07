@@ -145,7 +145,7 @@ void SceneTitle::draw()
 
 	//DrawStringToHandle(625, 900, kGuideText3, kColor::White, m_fontGuide);
 
-	m_pPlayer->DrawOthers(m_posX, m_posY);
+	m_pPlayer->DrawTitle(m_posX, m_posY);
 
 	SceneBase::drawFade();
 }

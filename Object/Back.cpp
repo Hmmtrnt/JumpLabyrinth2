@@ -44,10 +44,10 @@ namespace
 	const char* const kGuideOpenText = "Yボタン:ギミック説明";
 	const char* const kGuideCloseText = "Yボタン:閉じる";
 	const char* const kExplanText = "ギミック説明";
-	const char* const kExplanGimmickDeath = "このブロックに当たると\n死んでしまいます";
-	const char* const kExplanGimmickTimeRug = "このブロックの左右上下に\n一定時間いると\n死んでしまいます";
+	const char* const kExplanGimmickDeath = "当たってはいけません";
+	const char* const kExplanGimmickTimeRug = "左右上下に一定時間いると\n死んでしまいます";
 	const char* const kExplanGimmickInflate = "膨らんでいるときに\n当たってはいけません";
-	const char* const kExplanGimmickArrow = "このブロックから矢が\n発射されます";
+	const char* const kExplanGimmickArrow = "矢が発射されます";
 }
 
 Back::Back() :

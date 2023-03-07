@@ -2,6 +2,21 @@
 #pragma once
 #include "../Util/common.h"
 
+namespace
+{
+	constexpr int kMaxSpark = 800;
+}
+
+// パーティクルデータ型
+struct SPARK
+{
+	bool UsingFlag; // 使用中かどうか
+	int X, Y;		// パーティクル位置
+	int VecX, VecY;	// パーティクルの移動
+	int gravity;	// パーティクルの重力
+	int Bright;		// パーティクルの明るさ
+};
+
 class Player
 {
 public:
@@ -25,10 +40,15 @@ public:
 
 	// 描画
 	void DrawGamePlay();		// プレイ中
-	void DrawOthers(int posX, int posY);
+	void DrawTitle(int posX, int posY);
 
 	// プレイヤー操作
 	void operation(bool colL,bool colR, bool colUp, bool colDown);
+
+	// プレイヤーの着地のパーティクル
+	void landingParticle(int x, int y);
+	// パーティクルを動かす
+	void moveParticle();
 
 	// プレイヤーの配列の位置
 	int m_posX;			// X座標
@@ -73,4 +93,7 @@ private:
 
 	// 音が鳴ったかどうかの真偽
 	bool m_sound;
+
+	// パーティクルデータ
+	SPARK Spark[kMaxSpark];
 };
