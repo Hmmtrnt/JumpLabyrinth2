@@ -57,7 +57,7 @@ void ScenePause::init()
 	m_posClearTextY3 = 600;
 	m_cursorSound = LoadSoundMem("sound/cursorSound.mp3");
 	m_cursorNotSound = LoadSoundMem("sound/landingSound.mp3");
-	ChangeVolumeSoundMem(100, m_cursorNotSound);
+	//ChangeVolumeSoundMem(255, m_cursorNotSound);
 }
 
 void ScenePause::end()
@@ -201,6 +201,14 @@ void ScenePause::drawClearPause()
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 	DrawBox(m_posClearPauseX, m_posClearPauseY, 
 		m_sizeClearPauseX, m_sizeClearPauseY, kColor::Black, false);
+	m_posClearCursorX = 750;
+	m_posClearCursorY = m_clearCursorNum;
+	for (int y = 0; y < 5; y++)
+	{
+		DrawBox(m_posClearCursorX, m_posClearCursorY, m_posClearCursorX + 400, m_posClearCursorY + 70, kColor::Black, m_FillBox);
+		m_posClearCursorX++;
+		m_posClearCursorY++;
+	}
 	if (m_stageSelectNumTest == 20)
 	{
 		DrawStringToHandle(m_posClearTextX - 48, m_posClearTextY1 + 2, "CONGRATULATION!", kColor::Black, m_textHandle);
@@ -220,14 +228,7 @@ void ScenePause::drawClearPause()
 		}
 	}
 
-	m_posClearCursorX = 750;
-	m_posClearCursorY = m_clearCursorNum;
-	for (int y = 0; y < 5; y++)
-	{
-		DrawBox(m_posClearCursorX, m_posClearCursorY, m_posClearCursorX + 400, m_posClearCursorY + 70, kColor::Black, m_FillBox);
-		m_posClearCursorX++;
-		m_posClearCursorY++;
-	}
+	
 	
 	DrawStringToHandle(m_posClearTextX + 12, 302, "GAMECLEAR!", kColor::Black, m_textHandle);
 	DrawStringToHandle(m_posClearTextX + 10, 300, "GAMECLEAR!", kColor::White, m_textHandle);

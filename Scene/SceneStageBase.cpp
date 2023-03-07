@@ -43,6 +43,7 @@ SceneStageBase::SceneStageBase() :
 	m_needleSound(0),
 	m_inflateSound(0),
 	m_arrowSound(0),
+	m_volumeBgm(0),
 	m_arrowTrap(false),
 	m_isAllocation(false),
 	m_pushHelp(false),
@@ -105,8 +106,8 @@ void SceneStageBase::init()
 	m_needleSound = LoadSoundMem("sound/damegeSound.mp3");
 	m_inflateSound = LoadSoundMem("sound/inflate.mp3");
 	m_arrowSound = LoadSoundMem("sound/arrowSound.mp3");
-	ChangeVolumeSoundMem(kVolumeBgm, m_backGroundSound);
-	ChangeVolumeSoundMem(kVolumeDeath, m_burnSound);
+	m_volumeBgm = 100;
+	
 	m_frameCountShot = 60;
 	m_isAllocation = false;
 	m_pushHelp = false;
@@ -125,6 +126,8 @@ void SceneStageBase::end()
 
 SceneBase* SceneStageBase::update()
 {
+	//ChangeVolumeSoundMem(m_volume, m_backGroundSound);
+
 	SceneBase* pScene = updateBefore();
 
 	updateGame();
@@ -225,7 +228,7 @@ SceneBase* SceneStageBase::updateBefore()
 	if (isFading())
 	{
 		bool isOut = isFadingOut();
-		SceneBase::updateFade();
+		SceneBase::updateFade(m_backGroundSound);
 		// フェードアウト終了時にシーン切り替え
 		// ステージ20の処理
 		// セレクト画面へ

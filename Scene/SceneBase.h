@@ -13,7 +13,7 @@ public:
 	virtual void draw() = 0;			// 描画
 
 	// フェード関連
-	void updateFade();			// フェード更新
+	void updateFade(int sound);			// フェード更新
 	void drawFade() const;		// フェード描画
 
 	bool isFadingIn() const;	// フェードイン中
@@ -22,9 +22,11 @@ public:
 
 	void startFadeOut();		// フェードアウト開始
 
-private:
+protected:
 	// フェード関連処理
 	int m_fadeColor;
 	int m_fadeBright;
 	int m_fadeSpeed;
+	int m_volume;
+	int m_volumeSpeed;
 };

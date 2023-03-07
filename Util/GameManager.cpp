@@ -10,7 +10,7 @@
 namespace
 {
 	// ‰¹—Ê
-	constexpr int kVolumeSound = 100;
+	constexpr int kVolumeSound = 255;
 }
 
 GameManager::GameManager() :

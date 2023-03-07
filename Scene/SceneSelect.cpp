@@ -118,7 +118,7 @@ void SceneSelect::init()
 	m_pushTitle = false;
 	m_playSound = false;
 
-	ChangeVolumeSoundMem(kVolumeBgm, m_backGroundSound);
+	//ChangeVolumeSoundMem(m_volume, m_backGroundSound);
 
 	m_stageSelectNumTest = 0;
 
@@ -150,6 +150,8 @@ void SceneSelect::end()
 	DeleteGraph(m_stageH19);
 	DeleteGraph(m_stageH20);
 
+	DeleteGraph(m_starTest);
+
 	DeleteGraph(m_starEmpty);
 	DeleteGraph(m_starYellow);
 	DeleteGraph(m_starRed);
@@ -179,7 +181,7 @@ SceneBase* SceneSelect::update()
 	if (isFading())
 	{
 		bool isOut = isFadingOut();
-		SceneBase::updateFade();
+		SceneBase::updateFade(m_backGroundSound);
 		if (!isFading() && isOut && m_pushTitle)		return (new SceneTitle);
 		//if (!isFading() && isOut)
 		//{

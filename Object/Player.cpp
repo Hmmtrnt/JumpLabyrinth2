@@ -6,7 +6,7 @@ namespace
 	constexpr int motionCount = 40;
 	constexpr int speed = 68;
 	// BGM‚Ì‰¹—Ê
-	constexpr int kVolumeBgm = 100;
+	constexpr int kVolumeBgm = 255;
 }
 
 Player::Player() :

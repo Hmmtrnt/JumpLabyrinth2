@@ -64,7 +64,7 @@ void SceneTitle::init()
 	m_backGroundSound = LoadSoundMem("sound/titleSound.mp3");
 	m_pBack->init();
 	m_pPlayer->initTitle();
-	ChangeVolumeSoundMem(kVolumeBgm, m_backGroundSound);
+	//ChangeVolumeSoundMem(m_volume, m_backGroundSound);
 }
 
 void SceneTitle::end()
@@ -96,7 +96,7 @@ SceneBase* SceneTitle::update()
 	if (isFading())
 	{
 		bool isOut = isFadingOut();
-		SceneBase::updateFade();
+		SceneBase::updateFade(m_backGroundSound);
 		// フェードアウト終了時にシーン切り替え
 		if (!isFading() && isOut)
 		{

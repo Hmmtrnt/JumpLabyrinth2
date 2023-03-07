@@ -6,6 +6,7 @@ namespace
 {
 	// フェード速度
 	constexpr int kFadeSpeed = 5;
+	constexpr int kVolumeSpeed = 5;
 }
 
 SceneBase::SceneBase()
@@ -14,9 +15,11 @@ SceneBase::SceneBase()
 	m_fadeColor = kColor::Black;
 	m_fadeBright = 255;
 	m_fadeSpeed = -kFadeSpeed;
+	m_volume = 255;
+	m_volumeSpeed = kVolumeSpeed;
 }
 
-void SceneBase::updateFade()
+void SceneBase::updateFade(int sound)
 {
 	m_fadeBright += m_fadeSpeed;
 	if (m_fadeBright >= 255)
@@ -35,6 +38,24 @@ void SceneBase::updateFade()
 			m_fadeSpeed = 0;
 		}
 	}
+	m_volume += m_volumeSpeed;
+	if (m_volume >= 255)
+	{
+		m_volume = 255;
+		if (m_volumeSpeed > 0)
+		{
+			m_volumeSpeed = 0;
+		}
+	}
+	if (m_volume <= 0)
+	{
+		m_volume = 0;
+		if (m_volumeSpeed < 0)
+		{
+			m_volumeSpeed = 0;
+		}
+	}
+	ChangeVolumeSoundMem(m_volume, sound);
 }
 
 void SceneBase::drawFade() const
@@ -59,4 +80,5 @@ bool SceneBase::isFadingOut() const
 void SceneBase::startFadeOut()
 {
 	m_fadeSpeed = kFadeSpeed;
+	m_volumeSpeed = -kVolumeSpeed;
 }

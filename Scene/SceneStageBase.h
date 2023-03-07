@@ -91,6 +91,8 @@ protected:
 	int m_needleSound;	// j”»’è‰¹
 	int m_inflateSound;	// –c‚ç‚Ş”»’è‰¹
 	int m_arrowSound;	// –î”»’è‰¹
+	// ‰¹—Ê
+	int m_volumeBgm;	// BGM
 
 	// –î‚É“–‚½‚Á‚½‚©‚Ç‚¤‚©
 	bool m_arrowTrap;
