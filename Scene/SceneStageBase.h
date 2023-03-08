@@ -103,7 +103,8 @@ protected:
 	// ステージにショット処理が入っているかどうか
 	bool m_inShot;
 	// 鳴っているかどうか
-	bool m_playSound;	// bgm
 	bool m_deathSound;	// 死亡音
+
+	
 };
 

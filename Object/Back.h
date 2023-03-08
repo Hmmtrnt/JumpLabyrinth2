@@ -52,4 +52,9 @@ private:
 	// ギミック描画のハンドル
 	int m_gimmickHandle;
 	int m_gimmickHandle2;
+
+	// ボタンハンドル
+	int m_buttonHandle;
+	int m_buttonHnadleLeftNum;		// 左上座標のX軸
+	int m_buttonHnadleTopNum;		// 左上座標のY軸
 };

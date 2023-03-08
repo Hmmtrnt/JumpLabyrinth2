@@ -81,16 +81,21 @@ private:
 
 	// ボタンの描画ハンドル
 	int m_buttonHandle;
+	int m_buttonHnadleLeftNum;		// 左上座標のX軸
+	int m_buttonHnadleTopNum;		// 左上座標のY軸
+	int m_buttonHandleX;			// X座標
+	int m_buttonHandleY;			// Y座標
+	int m_buttohHandleDisplayTime;	// 表示時間
+	int m_buttonHandleTime;			// 全体時間
 
 	// 音ハンドル
 	int m_cursorSound;		// カーソル移動音
 	int m_decideSound;		// 決定音
 	int m_backGroundSound;	// bgm
 
-	// bgmが鳴っているか真偽
-	bool m_playSound;
 	// タイトル画面に戻るか真偽
 	bool m_pushTitle;
+	
 
 	Back* m_pBack;
 };

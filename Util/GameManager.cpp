@@ -310,7 +310,7 @@ void GameManager::updatePause()
 	{
 		PlaySoundMem(m_decideSound, DX_PLAYTYPE_BACK, true);
 
-		if (m_stageSelectNumTest == 20)
+		if (m_stageSelectNum == 20)
 		{
 			if (m_pPause->GetPushNum() == 0)
 			{

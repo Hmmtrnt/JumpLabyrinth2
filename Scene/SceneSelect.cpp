@@ -6,6 +6,8 @@
 
 namespace
 {
+	// ボタンハンドルの一辺の長さ
+	constexpr int kLengthHandle = 16;
 	// BGMの音量
 	constexpr int kVolumeBgm = 100;
 }
@@ -46,10 +48,15 @@ SceneSelect::SceneSelect() :
 	m_centerStageH(0),
 	m_starTest(0),
 	m_buttonHandle(0),
+	m_buttonHnadleLeftNum(0),
+	m_buttonHnadleTopNum(0),
+	m_buttonHandleX(0),
+	m_buttonHandleY(0),
+	m_buttohHandleDisplayTime(0),
+	m_buttonHandleTime(0),
 	m_cursorSound(0),
 	m_decideSound(0),
 	m_backGroundSound(0), 
-	m_playSound(false),
 	m_pushTitle(false)
 {
 	m_pBack = new Back;
@@ -110,17 +117,22 @@ void SceneSelect::init()
 	m_starTest = draw::MyLoadGraph("data/Star.png");
 
 	m_buttonHandle = draw::MyLoadGraph("data/button.png");
+	m_buttonHnadleLeftNum = 1;
+	m_buttonHnadleTopNum = 21;
+	m_buttonHandleX = 350;
+	m_buttonHandleY = 900;
+	m_buttohHandleDisplayTime = 30;
+	m_buttonHandleTime = 60;
 
 	m_cursorSound = LoadSoundMem("sound/cursorSound.mp3");
 	m_decideSound = LoadSoundMem("sound/decideSound.mp3");
 	m_backGroundSound = LoadSoundMem("sound/SelectSound.mp3");
 
 	m_pushTitle = false;
-	m_playSound = false;
 
-	//ChangeVolumeSoundMem(m_volume, m_backGroundSound);
+	m_stageSelectNum = 0;
 
-	m_stageSelectNumTest = 0;
+	PlaySoundMem(m_backGroundSound, DX_PLAYTYPE_LOOP, true);
 
 	m_pBack->init();
 }
@@ -163,16 +175,11 @@ void SceneSelect::end()
 
 SceneBase* SceneSelect::update()
 {
-	// BGM再生
-	if (!m_playSound)
+	// ボタン表示時間
+	m_buttonHandleTime--;
+	if (m_buttonHandleTime <= 0)
 	{
-		PlaySoundMem(m_backGroundSound, DX_PLAYTYPE_BACK, true);
-		m_playSound = true;
-	}
-	// BGM流れなくなったらループするようにする
-	if (CheckSoundMem(m_backGroundSound) == 0)
-	{
-		m_playSound = false;
+		m_buttonHandleTime = 60;
 	}
 
 	//フェード処理
@@ -222,35 +229,35 @@ SceneBase* SceneSelect::update()
 		{
 			if (m_cursorY == 1)
 			{
-				if (m_cursorX == 1)	m_stageSelectNumTest = 1;
-				if (m_cursorX == 2) m_stageSelectNumTest = 2;
-				if (m_cursorX == 3) m_stageSelectNumTest = 3;
-				if (m_cursorX == 4) m_stageSelectNumTest = 4;
-				if (m_cursorX == 5) m_stageSelectNumTest = 5;
+				if (m_cursorX == 1)	m_stageSelectNum = 1;
+				if (m_cursorX == 2) m_stageSelectNum = 2;
+				if (m_cursorX == 3) m_stageSelectNum = 3;
+				if (m_cursorX == 4) m_stageSelectNum = 4;
+				if (m_cursorX == 5) m_stageSelectNum = 5;
 			}
 			if (m_cursorY == 2)
 			{
-				if (m_cursorX == 1)	m_stageSelectNumTest = 6;
-				if (m_cursorX == 2) m_stageSelectNumTest = 7;
-				if (m_cursorX == 3) m_stageSelectNumTest = 8;
-				if (m_cursorX == 4) m_stageSelectNumTest = 9;
-				if (m_cursorX == 5) m_stageSelectNumTest = 10;
+				if (m_cursorX == 1)	m_stageSelectNum = 6;
+				if (m_cursorX == 2) m_stageSelectNum = 7;
+				if (m_cursorX == 3) m_stageSelectNum = 8;
+				if (m_cursorX == 4) m_stageSelectNum = 9;
+				if (m_cursorX == 5) m_stageSelectNum = 10;
 			}
 			if (m_cursorY == 3)
 			{
-				if (m_cursorX == 1)	m_stageSelectNumTest = 11;
-				if (m_cursorX == 2) m_stageSelectNumTest = 12;
-				if (m_cursorX == 3) m_stageSelectNumTest = 13;
-				if (m_cursorX == 4) m_stageSelectNumTest = 14;
-				if (m_cursorX == 5) m_stageSelectNumTest = 15;
+				if (m_cursorX == 1)	m_stageSelectNum = 11;
+				if (m_cursorX == 2) m_stageSelectNum = 12;
+				if (m_cursorX == 3) m_stageSelectNum = 13;
+				if (m_cursorX == 4) m_stageSelectNum = 14;
+				if (m_cursorX == 5) m_stageSelectNum = 15;
 			}
 			if (m_cursorY == 4)
 			{
-				if (m_cursorX == 1)	m_stageSelectNumTest = 16;
-				if (m_cursorX == 2) m_stageSelectNumTest = 17;
-				if (m_cursorX == 3) m_stageSelectNumTest = 18;
-				if (m_cursorX == 4) m_stageSelectNumTest = 19;
-				if (m_cursorX == 5) m_stageSelectNumTest = 20;
+				if (m_cursorX == 1)	m_stageSelectNum = 16;
+				if (m_cursorX == 2) m_stageSelectNum = 17;
+				if (m_cursorX == 3) m_stageSelectNum = 18;
+				if (m_cursorX == 4) m_stageSelectNum = 19;
+				if (m_cursorX == 5) m_stageSelectNum = 20;
 			}
 			return (new SceneStageBase);
 		}
@@ -364,7 +371,8 @@ void SceneSelect::draw()
 	DrawBox(100, 100, 800, 750, kColor::Black, true);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);
 
-	DrawStringToHandle(300, 900, "Bボタンでステージを選択", kColor::White, m_textHandle2);
+	//DrawStringToHandle(300, 900, "Bボタンでステージを選択", kColor::White, m_textHandle2);
+	DrawStringToHandle(400, 910, ":ステージを選択", kColor::White, m_textHandle2);
 
 	int itemX = 0;
 	int itemY = 100;
@@ -442,10 +450,49 @@ void SceneSelect::draw()
 
 	difficultyDraw();
 
-
-
-	draw::MyDrawRectRotaGraph(200, 800, )
-
+	for (int i = 0; i < 3; i++)
+	{
+		draw::MyDrawRectRotaGraph(m_buttonHandleX, m_buttonHandleY,
+			m_buttonHnadleLeftNum * kLengthHandle, m_buttonHnadleTopNum * kLengthHandle,
+			kLengthHandle, kLengthHandle,
+			2.0f, 0.0f, m_buttonHandle, true, false);
+		if (i == 0)
+		{
+			m_buttonHandleX = 350;
+			m_buttonHandleY = 900;
+			m_buttonHnadleTopNum = 21;
+		}
+		if (i == 1)
+		{
+			m_buttonHandleX = 350 - 25;
+			m_buttonHandleY = 900 + 25;
+			m_buttonHnadleTopNum = 19;
+		}
+		if (i == 2)
+		{
+			m_buttonHandleX = 350;
+			m_buttonHandleY = 900 + 50;
+			m_buttonHnadleTopNum = 20;
+		}
+	}
+	
+	/*m_buttonHandleX = 350;
+	m_buttonHandleY = 900;*/
+	if (m_buttonHandleTime <= m_buttohHandleDisplayTime)
+	{
+		draw::MyDrawRectRotaGraph(m_buttonHandleX + 27, m_buttonHandleY - 25,
+			m_buttonHnadleLeftNum + 4 * kLengthHandle, (m_buttonHnadleTopNum + 2) * kLengthHandle,
+			kLengthHandle, kLengthHandle,
+			2.0f, 0.0f, m_buttonHandle, true, false);
+	}
+	else
+	{
+		draw::MyDrawRectRotaGraph(m_buttonHandleX + 25, m_buttonHandleY - 25,
+			m_buttonHnadleLeftNum * kLengthHandle, (m_buttonHnadleTopNum + 2) * kLengthHandle,
+			kLengthHandle, kLengthHandle,
+			2.0f, 0.0f, m_buttonHandle, true, false);
+	}
+	
 	SceneBase::drawFade();
 }
 

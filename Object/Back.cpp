@@ -40,6 +40,9 @@ namespace
 	// 背景の描画サイズ
 	constexpr float kSize = 3.3f;
 
+	// ボタンハンドルの一辺
+	constexpr int kLengthHandle = 16;
+
 	// テキスト
 	const char* const kGuideOpenText = "Yボタン:ギミック説明";
 	const char* const kGuideCloseText = "Yボタン:閉じる";
@@ -56,7 +59,10 @@ Back::Back() :
 	m_verY(0),
 	m_textHandle(0),
 	m_gimmickHandle(0),
-	m_gimmickHandle2(0)
+	m_gimmickHandle2(0),
+	m_buttonHandle(0),
+	m_buttonHnadleLeftNum(0),
+	m_buttonHnadleTopNum(0)
 {
 	for (int y = 0; y < kVariable::BackHeight; y++)
 	{
@@ -85,6 +91,10 @@ void Back::init()
 	m_gimmickHandle = draw::MyLoadGraph("data/tileset/inca_front.png");
 	m_gimmickHandle2 = draw::MyLoadGraph("data/Textures-16.png");
 
+	m_buttonHandle = draw::MyLoadGraph("data/button.png");
+	m_buttonHnadleLeftNum = 10;
+	m_buttonHnadleTopNum = 14;
+
 	// 背景配列のサイズ取得
 	for (int y = 0; y < kVariable::BackHeight; y++)
 	{
@@ -102,6 +112,7 @@ void Back::end()
 	DeleteFontToHandle(m_textHandle);
 	DeleteGraph(m_gimmickHandle);
 	DeleteGraph(m_gimmickHandle2);
+	DeleteGraph(m_buttonHandle);
 }
 
 // 描画
@@ -139,7 +150,11 @@ void Back::draw()
 
 void Back::drawMenuGuide()
 {
-	DrawFormatStringToHandle(1500, 50, kColor::White, m_textHandle, "START:メニュー画面");
+	draw::MyDrawRectRotaGraph(1550, 70, 
+		m_buttonHnadleLeftNum * kLengthHandle, m_buttonHnadleTopNum * kLengthHandle,
+		kLengthHandle, kLengthHandle,
+		5.0f, 0.0f, m_buttonHandle, true, false);
+	DrawFormatStringToHandle(1600, 50, kColor::White, m_textHandle, ":メニュー画面");
 }
 
 void Back::drawHelpGuide()

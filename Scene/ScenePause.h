@@ -47,6 +47,10 @@ private:
 	int m_cursorSound;		// カーソル移動音
 	int m_cursorNotSound;	// カーソル移動できない音
 
+	// カーソルを初期化したかどうか
 	bool m_isCursorInit;
+	// 無理つぶされているかどうか
 	bool m_FillBox;
+	// ステージ20であるかどうか
+	bool m_isStage20;
 };

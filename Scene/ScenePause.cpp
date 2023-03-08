@@ -29,7 +29,8 @@ ScenePause::ScenePause() :
 	m_cursorSound(-1),
 	m_cursorNotSound(-1),
 	m_isCursorInit(false),
-	m_FillBox(false)
+	m_FillBox(false),
+	m_isStage20(false)
 {
 }
 
@@ -51,13 +52,15 @@ void ScenePause::init()
 	m_sizeClearPauseY = 700;
 	m_posClearTextX = 800;
 	m_pauseCursorNum = 495;
+	
+	m_isStage20 = m_stageSelectNum == 20;
+	
 	m_clearCursorNum = 395;
 	m_posClearTextY1 = 400;
 	m_posClearTextY2 = 500;
 	m_posClearTextY3 = 600;
 	m_cursorSound = LoadSoundMem("sound/cursorSound.mp3");
 	m_cursorNotSound = LoadSoundMem("sound/landingSound.mp3");
-	//ChangeVolumeSoundMem(255, m_cursorNotSound);
 }
 
 void ScenePause::end()
@@ -161,7 +164,7 @@ void ScenePause::drawPause()
 
 void ScenePause::updateClearPause()
 {
-	if (m_stageSelectNumTest == 20)
+	if (m_isStage20)
 	{
 		m_itemNum = 1;
 	}
@@ -208,6 +211,8 @@ void ScenePause::updateClearPause()
 
 void ScenePause::drawClearPause()
 {
+	//bool isStage20 = m_stageSelectNum == 20;
+
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 100);
 	DrawBox(0, 0, Game::kScreenWidth, Game::kScreenHeight, kColor::Black, true);
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 200);
@@ -216,31 +221,59 @@ void ScenePause::drawClearPause()
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 	DrawBox(m_posClearPauseX, m_posClearPauseY, 
 		m_sizeClearPauseX, m_sizeClearPauseY, kColor::Black, false);
+
 	m_posClearCursorX = 750;
 	m_posClearCursorY = m_clearCursorNum;
+	if (m_isStage20)
+	{
+		m_posClearCursorY = m_clearCursorNum - 5;
+	}
+
 	for (int y = 0; y < 5; y++)
 	{
 		DrawBox(m_posClearCursorX, m_posClearCursorY, m_posClearCursorX + 400, m_posClearCursorY + 70, kColor::Black, m_FillBox);
 		m_posClearCursorX++;
 		m_posClearCursorY++;
 	}
-	int posX = 750;
-	int posY = 395;
-	for (int y = 0; y < 3; y++)
+	
+	if (!m_isStage20)
 	{
-		for (int x = 0; x < 2; x++)
+		int posX = 750;
+		int posY = 395;
+		for (int y = 0; y < 3; y++)
 		{
-			DrawBox(posX, posY, posX + 400, posY + 70, kColor::Black, false);
-			posX++;
-			posY++;
+			for (int x = 0; x < 2; x++)
+			{
+				DrawBox(posX, posY, posX + 400, posY + 70, kColor::Black, false);
+				posX++;
+				posY++;
+			}
+			posX = 750;
+			posY -= 2;
+			posY += 100;
 		}
-		posX = 750;
-		posY -= 2;
-		posY += 100;
+	}
+	else
+	{
+		int posX = 750;
+		int posY = 495;
+		for (int y = 0; y < 2; y++)
+		{
+			for (int x = 0; x < 2; x++)
+			{
+				DrawBox(posX, posY, posX + 400, posY + 70, kColor::Black, false);
+				posX++;
+				posY++;
+			}
+			posX = 750;
+			posY -= 2;
+			posY += 100;
+		}
 	}
 	
+	
 
-	if (m_stageSelectNumTest == 20)
+	if (m_isStage20)
 	{
 		DrawStringToHandle(m_posClearTextX - 48, m_posClearTextY1 + 2, "CONGRATULATION!", kColor::Black, m_textHandle);
 		DrawStringToHandle(m_posClearTextX - 50, m_posClearTextY1, "CONGRATULATION!", kColor::White, m_textHandle);
@@ -264,24 +297,20 @@ void ScenePause::drawClearPause()
 	DrawStringToHandle(m_posClearTextX + 12, 302, "GAMECLEAR!", kColor::Black, m_textHandle);
 	DrawStringToHandle(m_posClearTextX + 10, 300, "GAMECLEAR!", kColor::White, m_textHandle);
 	
-	bool isStage20 = m_stageSelectNumTest == 20;
+	
 	
 	DrawStringToHandle(m_posClearTextX - 18, m_posClearTextY2 + 2, "SELECT SCENE", kColor::Black, m_textHandle);
-	if ((m_FillBox && m_pushNum == 1 && !isStage20) || (m_FillBox && m_pushNum == 0 && isStage20))
+	if ((m_FillBox && m_pushNum == 1 && !m_isStage20) || (m_FillBox && m_pushNum == 0 && m_isStage20))
 	{
 		DrawStringToHandle(m_posClearTextX - 20, m_posClearTextY2, "SELECT SCENE", kColor::White, m_textHandle);
 	}
 	
 	DrawStringToHandle(m_posClearTextX + 82, m_posClearTextY3 + 2, "RETRY", kColor::Black, m_textHandle);
 
-	if ((m_FillBox && m_pushNum == 2 && !isStage20) || (m_FillBox && m_pushNum == 1 && isStage20))
+	if ((m_FillBox && m_pushNum == 2 && !m_isStage20) || (m_FillBox && m_pushNum == 1 && m_isStage20))
 	{
 		DrawStringToHandle(m_posClearTextX + 80, m_posClearTextY3, "RETRY", kColor::White, m_textHandle);
 	}
-	
-	/*DrawStringToHandle(m_posClearCursorX + 2, m_posClearCursorY + 2, "→", kColor::Black, m_textHandle);
-	DrawStringToHandle(m_posClearCursorX, m_posClearCursorY, "→", kColor::White, m_textHandle);*/
-
 	
 	//printfDx("%d\n", m_posCursorNum);
 

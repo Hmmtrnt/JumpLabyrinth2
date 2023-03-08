@@ -21,8 +21,7 @@ SceneTitle::SceneTitle() :
 	m_fontGuide(0),
 	m_posX(0),	m_posY(0),
 	m_pushSound(0),
-	m_backGroundSound(0),
-	m_playSound(false)
+	m_backGroundSound(0)
 {
 	m_pBack = new Back;
 	m_pPlayer = new Player;
@@ -44,8 +43,6 @@ void SceneTitle::init()
 	m_posX = 650;
 	m_posY = 205;
 
-	m_playSound = false;
-
 	// リソースの読み込み
 	LPCSTR font_path = "Font/Silver.ttf";// 読み込むフォントファイルのパス
 	if (AddFontResourceEx(font_path, FR_PRIVATE, NULL) > 0)
@@ -64,7 +61,7 @@ void SceneTitle::init()
 	m_backGroundSound = LoadSoundMem("sound/titleSound.mp3");
 	m_pBack->init();
 	m_pPlayer->initTitle();
-	//ChangeVolumeSoundMem(m_volume, m_backGroundSound);
+	PlaySoundMem(m_backGroundSound, DX_PLAYTYPE_LOOP, true);
 }
 
 void SceneTitle::end()
@@ -80,18 +77,6 @@ void SceneTitle::end()
 
 SceneBase* SceneTitle::update()
 {
-	// BGM再生
-	if (!m_playSound)
-	{
-		PlaySoundMem(m_backGroundSound, DX_PLAYTYPE_BACK, true);
-		m_playSound = true;
-	}
-	// BGM流れなくなったらループするようにする
-	if (CheckSoundMem(m_backGroundSound) == 0)
-	{
-		m_playSound = false;
-	}
-
 	// フェード処理
 	if (isFading())
 	{

@@ -48,7 +48,6 @@ SceneStageBase::SceneStageBase() :
 	m_isAllocation(false),
 	m_pushHelp(false),
 	m_inShot(false),
-	m_playSound(false),
 	m_deathSound(false)
 {
 	m_pManager = new GameManager;
@@ -71,9 +70,9 @@ void SceneStageBase::init()
 	/*m_pManager->initManager(m_posX, m_posY, m_frameX, m_frameY,
 		m_stage, kVariable::StageWidth, kVariable::StageWidth);*/
 
-	bool isEnableShot = m_stageSelectNumTest == 16 || 
-		m_stageSelectNumTest == 17 || m_stageSelectNumTest == 18 ||
-		m_stageSelectNumTest == 19 || m_stageSelectNumTest == 20;
+	bool isEnableShot = m_stageSelectNum == 16 || 
+		m_stageSelectNum == 17 || m_stageSelectNum == 18 ||
+		m_stageSelectNum == 19 || m_stageSelectNum == 20;
 
 	if (isEnableShot)
 	{
@@ -111,8 +110,8 @@ void SceneStageBase::init()
 	m_frameCountShot = 60;
 	m_isAllocation = false;
 	m_pushHelp = false;
-	m_playSound = false;
 	m_deathSound = false;
+	PlaySoundMem(m_backGroundSound, DX_PLAYTYPE_LOOP, true);
 }
 
 void SceneStageBase::end()
@@ -128,26 +127,20 @@ SceneBase* SceneStageBase::update()
 {
 	//ChangeVolumeSoundMem(m_volume, m_backGroundSound);
 
+#ifdef _DEBUG
+	if (Pad::isTrigger(PAD_INPUT_3))
+	{
+		m_pManager->GameClear = true;
+	}
+#else
+#endif
+
 	SceneBase* pScene = updateBefore();
 
 	updateGame();
 
-	// BGM再生
-	if (!m_playSound)
-	{
-		PlaySoundMem(m_backGroundSound, DX_PLAYTYPE_BACK, true);
-		m_playSound = true;
-	}
-	// BGM流れなくなったらループするようにする
-	if (CheckSoundMem(m_backGroundSound) == 0)
-	{
-		m_playSound = false;
-	}
-	if (m_pManager->GameClear)
-	{
-		StopSoundMem(m_backGroundSound);
-		m_playSound = true;
-	}
+	// BGMストップ
+	if (m_pManager->GameClear)	StopSoundMem(m_backGroundSound);
 
 	if (m_inShot)
 	{
@@ -234,21 +227,21 @@ SceneBase* SceneStageBase::updateBefore()
 		// セレクト画面へ
 		if (!isFading() && isOut &&
 			m_pManager->GetPushPause() == 1 && m_pManager->GameClear &&
-			m_stageSelectNumTest == 20)		return (new SceneSelect);
+			m_stageSelectNum == 20)		return (new SceneSelect);
 
 		// リトライ
 		if (!isFading() && isOut &&
 			m_pManager->GetPushPause() == 2 && m_pManager->GameClear &&
-			m_stageSelectNumTest == 20)		return(new SceneStageBase);
+			m_stageSelectNum == 20)		return(new SceneStageBase);
 
 		// 次のステージ
 		if (!isFading() && isOut &&
 			m_pManager->GetPushPause() == 1 && m_pManager->GameClear)
 		{
-			m_stageSelectNumTest++;
-			if (m_stageSelectNumTest > 20)
+			m_stageSelectNum++;
+			if (m_stageSelectNum > 20)
 			{
-				m_stageSelectNumTest = 20;
+				m_stageSelectNum = 20;
 			}
 			return(new SceneStageBase);
 		}
@@ -272,8 +265,8 @@ SceneBase* SceneStageBase::updateBefore()
 
 void SceneStageBase::playerInit()
 {
-	if (m_stageSelectNumTest == 1 || m_stageSelectNumTest == 3 ||
-		m_stageSelectNumTest == 10 || m_stageSelectNumTest == 12)
+	if (m_stageSelectNum == 1 || m_stageSelectNum == 3 ||
+		m_stageSelectNum == 10 || m_stageSelectNum == 12)
 	{
 		m_posX = 1;
 		m_posY = 12;
@@ -281,7 +274,7 @@ void SceneStageBase::playerInit()
 		m_frameX = 68;
 		m_frameY = 816;
 	}
-	if (m_stageSelectNumTest == 2)
+	if (m_stageSelectNum == 2)
 	{
 		m_posX = 1;
 		m_posY = 2;
@@ -289,7 +282,7 @@ void SceneStageBase::playerInit()
 		m_frameX = 68;
 		m_frameY = 136;
 	}
-	if (m_stageSelectNumTest == 4)
+	if (m_stageSelectNum == 4)
 	{
 		m_posX = 6;
 		m_posY = 6;
@@ -297,8 +290,8 @@ void SceneStageBase::playerInit()
 		m_frameX = 408;
 		m_frameY = 408;
 	}
-	if (m_stageSelectNumTest == 5 || m_stageSelectNumTest == 9 ||
-		m_stageSelectNumTest == 15)
+	if (m_stageSelectNum == 5 || m_stageSelectNum == 9 ||
+		m_stageSelectNum == 15)
 	{
 		m_posX = 1;
 		m_posY = 1;
@@ -306,7 +299,7 @@ void SceneStageBase::playerInit()
 		m_frameX = 68;
 		m_frameY = 68;
 	}
-	if (m_stageSelectNumTest == 6 || m_stageSelectNumTest == 16)
+	if (m_stageSelectNum == 6 || m_stageSelectNum == 16)
 	{
 		m_posX = 11;
 		m_posY = 12;
@@ -314,7 +307,7 @@ void SceneStageBase::playerInit()
 		m_frameX = 748;
 		m_frameY = 816;
 	}
-	if (m_stageSelectNumTest == 7)
+	if (m_stageSelectNum == 7)
 	{
 		m_posX = 10;
 		m_posY = 12;
@@ -322,7 +315,7 @@ void SceneStageBase::playerInit()
 		m_frameX = 680;
 		m_frameY = 816;
 	}
-	if (m_stageSelectNumTest == 8 || m_stageSelectNumTest == 11)
+	if (m_stageSelectNum == 8 || m_stageSelectNum == 11)
 	{
 		m_posX = 11;
 		m_posY = 1;
@@ -330,7 +323,7 @@ void SceneStageBase::playerInit()
 		m_frameX = 748;
 		m_frameY = 68;
 	}
-	if (m_stageSelectNumTest == 13)
+	if (m_stageSelectNum == 13)
 	{
 		m_posX = 1;
 		m_posY = 6;
@@ -338,7 +331,7 @@ void SceneStageBase::playerInit()
 		m_frameX = 68;
 		m_frameY = 408;
 	}
-	if (m_stageSelectNumTest == 14)
+	if (m_stageSelectNum == 14)
 	{
 		m_posX = 6;
 		m_posY = 7;
@@ -346,7 +339,7 @@ void SceneStageBase::playerInit()
 		m_frameX = 408;
 		m_frameY = 476;
 	}
-	if (m_stageSelectNumTest == 17)
+	if (m_stageSelectNum == 17)
 	{
 		m_posX = 10;
 		m_posY = 1;
@@ -354,7 +347,7 @@ void SceneStageBase::playerInit()
 		m_frameX = 680;
 		m_frameY = 68;
 	}
-	if (m_stageSelectNumTest == 18)
+	if (m_stageSelectNum == 18)
 	{
 		m_posX = 11;
 		m_posY = 7;
@@ -362,7 +355,7 @@ void SceneStageBase::playerInit()
 		m_frameX = 748;
 		m_frameY = 476;
 	}
-	if (m_stageSelectNumTest == 19)
+	if (m_stageSelectNum == 19)
 	{
 		m_posX = 6;
 		m_posY = 2;
@@ -370,7 +363,7 @@ void SceneStageBase::playerInit()
 		m_frameX = 408;
 		m_frameY = 136;
 	}
-	if (m_stageSelectNumTest == 20)
+	if (m_stageSelectNum == 20)
 	{
 		m_posX = 6;
 		m_posY = 12;
@@ -383,105 +376,105 @@ void SceneStageBase::playerInit()
 void SceneStageBase::stageInit()
 {
 	// ステージ選択
-	if (m_stageSelectNumTest == 1) 
+	if (m_stageSelectNum == 1) 
 	{
 		m_pManager->initManager(m_posX, m_posY, m_frameX, m_frameY,
 			kStage::stage1, kVariable::StageWidth, kVariable::StageWidth);
 	}
-	if (m_stageSelectNumTest == 2)
+	if (m_stageSelectNum == 2)
 	{
 		m_pManager->initManager(m_posX, m_posY, m_frameX, m_frameY,
 			kStage::stage2, kVariable::StageWidth, kVariable::StageWidth);
 	}
-	if (m_stageSelectNumTest == 3)
+	if (m_stageSelectNum == 3)
 	{
 		m_pManager->initManager(m_posX, m_posY, m_frameX, m_frameY,
 			kStage::stage3, kVariable::StageWidth, kVariable::StageWidth);
 	}
-	if (m_stageSelectNumTest == 4)
+	if (m_stageSelectNum == 4)
 	{
 		m_pManager->initManager(m_posX, m_posY, m_frameX, m_frameY,
 			kStage::stage4, kVariable::StageWidth, kVariable::StageWidth);
 	}
-	if (m_stageSelectNumTest == 5)  	
+	if (m_stageSelectNum == 5)  	
 	{
 		m_pManager->initManager(m_posX, m_posY, m_frameX, m_frameY,
 			kStage::stage5, kVariable::StageWidth, kVariable::StageWidth);
 	}
 
-	if (m_stageSelectNumTest == 6)  	
+	if (m_stageSelectNum == 6)  	
 	{
 		m_pManager->initManager(m_posX, m_posY, m_frameX, m_frameY,
 			kStage::stage6, kVariable::StageWidth, kVariable::StageWidth);
 	}
-	if (m_stageSelectNumTest == 7)  	
+	if (m_stageSelectNum == 7)  	
 	{
 		m_pManager->initManager(m_posX, m_posY, m_frameX, m_frameY,
 			kStage::stage7, kVariable::StageWidth, kVariable::StageWidth);
 	}
-	if (m_stageSelectNumTest == 8)  	
+	if (m_stageSelectNum == 8)  	
 	{
 		m_pManager->initManager(m_posX, m_posY, m_frameX, m_frameY,
 			kStage::stage8, kVariable::StageWidth, kVariable::StageWidth);
 	}
-	if (m_stageSelectNumTest == 9)  	
+	if (m_stageSelectNum == 9)  	
 	{
 		m_pManager->initManager(m_posX, m_posY, m_frameX, m_frameY,
 			kStage::stage9, kVariable::StageWidth, kVariable::StageWidth);
 	}
-	if (m_stageSelectNumTest == 10)  	
+	if (m_stageSelectNum == 10)  	
 	{
 		m_pManager->initManager(m_posX, m_posY, m_frameX, m_frameY,
 			kStage::stage10, kVariable::StageWidth, kVariable::StageWidth);
 	}
 
-	if (m_stageSelectNumTest == 11)  	
+	if (m_stageSelectNum == 11)  	
 	{
 		m_pManager->initManager(m_posX, m_posY, m_frameX, m_frameY,
 			kStage::stage11, kVariable::StageWidth, kVariable::StageWidth);
 	}
-	if (m_stageSelectNumTest == 12)  	
+	if (m_stageSelectNum == 12)  	
 	{
 		m_pManager->initManager(m_posX, m_posY, m_frameX, m_frameY,
 			kStage::stage12, kVariable::StageWidth, kVariable::StageWidth);
 	}
-	if (m_stageSelectNumTest == 13)  	
+	if (m_stageSelectNum == 13)  	
 	{
 		m_pManager->initManager(m_posX, m_posY, m_frameX, m_frameY,
 			kStage::stage13, kVariable::StageWidth, kVariable::StageWidth);
 	}
-	if (m_stageSelectNumTest == 14)  	
+	if (m_stageSelectNum == 14)  	
 	{
 		m_pManager->initManager(m_posX, m_posY, m_frameX, m_frameY,
 			kStage::stage14, kVariable::StageWidth, kVariable::StageWidth);
 	}
-	if (m_stageSelectNumTest == 15)  	
+	if (m_stageSelectNum == 15)  	
 	{
 		m_pManager->initManager(m_posX, m_posY, m_frameX, m_frameY,
 			kStage::stage15, kVariable::StageWidth, kVariable::StageWidth);
 	}
 
-	if (m_stageSelectNumTest == 16)  	
+	if (m_stageSelectNum == 16)  	
 	{
 		m_pManager->initManager(m_posX, m_posY, m_frameX, m_frameY,
 			kStage::stage16, kVariable::StageWidth, kVariable::StageWidth);
 	}
-	if (m_stageSelectNumTest == 17)  	
+	if (m_stageSelectNum == 17)  	
 	{
 		m_pManager->initManager(m_posX, m_posY, m_frameX, m_frameY,
 			kStage::stage17, kVariable::StageWidth, kVariable::StageWidth);
 	}
-	if (m_stageSelectNumTest == 18)  	
+	if (m_stageSelectNum == 18)  	
 	{
 		m_pManager->initManager(m_posX, m_posY, m_frameX, m_frameY,
 			kStage::stage18, kVariable::StageWidth, kVariable::StageWidth);
 	}
-	if (m_stageSelectNumTest == 19)  	
+	if (m_stageSelectNum == 19)  	
 	{
 		m_pManager->initManager(m_posX, m_posY, m_frameX, m_frameY,
 			kStage::stage19, kVariable::StageWidth, kVariable::StageWidth);
 	}
-	if (m_stageSelectNumTest == 20)  	
+	if (m_stageSelectNum == 20)  	
 	{
 		m_pManager->initManager(m_posX, m_posY, m_frameX, m_frameY,
 			kStage::stage20, kVariable::StageWidth, kVariable::StageWidth);
@@ -490,7 +483,7 @@ void SceneStageBase::stageInit()
 
 void SceneStageBase::shotInit()
 {
-	if (m_stageSelectNumTest == 16)
+	if (m_stageSelectNum == 16)
 	{
 		// 弾座標の初期化
 		m_shotPosX = kVariable::DrawPosition + 544;
@@ -511,7 +504,7 @@ void SceneStageBase::shotInit()
 		m_colShotX4 = kVariable::DrawPosition + 68;
 		m_colShotX5 = kVariable::DrawPosition + 408;
 	}
-	if (m_stageSelectNumTest == 17)
+	if (m_stageSelectNum == 17)
 	{
 		// 弾座標の初期化
 		m_shotPosX = kVariable::DrawPosition + 476;
@@ -529,7 +522,7 @@ void SceneStageBase::shotInit()
 		m_colShotX3 = kVariable::DrawPosition + 816;
 		m_colShotY4 = 952;
 	}
-	if (m_stageSelectNumTest == 18)
+	if (m_stageSelectNum == 18)
 	{
 		// 弾座標の初期化
 		m_shotPosX = kVariable::DrawPosition + 544;
@@ -553,7 +546,7 @@ void SceneStageBase::shotInit()
 		m_colShotY5 = 680;
 		m_colShotX6 = kVariable::DrawPosition + 340;
 	}
-	if (m_stageSelectNumTest == 19)
+	if (m_stageSelectNum == 19)
 	{
 		// 弾座標の初期化
 		m_shotPosX = kVariable::DrawPosition + 748;
@@ -568,7 +561,7 @@ void SceneStageBase::shotInit()
 		m_colShotX2 = kVariable::DrawPosition + 204;
 		m_colShotY3 = 476;
 	}
-	if (m_stageSelectNumTest == 20)
+	if (m_stageSelectNum == 20)
 	{
 		// 弾座標の初期化
 		m_shotPosX = kVariable::DrawPosition + 340;
@@ -606,7 +599,7 @@ void SceneStageBase::updateGame()
 	{
 		m_pManager->GameOverMotion();
 	}
-	if (m_stageSelectNumTest != 1)
+	if (m_stageSelectNum != 1)
 	{
 		if (Pad::isTrigger(PAD_INPUT_4))
 		{
@@ -626,7 +619,7 @@ void SceneStageBase::updateShot()
 {
 	if (m_quakeTime == 0)
 	{
-		if (m_stageSelectNumTest == 16)
+		if (m_stageSelectNum == 16)
 		{
 			m_pShot->shotUp(m_shotPosY, m_colShotY);
 			m_pShot->shotRight(m_shotPosX2, m_colShotX2);
@@ -634,14 +627,14 @@ void SceneStageBase::updateShot()
 			m_pShot->shotLeft(m_shotPosX4, m_colShotX4);
 			m_pShot->shotRight2(m_shotPosX5, m_colShotX5);
 		}
-		if (m_stageSelectNumTest == 17)
+		if (m_stageSelectNum == 17)
 		{
 			m_pShot->shotLeft(m_shotPosX, m_colShotX);
 			m_pShot->shotLeft2(m_shotPosX2, m_colShotX2);
 			m_pShot->shotRight(m_shotPosX3, m_colShotX3);
 			m_pShot->shotBottom(m_shotPosY4, m_colShotY4);
 		}
-		if (m_stageSelectNumTest == 18)
+		if (m_stageSelectNum == 18)
 		{
 			m_pShot->shotRight(m_shotPosX, m_colShotX);
 			m_pShot->shotUp(m_shotPosY2, m_colShotY2);
@@ -650,13 +643,13 @@ void SceneStageBase::updateShot()
 			m_pShot->shotBottom2(m_shotPosY5, m_colShotY5);
 			m_pShot->shotLeft2(m_shotPosX6, m_colShotX6);
 		}
-		if (m_stageSelectNumTest == 19)
+		if (m_stageSelectNum == 19)
 		{
 			m_pShot->shotBottom(m_shotPosY, m_colShotY);
 			m_pShot->shotRight(m_shotPosX2, m_colShotX2);
 			m_pShot->shotUp(m_shotPosY3, m_colShotY3);
 		}
-		if (m_stageSelectNumTest == 20)
+		if (m_stageSelectNum == 20)
 		{
 			m_pShot->shotBottom(m_shotPosY, m_colShotY);
 			m_pShot->shotLeft(m_shotPosX2, m_colShotX2);
@@ -668,38 +661,38 @@ void SceneStageBase::updateShot()
 
 void SceneStageBase::drawGuide()
 {
-	bool isStage2_5 = m_stageSelectNumTest == 2 ||
-		m_stageSelectNumTest == 3 ||
-		m_stageSelectNumTest == 4 ||
-		m_stageSelectNumTest == 5;
+	bool isStage2_5 = m_stageSelectNum == 2 ||
+		m_stageSelectNum == 3 ||
+		m_stageSelectNum == 4 ||
+		m_stageSelectNum == 5;
 
-	bool isStage6And10 = m_stageSelectNumTest == 6 ||
-		m_stageSelectNumTest == 10;
+	bool isStage6And10 = m_stageSelectNum == 6 ||
+		m_stageSelectNum == 10;
 
-	bool isStage7_9 = m_stageSelectNumTest == 7 ||
-		m_stageSelectNumTest == 8 ||
-		m_stageSelectNumTest == 9;
+	bool isStage7_9 = m_stageSelectNum == 7 ||
+		m_stageSelectNum == 8 ||
+		m_stageSelectNum == 9;
 
-	bool isStage11 = m_stageSelectNumTest == 11;
+	bool isStage11 = m_stageSelectNum == 11;
 
-	bool isStage12_15 = m_stageSelectNumTest == 12 ||
-		m_stageSelectNumTest == 13 ||
-		m_stageSelectNumTest == 14 ||
-		m_stageSelectNumTest == 15;
+	bool isStage12_15 = m_stageSelectNum == 12 ||
+		m_stageSelectNum == 13 ||
+		m_stageSelectNum == 14 ||
+		m_stageSelectNum == 15;
 
-	bool isStage16 = m_stageSelectNumTest == 16;
+	bool isStage16 = m_stageSelectNum == 16;
 
-	bool isStage17_20 = m_stageSelectNumTest == 17 ||
-		m_stageSelectNumTest == 18 ||
-		m_stageSelectNumTest == 19 ||
-		m_stageSelectNumTest == 20;
+	bool isStage17_20 = m_stageSelectNum == 17 ||
+		m_stageSelectNum == 18 ||
+		m_stageSelectNum == 19 ||
+		m_stageSelectNum == 20;
 
 
-	if (m_stageSelectNumTest == 1)
+	if (m_stageSelectNum == 1)
 	{
 		m_pBack->drawMenuGuide();
 	}
-	if (m_stageSelectNumTest != 1)
+	if (m_stageSelectNum != 1)
 	{
 		if (!m_pushHelp)  m_pBack->drawHelp();
 	}
@@ -738,7 +731,7 @@ void SceneStageBase::drawGuide()
 
 void SceneStageBase::drawShot()
 {
-	if (m_stageSelectNumTest == 16)
+	if (m_stageSelectNum == 16)
 	{
 		if (!m_pManager->GetPushPauseOpen())
 		{
@@ -749,7 +742,7 @@ void SceneStageBase::drawShot()
 			m_pShot->drawR2(m_shotPosX5, m_shotPosY5);
 		}
 	}
-	if (m_stageSelectNumTest == 17)
+	if (m_stageSelectNum == 17)
 	{
 		if (!m_pManager->GetPushPauseOpen())
 		{
@@ -759,7 +752,7 @@ void SceneStageBase::drawShot()
 			m_pShot->drawB(m_shotPosX4, m_shotPosY4);
 		}
 	}
-	if (m_stageSelectNumTest == 18)
+	if (m_stageSelectNum == 18)
 	{
 		if (!m_pManager->GetPushPauseOpen())
 		{
@@ -771,7 +764,7 @@ void SceneStageBase::drawShot()
 			m_pShot->drawL2(m_shotPosX6, m_shotPosY6);
 		}
 	}
-	if (m_stageSelectNumTest == 19)
+	if (m_stageSelectNum == 19)
 	{
 		if (!m_pManager->GetPushPauseOpen())
 		{
@@ -780,7 +773,7 @@ void SceneStageBase::drawShot()
 			m_pShot->drawU(m_shotPosX3, m_shotPosY3);
 		}
 	}
-	if (m_stageSelectNumTest == 20)
+	if (m_stageSelectNum == 20)
 	{
 		if (!m_pManager->GetPushPauseOpen())
 		{

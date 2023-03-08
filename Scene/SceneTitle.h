@@ -37,8 +37,6 @@ private:
 	int m_pushSound;		// ‰Ÿ‚µ‚½‚Æ‚«
 	int m_backGroundSound;	// bgm
 
-	// bgm‚ª–Â‚Á‚Ä‚¢‚é‚©^‹U
-	bool m_playSound;
 
 	Back* m_pBack;
 	Player* m_pPlayer;

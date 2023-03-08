@@ -7,7 +7,7 @@
 // ‰~Žü—¦(‰¼)
 #define PI    3.1415926535897932384626433832795f
 
-_declspec(selectany) int m_stageSelectNumTest = 0;
+_declspec(selectany) int m_stageSelectNum = 0;
 
 namespace kVariable
 {
