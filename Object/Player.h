@@ -1,6 +1,20 @@
 // プレイヤー
 #pragma once
 #include "../Util/common.h"
+#include "../Util/Vec2.h"
+//#include "CharParticle.h"
+#include <array>
+#include <memory>
+
+namespace
+{
+	constexpr int kParticleNum = 4096;
+	constexpr int kShowerInterval = 2;
+	constexpr int kFlowerInterval = 120;
+	constexpr int kAuraInterval = 2;
+}
+
+class CharParticle;
 
 class Player
 {
@@ -52,6 +66,10 @@ private:
 	void playerDraw(int x, int y);
 	// モーション
 	void motion(int x, int y);
+	// プレイヤーパーティクル
+	void particleTime();						// 発生インターバル
+	void particle(int x, int y, float rota);	// 動き
+	void drawParticle();						// 表示
 
 	// プレイヤーハンドル
 	int m_handle;		// 静止
@@ -74,9 +92,9 @@ private:
 	// 音が鳴ったかどうかの真偽
 	bool m_sound;
 
-	// パーティクルテスト
-	int BrightTest = 255;
-	int testX = 0;
-	int testY = 0;
-
+	// パーティクル
+	std::array<std::shared_ptr<CharParticle>, kParticleNum> m_particle;
+	int m_showerFrame;		// 描画するフレーム
+	int m_particleFrame;	// 表示する時間
+	bool m_landing;			// 着地したかどうか
 };

@@ -160,7 +160,7 @@ void Stage::stageDraw(int x, int y)
 	// 6:即死判定
 	else if (m_stage[y][x] == 6)
 	{
-		m_verX = 13;
+		m_verX = 12;
 		m_verY = 13;
 		draw::MyDrawRectRotaGraph(kVariable::DrawPosition + (x * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
 			(y * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
@@ -168,8 +168,6 @@ void Stage::stageDraw(int x, int y)
 			16, 16,
 			4.2f, 0.0f,
 			m_handleTrap, true, false);
-
-
 	}
 	// 7:数フレーム後に針が出てゲームオーバーになる判定
 	else if (m_stage[y][x] == 7)

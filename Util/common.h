@@ -602,6 +602,7 @@ namespace kPlayer
 namespace kColor
 {
 	const int Black = GetColor(0, 0, 0);			// çï
+	const int Brown = GetColor(165, 42, 42);		// íÉ
 	const int Red = GetColor(255, 0, 0);			// ê‘
 	const int RedBlack = GetColor(200, 0, 0);		// ê‘çï
 	const int Peach = GetColor(255, 0, 255);		// ìç

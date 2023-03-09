@@ -52,4 +52,6 @@ private:
 	int m_GoalFrame;
 	int m_drawGoalFirst;
 	int m_drawGoalSecond;
+
+	int test = 0;
 };

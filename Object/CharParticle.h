@@ -1,4 +1,6 @@
 #pragma once
+#include "../Util/Vec2.h"
+#include "../Util/common.h"
 
 class CharParticle
 {
@@ -21,6 +23,7 @@ public:
 	void setGravity(float gravity) { m_gravity = gravity; }
 	void setAlphaDec(int dec) { m_alphaDec = dec; }
 	void setRadiusAcc(float acc) { m_radiusAcc = acc; }
+	void setAlpha(int alpha) { m_alpha = alpha; }
 
 	bool isExist() const { return m_isExist; }
 

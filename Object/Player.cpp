@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "../Util/Pad.h"
+#include "CharParticle.h"
 
 namespace
 {
@@ -26,7 +27,10 @@ Player::Player() :
 	m_jumpSound(0),
 	m_landingSound(0),
 	m_rota(0.0f),
-	m_sound(false)
+	m_sound(false),
+	m_showerFrame(0),
+	m_particleFrame(0),
+	m_landing(false)
 {
 	for (int y = 0; y < kVariable::PlayerWidth; y++)
 	{
@@ -64,6 +68,13 @@ void Player::initCommon()
 			m_player[y][x] = kPlayer::playr[y][x];
 		}
 	}
+	for (auto& pParticle : m_particle)
+	{
+		pParticle = std::make_shared<CharParticle>();
+	}
+	m_showerFrame = kShowerInterval;
+	m_particleFrame = 0;
+	m_landing = true;
 }
 
 void Player::initPlayer(int posX, int posY, int frameX, int frameY)
@@ -102,12 +113,6 @@ void Player::update()
 	m_posX = m_frameX / kVariable::DrawWidth;
 	m_frameY += m_speedY;
 	m_posY = m_frameY / kVariable::DrawWidth;
-	
-	
-
-	//motion();
-	//standMotion();
-	//jumpMotion();
 }
 
 void Player::updateInCollision(int& frameX, int& frameY)
@@ -119,9 +124,6 @@ void Player::updateInCollision(int& frameX, int& frameY)
 
 	frameX = m_frameX + (kVariable::DrawPosition + kVariable::DrawWidth);
 	frameY = m_frameY;
-	
-	
-	
 }
 
 // 描画
@@ -135,13 +137,10 @@ void Player::DrawGamePlay()
 			{
 				playerDraw(x, y);
 				motion(x, y);
-				//moveParticle();
-				
 			}
 		}
 	}
 
-	
 	/*DrawFormatString(600, 0, GetColor(255, 0, 0), "m_frameCount:%d", m_frameCount);
 	DrawFormatString(600, 50, GetColor(255, 0, 0), "m_verXPlayer:%d", m_verXPlayer);
 	DrawFormatString(600, 100, GetColor(255, 0, 0), "m_verYPlayer:%d", m_verYPlayer);
@@ -288,46 +287,13 @@ void Player::playerDraw(int x, int y)
 								  2.2f, m_rota,
 								  m_handle, true, false);
 	}
-
 	
+	// パーティクル表示タイマー
+	particleTime();
 
-	//int a = GetRand(60);
-
-	//for (int i = 0; i < a; i++)
-	//{
-	//	CreateParticle(kVariable::DrawPosition + (m_frameX + (x * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
-	//		(m_frameY + (y * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2));
-	//}
-
-	//// パーティクル描画
-	//for (int i = 0; i < kMaxSpark; i++)
-	//{
-	//	if (Particle[i].UsingFlag)
-	//	{
-	//		DrawPixel(kVariable::DrawPosition + (m_frameX + (x * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2), 
-	//			(m_frameY + (y * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2), 
-	//			GetColor(Particle[i].Bright, Particle[i].Bright, Particle[i].Bright));
-	//	}
-	//}
-
-	//printfDx("%d\n", a);
-
-	/*BrightTest-=2;
-
-	if (BrightTest <= 0)
-	{
-		BrightTest = 255;
-		testX = GetRand(100);
-		testY = -GetRand(100);
-	}
-	int posx = kVariable::DrawPosition + (m_frameX + (x * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2);
-	int posy = (m_frameY + (y * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2);
-	
-	posx += testX;
-	posy += testY;
-
-	DrawPixel(posx, posy, GetColor(BrightTest, BrightTest, BrightTest));*/
-	
+	particle(kVariable::DrawPosition + (m_frameX + (x * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
+		(m_frameY + (y * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2), m_rota);
+	drawParticle();
 }
 
 // プレイヤーのモーション
@@ -362,5 +328,100 @@ void Player::motion(int x, int y)
 			m_verYPlayer = 0;
 			m_frameCount = motionCount;
 		}
+	}
+}
+
+void Player::particleTime()
+{
+	// パーティクル表示するタイマー
+	if (m_speedX == 0 && m_speedY == 0)	m_landing = true;
+	if (m_speedX != 0 || m_speedY != 0)	m_landing = false;
+
+	if (m_landing)
+	{
+
+		m_particleFrame--;
+		if (m_particleFrame <= 0)	m_particleFrame = 0;
+	}
+	if (!m_landing)
+	{
+		m_particleFrame = 10;
+		for (auto& pParticle : m_particle)
+		{
+			if (!pParticle->isExist())	continue;
+			pParticle->init();
+		}
+	}
+}
+
+void Player::particle(int x, int y, float rota)
+{
+	for (auto& pParticle : m_particle)
+	{
+		if (!pParticle->isExist())	continue;
+		pParticle->update();
+	}
+	m_showerFrame--;
+	if (m_showerFrame <= 0)
+	{
+		int count = 0;
+		for (auto& pParticle : m_particle)
+		{
+			if (pParticle->isExist())	continue;
+
+			Vec2 pos;
+			Vec2 vec;
+			// 上
+			if (rota == PI / 1)
+			{
+				pos.x = static_cast<float>(x);
+				pos.y = static_cast<float>(y - 30);
+				vec.x = static_cast<float>(GetRand(8)) - 4.0f;
+				vec.y = static_cast<float>(GetRand(10));
+			}
+			// 下
+			if (rota == 0)
+			{
+				pos.x = static_cast<float>(x);
+				pos.y = static_cast<float>(y + 30);
+				vec.x = static_cast<float>(GetRand(8)) - 4.0f;
+				vec.y = -static_cast<float>(GetRand(10));
+			}
+			// 右
+			if (rota == PI / -2)
+			{
+				pos.x = static_cast<float>(x + 30);
+				pos.y = static_cast<float>(y);
+				vec.x = -static_cast<float>(GetRand(10));
+				vec.y = static_cast<float>(GetRand(8)) - 4.0f;
+			}
+			// 左
+			if (rota == PI / 2)
+			{
+				pos.x = static_cast<float>(x - 30);
+				pos.y = static_cast<float>(y);
+				vec.x = static_cast<float>(GetRand(10));
+				vec.y = static_cast<float>(GetRand(8)) - 4.0f;
+			}
+			if (m_particleFrame > 1 && m_landing) pParticle->start(pos);
+			pParticle->setVec(vec);
+
+			count++;
+			if (count >= 4)
+			{
+				break;
+			}
+		}
+		m_showerFrame = kShowerInterval;
+	}
+	
+}
+
+void Player::drawParticle()
+{
+	for (auto& pParticle : m_particle)
+	{
+		if (!pParticle->isExist())	continue;
+		pParticle->draw();
 	}
 }

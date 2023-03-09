@@ -276,7 +276,7 @@ void Back::drawExplanDeath(int posXHandle, int posYHandle,
 	int posXText, int posYText)
 {
 	draw::MyDrawRectRotaGraph(posXHandle, posYHandle,
-		13 * 16, 13 * 16,
+		12 * 16, 13 * 16,
 		16, 16,
 		4.2f, 0.0f,
 		m_gimmickHandle2, true, false);

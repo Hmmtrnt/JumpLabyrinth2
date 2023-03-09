@@ -177,7 +177,6 @@ SceneBase* SceneStageBase::update()
 	if (!isFading())
 	{
 		// フェードアウト開始
-		//if (m_pManager->GameClear)				startFadeOut();
 		// クリアポーズ画面の項目処理
 		if (m_pManager->GameClear && m_pManager->GetPushPause() == 1)				startFadeOut();// ポーズ画面の項目①
 		if (m_pManager->GameClear && m_pManager->GetPushPause() == 2)				startFadeOut();// ポーズ画面の項目②
