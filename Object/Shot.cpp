@@ -31,7 +31,7 @@ Shot::~Shot()
 // ‰Šú‰»(ÀŒ±—p)
 void Shot::init()
 {
-	m_handle = draw::MyLoadGraph("data/arrow4.png");
+	m_handle = draw::MyLoadGraph("data/arrow5.png");
 
 	m_rota = 0;
 
