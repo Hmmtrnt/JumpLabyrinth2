@@ -125,8 +125,6 @@ void SceneStageBase::end()
 
 SceneBase* SceneStageBase::update()
 {
-	//ChangeVolumeSoundMem(m_volume, m_backGroundSound);
-
 #ifdef _DEBUG
 	if (Pad::isTrigger(PAD_INPUT_3))
 	{
@@ -138,6 +136,8 @@ SceneBase* SceneStageBase::update()
 	SceneBase* pScene = updateBefore();
 
 	updateGame();
+
+	m_pBack->update();
 
 	// BGMストップ
 	if (m_pManager->GameClear)	StopSoundMem(m_backGroundSound);
@@ -694,7 +694,7 @@ void SceneStageBase::drawGuide()
 	}
 	if (m_stageSelectNum != 1)
 	{
-		if (!m_pushHelp)  m_pBack->drawHelp();
+		if (!m_pushHelp)  m_pBack->drawOpenGuide();
 	}
 	if (m_pushHelp)
 	{

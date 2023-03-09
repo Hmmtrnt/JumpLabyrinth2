@@ -18,7 +18,7 @@ public:
 	virtual void draw();			// 描画
 
 private:
-
+	void cursorSave();		// カーソル座標保存
 	void difficultyDraw();	// 難易度表示
 	void difficulty1Draw();	// 難易度1
 	void difficulty2Draw();	// 難易度2
@@ -40,10 +40,6 @@ private:
 
 	// セレクト項目の位置
 	int m_selectPos;
-
-	// カーソルの示す座標
-	int m_cursorX;		// X座標
-	int m_cursorY;		// Y座標
 
 	// カーソルの表示位置
 	int m_cursorPosX;	// X座標
@@ -77,12 +73,12 @@ private:
 	int m_centerStageH;
 
 	// 難易度を表示する星ハンドル
-	int m_starTest;
+	int m_starHandle;
 
 	// ボタンの描画ハンドル
 	int m_buttonHandle;
-	int m_buttonHnadleLeftNum;		// 左上座標のX軸
-	int m_buttonHnadleTopNum;		// 左上座標のY軸
+	int m_buttonHandleLeftNum;		// 左上座標のX軸
+	int m_buttonHandleTopNum;		// 左上座標のY軸
 	int m_buttonHandleX;			// X座標
 	int m_buttonHandleY;			// Y座標
 	int m_buttohHandleDisplayTime;	// 表示時間

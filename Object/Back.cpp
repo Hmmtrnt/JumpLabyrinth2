@@ -44,9 +44,8 @@ namespace
 	constexpr int kLengthHandle = 16;
 
 	// テキスト
-	const char* const kGuideOpenText = "Yボタン:ギミック説明";
-	const char* const kGuideCloseText = "Yボタン:閉じる";
-	const char* const kExplanText = "ギミック説明";
+	const char* const kGuideOpenText = ":ギミック説明";
+	const char* const kGuideCloseText = ":閉じる";
 	const char* const kExplanGimmickDeath = "当たってはいけません";
 	const char* const kExplanGimmickTimeRug = "左右上下に一定時間いると\n死んでしまいます";
 	const char* const kExplanGimmickInflate = "膨らんでいるときに\n当たってはいけません";
@@ -61,8 +60,14 @@ Back::Back() :
 	m_gimmickHandle(0),
 	m_gimmickHandle2(0),
 	m_buttonHandle(0),
-	m_buttonHnadleLeftNum(0),
-	m_buttonHnadleTopNum(0)
+	m_buttonPauseLeftNum(0),
+	m_buttonPauseTopNum(0),
+	m_buttonHandleLeftNum(0),
+	m_buttonHandleTopNum(0),
+	m_buttonHandleX(0),
+	m_buttonHandleY(0),
+	m_buttohHandleDisplayTime(0),
+	m_buttonHandleTime(0)
 {
 	for (int y = 0; y < kVariable::BackHeight; y++)
 	{
@@ -92,8 +97,12 @@ void Back::init()
 	m_gimmickHandle2 = draw::MyLoadGraph("data/Textures-16.png");
 
 	m_buttonHandle = draw::MyLoadGraph("data/button.png");
-	m_buttonHnadleLeftNum = 10;
-	m_buttonHnadleTopNum = 14;
+	m_buttonPauseLeftNum = 10;
+	m_buttonPauseTopNum = 14;
+	m_buttonHandleLeftNum = 1;
+	m_buttonHandleTopNum = 21;
+	m_buttohHandleDisplayTime = 30;
+	m_buttonHandleTime = 60;
 
 	// 背景配列のサイズ取得
 	for (int y = 0; y < kVariable::BackHeight; y++)
@@ -113,6 +122,16 @@ void Back::end()
 	DeleteGraph(m_gimmickHandle);
 	DeleteGraph(m_gimmickHandle2);
 	DeleteGraph(m_buttonHandle);
+}
+
+void Back::update()
+{
+	// ボタン表示時間
+	m_buttonHandleTime--;
+	if (m_buttonHandleTime <= 0)
+	{
+		m_buttonHandleTime = 60;
+	}
 }
 
 // 描画
@@ -151,29 +170,34 @@ void Back::draw()
 void Back::drawMenuGuide()
 {
 	draw::MyDrawRectRotaGraph(1550, 70, 
-		m_buttonHnadleLeftNum * kLengthHandle, m_buttonHnadleTopNum * kLengthHandle,
+		m_buttonPauseLeftNum * kLengthHandle, m_buttonPauseTopNum * kLengthHandle,
 		kLengthHandle, kLengthHandle,
 		5.0f, 0.0f, m_buttonHandle, true, false);
 	DrawFormatStringToHandle(1600, 50, kColor::White, m_textHandle, ":メニュー画面");
 }
 
-void Back::drawHelpGuide()
+void Back::drawCloseGuide()
 {
-	DrawFormatStringToHandle(50, 50, kColor::White, m_textHandle, kGuideCloseText);
-	DrawFormatStringToHandle(50, 100, kColor::White, m_textHandle, kExplanText);
+	DrawFormatStringToHandle(150, 50, kColor::White, m_textHandle, kGuideCloseText);
+	// ボタン描画
+	drawButton();
 }
 
-void Back::drawHelp()
+void Back::drawOpenGuide()
 {
-	DrawFormatStringToHandle(50, 50, kColor::White, 
+	DrawFormatStringToHandle(150, 50, kColor::White, 
 		m_textHandle, kGuideOpenText);
+
+	// ボタン描画
+	drawButton();
+
 	drawMenuGuide();
 }
 
 void Back::drawExplan2_5()
 {
 	drawMenuGuide();
-	drawHelpGuide();
+	drawCloseGuide();
 
 	drawExplanDeath(kTrapDeathHandleX, kTrapDeathHandleY, 
 		kTrapDeathTextX, kTrapDeathTextY);
@@ -182,7 +206,7 @@ void Back::drawExplan2_5()
 void Back::drawExplan6And10()
 {
 	drawMenuGuide();
-	drawHelpGuide();
+	drawCloseGuide();
 
 	drawExplanLagTrap(kTrapOnlyHandleX, kTrapOnlyHandleY,
 		kTrapOnlyTextX, kTrapOnlyTextY);
@@ -191,7 +215,7 @@ void Back::drawExplan6And10()
 void Back::drawExplan7_9()
 {
 	drawMenuGuide();
-	drawHelpGuide();
+	drawCloseGuide();
 
 	drawExplanDeath(kTrapDeathHandleX, kTrapDeathHandleY,
 		kTrapDeathTextX, kTrapDeathTextY);
@@ -202,7 +226,7 @@ void Back::drawExplan7_9()
 void Back::drawExplan11()
 {
 	drawMenuGuide();
-	drawHelpGuide();
+	drawCloseGuide();
 
 	drawExplanInflateTrap(kTrapOnlyInflateHandleX, kTrapOnlyInflateHandleY,
 		kTrapOnlyInflateHandleX2, kTrapOnlyInflateHandleY2,
@@ -212,7 +236,7 @@ void Back::drawExplan11()
 void Back::drawExplan12_15()
 {
 	drawMenuGuide();
-	drawHelpGuide();
+	drawCloseGuide();
 
 	drawExplanDeath(kTrapDeathHandleX, kTrapDeathHandleY,
 		kTrapDeathTextX, kTrapDeathTextY);
@@ -226,7 +250,7 @@ void Back::drawExplan12_15()
 void Back::drawExplan16()
 {
 	drawMenuGuide();
-	drawHelpGuide();
+	drawCloseGuide();
 
 	drawExplanShotTrap(kTrapOnlyHandleX, kTrapOnlyHandleY, 
 		kTrapOnlyTextX, kTrapOnlyTextY);
@@ -235,7 +259,7 @@ void Back::drawExplan16()
 void Back::drawExplan17_20()
 {
 	drawMenuGuide();
-	drawHelpGuide();
+	drawCloseGuide();
 
 	drawExplanDeath(kTrapDeathHandleX, kTrapDeathHandleY, 
 		kTrapDeathTextX, kTrapDeathTextY);
@@ -308,4 +332,50 @@ void Back::drawExplanShotTrap(int posXHandle, int posYHandle,
 	DrawFormatStringToHandle(posXText, posYText,
 		kColor::White, m_textHandle,
 		kExplanGimmickArrow);
+}
+
+void Back::drawButton()
+{
+	// ボタン描画
+	for (int i = 0; i < 3; i++)
+	{
+		draw::MyDrawRectRotaGraph(m_buttonHandleX, m_buttonHandleY,
+			m_buttonHandleLeftNum * kLengthHandle, m_buttonHandleTopNum * kLengthHandle,
+			kLengthHandle, kLengthHandle,
+			2.0f, 0.0f, m_buttonHandle, true, false);
+		if (i == 0)
+		{
+			m_buttonHandleX = 100 + 25;
+			m_buttonHandleY = 50 + 25;
+			m_buttonHandleTopNum = 22;
+		}
+		if (i == 1)
+		{
+			m_buttonHandleX = 100 - 25;
+			m_buttonHandleY = 50 + 25;
+			m_buttonHandleTopNum = 19;
+		}
+		if (i == 2)
+		{
+			m_buttonHandleX = 100;
+			m_buttonHandleY = 50 + 50;
+			m_buttonHandleTopNum = 20;
+		}
+	}
+
+	// 押すべきボタン描画
+	if (m_buttonHandleTime <= m_buttohHandleDisplayTime)
+	{
+		draw::MyDrawRectRotaGraph(m_buttonHandleX + 2, m_buttonHandleY - 50,
+			m_buttonHandleLeftNum + 4 * kLengthHandle, (m_buttonHandleTopNum + 1) * kLengthHandle,
+			kLengthHandle, kLengthHandle,
+			2.0f, 0.0f, m_buttonHandle, true, false);
+	}
+	else
+	{
+		draw::MyDrawRectRotaGraph(m_buttonHandleX, m_buttonHandleY - 50,
+			m_buttonHandleLeftNum * kLengthHandle, (m_buttonHandleTopNum + 1) * kLengthHandle,
+			kLengthHandle, kLengthHandle,
+			2.0f, 0.0f, m_buttonHandle, true, false);
+	}
 }

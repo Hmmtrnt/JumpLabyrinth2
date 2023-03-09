@@ -9,15 +9,16 @@ public:
 
 	void init();		// 初期化
 	void end();			// 終了
+	void update();
 	void draw();		// 描画
 
 	void drawMenuGuide();		// メニュー表示方法描画
-	void drawHelpGuide();		// ギミック説明表示方法描画
+	void drawCloseGuide();		// ギミック説明表示方法描画
 
 	
 
 	// ヘルプ描画
-	void drawHelp();				// ヘルプボタン誘導描画
+	void drawOpenGuide();				// ヘルプボタン誘導描画
 	void drawExplan2_5();			// 2から5ステージのギミック説明描画
 	void drawExplan6And10();		// 6と10ステージのギミック説明描画
 	void drawExplan7_9();			// 7から9ステージのギミック説明描画
@@ -37,6 +38,7 @@ private:
 		int posXText, int posYText);	// 膨らむ罠
 	void drawExplanShotTrap(int posXHandle, int posYHandle,
 		int posXText, int posYText);	// ショットの罠
+	void drawButton();
 
 	// 背景配列のサイズ取得
 	int m_back[kVariable::BackHeight][kVariable::BackWidth];
@@ -55,6 +57,14 @@ private:
 
 	// ボタンハンドル
 	int m_buttonHandle;
-	int m_buttonHnadleLeftNum;		// 左上座標のX軸
-	int m_buttonHnadleTopNum;		// 左上座標のY軸
+	// ポーズ
+	int m_buttonPauseLeftNum;		// 左上座標のX軸
+	int m_buttonPauseTopNum;		// 左上座標のY軸
+	// ボタン
+	int m_buttonHandleLeftNum;		// 左上座標のX軸
+	int m_buttonHandleTopNum;		// 左上座標のY軸
+	int m_buttonHandleX;			// X座標
+	int m_buttonHandleY;			// Y座標
+	int m_buttohHandleDisplayTime;	// 表示時間
+	int m_buttonHandleTime;			// 全体時間
 };

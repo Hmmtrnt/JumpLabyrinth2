@@ -19,8 +19,6 @@ SceneSelect::SceneSelect() :
 	m_stageNum(0),
 	m_stageNumText(0),
 	m_selectPos(0),
-	m_cursorX(0),
-	m_cursorY(0),
 	m_cursorPosX(0),
 	m_cursorPosY(0),
 	m_cursorPosW(0),
@@ -46,10 +44,10 @@ SceneSelect::SceneSelect() :
 	m_stageH19(0),
 	m_stageH20(0),
 	m_centerStageH(0),
-	m_starTest(0),
+	m_starHandle(0),
 	m_buttonHandle(0),
-	m_buttonHnadleLeftNum(0),
-	m_buttonHnadleTopNum(0),
+	m_buttonHandleLeftNum(0),
+	m_buttonHandleTopNum(0),
 	m_buttonHandleX(0),
 	m_buttonHandleY(0),
 	m_buttohHandleDisplayTime(0),
@@ -86,8 +84,6 @@ void SceneSelect::init()
 	m_stageNum = 20;
 	m_stageNumText = 0;
 	m_selectPos = 0;
-	m_cursorX = 1;
-	m_cursorY = 1;
 	m_cursorPosX = 910;
 	m_cursorPosY = 60;
 	m_cursorPosW = m_cursorPosX + 160;
@@ -114,13 +110,11 @@ void SceneSelect::init()
 	m_stageH19 = draw::MyLoadGraph("data/stage/stage19.png");
 	m_stageH20 = draw::MyLoadGraph("data/stage/stage20.png");
 
-	m_starTest = draw::MyLoadGraph("data/Star.png");
+	m_starHandle = draw::MyLoadGraph("data/Star.png");
 
 	m_buttonHandle = draw::MyLoadGraph("data/button.png");
-	m_buttonHnadleLeftNum = 1;
-	m_buttonHnadleTopNum = 21;
-	m_buttonHandleX = 350;
-	m_buttonHandleY = 900;
+	m_buttonHandleLeftNum = 1;
+	m_buttonHandleTopNum = 21;
 	m_buttohHandleDisplayTime = 30;
 	m_buttonHandleTime = 60;
 
@@ -130,7 +124,7 @@ void SceneSelect::init()
 
 	m_pushTitle = false;
 
-	m_stageSelectNum = 0;
+	cursorSave();
 
 	PlaySoundMem(m_backGroundSound, DX_PLAYTYPE_LOOP, true);
 
@@ -162,7 +156,7 @@ void SceneSelect::end()
 	DeleteGraph(m_stageH19);
 	DeleteGraph(m_stageH20);
 
-	DeleteGraph(m_starTest);
+	DeleteGraph(m_starHandle);
 
 	DeleteGraph(m_buttonHandle);
 
@@ -188,76 +182,41 @@ SceneBase* SceneSelect::update()
 		bool isOut = isFadingOut();
 		SceneBase::updateFade(m_backGroundSound);
 		if (!isFading() && isOut && m_pushTitle)		return (new SceneTitle);
-		//if (!isFading() && isOut)
-		//{
-		//	if (m_cursorY == 1)
-		//	{
-		//		if (m_cursorX == 1)	return(new SceneStage1);
-		//		/*if (m_cursorX == 2) return(new SceneStage2);
-		//		if (m_cursorX == 3) return(new SceneStage3);
-		//		if (m_cursorX == 4) return(new SceneStage4);*/
-		//		if (m_cursorX == 5) return(new SceneStage5);
-		//	}
-		//	if (m_cursorY == 2)
-		//	{
-		//		/*if (m_cursorX == 1)	return(new SceneStage6);
-		//		if (m_cursorX == 2) return(new SceneStage7);
-		//		if (m_cursorX == 3) return(new SceneStage8);
-		//		if (m_cursorX == 4) return(new SceneStage9);*/
-		//		if (m_cursorX == 5) return(new SceneStage10);
-		//	}
-		//	if (m_cursorY == 3)
-		//	{
-		//		/*if (m_cursorX == 1)	return(new SceneStage11);
-		//		if (m_cursorX == 2) return(new SceneStage12);
-		//		if (m_cursorX == 3) return(new SceneStage13);
-		//		if (m_cursorX == 4) return(new SceneStage14);*/
-		//		if (m_cursorX == 5) return(new SceneStage15);
-		//	}
-		//	if (m_cursorY == 4)
-		//	{
-		//		/*if (m_cursorX == 1)	return(new SceneStage16);
-		//		if (m_cursorX == 2) return(new SceneStage17);
-		//		if (m_cursorX == 3) return(new SceneStage18);
-		//		if (m_cursorX == 4) return(new SceneStage19);*/
-		//		if (m_cursorX == 5) return(new SceneStage20);
-		//	}
-		//}
 		
 		// 実験用シーン遷移(まだ動かない)
 		if (!isFading() && isOut)
 		{
-			if (m_cursorY == 1)
+			if (m_cursorTestY == 1)
 			{
-				if (m_cursorX == 1)	m_stageSelectNum = 1;
-				if (m_cursorX == 2) m_stageSelectNum = 2;
-				if (m_cursorX == 3) m_stageSelectNum = 3;
-				if (m_cursorX == 4) m_stageSelectNum = 4;
-				if (m_cursorX == 5) m_stageSelectNum = 5;
+				if (m_cursorTestX == 1)	m_stageSelectNum = 1;
+				if (m_cursorTestX == 2) m_stageSelectNum = 2;
+				if (m_cursorTestX == 3) m_stageSelectNum = 3;
+				if (m_cursorTestX == 4) m_stageSelectNum = 4;
+				if (m_cursorTestX == 5) m_stageSelectNum = 5;
 			}
-			if (m_cursorY == 2)
+			if (m_cursorTestY == 2)
 			{
-				if (m_cursorX == 1)	m_stageSelectNum = 6;
-				if (m_cursorX == 2) m_stageSelectNum = 7;
-				if (m_cursorX == 3) m_stageSelectNum = 8;
-				if (m_cursorX == 4) m_stageSelectNum = 9;
-				if (m_cursorX == 5) m_stageSelectNum = 10;
+				if (m_cursorTestX == 1)	m_stageSelectNum = 6;
+				if (m_cursorTestX == 2) m_stageSelectNum = 7;
+				if (m_cursorTestX == 3) m_stageSelectNum = 8;
+				if (m_cursorTestX == 4) m_stageSelectNum = 9;
+				if (m_cursorTestX == 5) m_stageSelectNum = 10;
 			}
-			if (m_cursorY == 3)
+			if (m_cursorTestY == 3)
 			{
-				if (m_cursorX == 1)	m_stageSelectNum = 11;
-				if (m_cursorX == 2) m_stageSelectNum = 12;
-				if (m_cursorX == 3) m_stageSelectNum = 13;
-				if (m_cursorX == 4) m_stageSelectNum = 14;
-				if (m_cursorX == 5) m_stageSelectNum = 15;
+				if (m_cursorTestX == 1)	m_stageSelectNum = 11;
+				if (m_cursorTestX == 2) m_stageSelectNum = 12;
+				if (m_cursorTestX == 3) m_stageSelectNum = 13;
+				if (m_cursorTestX == 4) m_stageSelectNum = 14;
+				if (m_cursorTestX == 5) m_stageSelectNum = 15;
 			}
-			if (m_cursorY == 4)
+			if (m_cursorTestY == 4)
 			{
-				if (m_cursorX == 1)	m_stageSelectNum = 16;
-				if (m_cursorX == 2) m_stageSelectNum = 17;
-				if (m_cursorX == 3) m_stageSelectNum = 18;
-				if (m_cursorX == 4) m_stageSelectNum = 19;
-				if (m_cursorX == 5) m_stageSelectNum = 20;
+				if (m_cursorTestX == 1)	m_stageSelectNum = 16;
+				if (m_cursorTestX == 2) m_stageSelectNum = 17;
+				if (m_cursorTestX == 3) m_stageSelectNum = 18;
+				if (m_cursorTestX == 4) m_stageSelectNum = 19;
+				if (m_cursorTestX == 5) m_stageSelectNum = 20;
 			}
 			return (new SceneStageBase);
 		}
@@ -270,80 +229,80 @@ SceneBase* SceneSelect::update()
 
 	if (Pad::isTrigger(PAD_INPUT_RIGHT))
 	{
-		m_cursorX++;
+		m_cursorTestX++;
 		PlaySoundMem(m_cursorSound, DX_PLAYTYPE_BACK, true);
 	}
 	if (Pad::isTrigger(PAD_INPUT_LEFT))
 	{
-		m_cursorX--;
+		m_cursorTestX--;
 		PlaySoundMem(m_cursorSound, DX_PLAYTYPE_BACK, true);
 	}
 	if (Pad::isTrigger(PAD_INPUT_UP))
 	{
-		m_cursorY--;
+		m_cursorTestY--;
 		PlaySoundMem(m_cursorSound, DX_PLAYTYPE_BACK, true);
 	}
 	if (Pad::isTrigger(PAD_INPUT_DOWN))
 	{
-		m_cursorY++;
+		m_cursorTestY++;
 		PlaySoundMem(m_cursorSound, DX_PLAYTYPE_BACK, true);
 	}
-	if (m_cursorX <= 0)
+	if (m_cursorTestX <= 0)
 	{
-		m_cursorX = 5;
-		m_cursorY--;
+		m_cursorTestX = 5;
+		m_cursorTestY--;
 	}
-	if (m_cursorX >= 6)
+	if (m_cursorTestX >= 6)
 	{
-		m_cursorX = 1;
-		m_cursorY++;
+		m_cursorTestX = 1;
+		m_cursorTestY++;
 	}
-	if (m_cursorY <= 0)
+	if (m_cursorTestY <= 0)
 	{
-		m_cursorY = 4;
+		m_cursorTestY = 4;
 	}
-	if (m_cursorY >= 5)
+	if (m_cursorTestY >= 5)
 	{
-		m_cursorY = 1;
+		m_cursorTestY = 1;
 	}
 
 	// カーソル移動
-	m_cursorPosX = (180 * (m_cursorX - 1)) + 910;
+	m_cursorPosX = (180 * (m_cursorTestX - 1)) + 910;
 	m_cursorPosW = m_cursorPosX + 160;
-	m_cursorPosY = (210 * (m_cursorY - 1)) + 100;
+	m_cursorPosY = (210 * (m_cursorTestY - 1)) + 100;
 	m_cursorPosH = m_cursorPosY + 150;
 
-	if (m_cursorY == 1)
+	if (m_cursorTestY == 1)
 	{
-		if (m_cursorX == 1)	m_centerStageH = m_stageH1;
-		if (m_cursorX == 2) m_centerStageH = m_stageH2;
-		if (m_cursorX == 3) m_centerStageH = m_stageH3;
-		if (m_cursorX == 4) m_centerStageH = m_stageH4;
-		if (m_cursorX == 5) m_centerStageH = m_stageH5;
+		if (m_cursorTestX == 1)	m_centerStageH = m_stageH1;
+		if (m_cursorTestX == 2) m_centerStageH = m_stageH2;
+		if (m_cursorTestX == 3) m_centerStageH = m_stageH3;
+		if (m_cursorTestX == 4) m_centerStageH = m_stageH4;
+		if (m_cursorTestX == 5) m_centerStageH = m_stageH5;
 	}
-	if (m_cursorY == 2)
+	if (m_cursorTestY == 2)
 	{
-		if (m_cursorX == 1)	m_centerStageH = m_stageH6;
-		if (m_cursorX == 2) m_centerStageH = m_stageH7;
-		if (m_cursorX == 3) m_centerStageH = m_stageH8;
-		if (m_cursorX == 4) m_centerStageH = m_stageH9;
-		if (m_cursorX == 5) m_centerStageH = m_stageH10;
+		if (m_cursorTestX == 1)	m_centerStageH = m_stageH6;
+		if (m_cursorTestX == 2) m_centerStageH = m_stageH7;
+		if (m_cursorTestX == 3) m_centerStageH = m_stageH8;
+		if (m_cursorTestX == 4) m_centerStageH = m_stageH9;
+		if (m_cursorTestX == 5) m_centerStageH = m_stageH10;
 	}
-	if (m_cursorY == 3)
+	if (m_cursorTestY == 3)
 	{
-		if (m_cursorX == 1)	m_centerStageH = m_stageH11;
-		if (m_cursorX == 2) m_centerStageH = m_stageH12;
-		if (m_cursorX == 3) m_centerStageH = m_stageH13;
-		if (m_cursorX == 4) m_centerStageH = m_stageH14;
-		if (m_cursorX == 5) m_centerStageH = m_stageH15;
+		if (m_cursorTestX == 1)	m_centerStageH = m_stageH11;
+		if (m_cursorTestX == 2) m_centerStageH = m_stageH12;
+		if (m_cursorTestX == 3) m_centerStageH = m_stageH13;
+		if (m_cursorTestX == 4) m_centerStageH = m_stageH14;
+		if (m_cursorTestX == 5) m_centerStageH = m_stageH15;
 	}
-	if (m_cursorY == 4)
+	if (m_cursorTestY == 4)
 	{
-		if (m_cursorX == 1)	m_centerStageH = m_stageH16;
-		if (m_cursorX == 2) m_centerStageH = m_stageH17;
-		if (m_cursorX == 3) m_centerStageH = m_stageH18;
-		if (m_cursorX == 4) m_centerStageH = m_stageH19;
-		if (m_cursorX == 5) m_centerStageH = m_stageH20;
+		if (m_cursorTestX == 1)	m_centerStageH = m_stageH16;
+		if (m_cursorTestX == 2) m_centerStageH = m_stageH17;
+		if (m_cursorTestX == 3) m_centerStageH = m_stageH18;
+		if (m_cursorTestX == 4) m_centerStageH = m_stageH19;
+		if (m_cursorTestX == 5) m_centerStageH = m_stageH20;
 	}
 
 	if (Pad::isTrigger(PAD_INPUT_1))	m_pushTitle = true;
@@ -450,45 +409,45 @@ void SceneSelect::draw()
 
 	difficultyDraw();
 
+	// ボタン描画
 	for (int i = 0; i < 3; i++)
 	{
 		draw::MyDrawRectRotaGraph(m_buttonHandleX, m_buttonHandleY,
-			m_buttonHnadleLeftNum * kLengthHandle, m_buttonHnadleTopNum * kLengthHandle,
+			m_buttonHandleLeftNum * kLengthHandle, m_buttonHandleTopNum * kLengthHandle,
 			kLengthHandle, kLengthHandle,
 			2.0f, 0.0f, m_buttonHandle, true, false);
 		if (i == 0)
 		{
 			m_buttonHandleX = 350;
 			m_buttonHandleY = 900;
-			m_buttonHnadleTopNum = 21;
+			m_buttonHandleTopNum = 21;
 		}
 		if (i == 1)
 		{
 			m_buttonHandleX = 350 - 25;
 			m_buttonHandleY = 900 + 25;
-			m_buttonHnadleTopNum = 19;
+			m_buttonHandleTopNum = 19;
 		}
 		if (i == 2)
 		{
 			m_buttonHandleX = 350;
 			m_buttonHandleY = 900 + 50;
-			m_buttonHnadleTopNum = 20;
+			m_buttonHandleTopNum = 20;
 		}
 	}
 	
-	/*m_buttonHandleX = 350;
-	m_buttonHandleY = 900;*/
+	// 押すべきボタン描画
 	if (m_buttonHandleTime <= m_buttohHandleDisplayTime)
 	{
 		draw::MyDrawRectRotaGraph(m_buttonHandleX + 27, m_buttonHandleY - 25,
-			m_buttonHnadleLeftNum + 4 * kLengthHandle, (m_buttonHnadleTopNum + 2) * kLengthHandle,
+			m_buttonHandleLeftNum + 4 * kLengthHandle, (m_buttonHandleTopNum + 2) * kLengthHandle,
 			kLengthHandle, kLengthHandle,
 			2.0f, 0.0f, m_buttonHandle, true, false);
 	}
 	else
 	{
 		draw::MyDrawRectRotaGraph(m_buttonHandleX + 25, m_buttonHandleY - 25,
-			m_buttonHnadleLeftNum * kLengthHandle, (m_buttonHnadleTopNum + 2) * kLengthHandle,
+			m_buttonHandleLeftNum * kLengthHandle, (m_buttonHandleTopNum + 2) * kLengthHandle,
 			kLengthHandle, kLengthHandle,
 			2.0f, 0.0f, m_buttonHandle, true, false);
 	}
@@ -496,105 +455,118 @@ void SceneSelect::draw()
 	SceneBase::drawFade();
 }
 
+void SceneSelect::cursorSave()
+{
+	if (m_stageSelectNum == 1 || m_stageSelectNum == 6 || m_stageSelectNum == 11 || m_stageSelectNum == 16) m_cursorTestX = 1;
+	if (m_stageSelectNum == 2 || m_stageSelectNum == 7 || m_stageSelectNum == 12 || m_stageSelectNum == 17) m_cursorTestX = 2;
+	if (m_stageSelectNum == 3 || m_stageSelectNum == 8 || m_stageSelectNum == 13 || m_stageSelectNum == 18) m_cursorTestX = 3;
+	if (m_stageSelectNum == 4 || m_stageSelectNum == 9 || m_stageSelectNum == 14 || m_stageSelectNum == 19) m_cursorTestX = 4;
+	if (m_stageSelectNum == 5 || m_stageSelectNum == 10 || m_stageSelectNum == 15 || m_stageSelectNum == 20) m_cursorTestX = 5;
+	if (m_stageSelectNum >= 1 && m_stageSelectNum <= 5) m_cursorTestY = 1;
+	if (m_stageSelectNum >= 6 && m_stageSelectNum <= 10) m_cursorTestY = 2;
+	if (m_stageSelectNum >= 11 && m_stageSelectNum <= 15) m_cursorTestY = 3;
+	if (m_stageSelectNum >= 16 && m_stageSelectNum <= 20) m_cursorTestY = 4;
+}
+
 // 難易度表示
 void SceneSelect::difficultyDraw()
 {
-	draw::MyDrawRectRotaGraph(250, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starTest, true, false);
+	draw::MyDrawRectRotaGraph(250, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);
 	//SetDrawBright(255, 255, 0);
-	draw::MyDrawRectRotaGraph(350, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starTest, true, false);
+	draw::MyDrawRectRotaGraph(350, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);
 	//SetDrawBright(255, 255, 255);
-	draw::MyDrawRectRotaGraph(450, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starTest, true, false);
-	draw::MyDrawRectRotaGraph(550, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starTest, true, false);
-	draw::MyDrawRectRotaGraph(650, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starTest, true, false);
+	draw::MyDrawRectRotaGraph(450, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);
+	draw::MyDrawRectRotaGraph(550, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);
+	draw::MyDrawRectRotaGraph(650, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);
 
-	if (m_cursorY == 1)
+	if (m_cursorTestY == 1)
 	{
-		if (m_cursorX == 1)
+		if (m_cursorTestX == 1)
 		{
 			difficulty1Draw();
 		}
-		if (m_cursorX == 2)
+		if (m_cursorTestX == 2)
 		{
 			difficulty1Draw();
 		}
-		if (m_cursorX == 3)
+		if (m_cursorTestX == 3)
 		{
 			difficulty1Draw();
 		}
-		if (m_cursorX == 4)
+		if (m_cursorTestX == 4)
 		{
 			difficulty2Draw();
 		}
-		if (m_cursorX == 5)
+		if (m_cursorTestX == 5)
 		{
 			difficulty2Draw();
 		}
 	}
-	if (m_cursorY == 2)
+	if (m_cursorTestY == 2)
 	{
-		if (m_cursorX == 1)
+		if (m_cursorTestX == 1)
 		{
 			difficulty1Draw();
 		}
-		if (m_cursorX == 2)
+		if (m_cursorTestX == 2)
 		{
 			difficulty2Draw();
 		}
-		if (m_cursorX == 3)
+		if (m_cursorTestX == 3)
 		{
 			difficulty2Draw();
 		}
-		if (m_cursorX == 4)
+		if (m_cursorTestX == 4)
 		{
 			difficulty3Draw();
 		}
-		if (m_cursorX == 5)
+		if (m_cursorTestX == 5)
 		{
 			difficulty3Draw();
 		}
 	}
-	if (m_cursorY == 3)
+	if (m_cursorTestY == 3)
 	{
-		if (m_cursorX == 1)
+		if (m_cursorTestX == 1)
 		{
 			difficulty2Draw();
 		}
-		if (m_cursorX == 2)
+		if (m_cursorTestX == 2)
 		{
 			difficulty3Draw();
 		}
-		if (m_cursorX == 3)
+		if (m_cursorTestX == 3)
 		{
 			difficulty4Draw();
 		}
-		if (m_cursorX == 4)
+		if (m_cursorTestX == 4)
 		{
 			difficulty4Draw();
 		}
-		if (m_cursorX == 5)
+		if (m_cursorTestX == 5)
 		{
 			difficulty5Draw();
 		}
 	}
-	if (m_cursorY == 4)
+	if (m_cursorTestY == 4)
 	{
-		if (m_cursorX == 1)
+		if (m_cursorTestX == 1)
 		{
 			difficulty3Draw();
 		}
-		if (m_cursorX == 2)
+		if (m_cursorTestX == 2)
 		{
 			difficulty5Draw();
 		}
-		if (m_cursorX == 3)
+		if (m_cursorTestX == 3)
 		{
 			difficulty5Draw();
 		}
-		if (m_cursorX == 4)
+		if (m_cursorTestX == 4)
 		{
 			difficulty6Draw();
 		}
-		if (m_cursorX == 5)
+		if (m_cursorTestX == 5)
 		{
 			difficulty6Draw();
 		}
@@ -604,57 +576,57 @@ void SceneSelect::difficultyDraw()
 void SceneSelect::difficulty1Draw()
 {
 	SetDrawBright(255, 255, 0);
-	draw::MyDrawRectRotaGraph(250, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starTest, true, false);
+	draw::MyDrawRectRotaGraph(250, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);
 	SetDrawBright(255, 255, 255);
 }
 
 void SceneSelect::difficulty2Draw()
 {
 	SetDrawBright(255, 255, 0);
-	draw::MyDrawRectRotaGraph(250, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starTest, true, false);
-	draw::MyDrawRectRotaGraph(350, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starTest, true, false);
+	draw::MyDrawRectRotaGraph(250, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);
+	draw::MyDrawRectRotaGraph(350, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);
 	SetDrawBright(255, 255, 255);
 }
 
 void SceneSelect::difficulty3Draw()
 {
 	SetDrawBright(255, 255, 0);
-	draw::MyDrawRectRotaGraph(250, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starTest, true, false);
-	draw::MyDrawRectRotaGraph(350, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starTest, true, false);
-	draw::MyDrawRectRotaGraph(450, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starTest, true, false);
+	draw::MyDrawRectRotaGraph(250, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);
+	draw::MyDrawRectRotaGraph(350, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);
+	draw::MyDrawRectRotaGraph(450, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);
 	SetDrawBright(255, 255, 255);
 }
 
 void SceneSelect::difficulty4Draw()
 {
 	SetDrawBright(255, 255, 0);
-	draw::MyDrawRectRotaGraph(250, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starTest, true, false);
-	draw::MyDrawRectRotaGraph(350, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starTest, true, false);
-	draw::MyDrawRectRotaGraph(450, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starTest, true, false);
-	draw::MyDrawRectRotaGraph(550, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starTest, true, false);
+	draw::MyDrawRectRotaGraph(250, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);
+	draw::MyDrawRectRotaGraph(350, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);
+	draw::MyDrawRectRotaGraph(450, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);
+	draw::MyDrawRectRotaGraph(550, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);
 	SetDrawBright(255, 255, 255);
 }
 
 void SceneSelect::difficulty5Draw()
 {
 	SetDrawBright(255, 255, 0);
-	draw::MyDrawRectRotaGraph(250, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starTest, true, false);
-	draw::MyDrawRectRotaGraph(350, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starTest, true, false);
-	draw::MyDrawRectRotaGraph(450, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starTest, true, false);
-	draw::MyDrawRectRotaGraph(550, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starTest, true, false);
-	draw::MyDrawRectRotaGraph(650, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starTest, true, false);
+	draw::MyDrawRectRotaGraph(250, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);
+	draw::MyDrawRectRotaGraph(350, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);
+	draw::MyDrawRectRotaGraph(450, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);
+	draw::MyDrawRectRotaGraph(550, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);
+	draw::MyDrawRectRotaGraph(650, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);
 	SetDrawBright(255, 255, 255);
 }
 
 void SceneSelect::difficulty6Draw()
 {
 	SetDrawBright(255, 255, 0);
-	draw::MyDrawRectRotaGraph(250, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starTest, true, false);
-	draw::MyDrawRectRotaGraph(350, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starTest, true, false);
-	draw::MyDrawRectRotaGraph(450, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starTest, true, false);
-	draw::MyDrawRectRotaGraph(550, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starTest, true, false);
-	draw::MyDrawRectRotaGraph(650, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starTest, true, false);
+	draw::MyDrawRectRotaGraph(250, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);
+	draw::MyDrawRectRotaGraph(350, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);
+	draw::MyDrawRectRotaGraph(450, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);
+	draw::MyDrawRectRotaGraph(550, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);
+	draw::MyDrawRectRotaGraph(650, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);
 	SetDrawBright(255, 0, 0);
-	draw::MyDrawRectRotaGraph(750, 50, 0, 0, 32, 32, 2.5f, 0.0f, m_starTest, true, false);
+	draw::MyDrawRectRotaGraph(750, 50, 0, 0, 32, 32, 2.5f, 0.0f, m_starHandle, true, false);
 	SetDrawBright(255, 255, 255);
 }
