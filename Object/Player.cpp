@@ -266,59 +266,6 @@ void Player::operation(bool colL, bool colR, bool colUp, bool colDown)
 	}
 }
 
-void Player::CreateParticle(int x, int y)
-{
-	int i;
-	// 使われていないパーティクルデータ
-	for (i = 0; i < kMaxSpark; i++)
-	{
-		if (!Particle[i].UsingFlag) break;
-		
-	}
-
-	// 使われていないデータを出す
-	if (i != kMaxSpark)
-	{
-		Particle[i].X = x /** 100*/;
-		Particle[i].Y = y /** 100*/;
-
-		// 移動直設定
-		Particle[i].VecX = GetRand(100);
-		Particle[i].VecY = -GetRand(50);
-
-		// パーティクルの重さ
-		Particle[i].gravity = GetRand(10);
-
-		// パーティクルの明るさ
-		Particle[i].Bright = 255;
-
-		// データを使用中
-		Particle[i].UsingFlag = true;
-	}
-}
-
-void Player::moveParticle()
-{
-	for (int i = 0; i < kMaxSpark; i++)
-	{
-		// データ無効ならスキップ
-		if (!Particle[i].UsingFlag)	continue;
-
-		// 位置をずらす
-		Particle[i].Y += Particle[i].VecY;
-		Particle[i].X += Particle[i].VecX;
-
-		// 移動力変更
-		Particle[i].VecY += Particle[i].gravity;
-
-		// パーティクルの明るさを下げる
-		Particle[i].Bright -= 2;
-
-		// パーティクルの明るさが０になったら無効化
-		if (Particle[i].Bright < 0)	Particle[i].UsingFlag = false;
-	}
-}
-
 // プレイヤーの描画
 void Player::playerDraw(int x, int y)
 {

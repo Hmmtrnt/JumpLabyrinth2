@@ -2,21 +2,6 @@
 #pragma once
 #include "../Util/common.h"
 
-namespace
-{
-	constexpr int kMaxSpark = 800;
-}
-
-// パーティクルデータ型
-struct PARTICLE
-{
-	bool UsingFlag; // 使用中かどうか
-	int X, Y;		// パーティクル位置
-	int VecX, VecY;	// パーティクルの移動
-	int gravity;	// パーティクルの重力
-	int Bright;		// パーティクルの明るさ
-};
-
 class Player
 {
 public:
@@ -44,11 +29,6 @@ public:
 
 	// プレイヤー操作
 	void operation(bool colL,bool colR, bool colUp, bool colDown);
-
-	// プレイヤーの着地のパーティクル
-	void CreateParticle(int x, int y);
-	// パーティクルを動かす
-	void moveParticle();
 
 	// プレイヤーの配列の位置
 	int m_posX;			// X座標
@@ -99,6 +79,4 @@ private:
 	int testX = 0;
 	int testY = 0;
 
-	// パーティクルデータ
-	PARTICLE Particle[kMaxSpark];
 };
