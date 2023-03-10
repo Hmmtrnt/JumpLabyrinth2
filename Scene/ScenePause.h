@@ -16,6 +16,8 @@ public:
 	void updateClearPause();// クリアポーズ更新
 	void drawClearPause();	// クリアポーズ表示
 
+	void movePause();		// ポーズ画面移動
+
 	// 押した回数の情報取得
 	int GetPushNum(){ return m_pushNum; }
 
@@ -42,6 +44,10 @@ private:
 	int m_posClearTextY2;		// 2
 	int m_posClearTextY3;		// 3
 	int m_itemNum;				// 選択できる範囲
+	int m_CursorPosX;			// カーソル座標	X座標
+	int m_CursorPosY;			// カーソル座標	Y座標
+	int m_movePosX;				// 動く座標
+	int m_vecPauseX;			// ポーズ画面の動く速さ
 
 	// 音ハンドル
 	int m_cursorSound;		// カーソル移動音

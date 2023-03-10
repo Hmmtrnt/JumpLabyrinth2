@@ -26,6 +26,10 @@ ScenePause::ScenePause() :
 	m_posClearTextY2(0),
 	m_posClearTextY3(0),
 	m_itemNum(0),
+	m_CursorPosX(0),
+	m_CursorPosY(0),
+	m_movePosX(0),
+	m_vecPauseX(0),
 	m_cursorSound(-1),
 	m_cursorNotSound(-1),
 	m_isCursorInit(false),
@@ -46,11 +50,11 @@ void ScenePause::init()
 	m_posClearCursorX = 750;
 	m_posClearCursorY = 400;
 	m_pushNum = 0;
-	m_posClearPauseX = 700;
+	m_posClearPauseX = 2700;
 	m_posClearPauseY = 250;
-	m_sizeClearPauseX = 1200;
-	m_sizeClearPauseY = 700;
-	m_posClearTextX = 800;
+	m_sizeClearPauseX = 500;
+	m_sizeClearPauseY = 450;
+	m_posClearTextX = -1150;
 	m_pauseCursorNum = 495;
 	
 	m_isStage20 = m_stageSelectNum == 20;
@@ -59,6 +63,8 @@ void ScenePause::init()
 	m_posClearTextY1 = 400;
 	m_posClearTextY2 = 500;
 	m_posClearTextY3 = 600;
+	m_movePosX = -1200;
+	m_vecPauseX = 100;
 	m_cursorSound = LoadSoundMem("sound/cursorSound.mp3");
 	m_cursorNotSound = LoadSoundMem("sound/landingSound.mp3");
 }
@@ -207,6 +213,7 @@ void ScenePause::updateClearPause()
 	{
 		m_FillBox = true;
 	}
+	movePause();
 }
 
 void ScenePause::drawClearPause()
@@ -217,12 +224,12 @@ void ScenePause::drawClearPause()
 	DrawBox(0, 0, Game::kScreenWidth, Game::kScreenHeight, kColor::Black, true);
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 200);
 	DrawBox(m_posClearPauseX, m_posClearPauseY, 
-		m_sizeClearPauseX, m_sizeClearPauseY, kColor::Yellow, true);
+		m_posClearPauseX + m_sizeClearPauseX, m_posClearPauseY + m_sizeClearPauseY, kColor::Yellow, true);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 	DrawBox(m_posClearPauseX, m_posClearPauseY, 
-		m_sizeClearPauseX, m_sizeClearPauseY, kColor::Black, false);
+		m_posClearPauseX + m_sizeClearPauseX, m_posClearPauseY + m_sizeClearPauseY, kColor::Black, false);
 
-	m_posClearCursorX = 750;
+	m_posClearCursorX = m_movePosX;
 	m_posClearCursorY = m_clearCursorNum;
 	if (m_isStage20)
 	{
@@ -236,43 +243,44 @@ void ScenePause::drawClearPause()
 		m_posClearCursorY++;
 	}
 	
+	// カーソル未選択の枠
 	if (!m_isStage20)
 	{
-		int posX = 750;
-		int posY = 395;
+		m_CursorPosX = m_movePosX;
+		m_CursorPosY = 395;
+
 		for (int y = 0; y < 3; y++)
 		{
 			for (int x = 0; x < 2; x++)
 			{
-				DrawBox(posX, posY, posX + 400, posY + 70, kColor::Black, false);
-				posX++;
-				posY++;
+				DrawBox(m_CursorPosX, m_CursorPosY, m_CursorPosX + 400, m_CursorPosY + 70, kColor::Black, false);
+				m_CursorPosX++;
+				m_CursorPosY++;
 			}
-			posX = 750;
-			posY -= 2;
-			posY += 100;
+			m_CursorPosX = m_movePosX;
+			m_CursorPosY -= 2;
+			m_CursorPosY += 100;
 		}
 	}
 	else
 	{
-		int posX = 750;
-		int posY = 495;
+		m_CursorPosX = m_movePosX;
+		m_CursorPosY = 395;
 		for (int y = 0; y < 2; y++)
 		{
 			for (int x = 0; x < 2; x++)
 			{
-				DrawBox(posX, posY, posX + 400, posY + 70, kColor::Black, false);
-				posX++;
-				posY++;
+				DrawBox(m_CursorPosX, m_CursorPosY, m_CursorPosX + 400, m_CursorPosY + 70, kColor::Black, false);
+				m_CursorPosX++;
+				m_CursorPosY++;
 			}
-			posX = 750;
-			posY -= 2;
-			posY += 100;
+			m_CursorPosX = m_movePosX;
+			m_CursorPosY -= 2;
+			m_CursorPosY += 100;
 		}
 	}
-	
-	
 
+	// メニューの文字描画
 	if (m_isStage20)
 	{
 		DrawStringToHandle(m_posClearTextX - 48, m_posClearTextY1 + 2, "CONGRATULATION!", kColor::Black, m_textHandle);
@@ -291,13 +299,9 @@ void ScenePause::drawClearPause()
 			DrawStringToHandle(m_posClearTextX + 10, m_posClearTextY1, "NEXT STAGE", kColor::White, m_textHandle);
 		}
 	}
-
-	
 	
 	DrawStringToHandle(m_posClearTextX + 12, 302, "GAMECLEAR!", kColor::Black, m_textHandle);
 	DrawStringToHandle(m_posClearTextX + 10, 300, "GAMECLEAR!", kColor::White, m_textHandle);
-	
-	
 	
 	DrawStringToHandle(m_posClearTextX - 18, m_posClearTextY2 + 2, "SELECT SCENE", kColor::Black, m_textHandle);
 	if ((m_FillBox && m_pushNum == 1 && !m_isStage20) || (m_FillBox && m_pushNum == 0 && m_isStage20))
@@ -312,8 +316,25 @@ void ScenePause::drawClearPause()
 		DrawStringToHandle(m_posClearTextX + 80, m_posClearTextY3, "RETRY", kColor::White, m_textHandle);
 	}
 	
-	//printfDx("%d\n", m_posCursorNum);
-
 	// 確認描画
 	//DrawFormatString(0, 0, kColor::Black, "%d", m_pushNum);
+}
+
+void ScenePause::movePause()
+{
+	m_posClearTextX += m_vecPauseX;
+	m_posClearPauseX -= m_vecPauseX;
+	m_movePosX += m_vecPauseX;
+	if (m_posClearTextX >= 800)
+	{
+		m_posClearTextX = 800;
+	}
+	if (m_posClearPauseX <= 700)
+	{
+		m_posClearPauseX = 700;
+	}
+	if (m_movePosX >= 750)
+	{
+		m_movePosX = 750;
+	}
 }
