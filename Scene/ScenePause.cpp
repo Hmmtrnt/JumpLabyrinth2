@@ -350,7 +350,7 @@ void ScenePause::movePause()
 	}
 }
 
-void ScenePause::particle()
+void ScenePause::particle(int x, int y)
 {
 	for (auto& pParticle : m_particle)
 	{

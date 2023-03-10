@@ -25,7 +25,7 @@ public:
 	int GetPushNum(){ return m_pushNum; }
 
 private:
-	void particle();
+	void particle(int x, int y);
 	void drawParticle();
 
 	// テキストハンドル
