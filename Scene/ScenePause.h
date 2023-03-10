@@ -25,7 +25,7 @@ public:
 	int GetPushNum(){ return m_pushNum; }
 
 private:
-	void particle(int x, int y);
+	void particle(int x, int y, int count);
 	void drawParticle();
 
 	// テキストハンドル
@@ -68,5 +68,6 @@ private:
 
 	// パーティクル
 	std::array<std::shared_ptr<CharParticle>, kParticle::ParticleNum> m_particle;
-	int m_flowerFrame;
+	int m_flowerFrame;		// 花火のようなパーティクル
+	int m_particleCount;	// パーティクルが発生する数
 };

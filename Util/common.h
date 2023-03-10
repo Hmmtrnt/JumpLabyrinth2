@@ -600,7 +600,7 @@ namespace kParticle
 {
 	constexpr int ParticleNum = 4096;
 	constexpr int ShowerInterval = 2;
-	constexpr int FlowerInterval = 120;
+	constexpr int FlowerInterval = 60;
 	constexpr int AuraInterval = 2;
 }
 

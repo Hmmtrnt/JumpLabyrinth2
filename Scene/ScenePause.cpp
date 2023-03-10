@@ -36,7 +36,8 @@ ScenePause::ScenePause() :
 	m_isCursorInit(false),
 	m_FillBox(false),
 	m_isStage20(false),
-	m_flowerFrame(0)
+	m_flowerFrame(0),
+	m_particleCount(0)
 {
 }
 
@@ -75,6 +76,7 @@ void ScenePause::init()
 		pParticle = std::make_shared<CharParticle>();
 	}
 	m_flowerFrame = kParticle::FlowerInterval;
+	m_particleCount = 0;
 }
 
 void ScenePause::end()
@@ -222,7 +224,32 @@ void ScenePause::updateClearPause()
 		m_FillBox = true;
 	}
 	movePause();
-	particle();
+
+	int x = 0;
+	int y = 0;
+	for (int i = 0; i < 3; i++)
+	{
+		particle(x, y, 64);
+		if (i == 0)
+		{
+			x = 450;
+			y = 250;
+		}
+		if (i == 1)
+		{
+			x = 550;
+			y = 550;
+		}
+		if (i == 2)
+		{
+			x = 1250;
+			y = 350;
+		}
+	}
+
+	//particle(450,250, 64);
+	//particle(1250,350);
+	//particle(500,700);
 }
 
 void ScenePause::drawClearPause()
@@ -350,7 +377,7 @@ void ScenePause::movePause()
 	}
 }
 
-void ScenePause::particle(int x, int y)
+void ScenePause::particle(int x, int y, int count)
 {
 	for (auto& pParticle : m_particle)
 	{
@@ -361,7 +388,7 @@ void ScenePause::particle(int x, int y)
 	m_flowerFrame--;
 	if (m_flowerFrame <= 0)
 	{
-		int count = 0;
+		m_particleCount = 0;
 		// 花火のようなパーティクル
 		for (auto& pParticle : m_particle)
 		{
@@ -372,8 +399,8 @@ void ScenePause::particle(int x, int y)
 			float randSpeed = static_cast<float>(GetRand(160)) / 10.0f + 1.0f;
 
 			Vec2 pos;
-			//pos.x =  + cosf(randSin) * 2.0f;
-			//sapos.y =  + sinf(randSin) * 2.0f;
+			pos.x = x + cosf(randSin) * 2.0f;
+			pos.y = y + sinf(randSin) * 2.0f;
 
 			Vec2 vec;
 			vec.x = cosf(randSin) * randSpeed;
@@ -385,8 +412,8 @@ void ScenePause::particle(int x, int y)
 			pParticle->setColor(kColor::Yellow);
 			pParticle->setGravity(0.4f);
 
-			count++;
-			if (count >= 64)
+			m_particleCount++;
+			if (m_particleCount >= count)
 			{
 				break;
 			}
