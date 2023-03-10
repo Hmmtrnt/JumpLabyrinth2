@@ -1,4 +1,5 @@
 #include "Stage.h"
+#include "CharParticle.h"
 
 namespace
 {
@@ -22,7 +23,10 @@ Stage::Stage() :
 	m_idxGoalY(0),
 	m_GoalFrame(0),
 	m_drawGoalFirst(0),
-	m_drawGoalSecond(0)
+	m_drawGoalSecond(0),
+	m_showerFrame(0),
+	m_particleFrame(0),
+	m_auraFrame(0)
 {
 	for (int y = 0; y < kVariable::StageWidth; y++)
 	{
@@ -59,6 +63,13 @@ void Stage::initCommon()
 	m_GoalFrame = 0;
 	m_drawGoalFirst = 30;
 	m_drawGoalSecond = 30;
+	for (auto& pParticle : m_particle)
+	{
+		pParticle = std::make_shared<CharParticle>();
+	}
+	m_showerFrame = kParticle::kShowerInterval;
+	m_particleFrame = 0;
+	m_auraFrame = kParticle::kAuraInterval;
 }
 
 // ダブルポインタ
@@ -105,6 +116,8 @@ void Stage::draw()
 			stageDraw(x, y);
 		}
 	}
+
+	drawParticle();
 	// 変数確認用描画
 	//DrawFormatString(600, 200, kColor::Red, "m_gimmickFrame:%d", m_gimmickFrame);
 	//DrawFormatString(600, 250, kColor::Red, "m_inflate:%d", m_inflate);
@@ -201,7 +214,10 @@ void Stage::stageDraw(int x, int y)
 			40, 40,
 			1.7f, 0.0f,
 			m_handleGoal, true, false);
-
+		// パーティクル
+		particle(kVariable::DrawPosition + (x * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
+			(y * kVariable::DrawWidth) + (kVariable::DrawWidth / 2));
+		
 	}
 	// 9:壁
 	else if (m_stage[y][x] == 9)
@@ -259,5 +275,62 @@ void Stage::needleDraw(int x, int y)
 			40, 40,
 			kNeedleSize, PI / 1,
 			m_handleSmallNeedle, true, false);
+	}
+}
+
+void Stage::particle(int x, int y)
+{
+	for (auto& pParticle : m_particle)
+	{
+		if (!pParticle->isExist())	continue;
+		pParticle->update();
+	}
+	m_auraFrame--;
+	if (m_auraFrame <= 0)
+	{
+		int count = 0;
+		// 円状から中心へ
+		for (auto& pParticle : m_particle)
+		{
+			if (pParticle->isExist())  continue;
+
+			float randSin = static_cast<float>(GetRand(360)) / 360.0f;
+			randSin *= DX_TWO_PI_F;
+			float randSpeed = static_cast<float>(GetRand(60)) / 10.0f + 1.0f;
+
+			Vec2 pos;
+			float dist = static_cast<float>(50 + GetRand(32));
+			pos.x = x + cosf(randSin) * dist;
+			pos.y = y + sinf(randSin) * dist;
+
+			Vec2 vec;
+			vec.x = -cosf(randSin) * randSpeed;
+			vec.y = -sinf(randSin) * randSpeed;
+
+			pParticle->start(pos);
+			pParticle->setVec(vec);
+			pParticle->setRadius(2.0f);
+			//pParticle->setColor(kColor::Yellow);
+			pParticle->setGravity(0.0f);
+			pParticle->setAlphaDec(16);
+			pParticle->setRadiusAcc(-0.05f);
+
+			count++;
+			if (count >= 32)
+			{
+				break;
+			}
+		}
+		m_auraFrame = kParticle::kAuraInterval;
+	}
+	
+}
+
+void Stage::drawParticle()
+{
+	for (auto& pParticle : m_particle)
+	{
+		if (!pParticle->isExist())  continue;
+		pParticle->drawStage();
 	}
 }

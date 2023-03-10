@@ -7,7 +7,7 @@
 namespace
 {
 	const char* const kTitleText = "Jump Labyrinth";
-	const char* const kGuideText = "Press Any Botton";
+	const char* const kGuideText = "Press Any Button";
 	// BGM‚Ì‰¹—Ê
 	constexpr int kVolumeBgm = 100;
 }
@@ -102,7 +102,7 @@ SceneBase* SceneTitle::update()
 		if (Pad::isTrigger(PAD_INPUT_1) || Pad::isTrigger(PAD_INPUT_2) || Pad::isTrigger(PAD_INPUT_3) || 
 			Pad::isTrigger(PAD_INPUT_4) || Pad::isTrigger(PAD_INPUT_UP) || Pad::isTrigger(PAD_INPUT_DOWN) || 
 			Pad::isTrigger(PAD_INPUT_RIGHT) || Pad::isTrigger(PAD_INPUT_LEFT) || Pad::isTrigger(PAD_INPUT_5) ||
-			Pad::isTrigger(PAD_INPUT_6) || Pad::isTrigger(PAD_INPUT_8))
+			Pad::isTrigger(PAD_INPUT_6) || Pad::isTrigger(PAD_INPUT_7) || Pad::isTrigger(PAD_INPUT_8))
 		{
 			m_textShow = 5;
 			m_textHide = 5;

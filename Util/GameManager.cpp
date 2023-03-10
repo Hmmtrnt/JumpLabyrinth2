@@ -21,7 +21,7 @@ GameManager::GameManager() :
 	m_shrink(0),
 	m_inflate(0),
 	m_timeLagCount(0),
-	m_gameOverCount(60),
+	m_gameOverCount(0),
 	m_frameCountGameOver(0),
 	m_handleNeedle(-1),
 	m_goalSound(0),
@@ -67,6 +67,7 @@ void GameManager::initCommon()
 	m_shrink = 50;
 	m_inflate = 50;
 	m_timeLagCount = 30;
+	m_gameOverCount = 30;
 	m_frameCountGameOver = 30;
 	m_handleNeedle = draw::MyLoadGraph("data/needle2.png");
 	m_goalSound = LoadSoundMem("sound/goalSound.mp3");

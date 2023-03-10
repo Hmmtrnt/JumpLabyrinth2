@@ -595,8 +595,14 @@ namespace kPlayer
 	};
 }
 
-// ショットの配列
-
+// パーティクル
+namespace kParticle
+{
+	constexpr int kParticleNum = 4096;
+	constexpr int kShowerInterval = 2;
+	constexpr int kFlowerInterval = 120;
+	constexpr int kAuraInterval = 2;
+}
 
 // 色
 namespace kColor

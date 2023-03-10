@@ -72,7 +72,7 @@ void Player::initCommon()
 	{
 		pParticle = std::make_shared<CharParticle>();
 	}
-	m_showerFrame = kShowerInterval;
+	m_showerFrame = kParticle::kShowerInterval;
 	m_particleFrame = 0;
 	m_landing = true;
 }
@@ -335,7 +335,10 @@ void Player::particleTime()
 {
 	// パーティクル表示するタイマー
 	if (m_speedX == 0 && m_speedY == 0)	m_landing = true;
-	if (m_speedX != 0 || m_speedY != 0)	m_landing = false;
+	if (Pad::isTrigger(PAD_INPUT_UP) || Pad::isTrigger(PAD_INPUT_DOWN) ||
+		Pad::isTrigger(PAD_INPUT_RIGHT) || Pad::isTrigger(PAD_INPUT_LEFT)) m_landing = false;
+
+	//if (m_speedX != 0 || m_speedY != 0)	m_landing = false;
 
 	if (m_landing)
 	{
@@ -412,7 +415,7 @@ void Player::particle(int x, int y, float rota)
 				break;
 			}
 		}
-		m_showerFrame = kShowerInterval;
+		m_showerFrame = kParticle::kShowerInterval;
 	}
 	
 }
@@ -422,6 +425,6 @@ void Player::drawParticle()
 	for (auto& pParticle : m_particle)
 	{
 		if (!pParticle->isExist())	continue;
-		pParticle->draw();
+		pParticle->drawPlayer();
 	}
 }

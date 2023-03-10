@@ -40,7 +40,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, 
 		ScreenFlip();
 
 		// セレクトボタンで終了７
-		if (Pad::isTrigger(PAD_INPUT_L)) break;
+		//if (Pad::isTrigger(PAD_INPUT_L)) break;
 
 
 		// escきーを押したら終了する

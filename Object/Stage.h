@@ -1,6 +1,12 @@
 // ステージ
 #pragma once
 #include "../Util/common.h"
+#include "../Util/Vec2.h"
+#include <array>
+#include <memory>
+
+class CharParticle;
+
 class Stage
 {
 public:
@@ -10,8 +16,6 @@ public:
 	void initCommon();	// 共通の初期化
 
 	void initStage(const int stage[][kVariable::StageWidth], int stageHeight, int stageWidth);	// 実験用初期化
-
-	void initP();		// プロトタイプ用初期化
 
 	void end();			// 終了
 	void update();		// 更新
@@ -26,6 +30,9 @@ private:
 	void stageDraw(int x, int y);
 	// 針の描画
 	void needleDraw(int x, int y);
+	// ゴールのパーティクル
+	void particle(int x, int y);	// 動き
+	void drawParticle();			// 描画
 
 	// ギミックの描画が変わる時間
 	int m_gimmickFrame;
@@ -54,4 +61,10 @@ private:
 	int m_drawGoalSecond;
 
 	int test = 0;
+
+	// パーティクル
+	std::array<std::shared_ptr<CharParticle>, kParticle::kParticleNum> m_particle;
+	int m_showerFrame;		// 描画するフレーム
+	int m_particleFrame;	// 表示する時間
+	int m_auraFrame;		// エリア
 };

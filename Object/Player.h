@@ -2,17 +2,16 @@
 #pragma once
 #include "../Util/common.h"
 #include "../Util/Vec2.h"
-//#include "CharParticle.h"
 #include <array>
 #include <memory>
 
-namespace
-{
-	constexpr int kParticleNum = 4096;
-	constexpr int kShowerInterval = 2;
-	constexpr int kFlowerInterval = 120;
-	constexpr int kAuraInterval = 2;
-}
+//namespace Char
+//{
+//	constexpr int kParticleNum = 4096;
+//	constexpr int kShowerInterval = 2;
+//	constexpr int kFlowerInterval = 120;
+//	constexpr int kAuraInterval = 2;
+//}
 
 class CharParticle;
 
@@ -93,7 +92,7 @@ private:
 	bool m_sound;
 
 	// パーティクル
-	std::array<std::shared_ptr<CharParticle>, kParticleNum> m_particle;
+	std::array<std::shared_ptr<CharParticle>, kParticle::kParticleNum> m_particle;
 	int m_showerFrame;		// 描画するフレーム
 	int m_particleFrame;	// 表示する時間
 	bool m_landing;			// 着地したかどうか
