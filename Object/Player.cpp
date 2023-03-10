@@ -72,7 +72,7 @@ void Player::initCommon()
 	{
 		pParticle = std::make_shared<CharParticle>();
 	}
-	m_showerFrame = kParticle::kShowerInterval;
+	m_showerFrame = kParticle::ShowerInterval;
 	m_particleFrame = 0;
 	m_landing = true;
 }
@@ -408,14 +408,14 @@ void Player::particle(int x, int y, float rota)
 			}
 			if (m_particleFrame > 1 && m_landing) pParticle->start(pos);
 			pParticle->setVec(vec);
-
+			pParticle->setColor(kColor::Brown);
 			count++;
 			if (count >= 4)
 			{
 				break;
 			}
 		}
-		m_showerFrame = kParticle::kShowerInterval;
+		m_showerFrame = kParticle::ShowerInterval;
 	}
 	
 }
@@ -425,6 +425,6 @@ void Player::drawParticle()
 	for (auto& pParticle : m_particle)
 	{
 		if (!pParticle->isExist())	continue;
-		pParticle->drawPlayer();
+		pParticle->draw();
 	}
 }

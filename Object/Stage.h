@@ -63,7 +63,7 @@ private:
 	int test = 0;
 
 	// パーティクル
-	std::array<std::shared_ptr<CharParticle>, kParticle::kParticleNum> m_particle;
+	std::array<std::shared_ptr<CharParticle>, kParticle::ParticleNum> m_particle;
 	int m_showerFrame;		// 描画するフレーム
 	int m_particleFrame;	// 表示する時間
 	int m_auraFrame;		// エリア

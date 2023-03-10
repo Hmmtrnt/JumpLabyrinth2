@@ -1,5 +1,6 @@
 ﻿#include "ScenePause.h"
 #include "../Util/Pad.h"
+#include "../Object/CharParticle.h"
 
 namespace
 {
@@ -34,7 +35,8 @@ ScenePause::ScenePause() :
 	m_cursorNotSound(-1),
 	m_isCursorInit(false),
 	m_FillBox(false),
-	m_isStage20(false)
+	m_isStage20(false),
+	m_flowerFrame(0)
 {
 }
 
@@ -67,6 +69,12 @@ void ScenePause::init()
 	m_vecPauseX = 100;
 	m_cursorSound = LoadSoundMem("sound/cursorSound.mp3");
 	m_cursorNotSound = LoadSoundMem("sound/landingSound.mp3");
+
+	for (auto& pParticle : m_particle)
+	{
+		pParticle = std::make_shared<CharParticle>();
+	}
+	m_flowerFrame = kParticle::FlowerInterval;
 }
 
 void ScenePause::end()
@@ -214,6 +222,7 @@ void ScenePause::updateClearPause()
 		m_FillBox = true;
 	}
 	movePause();
+	particle();
 }
 
 void ScenePause::drawClearPause()
@@ -265,7 +274,7 @@ void ScenePause::drawClearPause()
 	else
 	{
 		m_CursorPosX = m_movePosX;
-		m_CursorPosY = 395;
+		m_CursorPosY = 495;
 		for (int y = 0; y < 2; y++)
 		{
 			for (int x = 0; x < 2; x++)
@@ -290,6 +299,8 @@ void ScenePause::drawClearPause()
 			m_clearCursorNum = 500;
 			m_isCursorInit = true;
 		}
+		
+		drawParticle();
 	}
 	else
 	{
@@ -336,5 +347,59 @@ void ScenePause::movePause()
 	if (m_movePosX >= 750)
 	{
 		m_movePosX = 750;
+	}
+}
+
+void ScenePause::particle()
+{
+	for (auto& pParticle : m_particle)
+	{
+		if (!pParticle->isExist())	continue;
+		pParticle->update();
+	}
+
+	m_flowerFrame--;
+	if (m_flowerFrame <= 0)
+	{
+		int count = 0;
+		// 花火のようなパーティクル
+		for (auto& pParticle : m_particle)
+		{
+			if (pParticle->isExist()) continue;
+
+			float randSin = static_cast<float>(GetRand(360)) / 360.0f;
+			randSin *= DX_TWO_PI_F;
+			float randSpeed = static_cast<float>(GetRand(160)) / 10.0f + 1.0f;
+
+			Vec2 pos;
+			//pos.x =  + cosf(randSin) * 2.0f;
+			//sapos.y =  + sinf(randSin) * 2.0f;
+
+			Vec2 vec;
+			vec.x = cosf(randSin) * randSpeed;
+			vec.y = sinf(randSin) * randSpeed;
+
+			pParticle->start(pos);
+			pParticle->setVec(vec);
+			pParticle->setRadius(2.0f);
+			pParticle->setColor(kColor::Yellow);
+			pParticle->setGravity(0.4f);
+
+			count++;
+			if (count >= 64)
+			{
+				break;
+			}
+		}
+		m_flowerFrame = kParticle::FlowerInterval;
+	}
+}
+
+void ScenePause::drawParticle()
+{
+	for (auto& pParticle : m_particle)
+	{
+		if (!pParticle->isExist())	continue;
+		pParticle->draw();
 	}
 }

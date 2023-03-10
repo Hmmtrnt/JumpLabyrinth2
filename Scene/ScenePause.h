@@ -1,6 +1,9 @@
 #pragma once
 #include "../Util/common.h"
+#include <array>
+#include <memory>
 
+class CharParticle;
 
 class ScenePause
 {
@@ -22,6 +25,9 @@ public:
 	int GetPushNum(){ return m_pushNum; }
 
 private:
+	void particle();
+	void drawParticle();
+
 	// テキストハンドル
 	int m_textHandle;
 	// 矢印の位置
@@ -59,4 +65,8 @@ private:
 	bool m_FillBox;
 	// ステージ20であるかどうか
 	bool m_isStage20;
+
+	// パーティクル
+	std::array<std::shared_ptr<CharParticle>, kParticle::ParticleNum> m_particle;
+	int m_flowerFrame;
 };

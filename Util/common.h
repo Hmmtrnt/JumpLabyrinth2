@@ -598,10 +598,10 @@ namespace kPlayer
 // パーティクル
 namespace kParticle
 {
-	constexpr int kParticleNum = 4096;
-	constexpr int kShowerInterval = 2;
-	constexpr int kFlowerInterval = 120;
-	constexpr int kAuraInterval = 2;
+	constexpr int ParticleNum = 4096;
+	constexpr int ShowerInterval = 2;
+	constexpr int FlowerInterval = 120;
+	constexpr int AuraInterval = 2;
 }
 
 // 色

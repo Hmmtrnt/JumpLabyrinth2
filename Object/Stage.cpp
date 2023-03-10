@@ -67,9 +67,9 @@ void Stage::initCommon()
 	{
 		pParticle = std::make_shared<CharParticle>();
 	}
-	m_showerFrame = kParticle::kShowerInterval;
+	m_showerFrame = kParticle::ShowerInterval;
 	m_particleFrame = 0;
-	m_auraFrame = kParticle::kAuraInterval;
+	m_auraFrame = kParticle::AuraInterval;
 }
 
 // ダブルポインタ
@@ -310,7 +310,7 @@ void Stage::particle(int x, int y)
 			pParticle->start(pos);
 			pParticle->setVec(vec);
 			pParticle->setRadius(2.0f);
-			//pParticle->setColor(kColor::Yellow);
+			pParticle->setColor(kColor::Yellow);
 			pParticle->setGravity(0.0f);
 			pParticle->setAlphaDec(16);
 			pParticle->setRadiusAcc(-0.05f);
@@ -321,7 +321,7 @@ void Stage::particle(int x, int y)
 				break;
 			}
 		}
-		m_auraFrame = kParticle::kAuraInterval;
+		m_auraFrame = kParticle::AuraInterval;
 	}
 	
 }
@@ -331,6 +331,6 @@ void Stage::drawParticle()
 	for (auto& pParticle : m_particle)
 	{
 		if (!pParticle->isExist())  continue;
-		pParticle->drawStage();
+		pParticle->draw();
 	}
 }

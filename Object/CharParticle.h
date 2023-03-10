@@ -10,8 +10,7 @@ public:
 
 	void init();
 	virtual void update();
-	virtual void drawPlayer();
-	virtual void drawStage();
+	virtual void draw();
 
 	// ŠJn	‚Æ‚è‚ ‚¦‚¸‰ŠúˆÊ’u‚Ì‚İİ’è	‘¼‚Ì‚ÍŒÂ•Êİ’è
 	void start(Vec2 pos);

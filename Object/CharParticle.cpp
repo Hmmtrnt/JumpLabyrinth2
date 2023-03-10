@@ -43,29 +43,18 @@ void CharParticle::update()
 		m_isExist = false;
 	}
 	m_alpha -= m_alphaDec;
-	if (m_alpha < 100)
+	if (m_alpha < 0)
 	{
 		m_isExist = false;
 	}
 }
 
-void CharParticle::drawPlayer()
+void CharParticle::draw()
 {
 	if (!m_isExist)	return;
 
-	//	SetDrawBlendMode(DX_BLENDMODE_ALPHA, m_alpha);
 	SetDrawBlendMode(DX_BLENDMODE_ADD, m_alpha);
-	DrawCircleAA(m_pos.x, m_pos.y, m_radius, 16, kColor::Brown, true);
-	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
-}
-
-void CharParticle::drawStage()
-{
-	if (!m_isExist)	return;
-
-	//	SetDrawBlendMode(DX_BLENDMODE_ALPHA, m_alpha);
-	SetDrawBlendMode(DX_BLENDMODE_ADD, m_alpha);
-	DrawCircleAA(m_pos.x, m_pos.y, m_radius, 16, kColor::Yellow, true);
+	DrawCircleAA(m_pos.x, m_pos.y, m_radius, 16, m_color, true);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 }
 

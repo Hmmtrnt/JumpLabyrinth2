@@ -92,8 +92,8 @@ private:
 	bool m_sound;
 
 	// パーティクル
-	std::array<std::shared_ptr<CharParticle>, kParticle::kParticleNum> m_particle;
-	int m_showerFrame;		// 描画するフレーム
+	std::array<std::shared_ptr<CharParticle>, kParticle::ParticleNum> m_particle;
+	int m_showerFrame;		// 動き
 	int m_particleFrame;	// 表示する時間
 	bool m_landing;			// 着地したかどうか
 };
