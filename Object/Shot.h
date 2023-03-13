@@ -44,7 +44,6 @@ private:
 	int m_speedY3;
 	int m_speedX4;
 
-
 	// ‰æ‘œƒnƒ“ƒhƒ‹
 	int m_handle;
 

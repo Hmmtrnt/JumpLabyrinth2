@@ -91,18 +91,26 @@ void Back::init()
 	m_verX = 0;
 	m_verY = 0;
 
+	// フォント
 	m_textHandle = CreateFontToHandle("Silver", 50, -1, -1);
 
-	m_gimmickHandle = draw::MyLoadGraph("data/tileset/inca_front.png");
-	m_gimmickHandle2 = draw::MyLoadGraph("data/Textures-16.png");
+	// ステージ説明用描画
+	m_gimmickHandle = draw::MyLoadGraph("data/tileset/stage.png");// 即死以外
+	m_gimmickHandle2 = draw::MyLoadGraph("data/Trap.png");// 即死トラップ
 
+	// ボタン描画
 	m_buttonHandle = draw::MyLoadGraph("data/button.png");
-	m_buttonPauseLeftNum = 10;
-	m_buttonPauseTopNum = 14;
-	m_buttonHandleLeftNum = 1;
-	m_buttonHandleTopNum = 21;
-	m_buttohHandleDisplayTime = 30;
-	m_buttonHandleTime = 60;
+
+	// 切り取り頂点
+	// ポーズボタン
+	m_buttonPauseLeftNum = 10;// 左
+	m_buttonPauseTopNum = 14;// 上
+	// ABXY1ボタン
+	m_buttonHandleLeftNum = 1;// 左
+	m_buttonHandleTopNum = 21;// 上
+	// 描画時間
+	m_buttohHandleDisplayTime = 30;// 描画
+	m_buttonHandleTime = 60;// 全体
 
 	// 背景配列のサイズ取得
 	for (int y = 0; y < kVariable::BackHeight; y++)

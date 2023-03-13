@@ -4,7 +4,9 @@
 
 namespace
 {
+	// モーションフレーム
 	constexpr int motionCount = 40;
+	// 速さ
 	constexpr int speed = 68;
 	// BGMの音量
 	constexpr int kVolumeBgm = 255;
@@ -52,15 +54,17 @@ void Player::initCommon()
 	m_verYPlayer = 0;
 	m_frameCount = motionCount;
 	m_rota = 0.0f;
-	m_handle = draw::MyLoadGraph("data/AnimationSheet_Character.png");
-	m_handle2 = draw::MyLoadGraph("data/moveChar2.png");
-	m_jumpSound = LoadSoundMem("sound/jumpSound.mp3");
-	m_landingSound = LoadSoundMem("sound/landingSound.mp3");
+	// プレイヤー描画
+	m_handle = draw::MyLoadGraph("data/AnimationSheet_Character.png");// 立つモーション
+	m_handle2 = draw::MyLoadGraph("data/moveChar2.png");// 移動中
+	m_jumpSound = LoadSoundMem("sound/jumpSound.mp3");// ジャンプした音
+	m_landingSound = LoadSoundMem("sound/landingSound.mp3");// 着地した音
 	m_sound = true;
 
 	ChangeVolumeSoundMem(kVolumeBgm, m_landingSound);
 	ChangeVolumeSoundMem(kVolumeBgm, m_jumpSound);
 
+	// プレイヤーの配列
 	for (int y = 0; y < kVariable::PlayerWidth; y++)
 	{
 		for (int x = 0; x < kVariable::PlayerWidth; x++)
@@ -68,6 +72,7 @@ void Player::initCommon()
 			m_player[y][x] = kPlayer::playr[y][x];
 		}
 	}
+	// パーティクル
 	for (auto& pParticle : m_particle)
 	{
 		pParticle = std::make_shared<CharParticle>();
@@ -106,9 +111,9 @@ void Player::endTitle()
 	DeleteGraph(m_handle);
 }
 
-// 更新
 void Player::update()
 {
+	// 移動
 	m_frameX += m_speedX;
 	m_posX = m_frameX / kVariable::DrawWidth;
 	m_frameY += m_speedY;
@@ -117,16 +122,17 @@ void Player::update()
 
 void Player::updateInCollision(int& frameX, int& frameY)
 {
+	// 移動
 	m_frameX += m_speedX;
 	m_posX = m_frameX / kVariable::DrawWidth;
 	m_frameY += m_speedY;
 	m_posY = m_frameY / kVariable::DrawWidth;
 
+	// 当たり判定
 	frameX = m_frameX + (kVariable::DrawPosition + kVariable::DrawWidth);
 	frameY = m_frameY;
 }
 
-// 描画
 void Player::DrawGamePlay()
 {
 	for (int y = 0; y < kVariable::PlayerWidth; y++)
@@ -135,16 +141,11 @@ void Player::DrawGamePlay()
 		{
 			if (m_player[y][x] == 1)
 			{
-				playerDraw(x, y);
-				motion(x, y);
+				playerDraw(x, y);// プレイヤー
+				motion(x, y);// モーション
 			}
 		}
 	}
-
-	/*DrawFormatString(600, 0, GetColor(255, 0, 0), "m_frameCount:%d", m_frameCount);
-	DrawFormatString(600, 50, GetColor(255, 0, 0), "m_verXPlayer:%d", m_verXPlayer);
-	DrawFormatString(600, 100, GetColor(255, 0, 0), "m_verYPlayer:%d", m_verYPlayer);
-	DrawFormatString(600, 150, GetColor(255, 0, 0), "m_flameY:%d", m_frameY);*/
 }
 
 void Player::DrawTitle(int posX, int posY)
@@ -212,7 +213,6 @@ void Player::operation(bool colL, bool colR, bool colUp, bool colDown)
 				m_rota = PI / 1;
 				if (!colUp)
 				{
-					//PlaySoundMem(m_jumpSound, DX_PLAYTYPE_BACK, true);
 					m_speedY = -speed;
 				}
 			}
@@ -338,11 +338,8 @@ void Player::particleTime()
 	if (Pad::isTrigger(PAD_INPUT_UP) || Pad::isTrigger(PAD_INPUT_DOWN) ||
 		Pad::isTrigger(PAD_INPUT_RIGHT) || Pad::isTrigger(PAD_INPUT_LEFT)) m_landing = false;
 
-	//if (m_speedX != 0 || m_speedY != 0)	m_landing = false;
-
 	if (m_landing)
 	{
-
 		m_particleFrame--;
 		if (m_particleFrame <= 0)	m_particleFrame = 0;
 	}

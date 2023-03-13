@@ -15,8 +15,6 @@ public:
 	void drawMenuGuide();		// メニュー表示方法描画
 	void drawCloseGuide();		// ギミック説明表示方法描画
 
-	
-
 	// ヘルプ描画
 	void drawOpenGuide();				// ヘルプボタン誘導描画
 	void drawExplan2_5();			// 2から5ステージのギミック説明描画

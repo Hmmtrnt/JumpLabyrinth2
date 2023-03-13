@@ -33,7 +33,6 @@ Stage::Stage() :
 		for (int x = 0; x < kVariable::StageWidth; x++)
 		{
 			m_stage[y][x] = 0;
-			m_pStage[y][x] = 0;
 		}
 	}
 }
@@ -48,8 +47,8 @@ void Stage::initCommon()
 	m_shrink = 50;
 	m_inflate = 50;
 	// ステージハンドル
-	m_handleWall = draw::MyLoadGraph("data/tileset/inca_front.png");
-	m_handleTrap = draw::MyLoadGraph("data/Textures-16.png");
+	m_handleWall = draw::MyLoadGraph("data/tileset/stage.png");
+	m_handleTrap = draw::MyLoadGraph("data/Trap.png");
 	m_handleSmallNeedle = draw::MyLoadGraph("data/smallneedle.png");
 	m_handleGoal = draw::MyLoadGraph("data/goal1.png");
 
@@ -72,7 +71,6 @@ void Stage::initCommon()
 	m_auraFrame = kParticle::AuraInterval;
 }
 
-// ダブルポインタ
 void Stage::initStage(const int stage[][kVariable::StageWidth], int stageHeight, int stageWidth)
 {
 	initCommon();
@@ -109,6 +107,7 @@ void Stage::update()
 
 void Stage::draw()
 {
+	// ステージ描画
 	for (int y = 0; y < kVariable::StageWidth; y++)
 	{
 		for (int x = 0; x < kVariable::StageWidth; x++)
@@ -117,10 +116,8 @@ void Stage::draw()
 		}
 	}
 
+	// パーティクル描画
 	drawParticle();
-	// 変数確認用描画
-	//DrawFormatString(600, 200, kColor::Red, "m_gimmickFrame:%d", m_gimmickFrame);
-	//DrawFormatString(600, 250, kColor::Red, "m_inflate:%d", m_inflate);
 }
 
 void Stage::stageDraw(int x, int y)
@@ -198,6 +195,7 @@ void Stage::stageDraw(int x, int y)
 	// 8:ゴール
 	else if (m_stage[y][x] == 8)
 	{
+		// 描画モーションフレーム
 		if (m_GoalFrame < m_drawGoalFirst)
 		{
 			m_idxGoalX = 0;
@@ -294,16 +292,16 @@ void Stage::particle(int x, int y)
 		{
 			if (pParticle->isExist())  continue;
 
-			float randSin = static_cast<float>(GetRand(360)) / 360.0f;
+			float randSin = static_cast<float>(GetRand(360)) / 360.0f;// 角度
 			randSin *= DX_TWO_PI_F;
-			float randSpeed = static_cast<float>(GetRand(60)) / 10.0f + 1.0f;
+			float randSpeed = static_cast<float>(GetRand(60)) / 10.0f + 1.0f;// スピード
 
-			Vec2 pos;
-			float dist = static_cast<float>(50 + GetRand(32));
+			Vec2 pos;// 座標
+			float dist = static_cast<float>(50 + GetRand(32));// 角度
 			pos.x = x + cosf(randSin) * dist;
 			pos.y = y + sinf(randSin) * dist;
 
-			Vec2 vec;
+			Vec2 vec;// 移動
 			vec.x = -cosf(randSin) * randSpeed;
 			vec.y = -sinf(randSin) * randSpeed;
 

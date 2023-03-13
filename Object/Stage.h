@@ -14,16 +14,12 @@ public:
 	virtual ~Stage();
 
 	void initCommon();	// 共通の初期化
-
 	void initStage(const int stage[][kVariable::StageWidth], int stageHeight, int stageWidth);	// 実験用初期化
-
 	void end();			// 終了
 	void update();		// 更新
 	void draw();		// 描画
 
-	int m_stage[kVariable::StageWidth][kVariable::StageWidth];
-
-	int* m_pStage[kVariable::StageWidth][kVariable::StageWidth];
+	int m_stage[kVariable::StageWidth][kVariable::StageWidth];// ステージ
 
 private:
 	// ステージの描画
@@ -42,10 +38,10 @@ private:
 	int m_inflate;
 
 	// ステージハンドル
-	int m_handleWall;		// 触れる判定のハンドル
-	int m_handleTrap;		// 敵判定のハンドル
+	int m_handleWall;// 触れる判定のハンドル
+	int m_handleTrap;// 敵判定のハンドル
 	int m_handleSmallNeedle;// 少し出てる針
-	int m_handleGoal;
+	int m_handleGoal;// ゴール
 
 	// 切り取る左上の頂点
 	int m_verX;
@@ -56,11 +52,9 @@ private:
 	int m_idxGoalY;
 
 	// ゴールのモーション引数
-	int m_GoalFrame;
-	int m_drawGoalFirst;
-	int m_drawGoalSecond;
-
-	int test = 0;
+	int m_GoalFrame;// 全体
+	int m_drawGoalFirst;// 一枚目
+	int m_drawGoalSecond;// 二枚目
 
 	// パーティクル
 	std::array<std::shared_ptr<CharParticle>, kParticle::ParticleNum> m_particle;

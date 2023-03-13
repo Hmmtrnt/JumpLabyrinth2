@@ -1,10 +1,11 @@
 #include "Shot.h"
 #include "../Util/Pad.h"
 
-
 namespace
 {
+	// ƒVƒ‡ƒbƒg‚Ì‘å‚«‚³
 	constexpr float kShotSize = 1.7f;
+	// “®‚«
 	constexpr int kVec = kVariable::DrawWidth;
 }
 
@@ -21,7 +22,6 @@ Shot::Shot() :
 	m_frameCount(0),
 	m_pushPause(false)
 {
-
 }
 
 Shot::~Shot()
@@ -58,7 +58,6 @@ void Shot::update()
 		if (m_pushPause == false)
 		{
 			m_pushPause = true;
-			//init();
 		}
 		else if (m_pushPause == true)
 		{

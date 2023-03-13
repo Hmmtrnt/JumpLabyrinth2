@@ -5,14 +5,6 @@
 #include <array>
 #include <memory>
 
-//namespace Char
-//{
-//	constexpr int kParticleNum = 4096;
-//	constexpr int kShowerInterval = 2;
-//	constexpr int kFlowerInterval = 120;
-//	constexpr int kAuraInterval = 2;
-//}
-
 class CharParticle;
 
 class Player
@@ -22,23 +14,23 @@ public:
 	virtual ~Player();
 
 	// 初期化一覧
-	void initCommon();	// 共通の初期化
+	void initCommon();// 共通の初期化
 
-	void initPlayer(int posX, int posY, int frameX, int frameY);	// 実験用初期化
+	void initPlayer(int posX, int posY, int frameX, int frameY);// 実験用初期化
 
-	void initTitle();
+	void initTitle();// タイトルの初期化
 	
-	void end();			// 終了
+	void end();// 終了
 
-	void endTitle();	// タイトル画面の終了
+	void endTitle();// タイトル画面の終了
 
-	void update();		// 更新
+	void update();// 更新
 
 	void updateInCollision(int &frameX, int &frameY);	// キャラクターの当たり判定入り更新
 
 	// 描画
 	void DrawGamePlay();		// プレイ中
-	void DrawTitle(int posX, int posY);
+	void DrawTitle(int posX, int posY);// タイトル描画
 
 	// プレイヤー操作
 	void operation(bool colL,bool colR, bool colUp, bool colDown);
