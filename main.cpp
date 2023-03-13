@@ -11,6 +11,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, 
 	SetMainWindowText(Game::kTitleText);
 	// 画面サイズの設定
 	SetGraphMode(Game::kScreenWidth, Game::kScreenHeight, Game::kColorDepth);
+	// ウインドウモード時大きさ変更可能
+	SetWindowSizeChangeEnableFlag(true);
 
 
 	if (DxLib_Init() == -1)		// ＤＸライブラリ初期化処理
@@ -21,6 +23,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, 
 	// ダブルバッファモード
 	SetDrawScreen(DX_SCREEN_BACK);
 
+	// シーンのポインタ
 	SceneManager scene;
 	scene.init();
 
@@ -33,15 +36,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, 
 		scene.update();
 		scene.draw();
 
-		//auto drawcall = GetDrawCallCount();// 描画命令数
-		//DrawFormatString(10, 30, 0xffffff, "DC=%d", drawcall);
-
 		// 裏画面を表画面を入れ替える
 		ScreenFlip();
-
-		// セレクトボタンで終了７
-		//if (Pad::isTrigger(PAD_INPUT_L)) break;
-
 
 		// escきーを押したら終了する
 		if (CheckHitKey(KEY_INPUT_ESCAPE))	break;

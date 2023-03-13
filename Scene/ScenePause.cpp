@@ -37,7 +37,9 @@ ScenePause::ScenePause() :
 	m_FillBox(false),
 	m_isStage20(false),
 	m_flowerFrame(0),
-	m_particleCount(0)
+	m_particleCount(0),
+	testX(0),
+	testY(0)
 {
 }
 
@@ -77,6 +79,8 @@ void ScenePause::init()
 	}
 	m_flowerFrame = kParticle::FlowerInterval;
 	m_particleCount = 0;
+	testX = 450;
+	testY = 250;
 }
 
 void ScenePause::end()
@@ -225,37 +229,11 @@ void ScenePause::updateClearPause()
 	}
 	movePause();
 
-	int x = 0;
-	int y = 0;
-	for (int i = 0; i < 3; i++)
-	{
-		particle(x, y, 64);
-		if (i == 0)
-		{
-			x = 450;
-			y = 250;
-		}
-		if (i == 1)
-		{
-			x = 550;
-			y = 550;
-		}
-		if (i == 2)
-		{
-			x = 1250;
-			y = 350;
-		}
-	}
-
-	//particle(450,250, 64);
-	//particle(1250,350);
-	//particle(500,700);
+	particle(150);
 }
 
 void ScenePause::drawClearPause()
 {
-	//bool isStage20 = m_stageSelectNum == 20;
-
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 100);
 	DrawBox(0, 0, Game::kScreenWidth, Game::kScreenHeight, kColor::Black, true);
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 200);
@@ -377,7 +355,7 @@ void ScenePause::movePause()
 	}
 }
 
-void ScenePause::particle(int x, int y, int count)
+void ScenePause::particle(int count)
 {
 	for (auto& pParticle : m_particle)
 	{
@@ -396,11 +374,11 @@ void ScenePause::particle(int x, int y, int count)
 
 			float randSin = static_cast<float>(GetRand(360)) / 360.0f;
 			randSin *= DX_TWO_PI_F;
-			float randSpeed = static_cast<float>(GetRand(160)) / 10.0f + 1.0f;
+			float randSpeed = static_cast<float>(GetRand(200)) / 10.0f + 1.0f;
 
 			Vec2 pos;
-			pos.x = x + cosf(randSin) * 2.0f;
-			pos.y = y + sinf(randSin) * 2.0f;
+			pos.x = testX + cosf(randSin) * 2.0f;
+			pos.y = testY + sinf(randSin) * 2.0f;
 
 			Vec2 vec;
 			vec.x = cosf(randSin) * randSpeed;
@@ -415,6 +393,27 @@ void ScenePause::particle(int x, int y, int count)
 			m_particleCount++;
 			if (m_particleCount >= count)
 			{
+				if (first)
+				{
+					first = false;
+					second = true;
+					testX = 1500;
+					testY = 350;
+				}
+				else if (second)
+				{
+					second = false;
+					third = true;
+					testX = 500;
+					testY = 700;
+				}
+				else if (third)
+				{
+					third = false;
+					first = true;
+					testX = 450;
+					testY = 250;
+				}
 				break;
 			}
 		}

@@ -67,11 +67,8 @@ void SceneStageBase::init()
 	playerInit();
 	stageInit();
 
-	/*m_pManager->initManager(m_posX, m_posY, m_frameX, m_frameY,
-		m_stage, kVariable::StageWidth, kVariable::StageWidth);*/
-
-	bool isEnableShot = m_stageSelectNum == 16 || 
-		m_stageSelectNum == 17 || m_stageSelectNum == 18 ||
+	// ショットのあるステージかどうか
+	bool isEnableShot = m_stageSelectNum == 16 || m_stageSelectNum == 17 || m_stageSelectNum == 18 ||
 		m_stageSelectNum == 19 || m_stageSelectNum == 20;
 
 	if (isEnableShot)
@@ -83,11 +80,8 @@ void SceneStageBase::init()
 		m_inShot = false;
 	}
 
-	if (m_inShot)
-	{
-		shotInit();
-		
-	}
+	if (m_inShot)  shotInit();
+
 	m_size = kVariable::DrawWidth;
 	m_pBack->init();
 	m_pShot->init();

@@ -123,4 +123,3 @@ private:
 	ScenePause* m_pPause;
 	Shot* m_pShot;
 };
-

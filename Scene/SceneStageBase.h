@@ -18,7 +18,6 @@ public:
 	virtual SceneBase* update();		// 更新
 	virtual void draw();				// 描画
 
-	//virtual SceneBase* CreateRetryStage() = 0;	// シーン遷移の場所
 	virtual SceneBase* updateBefore();// シーン遷移
 
 	void playerInit();			// プレイヤーの初期化
@@ -37,9 +36,6 @@ protected:
 	Back* m_pBack;				// 背景
 	Shot* m_pShot;				// ショット
 
-	// ステージを保存する
-	//int m_stage[kVariable::StageWidth][kVariable::StageWidth];
-
 	// キャラの座標
 	int m_posX;				// X座標
 	int m_posY;				// Y座標
@@ -47,7 +43,7 @@ protected:
 	int m_frameX;			// X座標
 	int m_frameY;			// Y座標
 
-	// 弾の座標
+	// 弾の座標:数字は個数
 	int m_shotPosX;			// X座標
 	int m_shotPosY;			// Y座標
 	int m_shotPosX2;		// X座標
@@ -61,7 +57,7 @@ protected:
 	int m_shotPosX6;		// X座標
 	int m_shotPosY6;		// Y座標
 
-	// 弾が壁に当たる座標
+	// 弾が壁に当たる座標:数字は個数
 	int m_colShotX;			// X座標
 	int m_colShotY;			// Y座標
 	int m_colShotX2;		// X座標
@@ -104,7 +100,5 @@ protected:
 	bool m_inShot;
 	// 鳴っているかどうか
 	bool m_deathSound;	// 死亡音
-
-	
 };
 

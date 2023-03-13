@@ -316,7 +316,7 @@ void Stage::particle(int x, int y)
 			pParticle->setRadiusAcc(-0.05f);
 
 			count++;
-			if (count >= 32)
+			if (count >= 10)
 			{
 				break;
 			}

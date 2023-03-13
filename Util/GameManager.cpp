@@ -10,7 +10,8 @@
 namespace
 {
 	// ‰¹—Ê
-	constexpr int kVolumeSound = 255;
+	constexpr int kBackVolumeSound = 255; // Bgm
+	constexpr int kGoalVolumeSound = 150; // ƒS[ƒ‹‰¹
 }
 
 GameManager::GameManager() :
@@ -67,7 +68,7 @@ void GameManager::initCommon()
 	m_shrink = 50;
 	m_inflate = 50;
 	m_timeLagCount = 30;
-	m_gameOverCount = 30;
+	m_gameOverCount = 60;
 	m_frameCountGameOver = 30;
 	m_handleNeedle = draw::MyLoadGraph("data/needle2.png");
 	m_goalSound = LoadSoundMem("sound/goalSound.mp3");
@@ -82,7 +83,8 @@ void GameManager::initCommon()
 	colBottom = false;
 	m_playSound = false;
 
-	ChangeVolumeSoundMem(kVolumeSound, m_goalSound);
+	ChangeVolumeSoundMem(kBackVolumeSound, m_goalSound);
+	ChangeVolumeSoundMem(kGoalVolumeSound, m_goalSound);
 	m_pPause->init();
 	
 }

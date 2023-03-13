@@ -2,6 +2,7 @@
 #include "../Util/common.h"
 #include <array>
 #include <memory>
+#include <vector>
 
 class CharParticle;
 
@@ -25,7 +26,7 @@ public:
 	int GetPushNum(){ return m_pushNum; }
 
 private:
-	void particle(int x, int y, int count);
+	void particle(int count);
 	void drawParticle();
 
 	// テキストハンドル
@@ -70,4 +71,9 @@ private:
 	std::array<std::shared_ptr<CharParticle>, kParticle::ParticleNum> m_particle;
 	int m_flowerFrame;		// 花火のようなパーティクル
 	int m_particleCount;	// パーティクルが発生する数
+	int testX;
+	int testY;
+	bool first = true;
+	bool second = false;
+	bool third = false;
 };
