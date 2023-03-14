@@ -37,6 +37,8 @@ private:
 	int m_pushSound;		// ‰Ÿ‚µ‚½‚Æ‚«
 	int m_backGroundSound;	// bgm
 
+	// –³‘€ìŠÔ
+	int m_waitingTime;
 
 	Back* m_pBack;
 	Player* m_pPlayer;

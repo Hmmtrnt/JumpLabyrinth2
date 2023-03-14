@@ -153,6 +153,7 @@
   <ItemGroup>
     <ClCompile Include="Object\CharParticle.cpp" />
     <ClCompile Include="Object\Back.cpp" />
+    <ClCompile Include="Scene\SceneDemo.cpp" />
     <ClCompile Include="Scene\SceneStageBase.cpp" />
     <ClCompile Include="Scene\ScenePause.cpp" />
     <ClCompile Include="Scene\SceneSelect.cpp" />
@@ -171,6 +172,7 @@
   <ItemGroup>
     <ClInclude Include="Object\CharParticle.h" />
     <ClInclude Include="Object\Back.h" />
+    <ClInclude Include="Scene\SceneDemo.h" />
     <ClInclude Include="Scene\SceneStageBase.h" />
     <ClInclude Include="Scene\ScenePause.h" />
     <ClInclude Include="Scene\SceneSelect.h" />

@@ -1,5 +1,6 @@
 #include "SceneTitle.h"
 #include "SceneSelect.h"
+#include "SceneDemo.h"
 #include "../Object/Back.h"
 #include "../Object/Player.h"
 #include "../Util/Pad.h"
@@ -21,7 +22,8 @@ SceneTitle::SceneTitle() :
 	m_fontGuide(0),
 	m_posX(0),	m_posY(0),
 	m_pushSound(0),
-	m_backGroundSound(0)
+	m_backGroundSound(0),
+	m_waitingTime(0)
 {
 	m_pBack = new Back;
 	m_pPlayer = new Player;
@@ -47,7 +49,6 @@ void SceneTitle::init()
 	LPCSTR font_path = "Font/Silver.ttf";// 読み込むフォントファイルのパス
 	if (AddFontResourceEx(font_path, FR_PRIVATE, NULL) > 0)
 	{
-
 	}
 	else
 	{
@@ -63,6 +64,7 @@ void SceneTitle::init()
 	m_pPlayer->initTitle();
 	PlaySoundMem(m_backGroundSound, DX_PLAYTYPE_LOOP, true);
 	m_stageSelectNum = 1;
+	m_waitingTime = 60 * 15;// 一秒間のフレーム*秒数
 }
 
 void SceneTitle::end()
@@ -78,12 +80,18 @@ void SceneTitle::end()
 
 SceneBase* SceneTitle::update()
 {
+	// 操作していない時間
+	m_waitingTime--;
 	// フェード処理
 	if (isFading())
 	{
 		bool isOut = isFadingOut();
 		SceneBase::updateFade(m_backGroundSound);
 		// フェードアウト終了時にシーン切り替え
+		if (!isFading() && isOut && m_waitingTime <= 0)
+		{
+			return (new SceneDemo);
+		}
 		if (!isFading() && isOut)
 		{
 			return (new SceneSelect);
@@ -107,6 +115,11 @@ SceneBase* SceneTitle::update()
 			m_textShow = 5;
 			m_textHide = 5;
 			PlaySoundMem(m_pushSound, DX_PLAYTYPE_BACK, true);
+			// フェードアウト開始
+			startFadeOut();
+		}
+		if (m_waitingTime <= 0)
+		{
 			// フェードアウト開始
 			startFadeOut();
 		}

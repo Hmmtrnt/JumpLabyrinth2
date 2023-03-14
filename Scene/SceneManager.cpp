@@ -3,6 +3,7 @@
 #include "SceneTitle.h"
 #include "SceneSelect.h"
 #include "SceneStageBase.h"
+#include "SceneDemo.h"
 #include "../Util/Pad.h"
 
 SceneManager::SceneManager()
@@ -13,7 +14,7 @@ SceneManager::SceneManager()
 void SceneManager::init()
 {
 #ifdef _DEBUG
-	m_pScene = new SceneSelect;
+	m_pScene = new SceneTitle;
 #else
 	m_pScene = new SceneTitle;
 #endif
