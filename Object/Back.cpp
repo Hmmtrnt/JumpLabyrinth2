@@ -61,10 +61,10 @@ namespace
 
 	// ボタン画像の左上座標
 	constexpr float kButtonHandlePosX = 1.5f;
-	constexpr float kUpButtonHandlePosY = 15.5f;
-	constexpr float kDownButtonHandlePosY = 16.5f;
-	constexpr float kRightButtonHandlePosY = 17.5f;
-	constexpr float kLeftButtonHandlePosY = 18.5f;
+	constexpr float kUpButtonHandlePosY = 15.5f;// 上
+	constexpr float kDownButtonHandlePosY = 17.5f;// 下
+	constexpr float kRightButtonHandlePosY = 16.5f;// 右
+	constexpr float kLeftButtonHandlePosY = 18.5f;// 左
 
 	// 背景の描画サイズ
 	constexpr float kSize = 3.3f;
@@ -83,7 +83,7 @@ namespace
 	const char* const kDownTutorialText = "下方向へ進む";
 	const char* const kRightTutorialText = "右方向へ進む";
 	const char* const kLeftTutorialText = "左方向へ進む";
-	const char* const kTutorialText = "操作チュートリアルあり";
+	const char* const kTutorialText = "操作説明あり";
 }
 
 Back::Back() :
@@ -343,6 +343,11 @@ void Back::drawTutorial()
 		kLengthHandle * 2, kLengthHandle * 2,
 		4.0f, 0.0f, m_buttonHandle, true, false);
 	DrawStringToHandle(kSecondButtonTextX, kLeftButtonTextY, kLeftTutorialText, kColor::White, m_textHandle);
+}
+
+void Back::drawTutorialText()
+{
+	DrawStringToHandle(350, 800, kTutorialText, kColor::White, m_textHandle);
 }
 
 void Back::drawExplanDeath(int posXHandle, int posYHandle,

@@ -337,11 +337,11 @@ void SceneSelect::draw()
 	int itemW = 200;
 	int itemH = 250;
 
-	int imageWidth = 910;				// ˜g‚Ì‰¡•
-	int Width = 180;					// ‰¡•
-	int lineHeight = 210;				// —ñ‚²‚Æ‚Ìc•
-	int linePosH = itemY + lineHeight;	// —ñ‚²‚Æ‚ÌcÀ•W
-	int Height = itemH + lineHeight;	// c•
+	int imageWidth = 910;// ˜g‚Ì‰¡•
+	int Width = 180;// ‰¡•
+	int lineHeight = 210;// —ñ‚²‚Æ‚Ìc•
+	int linePosH = itemY + lineHeight;// —ñ‚²‚Æ‚ÌcÀ•W
+	int Height = itemH + lineHeight;// c•
 
 	DrawExtendGraph(imageWidth + (Width * 0), itemY, (imageWidth + (Width * 0)) + 160, itemH, m_stageH1, true);
 	DrawExtendGraph(imageWidth + (Width * 1), itemY, (imageWidth + (Width * 1)) + 160, itemH, m_stageH2, true);
@@ -449,7 +449,11 @@ void SceneSelect::draw()
 			kLengthHandle, kLengthHandle,
 			2.0f, 0.0f, m_buttonHandle, true, false);
 	}
-	
+	if (m_cursorTestX == 1 && m_cursorTestY == 1)
+	{
+		m_pBack->drawTutorialText();
+	}
+
 	SceneBase::drawFade();
 }
 

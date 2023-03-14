@@ -26,6 +26,7 @@ public:
 	void drawExplan17_20();// 17から20ステージのギミック説明描画
 
 	void drawTutorial();// チュートリアル描画
+	void drawTutorialText();// チュートリアルがあるかどうかの描画
 
 private:
 	// ギミック説明の描画
