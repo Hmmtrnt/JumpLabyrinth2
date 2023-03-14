@@ -4,7 +4,7 @@
 #include <memory>
 #include <vector>
 
-class CharParticle;
+class ParticleBase;
 
 class ScenePause
 {
@@ -68,12 +68,13 @@ private:
 	bool m_isStage20;
 
 	// パーティクル
-	std::array<std::shared_ptr<CharParticle>, kParticle::ParticleNum> m_particle;
-	int m_flowerFrame;		// 花火のようなパーティクル
-	int m_particleCount;	// パーティクルが発生する数
-	int testX;
-	int testY;
-	bool first = true;
-	bool second = false;
-	bool third = false;
+	std::array<std::shared_ptr<ParticleBase>, kParticle::ParticleNum> m_particle;
+	int m_flowerFrame;// 花火のようなパーティクル
+	int m_particleCount;// パーティクルが発生する数
+	// パーティクル発生座標
+	int m_particlePosX;// X座標
+	int m_particlePosY;// Y座標
+	bool first = true;// 一発目
+	bool second = false;// 二発目
+	bool third = false;// 三発目
 };

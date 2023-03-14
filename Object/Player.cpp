@@ -1,6 +1,6 @@
 #include "Player.h"
 #include "../Util/Pad.h"
-#include "CharParticle.h"
+#include "ParticleBase.h"
 
 namespace
 {
@@ -75,7 +75,7 @@ void Player::initCommon()
 	// パーティクル
 	for (auto& pParticle : m_particle)
 	{
-		pParticle = std::make_shared<CharParticle>();
+		pParticle = std::make_shared<ParticleBase>();
 	}
 	m_showerFrame = kParticle::ShowerInterval;
 	m_particleFrame = 0;

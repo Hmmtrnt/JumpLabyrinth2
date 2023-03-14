@@ -5,7 +5,7 @@
 #include <array>
 #include <memory>
 
-class CharParticle;
+class ParticleBase;
 
 class Stage
 {
@@ -57,7 +57,7 @@ private:
 	int m_drawGoalSecond;// 二枚目
 
 	// パーティクル
-	std::array<std::shared_ptr<CharParticle>, kParticle::ParticleNum> m_particle;
+	std::array<std::shared_ptr<ParticleBase>, kParticle::ParticleNum> m_particle;
 	int m_showerFrame;		// 描画するフレーム
 	int m_particleFrame;	// 表示する時間
 	int m_auraFrame;		// エリア

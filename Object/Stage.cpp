@@ -1,5 +1,5 @@
 #include "Stage.h"
-#include "CharParticle.h"
+#include "ParticleBase.h"
 
 namespace
 {
@@ -64,7 +64,7 @@ void Stage::initCommon()
 	m_drawGoalSecond = 30;
 	for (auto& pParticle : m_particle)
 	{
-		pParticle = std::make_shared<CharParticle>();
+		pParticle = std::make_shared<ParticleBase>();
 	}
 	m_showerFrame = kParticle::ShowerInterval;
 	m_particleFrame = 0;

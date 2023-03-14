@@ -1,6 +1,6 @@
 ﻿#include "ScenePause.h"
 #include "../Util/Pad.h"
-#include "../Object/CharParticle.h"
+#include "../Object/ParticleBase.h"
 
 namespace
 {
@@ -38,8 +38,8 @@ ScenePause::ScenePause() :
 	m_isStage20(false),
 	m_flowerFrame(0),
 	m_particleCount(0),
-	testX(0),
-	testY(0)
+	m_particlePosX(0),
+	m_particlePosY(0)
 {
 }
 
@@ -75,12 +75,12 @@ void ScenePause::init()
 
 	for (auto& pParticle : m_particle)
 	{
-		pParticle = std::make_shared<CharParticle>();
+		pParticle = std::make_shared<ParticleBase>();
 	}
 	m_flowerFrame = kParticle::FlowerInterval;
 	m_particleCount = 0;
-	testX = 450;
-	testY = 250;
+	m_particlePosX = 450;
+	m_particlePosY = 250;
 }
 
 void ScenePause::end()
@@ -92,6 +92,7 @@ void ScenePause::end()
 
 void ScenePause::updatePause()
 {
+	// カーソル移動
 	if (m_pushNum >= 0 && m_pushNum <= 1)
 	{
 		if (Pad::isTrigger(PAD_INPUT_UP))
@@ -123,6 +124,7 @@ void ScenePause::updatePause()
 			}
 		}
 	}
+	// 決定した時の処理
 	if (Pad::isPress(PAD_INPUT_2))
 	{
 		m_FillBox = true;
@@ -174,12 +176,6 @@ void ScenePause::drawPause()
 	{
 		DrawStringToHandle(kWidthText + 10, 600, "RETRY", kColor::White, m_textHandle);
 	}
-	//DrawStringToHandle(kWidthCursor, m_posCursor, "→", kColor::White, m_textHandle);
-
-	
-
-	// 確認描画
-	//DrawFormatString(0, 0, kColor::Black, "%d", m_pushNum);
 }
 
 void ScenePause::updateClearPause()
@@ -331,16 +327,15 @@ void ScenePause::drawClearPause()
 	{
 		DrawStringToHandle(m_posClearTextX + 80, m_posClearTextY3, "RETRY", kColor::White, m_textHandle);
 	}
-	
-	// 確認描画
-	//DrawFormatString(0, 0, kColor::Black, "%d", m_pushNum);
 }
 
 void ScenePause::movePause()
 {
+	// ポーズの移動
 	m_posClearTextX += m_vecPauseX;
 	m_posClearPauseX -= m_vecPauseX;
 	m_movePosX += m_vecPauseX;
+	// ポーズの移動限界座標
 	if (m_posClearTextX >= 800)
 	{
 		m_posClearTextX = 800;
@@ -377,8 +372,8 @@ void ScenePause::particle(int count)
 			float randSpeed = static_cast<float>(GetRand(200)) / 10.0f + 1.0f;
 
 			Vec2 pos;
-			pos.x = testX + cosf(randSin) * 2.0f;
-			pos.y = testY + sinf(randSin) * 2.0f;
+			pos.x = m_particlePosX + cosf(randSin) * 2.0f;
+			pos.y = m_particlePosY + sinf(randSin) * 2.0f;
 
 			Vec2 vec;
 			vec.x = cosf(randSin) * randSpeed;
@@ -397,22 +392,22 @@ void ScenePause::particle(int count)
 				{
 					first = false;
 					second = true;
-					testX = 1500;
-					testY = 350;
+					m_particlePosX = 1500;
+					m_particlePosY = 350;
 				}
 				else if (second)
 				{
 					second = false;
 					third = true;
-					testX = 500;
-					testY = 700;
+					m_particlePosX = 500;
+					m_particlePosY = 700;
 				}
 				else if (third)
 				{
 					third = false;
 					first = true;
-					testX = 450;
-					testY = 250;
+					m_particlePosX = 450;
+					m_particlePosY = 250;
 				}
 				break;
 			}

@@ -1,6 +1,6 @@
-#include "CharParticle.h"
+#include "ParticleBase.h"
 
-CharParticle::CharParticle() :
+ParticleBase::ParticleBase() :
 	m_pos(0, 0),
 	m_vec(0, 0),
 	m_radius(1.0f),
@@ -13,11 +13,11 @@ CharParticle::CharParticle() :
 {
 }
 
-CharParticle::~CharParticle()
+ParticleBase::~ParticleBase()
 {
 }
 
-void CharParticle::init()
+void ParticleBase::init()
 {
 	m_pos = Vec2(0, 0);
 	m_vec = Vec2(0, 0);
@@ -30,7 +30,7 @@ void CharParticle::init()
 	m_radiusAcc = 0.0f;
 }
 
-void CharParticle::update()
+void ParticleBase::update()
 {
 	if (!m_isExist)	return;
 	m_pos += m_vec;
@@ -49,7 +49,7 @@ void CharParticle::update()
 	}
 }
 
-void CharParticle::draw()
+void ParticleBase::draw()
 {
 	if (!m_isExist)	return;
 
@@ -58,7 +58,7 @@ void CharParticle::draw()
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 }
 
-void CharParticle::start(Vec2 pos)
+void ParticleBase::start(Vec2 pos)
 {
 	init();
 	m_pos = pos;

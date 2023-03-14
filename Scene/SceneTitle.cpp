@@ -129,8 +129,10 @@ SceneBase* SceneTitle::update()
 
 void SceneTitle::draw()
 {
+	// 背景
 	m_pBack->draw();
 
+	// タイトル
 	DrawStringToHandle(505, 205, kTitleText, kColor::RedBlack, m_fontTitle);
 	DrawStringToHandle(500, 200, kTitleText, kColor::White, m_fontTitle);
 
@@ -140,10 +142,7 @@ void SceneTitle::draw()
 		DrawStringToHandle(702, 702, kGuideText, kColor::RedBlack, m_fontGuide);
 		DrawStringToHandle(700, 700, kGuideText, kColor::White, m_fontGuide);
 	}
-	//DrawStringToHandle(625, 800, kGuideText2, kColor::White, m_fontGuide);
-
-	//DrawStringToHandle(625, 900, kGuideText3, kColor::White, m_fontGuide);
-
+	// タイトル画面のプレイヤー描画
 	m_pPlayer->DrawTitle(m_posX, m_posY);
 
 	SceneBase::drawFade();

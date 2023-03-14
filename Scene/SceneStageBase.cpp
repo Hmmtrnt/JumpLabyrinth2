@@ -72,6 +72,7 @@ void SceneStageBase::init()
 	bool isEnableShot = m_stageSelectNum == 16 || m_stageSelectNum == 17 || m_stageSelectNum == 18 ||
 		m_stageSelectNum == 19 || m_stageSelectNum == 20;
 
+	// 選択したステージにショットがあるかどうか
 	if (isEnableShot)
 	{
 		m_inShot = true;
@@ -81,6 +82,7 @@ void SceneStageBase::init()
 		m_inShot = false;
 	}
 
+	// ショットが存在するなら初期化
 	if (m_inShot)  shotInit();
 
 	m_size = kVariable::DrawWidth;
@@ -122,6 +124,7 @@ void SceneStageBase::end()
 
 SceneBase* SceneStageBase::update()
 {
+	// デバッグ用強制クリア
 #ifdef _DEBUG
 	if (Pad::isTrigger(PAD_INPUT_3))
 	{
@@ -129,16 +132,17 @@ SceneBase* SceneStageBase::update()
 	}
 #else
 #endif
-
+	// シーン遷移
 	SceneBase* pScene = updateBefore();
-
+	// ゲームの全体処理
 	updateGame();
-
+	// ボタン表示時間
 	m_pBack->update();
 
 	// BGMストップ
 	if (m_pManager->GameClear)	StopSoundMem(m_backGroundSound);
 
+	// 一定時間たったら次の弾を打つ
 	if (m_inShot)
 	{
 		m_frameCountShot--;
@@ -150,14 +154,14 @@ SceneBase* SceneStageBase::update()
 		updateShot();
 		collisionShot();
 	}
-
+	// ゲームオーバーの画面揺れ
 	if (m_pManager->GameOver && !m_isAllocation)
 	{
 		m_quakeX = kQuakeFrame;
 		m_quakeTime = kQuakeTime;
 		m_isAllocation = true;
 	}
-
+	// 揺れている時間と揺れ方
 	if (m_quakeTime > 0 && m_isAllocation)
 	{
 		m_quakeX = -m_quakeX;
@@ -193,14 +197,14 @@ void SceneStageBase::draw()
 	SetDrawScreen(m_screenHandle);
 
 	m_pBack->draw();
-
+	// ショット
 	if (m_inShot)
 	{
 		drawShot();
 	}
 
 	m_pManager->draw();
-	drawGuide();
+	drawGuide();// ステージギミック説明
 
 	SetDrawScreen(DX_SCREEN_BACK);
 	DrawGraph(static_cast<int>(m_quakeX), 0, m_screenHandle, false);
@@ -260,6 +264,7 @@ SceneBase* SceneStageBase::updateBefore()
 
 void SceneStageBase::playerInit()
 {
+	// プレイヤーの各ステージの初期位置
 	if (m_stageSelectNum == 1 || m_stageSelectNum == 3 ||
 		m_stageSelectNum == 10 || m_stageSelectNum == 12)
 	{
@@ -370,7 +375,7 @@ void SceneStageBase::playerInit()
 
 void SceneStageBase::stageInit()
 {
-	// ステージ選択
+	// 各ステージの初期化
 	if (m_stageSelectNum == 1) 
 	{
 		m_pManager->initManager(m_posX, m_posY, m_frameX, m_frameY,
@@ -478,6 +483,7 @@ void SceneStageBase::stageInit()
 
 void SceneStageBase::shotInit()
 {
+	// 各ステージのショットの初期化
 	if (m_stageSelectNum == 16)
 	{
 		// 弾座標の初期化
@@ -578,6 +584,7 @@ void SceneStageBase::shotInit()
 
 void SceneStageBase::updateGame()
 {
+	// 画面揺れていなければ処理する
 	if (m_quakeTime == 0)
 	{
 		if (m_inShot)
@@ -587,13 +594,13 @@ void SceneStageBase::updateGame()
 		else
 		{
 			m_pManager->updateNoShot();
-
 		}
 	}
 	else
 	{
 		m_pManager->GameOverMotion();
 	}
+	// ステージ1以外
 	if (m_stageSelectNum != 1)
 	{
 		if (Pad::isTrigger(PAD_INPUT_4))
@@ -612,6 +619,7 @@ void SceneStageBase::updateGame()
 
 void SceneStageBase::updateShot()
 {
+	// 各ステージのショットの更新
 	if (m_quakeTime == 0)
 	{
 		if (m_stageSelectNum == 16)
@@ -682,7 +690,7 @@ void SceneStageBase::drawGuide()
 		m_stageSelectNum == 19 ||
 		m_stageSelectNum == 20;
 
-
+	// ステージギミックの説明描画
 	if (m_stageSelectNum == 1)
 	{
 		m_pBack->drawTutorial();
@@ -800,6 +808,7 @@ void SceneStageBase::collisionShot()
 
 void SceneStageBase::deathSound()
 {
+	// 引っかかったトラップによって音が変わる
 	if (!m_pManager->GameClear)
 	{
 		if (m_pManager->m_burnTrap)

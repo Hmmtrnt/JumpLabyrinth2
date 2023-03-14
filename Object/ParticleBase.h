@@ -2,11 +2,11 @@
 #include "../Util/Vec2.h"
 #include "../Util/common.h"
 
-class CharParticle
+class ParticleBase
 {
 public:
-	CharParticle();
-	virtual ~CharParticle();
+	ParticleBase();
+	virtual ~ParticleBase();
 
 	void init();// ‰Šú‰»
 	virtual void update();// XV

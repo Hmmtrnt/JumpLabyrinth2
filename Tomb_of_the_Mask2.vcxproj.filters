@@ -78,7 +78,7 @@
     <ClCompile Include="Util\Vec2.cpp">
       <Filter>ソース ファイル\Util</Filter>
     </ClCompile>
-    <ClCompile Include="Object\CharParticle.cpp">
+    <ClCompile Include="Object\ParticleBase.cpp">
       <Filter>ソース ファイル\Object</Filter>
     </ClCompile>
     <ClCompile Include="Scene\SceneDemo.cpp">
@@ -134,7 +134,7 @@
     <ClInclude Include="Util\Vec2.h">
       <Filter>ヘッダー ファイル\Util</Filter>
     </ClInclude>
-    <ClInclude Include="Object\CharParticle.h">
+    <ClInclude Include="Object\ParticleBase.h">
       <Filter>ヘッダー ファイル\Object</Filter>
     </ClInclude>
     <ClInclude Include="Scene\SceneDemo.h">

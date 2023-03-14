@@ -151,7 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Object\CharParticle.cpp" />
+    <ClCompile Include="Object\ParticleBase.cpp" />
     <ClCompile Include="Object\Back.cpp" />
     <ClCompile Include="Scene\SceneDemo.cpp" />
     <ClCompile Include="Scene\SceneStageBase.cpp" />
@@ -170,7 +170,7 @@
     <ClCompile Include="Util\Vec2.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Object\CharParticle.h" />
+    <ClInclude Include="Object\ParticleBase.h" />
     <ClInclude Include="Object\Back.h" />
     <ClInclude Include="Scene\SceneDemo.h" />
     <ClInclude Include="Scene\SceneStageBase.h" />

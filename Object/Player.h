@@ -5,7 +5,7 @@
 #include <array>
 #include <memory>
 
-class CharParticle;
+class ParticleBase;
 
 class Player
 {
@@ -84,7 +84,7 @@ private:
 	bool m_sound;
 
 	// パーティクル
-	std::array<std::shared_ptr<CharParticle>, kParticle::ParticleNum> m_particle;
+	std::array<std::shared_ptr<ParticleBase>, kParticle::ParticleNum> m_particle;
 	int m_showerFrame;// 動き
 	int m_particleFrame;// 表示する時間
 	bool m_landing;// 着地したかどうか
