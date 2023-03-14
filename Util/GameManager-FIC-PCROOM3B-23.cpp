@@ -10,8 +10,7 @@
 namespace
 {
 	// 音量
-	constexpr int kBackVolumeSound = 255; // Bgm
-	constexpr int kGoalVolumeSound = 150; // ゴール音
+	constexpr int kVolumeSound = 255;
 }
 
 GameManager::GameManager() :
@@ -68,7 +67,7 @@ void GameManager::initCommon()
 	m_shrink = 50;
 	m_inflate = 50;
 	m_timeLagCount = 30;
-	m_gameOverCount = 60;
+	m_gameOverCount = 30;
 	m_frameCountGameOver = 30;
 	m_handleNeedle = draw::MyLoadGraph("data/needle2.png");
 	m_goalSound = LoadSoundMem("sound/goalSound.mp3");
@@ -83,8 +82,7 @@ void GameManager::initCommon()
 	colBottom = false;
 	m_playSound = false;
 
-	ChangeVolumeSoundMem(kBackVolumeSound, m_goalSound);
-	ChangeVolumeSoundMem(kGoalVolumeSound, m_goalSound);
+	ChangeVolumeSoundMem(kVolumeSound, m_goalSound);
 	m_pPause->init();
 	
 }
@@ -122,6 +120,8 @@ void GameManager::end()
 
 void GameManager::updateInShot(int& frameX, int& frameY)
 {
+	
+
 	// ポーズボタンを押したときの処理
 	if (Pad::isTrigger(PAD_INPUT_R) == 1)
 	{
@@ -168,7 +168,7 @@ void GameManager::updateInShot(int& frameX, int& frameY)
 				}
 			}
 		}
-		if (m_pPlayer->m_speedX || m_pPlayer->m_speedY)
+		if (!colFlagL && !colFlagR && !colFlagUp && !colFlagBottom)
 		{
 			m_timeLagCount = 30;
 		}
@@ -261,7 +261,7 @@ void GameManager::updateNoShot()
 				}
 			}
 		}
-		if (m_pPlayer->m_speedX || m_pPlayer->m_speedY)
+		if (!colFlagL && !colFlagR && !colFlagUp && !colFlagBottom)
 		{
 			m_timeLagCount = 30;
 		}

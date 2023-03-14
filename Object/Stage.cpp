@@ -170,7 +170,7 @@ void Stage::stageDraw(int x, int y)
 	// 6:‘¦Ž€”»’è
 	else if (m_stage[y][x] == 6)
 	{
-		m_verX = 12;
+		m_verX = 13;
 		m_verY = 13;
 		draw::MyDrawRectRotaGraph(kVariable::DrawPosition + (x * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
 			(y * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),

@@ -330,7 +330,6 @@ void SceneSelect::draw()
 	DrawBox(100, 100, 800, 750, kColor::Black, true);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);
 
-	//DrawStringToHandle(300, 900, "Bボタンでステージを選択", kColor::White, m_textHandle2);
 	DrawStringToHandle(400, 910, ":ステージを選択", kColor::White, m_textHandle2);
 
 	int itemX = 0;
@@ -405,7 +404,6 @@ void SceneSelect::draw()
 	// 選ばれているステージが表示される
 	DrawExtendGraph(120, 120, 780, 730, m_centerStageH, true);
 	DrawBox(120, 120, 780, 730, kColor::White, false);
-	//DrawGraph(0, 0, m_starEmpty, true);
 
 	difficultyDraw();
 
@@ -472,9 +470,7 @@ void SceneSelect::cursorSave()
 void SceneSelect::difficultyDraw()
 {
 	draw::MyDrawRectRotaGraph(250, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);
-	//SetDrawBright(255, 255, 0);
 	draw::MyDrawRectRotaGraph(350, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);
-	//SetDrawBright(255, 255, 255);
 	draw::MyDrawRectRotaGraph(450, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);
 	draw::MyDrawRectRotaGraph(550, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);
 	draw::MyDrawRectRotaGraph(650, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);

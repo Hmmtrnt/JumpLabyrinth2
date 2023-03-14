@@ -35,6 +35,9 @@ public:
 	// プレイヤー操作
 	void operation(bool colL,bool colR, bool colUp, bool colDown);
 
+	// プレイヤーの動いた数の情報取得
+	int GetMoveNum(int moveNum) { moveNum = m_moveNum; }
+
 	// プレイヤーの配列の位置
 	int m_posX;			// X座標
 	int m_posY;			// Y座標
@@ -59,7 +62,7 @@ private:
 	void motion(int x, int y);
 	// プレイヤーパーティクル
 	void particleTime();						// 発生インターバル
-	void particle(int x, int y, float rota);	// 動き
+	void particle(int x, int y, float rota);	// 動き:プレイヤーとは反対方向に
 	void drawParticle();						// 表示
 
 	// プレイヤーハンドル
@@ -69,6 +72,9 @@ private:
 
 	// プレイヤー画像の番号
 	int m_handlenumX;
+
+	// プレイヤーの動いた数
+	int m_moveNum;
 	
 	// フレームカウント
 	int m_frameCount;
@@ -85,7 +91,7 @@ private:
 
 	// パーティクル
 	std::array<std::shared_ptr<CharParticle>, kParticle::ParticleNum> m_particle;
-	int m_showerFrame;		// 動き
-	int m_particleFrame;	// 表示する時間
-	bool m_landing;			// 着地したかどうか
+	int m_showerFrame;// 動き
+	int m_particleFrame;// 表示する時間
+	bool m_landing;// 着地したかどうか
 };
