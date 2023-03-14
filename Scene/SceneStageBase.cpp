@@ -44,6 +44,7 @@ SceneStageBase::SceneStageBase() :
 	m_inflateSound(0),
 	m_arrowSound(0),
 	m_volumeBgm(0),
+	m_fontHandle(0),
 	m_arrowTrap(false),
 	m_isAllocation(false),
 	m_pushHelp(false),
@@ -100,6 +101,8 @@ void SceneStageBase::init()
 	m_inflateSound = LoadSoundMem("sound/inflate.mp3");
 	m_arrowSound = LoadSoundMem("sound/arrowSound.mp3");
 	m_volumeBgm = 100;
+
+	m_fontHandle = CreateFontToHandle("Silver", 100, -1, 3);
 	
 	m_frameCountShot = 60;
 	m_isAllocation = false;
@@ -202,8 +205,7 @@ void SceneStageBase::draw()
 	SetDrawScreen(DX_SCREEN_BACK);
 	DrawGraph(static_cast<int>(m_quakeX), 0, m_screenHandle, false);
 
-
-	//printfDx("m_quakeTime%d\n", m_quakeTime);
+	DrawFormatStringToHandle(1500, 900, kColor::White, m_fontHandle, "%d/20 stage", m_stageSelectNum);
 
 	SceneBase::drawFade();
 }

@@ -25,7 +25,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, 
 
 	// シーンのポインタ
 	SceneManager scene;
-	scene.init();
+	scene.init();// 初期化
 
 	while (ProcessMessage() == 0)
 	{
@@ -33,8 +33,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, 
 		// 画面のクリア
 		ClearDrawScreen();
 
-		scene.update();
-		scene.draw();
+		scene.update();// 更新
+		scene.draw();// 描画
 
 		// 裏画面を表画面を入れ替える
 		ScreenFlip();
@@ -47,7 +47,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, 
 		}
 	}
 
-	scene.end();
+	scene.end();// 終了
 
 	DxLib_End();				// ＤＸライブラリ使用の終了処理
 

@@ -89,6 +89,8 @@ protected:
 	int m_arrowSound;	// 矢判定音
 	// 音量
 	int m_volumeBgm;	// BGM
+	// フォントハンドル
+	int m_fontHandle;
 
 	// 矢に当たったかどうか
 	bool m_arrowTrap;
