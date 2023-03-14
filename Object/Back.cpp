@@ -37,6 +37,35 @@ namespace
 	constexpr int kTrapShotTextX = 1550;		// テキスト
 	constexpr int kTrapShotTextY = 750;
 
+	// チュートリアル描画の座標
+	// 上ボタン
+	constexpr int kUpButtonHandleX = 200;// 画像
+	constexpr int kUpButtonHandleY = 200;
+	// 下ボタン
+	constexpr int kDownButtonHandleX = 200;// 画像
+	constexpr int kDownButtonHandleY = 650;
+	// 右ボタン
+	constexpr int kRightButtonHandleX = 1700;// 画像
+	constexpr int kRightButtonHandleY = 200;
+	// 左ボタン
+	constexpr int kLeftButtonHandleX = 1700;// 画像
+	constexpr int kLeftButtonHandleY = 650;
+	// テキスト一列目
+	constexpr int kFirstButtonTextX = 100;
+	constexpr int kUpButtonTextY = 300;
+	constexpr int kDownButtonTextY = 750;
+	// テキスト二列目
+	constexpr int kSecondButtonTextX = 1600;
+	constexpr int kRightButtonTextY = 300;
+	constexpr int kLeftButtonTextY = 750;
+
+	// ボタン画像の左上座標
+	constexpr float kButtonHandlePosX = 1.5f;
+	constexpr float kUpButtonHandlePosY = 15.5f;
+	constexpr float kDownButtonHandlePosY = 16.5f;
+	constexpr float kRightButtonHandlePosY = 17.5f;
+	constexpr float kLeftButtonHandlePosY = 18.5f;
+
 	// 背景の描画サイズ
 	constexpr float kSize = 3.3f;
 
@@ -50,6 +79,11 @@ namespace
 	const char* const kExplanGimmickTimeRug = "左右上下に一定時間いると\n死んでしまいます";
 	const char* const kExplanGimmickInflate = "膨らんでいるときに\n当たってはいけません";
 	const char* const kExplanGimmickArrow = "矢が発射されます";
+	const char* const kUpTutorialText = "上方向へ進む";
+	const char* const kDownTutorialText = "下方向へ進む";
+	const char* const kRightTutorialText = "右方向へ進む";
+	const char* const kLeftTutorialText = "左方向へ進む";
+	const char* const kTutorialText = "操作チュートリアルあり";
 }
 
 Back::Back() :
@@ -278,6 +312,37 @@ void Back::drawExplan17_20()
 		kTrapInflateTextX, kTrapInflateTextY);
 	drawExplanShotTrap(kTrapShotHandleX, kTrapShotHandleY, 
 		kTrapShotTextX, kTrapShotTextY);
+}
+
+void Back::drawTutorial()
+{
+	// 上ボタン描画
+	draw::MyDrawRectRotaGraph(kUpButtonHandleX, kUpButtonHandleY,
+		kButtonHandlePosX * (kLengthHandle * 2), kUpButtonHandlePosY * (kLengthHandle * 2),
+		kLengthHandle * 2, kLengthHandle * 2,
+		4.0f, 0.0f, m_buttonHandle, true, false);
+	DrawStringToHandle(kFirstButtonTextX, kUpButtonTextY, kUpTutorialText, kColor::White, m_textHandle);
+
+	// 下ボタン描画
+	draw::MyDrawRectRotaGraph(kDownButtonHandleX, kDownButtonHandleY,
+		kButtonHandlePosX * (kLengthHandle * 2), kDownButtonHandlePosY * (kLengthHandle * 2),
+		kLengthHandle * 2, kLengthHandle * 2,
+		4.0f, 0.0f, m_buttonHandle, true, false);
+	DrawStringToHandle(kFirstButtonTextX, kDownButtonTextY, kDownTutorialText, kColor::White, m_textHandle);
+
+	// 右ボタン描画
+	draw::MyDrawRectRotaGraph(kRightButtonHandleX, kRightButtonHandleY,
+		kButtonHandlePosX * (kLengthHandle * 2), kRightButtonHandlePosY * (kLengthHandle * 2),
+		kLengthHandle * 2, kLengthHandle * 2,
+		4.0f, 0.0f, m_buttonHandle, true, false);
+	DrawStringToHandle(kSecondButtonTextX, kRightButtonTextY, kRightTutorialText, kColor::White, m_textHandle);
+
+	// 左ボタン描画
+	draw::MyDrawRectRotaGraph(kLeftButtonHandleX, kLeftButtonHandleY,
+		kButtonHandlePosX * (kLengthHandle * 2), kLeftButtonHandlePosY * (kLengthHandle * 2),
+		kLengthHandle * 2, kLengthHandle * 2,
+		4.0f, 0.0f, m_buttonHandle, true, false);
+	DrawStringToHandle(kSecondButtonTextX, kLeftButtonTextY, kLeftTutorialText, kColor::White, m_textHandle);
 }
 
 void Back::drawExplanDeath(int posXHandle, int posYHandle,

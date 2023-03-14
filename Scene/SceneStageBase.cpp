@@ -683,6 +683,7 @@ void SceneStageBase::drawGuide()
 
 	if (m_stageSelectNum == 1)
 	{
+		m_pBack->drawTutorial();
 		m_pBack->drawMenuGuide();
 	}
 	if (m_stageSelectNum != 1)

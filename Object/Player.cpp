@@ -25,7 +25,6 @@ Player::Player() :
 	m_handle2(-1),
 	m_handleEffect(-1),
 	m_handlenumX(-1),
-	m_moveNum(0),
 	m_frameCount(0),
 	m_jumpSound(0),
 	m_landingSound(0),
@@ -54,7 +53,6 @@ void Player::initCommon()
 	m_verXPlayer = 0;
 	m_verYPlayer = 0;
 	m_frameCount = motionCount;
-	m_moveNum = 0;
 	m_rota = 0.0f;
 	// プレイヤー描画
 	m_handle = draw::MyLoadGraph("data/AnimationSheet_Character.png");// 立つモーション
@@ -215,7 +213,6 @@ void Player::operation(bool colL, bool colR, bool colUp, bool colDown)
 				if (!colUp)
 				{
 					m_speedY = -speed;
-					m_moveNum++;
 				}
 			}
 		}
@@ -230,7 +227,6 @@ void Player::operation(bool colL, bool colR, bool colUp, bool colDown)
 				if (!colDown)
 				{
 					m_speedY = speed;
-					m_moveNum++;
 				}
 			}
 		}
@@ -245,7 +241,6 @@ void Player::operation(bool colL, bool colR, bool colUp, bool colDown)
 				if (!colR)
 				{
 					m_speedX = speed;
-					m_moveNum++;
 				}
 			}
 		}
@@ -260,12 +255,10 @@ void Player::operation(bool colL, bool colR, bool colUp, bool colDown)
 				if (!colL)
 				{
 					m_speedX = -speed;
-					m_moveNum++;
 				}
 			}
 		}
 	}
-	printfDx("%d\n", m_moveNum);
 }
 
 // プレイヤーの描画
@@ -343,18 +336,9 @@ void Player::particleTime()
 	bool leftLanding = m_rota == PI / 2 && Pad::isTrigger(PAD_INPUT_LEFT);// 左
 	// パーティクル表示するタイマー
 	if (m_speedX == 0 && m_speedY == 0)	m_landing = true;
-	if (Pad::isTrigger(PAD_INPUT_UP) || Pad::isTrigger(PAD_INPUT_DOWN) ||
-		Pad::isTrigger(PAD_INPUT_RIGHT) || Pad::isTrigger(PAD_INPUT_LEFT))
+	if (m_speedX != 0 || m_speedY != 0)
 	{
-		// すでに着地下方向には出さない
-		if ((upLanding || downLanding || rightLanding || leftLanding) && m_speedX == 0 && m_speedY == 0)
-		{
-			m_landing = true;
-		}
-		else// 着地していない方向
-		{
-			m_landing = false;
-		}
+		m_landing = false;
 	}
 	
 	if (m_landing)
@@ -433,7 +417,6 @@ void Player::particle(int x, int y, float rota)
 		}
 		m_showerFrame = kParticle::ShowerInterval;
 	}
-	
 }
 
 void Player::drawParticle()
