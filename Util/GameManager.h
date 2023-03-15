@@ -102,7 +102,6 @@ private:
 	// 音のハンドル
 	int m_goalSound;	// ゴール音
 	int m_decideSound;	// 決定音
-	//int m_menuOpenSound;// メニューを開いたときの音
 
 	// 回転角度
 	float m_rota;
