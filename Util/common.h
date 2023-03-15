@@ -10,8 +10,8 @@
 // 選択されたステージ
 _declspec(selectany) int m_stageSelectNum = 0;
 // セレクト画面のカーソル座標
-_declspec(selectany) int m_cursorTestX = 1;
-_declspec(selectany) int m_cursorTestY = 1;
+_declspec(selectany) int m_cursorSelectX = 1;
+_declspec(selectany) int m_cursorSelectY = 1;
 
 namespace kVariable
 {

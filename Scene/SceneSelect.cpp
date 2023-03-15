@@ -71,7 +71,6 @@ void SceneSelect::init()
 	LPCSTR font_path = "Font/Silver.ttf";// 読み込むフォントファイルのパス
 	if (AddFontResourceEx(font_path, FR_PRIVATE, NULL) > 0)
 	{
-
 	}
 	else
 	{
@@ -181,130 +180,130 @@ SceneBase* SceneSelect::update()
 	{
 		bool isOut = isFadingOut();
 		SceneBase::updateFade(m_backGroundSound);
+		// タイトル画面へ
 		if (!isFading() && isOut && m_pushTitle)		return (new SceneTitle);
 		
 		// 実験用シーン遷移(まだ動かない)
 		if (!isFading() && isOut)
 		{
-			if (m_cursorTestY == 1)
+			if (m_cursorSelectY == 1)
 			{
-				if (m_cursorTestX == 1)	m_stageSelectNum = 1;
-				if (m_cursorTestX == 2) m_stageSelectNum = 2;
-				if (m_cursorTestX == 3) m_stageSelectNum = 3;
-				if (m_cursorTestX == 4) m_stageSelectNum = 4;
-				if (m_cursorTestX == 5) m_stageSelectNum = 5;
+				if (m_cursorSelectX == 1)	m_stageSelectNum = 1;
+				if (m_cursorSelectX == 2) m_stageSelectNum = 2;
+				if (m_cursorSelectX == 3) m_stageSelectNum = 3;
+				if (m_cursorSelectX == 4) m_stageSelectNum = 4;
+				if (m_cursorSelectX == 5) m_stageSelectNum = 5;
 			}
-			if (m_cursorTestY == 2)
+			if (m_cursorSelectY == 2)
 			{
-				if (m_cursorTestX == 1)	m_stageSelectNum = 6;
-				if (m_cursorTestX == 2) m_stageSelectNum = 7;
-				if (m_cursorTestX == 3) m_stageSelectNum = 8;
-				if (m_cursorTestX == 4) m_stageSelectNum = 9;
-				if (m_cursorTestX == 5) m_stageSelectNum = 10;
+				if (m_cursorSelectX == 1)	m_stageSelectNum = 6;
+				if (m_cursorSelectX == 2) m_stageSelectNum = 7;
+				if (m_cursorSelectX == 3) m_stageSelectNum = 8;
+				if (m_cursorSelectX == 4) m_stageSelectNum = 9;
+				if (m_cursorSelectX == 5) m_stageSelectNum = 10;
 			}
-			if (m_cursorTestY == 3)
+			if (m_cursorSelectY == 3)
 			{
-				if (m_cursorTestX == 1)	m_stageSelectNum = 11;
-				if (m_cursorTestX == 2) m_stageSelectNum = 12;
-				if (m_cursorTestX == 3) m_stageSelectNum = 13;
-				if (m_cursorTestX == 4) m_stageSelectNum = 14;
-				if (m_cursorTestX == 5) m_stageSelectNum = 15;
+				if (m_cursorSelectX == 1)	m_stageSelectNum = 11;
+				if (m_cursorSelectX == 2) m_stageSelectNum = 12;
+				if (m_cursorSelectX == 3) m_stageSelectNum = 13;
+				if (m_cursorSelectX == 4) m_stageSelectNum = 14;
+				if (m_cursorSelectX == 5) m_stageSelectNum = 15;
 			}
-			if (m_cursorTestY == 4)
+			if (m_cursorSelectY == 4)
 			{
-				if (m_cursorTestX == 1)	m_stageSelectNum = 16;
-				if (m_cursorTestX == 2) m_stageSelectNum = 17;
-				if (m_cursorTestX == 3) m_stageSelectNum = 18;
-				if (m_cursorTestX == 4) m_stageSelectNum = 19;
-				if (m_cursorTestX == 5) m_stageSelectNum = 20;
+				if (m_cursorSelectX == 1)	m_stageSelectNum = 16;
+				if (m_cursorSelectX == 2) m_stageSelectNum = 17;
+				if (m_cursorSelectX == 3) m_stageSelectNum = 18;
+				if (m_cursorSelectX == 4) m_stageSelectNum = 19;
+				if (m_cursorSelectX == 5) m_stageSelectNum = 20;
 			}
 			return (new SceneStageBase);
 		}
 	}
-
-	
 
 	// ステージ選択
 	int cursorSpeed = 10;
 
 	if (Pad::isTrigger(PAD_INPUT_RIGHT))
 	{
-		m_cursorTestX++;
+		m_cursorSelectX++;
 		PlaySoundMem(m_cursorSound, DX_PLAYTYPE_BACK, true);
 	}
 	if (Pad::isTrigger(PAD_INPUT_LEFT))
 	{
-		m_cursorTestX--;
+		m_cursorSelectX--;
 		PlaySoundMem(m_cursorSound, DX_PLAYTYPE_BACK, true);
 	}
 	if (Pad::isTrigger(PAD_INPUT_UP))
 	{
-		m_cursorTestY--;
+		m_cursorSelectY--;
 		PlaySoundMem(m_cursorSound, DX_PLAYTYPE_BACK, true);
 	}
 	if (Pad::isTrigger(PAD_INPUT_DOWN))
 	{
-		m_cursorTestY++;
+		m_cursorSelectY++;
 		PlaySoundMem(m_cursorSound, DX_PLAYTYPE_BACK, true);
 	}
-	if (m_cursorTestX <= 0)
+	if (m_cursorSelectX <= 0)
 	{
-		m_cursorTestX = 5;
-		m_cursorTestY--;
+		m_cursorSelectX = 5;
+		m_cursorSelectY--;
 	}
-	if (m_cursorTestX >= 6)
+	if (m_cursorSelectX >= 6)
 	{
-		m_cursorTestX = 1;
-		m_cursorTestY++;
+		m_cursorSelectX = 1;
+		m_cursorSelectY++;
 	}
-	if (m_cursorTestY <= 0)
+	if (m_cursorSelectY <= 0)
 	{
-		m_cursorTestY = 4;
+		m_cursorSelectY = 4;
 	}
-	if (m_cursorTestY >= 5)
+	if (m_cursorSelectY >= 5)
 	{
-		m_cursorTestY = 1;
+		m_cursorSelectY = 1;
 	}
 
 	// カーソル移動
-	m_cursorPosX = (180 * (m_cursorTestX - 1)) + 910;
+	m_cursorPosX = (180 * (m_cursorSelectX - 1)) + 910;
 	m_cursorPosW = m_cursorPosX + 160;
-	m_cursorPosY = (210 * (m_cursorTestY - 1)) + 100;
+	m_cursorPosY = (210 * (m_cursorSelectY - 1)) + 100;
 	m_cursorPosH = m_cursorPosY + 150;
 
-	if (m_cursorTestY == 1)
+	if (m_cursorSelectY == 1)
 	{
-		if (m_cursorTestX == 1)	m_centerStageH = m_stageH1;
-		if (m_cursorTestX == 2) m_centerStageH = m_stageH2;
-		if (m_cursorTestX == 3) m_centerStageH = m_stageH3;
-		if (m_cursorTestX == 4) m_centerStageH = m_stageH4;
-		if (m_cursorTestX == 5) m_centerStageH = m_stageH5;
+		if (m_cursorSelectX == 1) m_centerStageH = m_stageH1;
+		if (m_cursorSelectX == 2) m_centerStageH = m_stageH2;
+		if (m_cursorSelectX == 3) m_centerStageH = m_stageH3;
+		if (m_cursorSelectX == 4) m_centerStageH = m_stageH4;
+		if (m_cursorSelectX == 5) m_centerStageH = m_stageH5;
 	}
-	if (m_cursorTestY == 2)
+	if (m_cursorSelectY == 2)
 	{
-		if (m_cursorTestX == 1)	m_centerStageH = m_stageH6;
-		if (m_cursorTestX == 2) m_centerStageH = m_stageH7;
-		if (m_cursorTestX == 3) m_centerStageH = m_stageH8;
-		if (m_cursorTestX == 4) m_centerStageH = m_stageH9;
-		if (m_cursorTestX == 5) m_centerStageH = m_stageH10;
+		if (m_cursorSelectX == 1) m_centerStageH = m_stageH6;
+		if (m_cursorSelectX == 2) m_centerStageH = m_stageH7;
+		if (m_cursorSelectX == 3) m_centerStageH = m_stageH8;
+		if (m_cursorSelectX == 4) m_centerStageH = m_stageH9;
+		if (m_cursorSelectX == 5) m_centerStageH = m_stageH10;
 	}
-	if (m_cursorTestY == 3)
+	if (m_cursorSelectY == 3)
 	{
-		if (m_cursorTestX == 1)	m_centerStageH = m_stageH11;
-		if (m_cursorTestX == 2) m_centerStageH = m_stageH12;
-		if (m_cursorTestX == 3) m_centerStageH = m_stageH13;
-		if (m_cursorTestX == 4) m_centerStageH = m_stageH14;
-		if (m_cursorTestX == 5) m_centerStageH = m_stageH15;
+		if (m_cursorSelectX == 1) m_centerStageH = m_stageH11;
+		if (m_cursorSelectX == 2) m_centerStageH = m_stageH12;
+		if (m_cursorSelectX == 3) m_centerStageH = m_stageH13;
+		if (m_cursorSelectX == 4) m_centerStageH = m_stageH14;
+		if (m_cursorSelectX == 5) m_centerStageH = m_stageH15;
 	}
-	if (m_cursorTestY == 4)
+	if (m_cursorSelectY == 4)
 	{
-		if (m_cursorTestX == 1)	m_centerStageH = m_stageH16;
-		if (m_cursorTestX == 2) m_centerStageH = m_stageH17;
-		if (m_cursorTestX == 3) m_centerStageH = m_stageH18;
-		if (m_cursorTestX == 4) m_centerStageH = m_stageH19;
-		if (m_cursorTestX == 5) m_centerStageH = m_stageH20;
+		if (m_cursorSelectX == 1) m_centerStageH = m_stageH16;
+		if (m_cursorSelectX == 2) m_centerStageH = m_stageH17;
+		if (m_cursorSelectX == 3) m_centerStageH = m_stageH18;
+		if (m_cursorSelectX == 4) m_centerStageH = m_stageH19;
+		if (m_cursorSelectX == 5) m_centerStageH = m_stageH20;
 	}
 
+	// タイトルへ戻るときのフラグ
 	if (Pad::isTrigger(PAD_INPUT_1))	m_pushTitle = true;
 
 	if (!isFading())
@@ -343,6 +342,7 @@ void SceneSelect::draw()
 	int linePosH = itemY + lineHeight;// 列ごとの縦座標
 	int Height = itemH + lineHeight;// 縦幅
 
+	// 各ステージの描画
 	DrawExtendGraph(imageWidth + (Width * 0), itemY, (imageWidth + (Width * 0)) + 160, itemH, m_stageH1, true);
 	DrawExtendGraph(imageWidth + (Width * 1), itemY, (imageWidth + (Width * 1)) + 160, itemH, m_stageH2, true);
 	DrawExtendGraph(imageWidth + (Width * 2), itemY, (imageWidth + (Width * 2)) + 160, itemH, m_stageH3, true);
@@ -371,7 +371,7 @@ void SceneSelect::draw()
 	{
 			m_stageNumText++;
 		
-		// ずれる
+		// 列ごとにずれる
 		itemX = imageWidth + (Width * y);
 		if (y > 4)
 		{
@@ -414,18 +414,21 @@ void SceneSelect::draw()
 			m_buttonHandleLeftNum * kLengthHandle, m_buttonHandleTopNum * kLengthHandle,
 			kLengthHandle, kLengthHandle,
 			2.0f, 0.0f, m_buttonHandle, true, false);
+		// YellowButton
 		if (i == 0)
 		{
 			m_buttonHandleX = 350;
 			m_buttonHandleY = 900;
 			m_buttonHandleTopNum = 21;
 		}
+		// BlueButton
 		if (i == 1)
 		{
 			m_buttonHandleX = 350 - 25;
 			m_buttonHandleY = 900 + 25;
 			m_buttonHandleTopNum = 19;
 		}
+		// GreenButton
 		if (i == 2)
 		{
 			m_buttonHandleX = 350;
@@ -449,124 +452,95 @@ void SceneSelect::draw()
 			kLengthHandle, kLengthHandle,
 			2.0f, 0.0f, m_buttonHandle, true, false);
 	}
-	if (m_cursorTestX == 1 && m_cursorTestY == 1)
+	// ステージ１にカーソルを合わせたとき
+	if (m_cursorSelectX == 1 && m_cursorSelectY == 1)
 	{
 		m_pBack->drawTutorialText();
 	}
-
 	SceneBase::drawFade();
 }
 
 void SceneSelect::cursorSave()
 {
-	if (m_stageSelectNum == 1 || m_stageSelectNum == 6 || m_stageSelectNum == 11 || m_stageSelectNum == 16) m_cursorTestX = 1;
-	if (m_stageSelectNum == 2 || m_stageSelectNum == 7 || m_stageSelectNum == 12 || m_stageSelectNum == 17) m_cursorTestX = 2;
-	if (m_stageSelectNum == 3 || m_stageSelectNum == 8 || m_stageSelectNum == 13 || m_stageSelectNum == 18) m_cursorTestX = 3;
-	if (m_stageSelectNum == 4 || m_stageSelectNum == 9 || m_stageSelectNum == 14 || m_stageSelectNum == 19) m_cursorTestX = 4;
-	if (m_stageSelectNum == 5 || m_stageSelectNum == 10 || m_stageSelectNum == 15 || m_stageSelectNum == 20) m_cursorTestX = 5;
-	if (m_stageSelectNum >= 1 && m_stageSelectNum <= 5) m_cursorTestY = 1;
-	if (m_stageSelectNum >= 6 && m_stageSelectNum <= 10) m_cursorTestY = 2;
-	if (m_stageSelectNum >= 11 && m_stageSelectNum <= 15) m_cursorTestY = 3;
-	if (m_stageSelectNum >= 16 && m_stageSelectNum <= 20) m_cursorTestY = 4;
+	if (m_stageSelectNum == 1 || m_stageSelectNum == 6 || m_stageSelectNum == 11 || m_stageSelectNum == 16) m_cursorSelectX = 1;
+	if (m_stageSelectNum == 2 || m_stageSelectNum == 7 || m_stageSelectNum == 12 || m_stageSelectNum == 17) m_cursorSelectX = 2;
+	if (m_stageSelectNum == 3 || m_stageSelectNum == 8 || m_stageSelectNum == 13 || m_stageSelectNum == 18) m_cursorSelectX = 3;
+	if (m_stageSelectNum == 4 || m_stageSelectNum == 9 || m_stageSelectNum == 14 || m_stageSelectNum == 19) m_cursorSelectX = 4;
+	if (m_stageSelectNum == 5 || m_stageSelectNum == 10 || m_stageSelectNum == 15 || m_stageSelectNum == 20) m_cursorSelectX = 5;
+	if (m_stageSelectNum >= 1 && m_stageSelectNum <= 5) m_cursorSelectY = 1;
+	if (m_stageSelectNum >= 6 && m_stageSelectNum <= 10) m_cursorSelectY = 2;
+	if (m_stageSelectNum >= 11 && m_stageSelectNum <= 15) m_cursorSelectY = 3;
+	if (m_stageSelectNum >= 16 && m_stageSelectNum <= 20) m_cursorSelectY = 4;
 }
 
 // 難易度表示
 void SceneSelect::difficultyDraw()
 {
-	draw::MyDrawRectRotaGraph(250, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);
-	draw::MyDrawRectRotaGraph(350, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);
-	draw::MyDrawRectRotaGraph(450, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);
-	draw::MyDrawRectRotaGraph(550, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);
-	draw::MyDrawRectRotaGraph(650, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);
+	int starPosX = 250;
+	// 難易度を表す星描画
+	for (int i = 0; i < 5; i++)
+	{
+		draw::MyDrawRectRotaGraph(starPosX, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);
+		starPosX += 100;
+	}
 
-	if (m_cursorTestY == 1)
+	// ステージごとに難易度描画を変更
+	if (m_cursorSelectY == 1)
 	{
-		if (m_cursorTestX == 1)
+		if (m_cursorSelectX == 1 || m_cursorSelectX == 2 || m_cursorSelectX == 3)
 		{
 			difficulty1Draw();
 		}
-		if (m_cursorTestX == 2)
-		{
-			difficulty1Draw();
-		}
-		if (m_cursorTestX == 3)
-		{
-			difficulty1Draw();
-		}
-		if (m_cursorTestX == 4)
-		{
-			difficulty2Draw();
-		}
-		if (m_cursorTestX == 5)
+		if (m_cursorSelectX == 4 || m_cursorSelectX == 5)
 		{
 			difficulty2Draw();
 		}
 	}
-	if (m_cursorTestY == 2)
+	if (m_cursorSelectY == 2)
 	{
-		if (m_cursorTestX == 1)
+		if (m_cursorSelectX == 1)
 		{
 			difficulty1Draw();
 		}
-		if (m_cursorTestX == 2)
+		if (m_cursorSelectX == 2 || m_cursorSelectX == 3)
 		{
 			difficulty2Draw();
 		}
-		if (m_cursorTestX == 3)
-		{
-			difficulty2Draw();
-		}
-		if (m_cursorTestX == 4)
-		{
-			difficulty3Draw();
-		}
-		if (m_cursorTestX == 5)
+		if (m_cursorSelectX == 4 || m_cursorSelectX == 5)
 		{
 			difficulty3Draw();
 		}
 	}
-	if (m_cursorTestY == 3)
+	if (m_cursorSelectY == 3)
 	{
-		if (m_cursorTestX == 1)
+		if (m_cursorSelectX == 1)
 		{
 			difficulty2Draw();
 		}
-		if (m_cursorTestX == 2)
+		if (m_cursorSelectX == 2)
 		{
 			difficulty3Draw();
 		}
-		if (m_cursorTestX == 3)
+		if (m_cursorSelectX == 3 || m_cursorSelectX == 4)
 		{
 			difficulty4Draw();
 		}
-		if (m_cursorTestX == 4)
-		{
-			difficulty4Draw();
-		}
-		if (m_cursorTestX == 5)
+		if (m_cursorSelectX == 5)
 		{
 			difficulty5Draw();
 		}
 	}
-	if (m_cursorTestY == 4)
+	if (m_cursorSelectY == 4)
 	{
-		if (m_cursorTestX == 1)
+		if (m_cursorSelectX == 1)
 		{
 			difficulty3Draw();
 		}
-		if (m_cursorTestX == 2)
+		if (m_cursorSelectX == 2 || m_cursorSelectX == 3)
 		{
 			difficulty5Draw();
 		}
-		if (m_cursorTestX == 3)
-		{
-			difficulty5Draw();
-		}
-		if (m_cursorTestX == 4)
-		{
-			difficulty6Draw();
-		}
-		if (m_cursorTestX == 5)
+		if (m_cursorSelectX == 4 || m_cursorSelectX == 5)
 		{
 			difficulty6Draw();
 		}
@@ -582,50 +556,61 @@ void SceneSelect::difficulty1Draw()
 
 void SceneSelect::difficulty2Draw()
 {
+	int starPosX = 250;
 	SetDrawBright(255, 255, 0);
-	draw::MyDrawRectRotaGraph(250, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);
-	draw::MyDrawRectRotaGraph(350, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);
+	for (int i = 0; i < 2; i++)
+	{
+		draw::MyDrawRectRotaGraph(starPosX, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);
+		starPosX += 100;
+	}
 	SetDrawBright(255, 255, 255);
 }
 
 void SceneSelect::difficulty3Draw()
 {
+	int starPosX = 250;
 	SetDrawBright(255, 255, 0);
-	draw::MyDrawRectRotaGraph(250, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);
-	draw::MyDrawRectRotaGraph(350, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);
-	draw::MyDrawRectRotaGraph(450, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);
+	for (int i = 0; i < 3; i++)
+	{
+		draw::MyDrawRectRotaGraph(starPosX, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);
+		starPosX += 100;
+	}
 	SetDrawBright(255, 255, 255);
 }
 
 void SceneSelect::difficulty4Draw()
 {
+	int starPosX = 250;
 	SetDrawBright(255, 255, 0);
-	draw::MyDrawRectRotaGraph(250, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);
-	draw::MyDrawRectRotaGraph(350, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);
-	draw::MyDrawRectRotaGraph(450, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);
-	draw::MyDrawRectRotaGraph(550, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);
+	for (int i = 0; i < 4; i++)
+	{
+		draw::MyDrawRectRotaGraph(starPosX, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);
+		starPosX += 100;
+	}
 	SetDrawBright(255, 255, 255);
 }
 
 void SceneSelect::difficulty5Draw()
 {
+	int starPosX = 250;
 	SetDrawBright(255, 255, 0);
-	draw::MyDrawRectRotaGraph(250, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);
-	draw::MyDrawRectRotaGraph(350, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);
-	draw::MyDrawRectRotaGraph(450, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);
-	draw::MyDrawRectRotaGraph(550, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);
-	draw::MyDrawRectRotaGraph(650, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);
+	for (int i = 0; i < 5; i++)
+	{
+		draw::MyDrawRectRotaGraph(starPosX, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);
+		starPosX += 100;
+	}
 	SetDrawBright(255, 255, 255);
 }
 
 void SceneSelect::difficulty6Draw()
 {
+	int starPosX = 250;
 	SetDrawBright(255, 255, 0);
-	draw::MyDrawRectRotaGraph(250, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);
-	draw::MyDrawRectRotaGraph(350, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);
-	draw::MyDrawRectRotaGraph(450, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);
-	draw::MyDrawRectRotaGraph(550, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);
-	draw::MyDrawRectRotaGraph(650, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);
+	for (int i = 0; i < 5; i++)
+	{
+		draw::MyDrawRectRotaGraph(starPosX, 50, 0, 0, 32, 32, 2.0f, 0.0f, m_starHandle, true, false);
+		starPosX += 100;
+	}
 	SetDrawBright(255, 0, 0);
 	draw::MyDrawRectRotaGraph(750, 50, 0, 0, 32, 32, 2.5f, 0.0f, m_starHandle, true, false);
 	SetDrawBright(255, 255, 255);

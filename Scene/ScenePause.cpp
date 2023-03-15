@@ -230,22 +230,27 @@ void ScenePause::updateClearPause()
 
 void ScenePause::drawClearPause()
 {
+	// ポーズ画面の背景色
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 100);
 	DrawBox(0, 0, Game::kScreenWidth, Game::kScreenHeight, kColor::Black, true);
+	// ポーズ画面の土台
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 200);
 	DrawBox(m_posClearPauseX, m_posClearPauseY, 
 		m_posClearPauseX + m_sizeClearPauseX, m_posClearPauseY + m_sizeClearPauseY, kColor::Yellow, true);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+	// ポーズ画面の土台の枠
 	DrawBox(m_posClearPauseX, m_posClearPauseY, 
 		m_posClearPauseX + m_sizeClearPauseX, m_posClearPauseY + m_sizeClearPauseY, kColor::Black, false);
 
 	m_posClearCursorX = m_movePosX;
 	m_posClearCursorY = m_clearCursorNum;
+	// 20ステージの枠
 	if (m_isStage20)
 	{
 		m_posClearCursorY = m_clearCursorNum - 5;
 	}
 
+	// 選択枠
 	for (int y = 0; y < 5; y++)
 	{
 		DrawBox(m_posClearCursorX, m_posClearCursorY, m_posClearCursorX + 400, m_posClearCursorY + 70, kColor::Black, m_FillBox);
@@ -259,8 +264,10 @@ void ScenePause::drawClearPause()
 		m_CursorPosX = m_movePosX;
 		m_CursorPosY = 395;
 
+		// 項目数
 		for (int y = 0; y < 3; y++)
 		{
+			// 枠の太さ
 			for (int x = 0; x < 2; x++)
 			{
 				DrawBox(m_CursorPosX, m_CursorPosY, m_CursorPosX + 400, m_CursorPosY + 70, kColor::Black, false);
@@ -276,8 +283,10 @@ void ScenePause::drawClearPause()
 	{
 		m_CursorPosX = m_movePosX;
 		m_CursorPosY = 495;
+		// 項目数
 		for (int y = 0; y < 2; y++)
 		{
+			// 枠の太さ
 			for (int x = 0; x < 2; x++)
 			{
 				DrawBox(m_CursorPosX, m_CursorPosY, m_CursorPosX + 400, m_CursorPosY + 70, kColor::Black, false);
@@ -388,6 +397,7 @@ void ScenePause::particle(int count)
 			m_particleCount++;
 			if (m_particleCount >= count)
 			{
+				// パーティクルの座標を変更
 				if (first)
 				{
 					first = false;

@@ -91,7 +91,6 @@ private:
 
 	// タイトル画面に戻るか真偽
 	bool m_pushTitle;
-	
 
 	Back* m_pBack;
 };
