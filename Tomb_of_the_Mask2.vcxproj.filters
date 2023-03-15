@@ -31,6 +31,12 @@
     <Filter Include="ヘッダー ファイル\Object">
       <UniqueIdentifier>{fef8fb22-40e2-4bf2-bbaa-c243e753a28c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Time">
+      <UniqueIdentifier>{19476aa2-4320-4fa1-ba0e-33ed974986dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Time">
+      <UniqueIdentifier>{f6da10f2-7e98-4ae7-89bb-8acfa962a3d5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -83,6 +89,9 @@
     </ClCompile>
     <ClCompile Include="Scene\SceneDemo.cpp">
       <Filter>ソース ファイル\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Time\StageTimer.cpp">
+      <Filter>ソース ファイル\Time</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -139,6 +148,9 @@
     </ClInclude>
     <ClInclude Include="Scene\SceneDemo.h">
       <Filter>ヘッダー ファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Time\StageTimer.h">
+      <Filter>ヘッダー ファイル\Time</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

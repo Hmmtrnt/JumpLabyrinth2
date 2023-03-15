@@ -208,20 +208,33 @@ void GameManager::updatePause()
 	{
 		PlaySoundMem(m_decideSound, DX_PLAYTYPE_BACK, true);
 
-		if (m_pPause->GetPushNum() == 0)
+		if (m_stageSelectNum == 20)
 		{
-			m_pushPause = 1;
-		}
-		else if (m_pPause->GetPushNum() == 1)
-		{
-			m_pushPause = 2;
-		}
-		// ƒQ[ƒ€ƒNƒŠƒA‚µ‚½‚Æ‚«‚Ì‚Ý€–Ú‚ª‘‚¦‚é
-		if (GameClear && m_stageSelectNum != 20)
-		{
-			if (m_pPause->GetPushNum() == 2)
+			if (m_pPause->GetPushNum() == 0)
 			{
-				m_pushPause = 3;
+				m_pushPause = 1;
+			}
+			else if (m_pPause->GetPushNum() == 1)
+			{
+				m_pushPause = 2;
+			}
+		}
+		else
+		{
+			if (m_pPause->GetPushNum() == 0)
+			{
+				m_pushPause = 1;
+			}
+			else if (m_pPause->GetPushNum() == 1)
+			{
+				m_pushPause = 2;
+			}
+			if (GameClear)
+			{
+				if (m_pPause->GetPushNum() == 2)
+				{
+					m_pushPause = 3;
+				}
 			}
 		}
 	}

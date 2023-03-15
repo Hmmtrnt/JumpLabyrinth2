@@ -3,6 +3,7 @@
 #include "../Util/GameManager.h"
 #include "../Object/Back.h"
 #include "../Object/Shot.h"
+#include "../Time/StageTimer.h"
 #include "../Util/common.h"
 #include <cassert>
 
@@ -13,7 +14,7 @@ namespace
 	constexpr int kVolumeDeath = 150;	// 死亡音
 
 	constexpr float kQuakeFrame = 20.0f;// ブレるフレーム
-	constexpr int kQuakeTime = 60;	// ブレ続ける時間
+	constexpr int kQuakeTime = 60;	// ブレ続ける時間	
 }
 
 SceneStageBase::SceneStageBase() :
@@ -54,6 +55,7 @@ SceneStageBase::SceneStageBase() :
 	m_pManager = new GameManager;
 	m_pBack = new Back;
 	m_pShot = new Shot;
+	m_pTimer = new StageTimer;
 }
 
 SceneStageBase::~SceneStageBase()
@@ -61,6 +63,7 @@ SceneStageBase::~SceneStageBase()
 	delete m_pManager;
 	delete m_pBack;
 	delete m_pShot;
+	delete m_pTimer;
 }
 
 void SceneStageBase::init()
@@ -107,10 +110,13 @@ void SceneStageBase::init()
 	m_fontHandle = CreateFontToHandle("Silver", 100, -1, 3);
 	
 	m_frameCountShot = 60;
+
 	m_isAllocation = false;
 	m_pushHelp = false;
 	m_deathSound = false;
 	PlaySoundMem(m_backGroundSound, DX_PLAYTYPE_LOOP, true);
+
+	m_pTimer->timeAssignment();
 }
 
 void SceneStageBase::end()
@@ -173,15 +179,22 @@ SceneBase* SceneStageBase::update()
 		m_quakeX = 0;
 	}
 
+	// ステージ内タイマー
+	if (!m_pManager->GameClear && !m_pManager->GetPushPauseOpen())
+	{
+		m_pTimer->timerUpdate();
+	}
+	
+	// 死亡音
 	deathSound();
 
 	if (!isFading())
 	{
 		// フェードアウト開始
 		// クリアポーズ画面の項目処理
-		if (m_pManager->GameClear && m_pManager->GetPushPause() == 1)				startFadeOut();// ポーズ画面の項目①
-		if (m_pManager->GameClear && m_pManager->GetPushPause() == 2)				startFadeOut();// ポーズ画面の項目②
-		if (m_pManager->GameClear && m_pManager->GetPushPause() == 3)				startFadeOut();// ポーズ画面の項目③
+		if (m_pManager->GameClear && m_pManager->GetPushPause() == 1) startFadeOut();// ポーズ画面の項目①
+		if (m_pManager->GameClear && m_pManager->GetPushPause() == 2) startFadeOut();// ポーズ画面の項目②
+		if (m_pManager->GameClear && m_pManager->GetPushPause() == 3) startFadeOut();// ポーズ画面の項目③
 
 		if (m_pManager->GameOver && m_quakeTime == 0)				startFadeOut();// ゲームオーバー
 		if (m_pManager->GetPushPause() == 1 && !m_pManager->GameClear)	startFadeOut();// ポーズ画面の項目①, 仮の条件付き
@@ -209,7 +222,17 @@ void SceneStageBase::draw()
 	SetDrawScreen(DX_SCREEN_BACK);
 	DrawGraph(static_cast<int>(m_quakeX), 0, m_screenHandle, false);
 
+	// 現在のステージ数
 	DrawFormatStringToHandle(1500, 900, kColor::White, m_fontHandle, "%d/20 stage", m_stageSelectNum);
+	// クリアにかかる時間
+	if (!m_pManager->GameClear)
+	{
+		m_pTimer->drawTime(m_fontHandle);
+	}
+	else
+	{
+		m_pTimer->drawResult(m_fontHandle);
+	}
 
 	SceneBase::drawFade();
 }

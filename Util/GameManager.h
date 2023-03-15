@@ -64,7 +64,7 @@ public:
 	// ポーズ画面の項目を押した情報取得
 	int GetPushPause() { return m_pushPause; }
 	// ポーズボタンが押されたかの情報取得
-	int GetPushPauseOpen() { return m_pushFlag; }
+	bool GetPushPauseOpen() { return m_pushFlag; }
 
 	// ゲームオーバー
 	bool GameOver;

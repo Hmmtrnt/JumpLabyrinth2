@@ -157,6 +157,7 @@
     <ClCompile Include="Scene\SceneStageBase.cpp" />
     <ClCompile Include="Scene\ScenePause.cpp" />
     <ClCompile Include="Scene\SceneSelect.cpp" />
+    <ClCompile Include="Time\StageTimer.cpp" />
     <ClCompile Include="Util\DrawFunctions.cpp" />
     <ClCompile Include="Object\Shot.cpp" />
     <ClCompile Include="Util\GameManager.cpp" />
@@ -176,6 +177,7 @@
     <ClInclude Include="Scene\SceneStageBase.h" />
     <ClInclude Include="Scene\ScenePause.h" />
     <ClInclude Include="Scene\SceneSelect.h" />
+    <ClInclude Include="Time\StageTimer.h" />
     <ClInclude Include="Util\DrawFunctions.h" />
     <ClInclude Include="Object\Shot.h" />
     <ClInclude Include="Util\GameManager.h" />

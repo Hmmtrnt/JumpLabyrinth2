@@ -6,6 +6,7 @@
 class GameManager;
 class Shot;
 class Back;
+class StageTimer;
 
 class SceneStageBase : public SceneBase
 {
@@ -20,21 +21,22 @@ public:
 
 	virtual SceneBase* updateBefore();// シーン遷移
 
-	void playerInit();			// プレイヤーの初期化
-	void stageInit();			// ステージの初期化
-	void shotInit();			// ショットの初期化
-	void updateGame();			// ゲームの更新処理
-	void updateShot();			// ショットの処理
-	void drawGuide();			// 各ステージのガイド描画
-	void drawShot();			// ショットの描画
-	void collisionShot();		// ショットとプレイヤーの当たり判定
-	void deathSound();			// 死亡時の音
+	void playerInit();// プレイヤーの初期化
+	void stageInit();// ステージの初期化
+	void shotInit();// ショットの初期化
+	void updateGame();// ゲームの更新処理
+	void updateShot();// ショットの処理
+	void drawGuide();// 各ステージのガイド描画
+	void drawShot();// ショットの描画
+	void collisionShot();// ショットとプレイヤーの当たり判定
+	void deathSound();// 死亡時の音
 
 protected:
 	// ポインタ
-	GameManager* m_pManager;	// ゲームマネージャー
-	Back* m_pBack;				// 背景
-	Shot* m_pShot;				// ショット
+	GameManager* m_pManager;// ゲームマネージャー
+	Back* m_pBack;// 背景
+	Shot* m_pShot;// ショット
+	StageTimer* m_pTimer;// タイマー
 
 	// キャラの座標
 	int m_posX;				// X座標
@@ -103,4 +105,3 @@ protected:
 	// 鳴っているかどうか
 	bool m_deathSound;	// 死亡音
 };
-
