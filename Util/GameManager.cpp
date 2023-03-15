@@ -98,16 +98,6 @@ void GameManager::initManager(int posX, int posY, int frameX, int frameY,
 	m_pBack->init();
 }
 
-void GameManager::initManagerInShot(int posX, int posY, int frameX, int frameY, 
-	const int stage[][kVariable::StageWidth], int stageHeight, int stageWidth)
-{
-	initCommon();
-	m_pShot->init();
-	m_pPlayer->initPlayer(posX, posY, frameX, frameY);
-	m_pStage->initStage(stage, stageHeight, stageWidth);
-	m_pBack->init();
-}
-
 void GameManager::end()
 {
 	DeleteGraph(m_handleNeedle);
@@ -120,12 +110,12 @@ void GameManager::end()
 	m_pShot->end();
 }
 
-void GameManager::updateInShot(int& frameX, int& frameY)
+void GameManager::update(int& frameX, int& frameY)
 {
 	// ポーズボタンを押したときの処理
 	if (Pad::isTrigger(PAD_INPUT_R) == 1)
 	{
-		if (!GameOver)
+		if (!GameOver && !GameClear)
 		{
 			// 開く
 			if (m_pushFlag == false)
@@ -142,7 +132,7 @@ void GameManager::updateInShot(int& frameX, int& frameY)
 	// ポーズボタンを閉じるときの処理
 	if (Pad::isTrigger(PAD_INPUT_1))
 	{
-		if (!GameOver)
+		if (!GameOver && !GameClear)
 		{
 			if (m_pushFlag == true)
 			{
@@ -209,154 +199,49 @@ void GameManager::updateInShot(int& frameX, int& frameY)
 		updatePause();
 		GameOver = false;
 	}
-
-	if (GameClear && m_pushFlag)	m_pushFlag = false;
-}
-
-void GameManager::updateNoShot()
-{
-	// ポーズボタンを押したときの処理
-	if (Pad::isTrigger(PAD_INPUT_R) == 1)
-	{
-		if (!GameOver && !GameClear)
-		{
-			// 開く
-			if (m_pushFlag == false)
-			{
-				m_pushFlag = true;
-			}
-			// 閉じる
-			else if (m_pushFlag == true)
-			{
-				m_pushFlag = false;
-			}
-		}
-	}
-	// ポーズボタンを閉じるときの処理
-	if (Pad::isTrigger(PAD_INPUT_1))
-	{
-		if (!GameOver && !GameClear)
-		{
-			if (m_pushFlag == true)
-			{
-				m_pushFlag = false;
-			}
-		}
-	}
-
-	if (!m_pushFlag)
-	{
-		collision();
-
-		if (colFlagL || colFlagR || colFlagUp || colFlagBottom)
-		{
-			m_timeLagCount--;
-			if (m_timeLagCount <= 0)
-			{
-				m_timeLagCount = 0;
-				if (m_timeLagCount == 0)
-				{
-					GameOver = true;
-					m_needleTrap = true;
-				}
-			}
-		}
-		if (m_pPlayer->m_speedX || m_pPlayer->m_speedY)
-		{
-			m_timeLagCount = 30;
-		}
-
-		if (!GameOver)
-		{
-			m_pPlayer->operation(colL, colR, colUp, colBottom);
-		}
-		else if (GameOver)
-		{
-			GameOverMotion();
-			m_pPlayer->m_speedX = 0;
-			m_pPlayer->m_speedY = 0;
-		}
-
-		if (GameClear)
-		{
-			m_pPlayer->m_speedX = 0;
-			m_pPlayer->m_speedY = 0;
-			if (!m_playSound)
-			{
-				PlaySoundMem(m_goalSound, DX_PLAYTYPE_BACK, true);
-			}
-			m_playSound = true;
-		}
-
-		m_pPlayer->update();
-		m_pStage->update();
-	}
-	
-	if (m_pushFlag)
-	{
-		m_pPause->updatePause();
-		updatePause();
-	}
-	if (GameClear)
-	{
-		m_pPause->updateClearPause();
-		updatePause();
-		GameOver = false;
-	}
 }
 
 void GameManager::updatePause()
 {
+	// 決定した時の処理
 	if (Pad::isTrigger(PAD_INPUT_2) == 1)
 	{
 		PlaySoundMem(m_decideSound, DX_PLAYTYPE_BACK, true);
 
-		if (m_stageSelectNum == 20)
+		if (m_pPause->GetPushNum() == 0)
 		{
-			if (m_pPause->GetPushNum() == 0)
+			m_pushPause = 1;
+		}
+		else if (m_pPause->GetPushNum() == 1)
+		{
+			m_pushPause = 2;
+		}
+		// ゲームクリアしたときのみ項目が増える
+		if (GameClear && m_stageSelectNum != 20)
+		{
+			if (m_pPause->GetPushNum() == 2)
 			{
-				m_pushPause = 1;
-			}
-			else if (m_pPause->GetPushNum() == 1)
-			{
-				m_pushPause = 2;
+				m_pushPause = 3;
 			}
 		}
-		else
-		{
-			if (m_pPause->GetPushNum() == 0)
-			{
-				m_pushPause = 1;
-			}
-			else if (m_pPause->GetPushNum() == 1)
-			{
-				m_pushPause = 2;
-			}
-			if (GameClear)
-			{
-				if (m_pPause->GetPushNum() == 2)
-				{
-					m_pushPause = 3;
-				}
-			}
-		}
-		
-		
 	}
 }
 
 void GameManager::draw()
 {
 	m_pStage->draw();
+	// ゲームクリアしていない時
 	if (!GameClear)
 	{
 		drawNeedle();
 		m_pPlayer->DrawGamePlay();
 	}
+	// ゲームクリアした時
 	if (GameClear)
 	{
 		m_pPause->drawClearPause();
 	}
+	// ポーズ画面を開いたとき
 	if (m_pushFlag)
 	{
 		m_pPause->drawPause();
@@ -369,7 +254,6 @@ void GameManager::collision()
 	collisionL();
 	collisionUP();
 	collisionBottom();
-	
 	collisionGameOver();
 	collisionGameClear();
 }
@@ -391,14 +275,13 @@ void GameManager::collisionR()
 		{
 			if (m_pPlayer->m_player[y][x] != 0)
 			{
-				if (m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + (x + 1)] == 8)
+				// ゴールと即死判定に着地しない
+				if (m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + (x + 1)] == 8 ||
+					m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + (x + 1)] == 6)
 				{
 					colR = false;
 				}
-				else if (m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + (x + 1)] == 6)
-				{
-					colR = false;
-				}
+				// 0以外の数字には着地する
 				else if (m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + (x + 1)] != 0)
 				{
 					colR = true;
@@ -421,14 +304,13 @@ void GameManager::collisionL()
 		{
 			if (m_pPlayer->m_player[y][x] != 0)
 			{
-				if (m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + (x - 1)] == 8)
+				// ゴールと即死判定に着地しない
+				if (m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + (x - 1)] == 8 ||
+					m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + (x - 1)] == 6)
 				{
 					colL = false;
 				}
-				else if (m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + (x - 1)] == 6)
-				{
-					colL = false;
-				}
+				// 0以外の数字には着地する
 				else if (m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + (x - 1)] != 0)
 				{
 					colL = true; 
@@ -451,14 +333,13 @@ void GameManager::collisionUP()
 		{
 			if (m_pPlayer->m_player[y][x] != 0)
 			{
-				if (m_pStage->m_stage[m_pPlayer->m_posY + (y - 1)][m_pPlayer->m_posX + x] == 8)
+				// ゴールと即死判定に着地しない
+				if (m_pStage->m_stage[m_pPlayer->m_posY + (y - 1)][m_pPlayer->m_posX + x] == 8 ||
+					m_pStage->m_stage[m_pPlayer->m_posY + (y - 1)][m_pPlayer->m_posX + x] == 6)
 				{
 					colUp = false;
 				}
-				else if (m_pStage->m_stage[m_pPlayer->m_posY + (y - 1)][m_pPlayer->m_posX + x] == 6)
-				{
-					colUp = false;
-				}
+				// 0以外の数字には着地する
 				else if (m_pStage->m_stage[m_pPlayer->m_posY + (y - 1)][m_pPlayer->m_posX + x] != 0)
 				{
 					colUp = true; 
@@ -481,14 +362,13 @@ void GameManager::collisionBottom()
 		{
 			if (m_pPlayer->m_player[y][x] != 0)
 			{
-				if (m_pStage->m_stage[m_pPlayer->m_posY + (y + 1)][m_pPlayer->m_posX + x] == 8)
+				// ゴールと即死判定には着地しない
+				if (m_pStage->m_stage[m_pPlayer->m_posY + (y + 1)][m_pPlayer->m_posX + x] == 8 ||
+					m_pStage->m_stage[m_pPlayer->m_posY + (y + 1)][m_pPlayer->m_posX + x] == 6)
 				{
 					colBottom = false;
 				}
-				else if (m_pStage->m_stage[m_pPlayer->m_posY + (y + 1)][m_pPlayer->m_posX + x] == 6)
-				{
-					colBottom = false;
-				}
+				// 0以外の数字には着地する
 				else if (m_pStage->m_stage[m_pPlayer->m_posY + (y + 1)][m_pPlayer->m_posX + x] != 0)
 				{
 					colBottom = true;
@@ -514,59 +394,22 @@ void GameManager::collisionBulge()
 			{
 				if (m_pPlayer->m_player[y][x] != 0)
 				{
-					// 右
-					if (m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + (x + 1)] == 5)
+					// 8方向
+					if (m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + (x + 1)] == 5 ||// 右
+						m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + (x - 1)] == 5 ||// 左
+						m_pStage->m_stage[m_pPlayer->m_posY + (y - 1)][m_pPlayer->m_posX + x] == 5 ||// 上
+						m_pStage->m_stage[m_pPlayer->m_posY + (y + 1)][m_pPlayer->m_posX + x] == 5 ||// 下
+						m_pStage->m_stage[m_pPlayer->m_posY + (y - 1)][m_pPlayer->m_posX + (x + 1)] == 5 ||// 右上
+						m_pStage->m_stage[m_pPlayer->m_posY + (y - 1)][m_pPlayer->m_posX + (x - 1)] == 5 ||// 左上
+						m_pStage->m_stage[m_pPlayer->m_posY + (y + 1)][m_pPlayer->m_posX + (x + 1)] == 5 ||// 右下
+						m_pStage->m_stage[m_pPlayer->m_posY + (y + 1)][m_pPlayer->m_posX + (x - 1)] == 5)// 左下
 					{
 						GameOver = true;
 						m_inflateTrap = true;
 					}
-					// 左
-					if (m_pStage->m_stage[m_pPlayer->m_posY + y][m_pPlayer->m_posX + (x - 1)] == 5)
-					{
-						GameOver = true;
-						m_inflateTrap = true;
-					}
-					// 上
-					if (m_pStage->m_stage[m_pPlayer->m_posY + (y - 1)][m_pPlayer->m_posX + x] == 5)
-					{
-						GameOver = true;
-						m_inflateTrap = true;
-					}
-					// 下
-					if (m_pStage->m_stage[m_pPlayer->m_posY + (y + 1)][m_pPlayer->m_posX + x] == 5)
-					{
-						GameOver = true;
-						m_inflateTrap = true;
-					}
-					// 右上
-					if (m_pStage->m_stage[m_pPlayer->m_posY + (y - 1)][m_pPlayer->m_posX + (x + 1)] == 5)
-					{
-						GameOver = true;
-						m_inflateTrap = true;
-					}
-					// 左上
-					if (m_pStage->m_stage[m_pPlayer->m_posY + (y - 1)][m_pPlayer->m_posX + (x - 1)] == 5)
-					{
-						GameOver = true;
-						m_inflateTrap = true;
-					}
-					// 右下
-					if (m_pStage->m_stage[m_pPlayer->m_posY + (y + 1)][m_pPlayer->m_posX + (x + 1)] == 5)
-					{
-						GameOver = true;
-						m_inflateTrap = true;
-					}
-					// 左下
-					if (m_pStage->m_stage[m_pPlayer->m_posY + (y + 1)][m_pPlayer->m_posX + (x - 1)] == 5)
-					{
-						GameOver = true;
-						m_inflateTrap = true;
-					}
-					
 				}
 			}
 		}
-		//printfDx("当たり判定有り\n");
 	}
 }
 
@@ -665,6 +508,7 @@ void GameManager::drawNeedle()
 {
 	float needleSize = 1.8f;
 
+	// 描画する向き
 	if (colFlagR)
 	{
 		m_rota = PI / -2;
@@ -708,6 +552,7 @@ void GameManager::GameOverMotion()
 	{
 		m_gameOverCount--;
 	}
+	// ゲームオーバーになって少ししてからモーションに入る
 	if (m_gameOverCount <= 0)
 	{
 		m_gameOverCount = 0;

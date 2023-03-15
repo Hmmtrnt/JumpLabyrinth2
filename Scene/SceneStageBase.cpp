@@ -587,20 +587,13 @@ void SceneStageBase::updateGame()
 	// 画面揺れていなければ処理する
 	if (m_quakeTime == 0)
 	{
-		if (m_inShot)
-		{
-			m_pManager->updateInShot(m_frameX, m_frameY);
-		}
-		else
-		{
-			m_pManager->updateNoShot();
-		}
+		m_pManager->update(m_frameX, m_frameY);
 	}
 	else
 	{
 		m_pManager->GameOverMotion();
 	}
-	// ステージ1以外
+	// ステージ1以外, ギミック説明をするかどうか
 	if (m_stageSelectNum != 1)
 	{
 		if (Pad::isTrigger(PAD_INPUT_4))

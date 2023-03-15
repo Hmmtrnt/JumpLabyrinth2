@@ -15,35 +15,44 @@ public:
 	virtual ~GameManager();
 
 	// 初期化一覧
-	void initCommon();			// 共通の初期化
+	void initCommon();// 共通の初期化
 
+	/// <summary>
+	/// 初期化
+	/// </summary>
+	/// <param name="posX">プレイヤーの配列のX座標</param>
+	/// <param name="posY">プレイヤーの配列のY座標</param>
+	/// <param name="frameX">プレイヤーのフレーム座標のX座標</param>
+	/// <param name="frameY">プレイヤーのフレーム座標のY座標</param>
+	/// <param name="stage">ステージの配列</param>
+	/// <param name="stageHeight">ステージの高さ</param>
+	/// <param name="stageWidth">ステージの横幅</param>
 	void initManager(int posX, int posY, int frameX, int frameY, 
-		const int stage[][kVariable::StageWidth], int stageHeight, int stageWidth);			// 初期化
-
-	void initManagerInShot(int posX, int posY, int frameX, int frameY,
 		const int stage[][kVariable::StageWidth], int stageHeight, int stageWidth);
 
-	void end();					// 終了
+	void end();// 終了
 
-	void updateInShot(int &frameX, int &frameY);
+	/// <summary>
+	/// 全体的な更新処理
+	/// </summary>
+	/// <param name="frameX">プレイヤーのX座標</param>
+	/// <param name="frameY">プレイヤーのY座標</param>
+	void update(int &frameX, int &frameY);
 
-	void updateNoShot();		// 弾の処理が入っていない更新
-	void updatePause();			// ポーズ画面の更新処理
-	//void updateClearPause();	// クリアポーズ画面の更新処理
-	void draw();				// 描画
+	void updatePause();// ポーズ画面の更新処理
+	void draw();// 描画
 
 	// 当たり判定
 	// プレイヤーとの
-	void collision();			// 全体
-	void collisionR();			// 右
-	void collisionL();			// 左
-	void collisionUP();			// 上
-	void collisionBottom();		// 下
-	void collisionBulge();		// ギミック5:膨らんだら即死判定
-	void collisionTimeLag();	// ギミック7:時間差で反応
-	
-	void collisionGameOver();	// ギミック6:即死判定
-	void collisionGameClear();	// ゲームクリア
+	void collision();// 全体
+	void collisionR();// 右
+	void collisionL();// 左
+	void collisionUP();// 上
+	void collisionBottom();// 下
+	void collisionBulge();// ギミック5:膨らんだら即死判定
+	void collisionTimeLag();// ギミック7:時間差で反応
+	void collisionGameOver();// ギミック6:即死判定
+	void collisionGameClear();// ゲームクリア
 
 	// 針の描画
 	void drawNeedle();
