@@ -315,10 +315,10 @@ void ScenePause::drawClearPause()
 	DrawStringToHandle(m_posClearTextX + 12, 302, "GAMECLEAR!", kColor::Black, m_textHandle);
 	DrawStringToHandle(m_posClearTextX + 10, 300, "GAMECLEAR!", kColor::White, m_textHandle);
 	
-	DrawStringToHandle(m_posClearTextX - 18, m_posClearTextY2 + 2, "SELECT SCENE", kColor::Black, m_textHandle);
+	DrawStringToHandle(m_posClearTextX - 18, m_posClearTextY2 + 2, "STAGE SELECT", kColor::Black, m_textHandle);
 	if ((m_FillBox && m_pushNum == 1 && !m_isStage20) || (m_FillBox && m_pushNum == 0 && m_isStage20))
 	{
-		DrawStringToHandle(m_posClearTextX - 20, m_posClearTextY2, "SELECT SCENE", kColor::White, m_textHandle);
+		DrawStringToHandle(m_posClearTextX - 20, m_posClearTextY2, "STAGE SELECT", kColor::White, m_textHandle);
 	}
 	
 	DrawStringToHandle(m_posClearTextX + 82, m_posClearTextY3 + 2, "RETRY", kColor::Black, m_textHandle);
