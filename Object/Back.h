@@ -28,6 +28,18 @@ public:
 	void drawTutorial();// チュートリアル描画
 	void drawTutorialText();// チュートリアルがあるかどうかの描画
 
+	/// <summary>
+	/// ボタン描画
+	/// </summary>
+	/// <param name="x">X座標</param>
+	/// <param name="y">Y座標</param>
+	void drawButton(int x, int y);
+	/// <summary>
+	/// 押すべきボタンの描画
+	/// </summary>
+	/// <param name="handleNum">描画する画像の番号</param>
+	void drawPushButton(int x, int y, int handleNum);
+
 private:
 	// ギミック説明の描画
 	
@@ -71,18 +83,6 @@ private:
 	void drawExplanShotTrap(int posXHandle, int posYHandle,
 		int posXText, int posYText);
 
-	/// <summary>
-	/// ボタン描画
-	/// </summary>
-	/// <param name="x">X座標</param>
-	/// <param name="y">Y座標</param>
-	void drawButton(int x, int y);
-	/// <summary>
-	/// 押すべきボタンの描画
-	/// </summary>
-	/// <param name="handleNum">描画する画像の番号</param>
-	void drawPushButton(int handleNum);
-
 	// 背景配列のサイズ取得
 	int m_back[kVariable::BackHeight][kVariable::BackWidth];
 	// 背景ハンドル
@@ -110,4 +110,8 @@ private:
 	int m_buttonHandleY;// Y座標
 	int m_buttohHandleDisplayTime;// 表示時間
 	int m_buttonHandleTime;// 全体時間
+	// 十字キー
+	int m_D_padButtonHandle;// 十字キー描画
+	int m_D_padPosX;// X座標
+	int m_D_padPosY;// Y座標
 };

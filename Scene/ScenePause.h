@@ -5,6 +5,7 @@
 #include <vector>
 
 class ParticleBase;
+class Back;
 
 class ScenePause
 {
@@ -28,6 +29,9 @@ public:
 private:
 	void particle(int count);
 	void drawParticle();
+
+	// ポインタ
+	Back* m_pBack;
 
 	// テキストハンドル
 	int m_textHandle;

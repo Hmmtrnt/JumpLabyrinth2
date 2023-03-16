@@ -112,30 +112,7 @@ void GameManager::end()
 
 void GameManager::update(int& frameX, int& frameY)
 {
-	// ポーズボタンを押したときの処理
-	if (Pad::isTrigger(PAD_INPUT_R))
-	{
-		if (!GameOver && !GameClear)
-		{
-			// 開く
-			if (m_pushFlag == false)
-			{
-				m_pushFlag = true;
-			}
-		}
-	}
-	// ポーズボタンを閉じるときの処理
-	if (Pad::isTrigger(PAD_INPUT_1))
-	{
-		if (!GameOver && !GameClear)
-		{
-			// 閉じる
-			if (m_pushFlag == true)
-			{
-				m_pushFlag = false;
-			}
-		}
-	}
+	
 
 	if (!m_pushFlag)
 	{
@@ -194,6 +171,30 @@ void GameManager::update(int& frameX, int& frameY)
 		m_pPause->updateClearPause();
 		updatePause();
 		GameOver = false;
+	}
+	// ポーズボタンを押したときの処理
+	if (Pad::isTrigger(PAD_INPUT_R))
+	{
+		if (!GameOver && !GameClear)
+		{
+			// 開く
+			if (m_pushFlag == false)
+			{
+				m_pushFlag = true;
+			}
+		}
+	}
+	// ポーズボタンを閉じるときの処理
+	if (Pad::isTrigger(PAD_INPUT_1))
+	{
+		if (!GameOver && !GameClear)
+		{
+			// 閉じる
+			if (m_pushFlag == true)
+			{
+				m_pushFlag = false;
+			}
+		}
 	}
 }
 

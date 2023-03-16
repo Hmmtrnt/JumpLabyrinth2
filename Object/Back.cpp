@@ -60,11 +60,11 @@ namespace
 	constexpr int kLeftButtonTextY = 750;
 
 	// ボタン画像の左上座標
-	constexpr float kButtonHandlePosX = 1.5f;
-	constexpr float kUpButtonHandlePosY = 15.5f;// 上
-	constexpr float kDownButtonHandlePosY = 17.5f;// 下
-	constexpr float kRightButtonHandlePosY = 16.5f;// 右
-	constexpr float kLeftButtonHandlePosY = 18.5f;// 左
+	constexpr int kButtonHandlePosX = 3;
+	constexpr int kUpButtonHandlePosY = 31;// 上
+	constexpr int kDownButtonHandlePosY = 35;// 下
+	constexpr int kRightButtonHandlePosY = 33;// 右
+	constexpr int kLeftButtonHandlePosY = 37;// 左
 
 	// 背景の描画サイズ
 	constexpr float kSize = 3.3f;
@@ -101,7 +101,10 @@ Back::Back() :
 	m_buttonHandleX(0),
 	m_buttonHandleY(0),
 	m_buttohHandleDisplayTime(0),
-	m_buttonHandleTime(0)
+	m_buttonHandleTime(0),
+	m_D_padButtonHandle(0),
+	m_D_padPosX(0),
+	m_D_padPosY(0)
 {
 	for (int y = 0; y < kVariable::BackHeight; y++)
 	{
@@ -145,6 +148,9 @@ void Back::init()
 	// 描画時間
 	m_buttohHandleDisplayTime = 30;// 描画
 	m_buttonHandleTime = 60;// 全体
+	m_D_padButtonHandle = kUpButtonHandlePosY;// 十字キー描画左上切り取り座標
+	m_D_padPosX = kUpButtonHandleX;// 十字キー描画X座標
+	m_D_padPosY = kUpButtonHandleY;// 十字キー描画Y座標
 
 	// 背景配列のサイズ取得
 	for (int y = 0; y < kVariable::BackHeight; y++)
@@ -224,7 +230,7 @@ void Back::drawCloseGuide()
 		m_textHandle, kGuideCloseText);
 	// ボタン描画
 	drawButton(100, 50);
-	drawPushButton(m_buttonHandleTopNum);
+	drawPushButton(2, 0, m_buttonHandleTopNum);
 }
 
 void Back::drawOpenGuide()
@@ -234,7 +240,7 @@ void Back::drawOpenGuide()
 
 	// ボタン描画
 	drawButton(100, 50);
-	drawPushButton(m_buttonHandleTopNum);
+	drawPushButton(2, 0, m_buttonHandleTopNum);
 	drawMenuGuide();
 }
 
@@ -318,38 +324,103 @@ void Back::drawExplan17_20()
 
 void Back::drawTutorial()
 {
+	// ボタン描画
+	for (int i = 0; i < 4; i++)
+	{
+		draw::MyDrawRectRotaGraph(m_D_padPosX, m_D_padPosY,
+			kButtonHandlePosX * kLengthHandle, m_D_padButtonHandle * kLengthHandle,
+			kLengthHandle * 2, kLengthHandle * 2,
+			4.0f, 0.0f, m_buttonHandle, true, false);
+		if (i == 0)
+		{// 上
+			m_D_padButtonHandle = kUpButtonHandlePosY;
+			m_D_padPosX = kUpButtonHandleX;
+			m_D_padPosY = kUpButtonHandleY;
+		}
+		if (i == 1)
+		{// 下
+			m_D_padButtonHandle = kDownButtonHandlePosY;
+			m_D_padPosX = kDownButtonHandleX;
+			m_D_padPosY = kDownButtonHandleY;
+		}
+		if (i == 2)
+		{// 右
+			m_D_padButtonHandle = kRightButtonHandlePosY;
+			m_D_padPosX = kRightButtonHandleX;
+			m_D_padPosY = kRightButtonHandleY;
+		}
+		if (i == 3)
+		{// 左
+			m_D_padButtonHandle = kLeftButtonHandlePosY;
+			m_D_padPosX = kLeftButtonHandleX;
+			m_D_padPosY = kLeftButtonHandleY;
+		}
+	}
+
 	// 上ボタン描画
-	draw::MyDrawRectRotaGraph(kUpButtonHandleX, kUpButtonHandleY,
-		kButtonHandlePosX * (kLengthHandle * 2), kUpButtonHandlePosY * (kLengthHandle * 2),
-		kLengthHandle * 2, kLengthHandle * 2,
-		4.0f, 0.0f, m_buttonHandle, true, false);
 	DrawStringToHandle(kFirstButtonTextX, kUpButtonTextY, kUpTutorialText, kColor::White, m_textHandle);
 
 	// 下ボタン描画
-	draw::MyDrawRectRotaGraph(kDownButtonHandleX, kDownButtonHandleY,
-		kButtonHandlePosX * (kLengthHandle * 2), kDownButtonHandlePosY * (kLengthHandle * 2),
-		kLengthHandle * 2, kLengthHandle * 2,
-		4.0f, 0.0f, m_buttonHandle, true, false);
 	DrawStringToHandle(kFirstButtonTextX, kDownButtonTextY, kDownTutorialText, kColor::White, m_textHandle);
 
 	// 右ボタン描画
-	draw::MyDrawRectRotaGraph(kRightButtonHandleX, kRightButtonHandleY,
-		kButtonHandlePosX * (kLengthHandle * 2), kRightButtonHandlePosY * (kLengthHandle * 2),
-		kLengthHandle * 2, kLengthHandle * 2,
-		4.0f, 0.0f, m_buttonHandle, true, false);
 	DrawStringToHandle(kSecondButtonTextX, kRightButtonTextY, kRightTutorialText, kColor::White, m_textHandle);
 
 	// 左ボタン描画
-	draw::MyDrawRectRotaGraph(kLeftButtonHandleX, kLeftButtonHandleY,
-		kButtonHandlePosX * (kLengthHandle * 2), kLeftButtonHandlePosY * (kLengthHandle * 2),
-		kLengthHandle * 2, kLengthHandle * 2,
-		4.0f, 0.0f, m_buttonHandle, true, false);
 	DrawStringToHandle(kSecondButtonTextX, kLeftButtonTextY, kLeftTutorialText, kColor::White, m_textHandle);
 }
 
 void Back::drawTutorialText()
 {
 	DrawStringToHandle(350, 800, kTutorialText, kColor::White, m_textHandle);
+}
+
+void Back::drawButton(int x, int y)
+{
+	// ボタン描画
+	for (int i = 0; i < 4; i++)
+	{
+		draw::MyDrawRectRotaGraph(m_buttonHandleX, m_buttonHandleY,
+			m_buttonHandleLeftNum * kLengthHandle, m_buttonHandleTopNum * kLengthHandle,
+			kLengthHandle, kLengthHandle,
+			2.0f, 0.0f, m_buttonHandle, true, false);
+		if (i == 0)
+		{
+			m_buttonHandleX = x + 25;
+			m_buttonHandleY = y + 25;
+			m_buttonHandleTopNum = 22;
+		}
+		if (i == 1)
+		{
+			m_buttonHandleX = x - 25;
+			m_buttonHandleY = y + 25;
+			m_buttonHandleTopNum = 19;
+		}
+		if (i == 2)
+		{
+			m_buttonHandleX = x;
+			m_buttonHandleY = y + 50;
+			m_buttonHandleTopNum = 20;
+		}
+		if (i == 3)
+		{
+			m_buttonHandleX = x;
+			m_buttonHandleY = y;
+			m_buttonHandleTopNum = 21;
+		}
+	}
+}
+
+void Back::drawPushButton(int x, int y, int handleNum)
+{
+	// 押すべきボタン描画
+	if (m_buttonHandleTime <= m_buttohHandleDisplayTime)
+	{
+		draw::MyDrawRectRotaGraph(m_buttonHandleX + x, m_buttonHandleY + y,
+			m_buttonHandleLeftNum + 4 * kLengthHandle, handleNum * kLengthHandle,
+			kLengthHandle, kLengthHandle,
+			2.0f, 0.0f, m_buttonHandle, true, false);
+	}
 }
 
 void Back::drawExplanDeath(int posXHandle, int posYHandle,
@@ -412,52 +483,4 @@ void Back::drawExplanShotTrap(int posXHandle, int posYHandle,
 	DrawFormatStringToHandle(posXText, posYText,
 		kColor::White, m_textHandle,
 		kExplanGimmickArrow);
-}
-
-void Back::drawButton(int x, int y)
-{
-	// ボタン描画
-	for (int i = 0; i < 4; i++)
-	{
-		draw::MyDrawRectRotaGraph(m_buttonHandleX, m_buttonHandleY,
-			m_buttonHandleLeftNum * kLengthHandle, m_buttonHandleTopNum * kLengthHandle,
-			kLengthHandle, kLengthHandle,
-			2.0f, 0.0f, m_buttonHandle, true, false);
-		if (i == 0)
-		{
-			m_buttonHandleX = x + 25;
-			m_buttonHandleY = y + 25;
-			m_buttonHandleTopNum = 22;
-		}
-		if (i == 1)
-		{
-			m_buttonHandleX = x - 25;
-			m_buttonHandleY = y + 25;
-			m_buttonHandleTopNum = 19;
-		}
-		if (i == 2)
-		{
-			m_buttonHandleX = x;
-			m_buttonHandleY = y + 50;
-			m_buttonHandleTopNum = 20;
-		}
-		if (i == 3)
-		{
-			m_buttonHandleX = x;
-			m_buttonHandleY = y;
-			m_buttonHandleTopNum = 21;
-		}
-	}
-}
-
-void Back::drawPushButton(int handleNum)
-{
-	// 押すべきボタン描画
-	if (m_buttonHandleTime <= m_buttohHandleDisplayTime)
-	{
-		draw::MyDrawRectRotaGraph(m_buttonHandleX + 2, m_buttonHandleY,
-			m_buttonHandleLeftNum + 4 * kLengthHandle, handleNum * kLengthHandle,
-			kLengthHandle, kLengthHandle,
-			2.0f, 0.0f, m_buttonHandle, true, false);
-	}
 }

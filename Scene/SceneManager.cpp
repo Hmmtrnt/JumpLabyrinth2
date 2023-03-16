@@ -14,7 +14,7 @@ SceneManager::SceneManager()
 void SceneManager::init()
 {
 #ifdef _DEBUG
-	m_pScene = new SceneTitle;
+	m_pScene = new SceneSelect;
 #else
 	m_pScene = new SceneTitle;
 #endif

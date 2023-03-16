@@ -80,7 +80,7 @@ namespace
 	constexpr int kStage19Second = 8;// •b
 	constexpr int kStage19Minute = 0;// •ª
 	// ƒXƒe[ƒW20
-	constexpr int kStage20Msec = 27;// ƒ~ƒŠ•b
+	constexpr int kStage20Msec = 24;// ƒ~ƒŠ•b
 	constexpr int kStage20Second = 10;// •b
 	constexpr int kStage20Minute = 0;// •ª
 }

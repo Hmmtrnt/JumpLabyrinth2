@@ -1,6 +1,7 @@
 ﻿#include "ScenePause.h"
 #include "../Util/Pad.h"
 #include "../Object/ParticleBase.h"
+#include "../Object/Back.h"
 
 namespace
 {
@@ -41,10 +42,12 @@ ScenePause::ScenePause() :
 	m_particlePosX(0),
 	m_particlePosY(0)
 {
+	m_pBack = new Back;
 }
 
 ScenePause::~ScenePause()
 {
+	delete m_pBack;
 }
 
 void ScenePause::init()
@@ -81,6 +84,8 @@ void ScenePause::init()
 	m_particleCount = 0;
 	m_particlePosX = 450;
 	m_particlePosY = 250;
+
+	m_pBack->init();
 }
 
 void ScenePause::end()
@@ -88,6 +93,7 @@ void ScenePause::end()
 	DeleteFontToHandle(m_textHandle);
 	DeleteSoundMem(m_cursorSound);
 	DeleteSoundMem(m_cursorNotSound);
+	m_pBack->end();
 }
 
 void ScenePause::updatePause()
@@ -129,6 +135,13 @@ void ScenePause::updatePause()
 	{
 		m_FillBox = true;
 	}
+	// 閉じるときに初期化
+	if (Pad::isTrigger(PAD_INPUT_1))
+	{
+		m_pushNum = 0;
+		m_pauseCursorNum = 495;
+	}
+	m_pBack->update();
 }
 
 void ScenePause::drawPause()
@@ -136,9 +149,9 @@ void ScenePause::drawPause()
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 100);
 	DrawBox(0, 0, Game::kScreenWidth, Game::kScreenHeight, kColor::Black, true);
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 200);
-	DrawBox(700, 350, 1150, 700, kColor::Yellow, true);
+	DrawBox(700, 350, 1150, 800, kColor::Yellow, true);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
-	DrawBox(700, 350, 1150, 700, kColor::Black, false);
+	DrawBox(700, 350, 1150, 800, kColor::Black, false);
 	DrawStringToHandle(850 + 2, 402, "PAUSE", kColor::Black, m_textHandle);
 	DrawStringToHandle(850, 400, "PAUSE", kColor::White, m_textHandle);
 
@@ -176,6 +189,10 @@ void ScenePause::drawPause()
 	{
 		DrawStringToHandle(kWidthText + 10, 600, "RETRY", kColor::White, m_textHandle);
 	}
+
+	m_pBack->drawButton(800, 710);
+	m_pBack->drawPushButton(2, 49, 20);
+	DrawStringToHandle(860, 710, ":閉じる", kColor::White, m_textHandle);
 }
 
 void ScenePause::updateClearPause()
