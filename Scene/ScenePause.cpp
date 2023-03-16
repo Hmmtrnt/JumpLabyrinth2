@@ -192,6 +192,7 @@ void ScenePause::drawPause()
 
 	m_pBack->drawButton(800, 710);
 	m_pBack->drawPushButton(2, 49, 20);
+	DrawStringToHandle(862, 712, ":閉じる", kColor::Black, m_textHandle);
 	DrawStringToHandle(860, 710, ":閉じる", kColor::White, m_textHandle);
 }
 
