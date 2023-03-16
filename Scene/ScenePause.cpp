@@ -2,6 +2,7 @@
 #include "../Util/Pad.h"
 #include "../Object/ParticleBase.h"
 #include "../Object/Back.h"
+#include "../Time/StageTimer.h"
 
 namespace
 {
@@ -43,11 +44,13 @@ ScenePause::ScenePause() :
 	m_particlePosY(0)
 {
 	m_pBack = new Back;
+	m_pTime = new StageTimer;
 }
 
 ScenePause::~ScenePause()
 {
 	delete m_pBack;
+	delete m_pTime;
 }
 
 void ScenePause::init()
@@ -327,8 +330,6 @@ void ScenePause::drawClearPause()
 			m_clearCursorNum = 500;
 			m_isCursorInit = true;
 		}
-		
-		drawParticle();
 	}
 	else
 	{
@@ -354,6 +355,7 @@ void ScenePause::drawClearPause()
 	{
 		DrawStringToHandle(m_posClearTextX + 80, m_posClearTextY3, "RETRY", kColor::White, m_textHandle);
 	}
+	drawParticle();
 }
 
 void ScenePause::movePause()
@@ -396,11 +398,11 @@ void ScenePause::particle(int count)
 
 			float randSin = static_cast<float>(GetRand(360)) / 360.0f;
 			randSin *= DX_TWO_PI_F;
-			float randSpeed = static_cast<float>(GetRand(200)) / 10.0f + 1.0f;
+			float randSpeed = static_cast<float>(GetRand(100)) / 10.0f + 1.0f;
 
 			Vec2 pos;
-			pos.x = m_particlePosX + cosf(randSin) * 2.0f;
-			pos.y = m_particlePosY + sinf(randSin) * 2.0f;
+			pos.x = m_particlePosX + cosf(randSin) * 1.0f;
+			pos.y = m_particlePosY + sinf(randSin) * 1.0f;
 
 			Vec2 vec;
 			vec.x = cosf(randSin) * randSpeed;

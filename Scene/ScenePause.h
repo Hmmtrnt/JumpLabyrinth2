@@ -6,6 +6,7 @@
 
 class ParticleBase;
 class Back;
+class StageTimer;
 
 class ScenePause
 {
@@ -32,6 +33,7 @@ private:
 
 	// ポインタ
 	Back* m_pBack;
+	StageTimer* m_pTime;
 
 	// テキストハンドル
 	int m_textHandle;

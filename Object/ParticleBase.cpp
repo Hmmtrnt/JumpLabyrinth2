@@ -8,7 +8,7 @@ ParticleBase::ParticleBase() :
 	m_alpha(255),
 	m_isExist(false),
 	m_gravity(0.0f),
-	m_alphaDec(4),
+	m_alphaDec(0),
 	m_radiusAcc(0.0f)
 {
 }
@@ -26,7 +26,7 @@ void ParticleBase::init()
 	m_alpha = 255;
 	m_isExist = false;
 	m_gravity = 0.0f;
-	m_alphaDec = 20;
+	m_alphaDec = 8;
 	m_radiusAcc = 0.0f;
 }
 

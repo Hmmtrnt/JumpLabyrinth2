@@ -52,8 +52,8 @@ namespace
 	constexpr int kStage12Second = 7;// 秒
 	constexpr int kStage12Minute = 0;// 分
 	// ステージ13
-	constexpr int kStage13Msec = 58;// ミリ秒
-	constexpr int kStage13Second = 8;// 秒
+	constexpr int kStage13Msec = 40;// ミリ秒
+	constexpr int kStage13Second = 7;// 秒
 	constexpr int kStage13Minute = 0;// 分
 	// ステージ14
 	constexpr int kStage14Msec = 10;// ミリ秒
