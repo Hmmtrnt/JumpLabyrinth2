@@ -56,8 +56,8 @@ namespace
 	constexpr int kStage13Second = 8;// •b
 	constexpr int kStage13Minute = 0;// •ª
 	// ƒXƒe[ƒW14
-	constexpr int kStage14Msec = 47;// ƒ~ƒŠ•b
-	constexpr int kStage14Second = 7;// •b
+	constexpr int kStage14Msec = 10;// ƒ~ƒŠ•b
+	constexpr int kStage14Second = 6;// •b
 	constexpr int kStage14Minute = 0;// •ª
 	// ƒXƒe[ƒW15
 	constexpr int kStage15Msec = 58;// ƒ~ƒŠ•b
@@ -102,7 +102,7 @@ StageTimer::~StageTimer()
 
 void StageTimer::timerUpdate()
 {
-	// ‘S‘ÌƒtƒŒ[ƒ€‘‰Á
+	// ŠÔ‘ª’è
 	m_clearTime = GetNowCount();
 	if (GetNowCount() - m_clearTime < 1000)
 	{
@@ -124,121 +124,121 @@ void StageTimer::timerUpdate()
 void StageTimer::timeAssignment()
 {
 	// ƒXƒe[ƒW‚²‚Æ
-	if (m_stageSelectNum == 1)
+	if (stageSelectNum == 1)
 	{
 		m_developerMsec = kStage1Msec;// ƒ~ƒŠ•b
 		m_developerSecond = kStage1Second;// •b
 		m_developerMinute = kStage1Minute;// •ª
 	}
-	if (m_stageSelectNum == 2)
+	if (stageSelectNum == 2)
 	{
 		m_developerMsec = kStage2Msec;// ƒ~ƒŠ•b
 		m_developerSecond = kStage2Second;// •b
 		m_developerMinute = kStage2Minute;// •ª
 	}
-	if (m_stageSelectNum == 3)
+	if (stageSelectNum == 3)
 	{
 		m_developerMsec = kStage3Msec;// ƒ~ƒŠ•b
 		m_developerSecond = kStage3Second;// •b
 		m_developerMinute = kStage3Minute;// •ª
 	}
-	if (m_stageSelectNum == 4)
+	if (stageSelectNum == 4)
 	{
 		m_developerMsec = kStage4Msec;// ƒ~ƒŠ•b
 		m_developerSecond = kStage4Second;// •b
 		m_developerMinute = kStage4Minute;// •ª
 	}
-	if (m_stageSelectNum == 5)
+	if (stageSelectNum == 5)
 	{
 		m_developerMsec = kStage5Msec;// ƒ~ƒŠ•b
 		m_developerSecond = kStage5Second;// •b
 		m_developerMinute = kStage5Minute;// •ª
 	}
-	if (m_stageSelectNum == 6)
+	if (stageSelectNum == 6)
 	{
 		m_developerMsec = kStage6Msec;// ƒ~ƒŠ•b
 		m_developerSecond = kStage6Second;// •b
 		m_developerMinute = kStage6Minute;// •ª
 	}
-	if (m_stageSelectNum == 7)
+	if (stageSelectNum == 7)
 	{
 		m_developerMsec = kStage7Msec;// ƒ~ƒŠ•b
 		m_developerSecond = kStage7Second;// •b
 		m_developerMinute = kStage7Minute;// •ª
 	}
-	if (m_stageSelectNum == 8)
+	if (stageSelectNum == 8)
 	{
 		m_developerMsec = kStage8Msec;// ƒ~ƒŠ•b
 		m_developerSecond = kStage8Second;// •b
 		m_developerMinute = kStage8Minute;// •ª
 	}
-	if (m_stageSelectNum == 9)
+	if (stageSelectNum == 9)
 	{
 		m_developerMsec = kStage9Msec;// ƒ~ƒŠ•b
 		m_developerSecond = kStage9Second;// •b
 		m_developerMinute = kStage9Minute;// •ª
 	}
-	if (m_stageSelectNum == 10)
+	if (stageSelectNum == 10)
 	{
 		m_developerMsec = kStage10Msec;// ƒ~ƒŠ•b
 		m_developerSecond = kStage10Second;// •b
 		m_developerMinute = kStage10Minute;// •ª
 	}
-	if (m_stageSelectNum == 11)
+	if (stageSelectNum == 11)
 	{
 		m_developerMsec = kStage11Msec;// ƒ~ƒŠ•b
 		m_developerSecond = kStage11Second;// •b
 		m_developerMinute = kStage11Minute;// •ª
 	}
-	if (m_stageSelectNum == 12)
+	if (stageSelectNum == 12)
 	{
 		m_developerMsec = kStage12Msec;// ƒ~ƒŠ•b
 		m_developerSecond = kStage12Second;// •b
 		m_developerMinute = kStage12Minute;// •ª
 	}
-	if (m_stageSelectNum == 13)
+	if (stageSelectNum == 13)
 	{
 		m_developerMsec = kStage13Msec;// ƒ~ƒŠ•b
 		m_developerSecond = kStage13Second;// •b
 		m_developerMinute = kStage13Minute;// •ª
 	}
-	if (m_stageSelectNum == 14)
+	if (stageSelectNum == 14)
 	{
 		m_developerMsec = kStage14Msec;// ƒ~ƒŠ•b
 		m_developerSecond = kStage14Second;// •b
 		m_developerMinute = kStage14Minute;// •ª
 	}
-	if (m_stageSelectNum == 15)
+	if (stageSelectNum == 15)
 	{
 		m_developerMsec = kStage15Msec;// ƒ~ƒŠ•b
 		m_developerSecond = kStage15Second;// •b
 		m_developerMinute = kStage15Minute;// •ª
 	}
-	if (m_stageSelectNum == 16)
+	if (stageSelectNum == 16)
 	{
 		m_developerMsec = kStage16Msec;// ƒ~ƒŠ•b
 		m_developerSecond = kStage16Second;// •b
 		m_developerMinute = kStage16Minute;// •ª
 	}
-	if (m_stageSelectNum == 17)
+	if (stageSelectNum == 17)
 	{
 		m_developerMsec = kStage17Msec;// ƒ~ƒŠ•b
 		m_developerSecond = kStage17Second;// •b
 		m_developerMinute = kStage17Minute;// •ª
 	}
-	if (m_stageSelectNum == 18)
+	if (stageSelectNum == 18)
 	{
 		m_developerMsec = kStage18Msec;// ƒ~ƒŠ•b
 		m_developerSecond = kStage18Second;// •b
 		m_developerMinute = kStage18Minute;// •ª
 	}
-	if (m_stageSelectNum == 19)
+	if (stageSelectNum == 19)
 	{
 		m_developerMsec = kStage19Msec;// ƒ~ƒŠ•b
 		m_developerSecond = kStage19Second;// •b
 		m_developerMinute = kStage19Minute;// •ª
 	}
-	if (m_stageSelectNum == 20)
+	if (stageSelectNum == 20)
 	{
 		m_developerMsec = kStage20Msec;// ƒ~ƒŠ•b
 		m_developerSecond = kStage20Second;// •b

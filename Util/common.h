@@ -8,10 +8,10 @@
 #define PI    3.1415926535897932384626433832795f
 
 // 選択されたステージ
-_declspec(selectany) int m_stageSelectNum = 0;
+_declspec(selectany) int stageSelectNum = 0;
 // セレクト画面のカーソル座標
-_declspec(selectany) int m_cursorSelectX = 1;
-_declspec(selectany) int m_cursorSelectY = 1;
+_declspec(selectany) int cursorSelectX = 1;
+_declspec(selectany) int cursorSelectY = 1;
 
 namespace kVariable
 {

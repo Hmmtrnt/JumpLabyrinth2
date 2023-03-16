@@ -113,7 +113,7 @@ void GameManager::end()
 void GameManager::update(int& frameX, int& frameY)
 {
 	// ポーズボタンを押したときの処理
-	if (Pad::isTrigger(PAD_INPUT_R) == 1)
+	if (Pad::isTrigger(PAD_INPUT_R))
 	{
 		if (!GameOver && !GameClear)
 		{
@@ -122,11 +122,6 @@ void GameManager::update(int& frameX, int& frameY)
 			{
 				m_pushFlag = true;
 			}
-			// 閉じる
-			else if (m_pushFlag == true)
-			{
-				m_pushFlag = false;
-			}
 		}
 	}
 	// ポーズボタンを閉じるときの処理
@@ -134,6 +129,7 @@ void GameManager::update(int& frameX, int& frameY)
 	{
 		if (!GameOver && !GameClear)
 		{
+			// 閉じる
 			if (m_pushFlag == true)
 			{
 				m_pushFlag = false;
@@ -208,7 +204,7 @@ void GameManager::updatePause()
 	{
 		PlaySoundMem(m_decideSound, DX_PLAYTYPE_BACK, true);
 
-		if (m_stageSelectNum == 20)
+		if (stageSelectNum == 20)
 		{
 			if (m_pPause->GetPushNum() == 0)
 			{

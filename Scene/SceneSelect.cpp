@@ -186,37 +186,37 @@ SceneBase* SceneSelect::update()
 		// 実験用シーン遷移(まだ動かない)
 		if (!isFading() && isOut)
 		{
-			if (m_cursorSelectY == 1)
+			if (cursorSelectY == 1)
 			{
-				if (m_cursorSelectX == 1)	m_stageSelectNum = 1;
-				if (m_cursorSelectX == 2) m_stageSelectNum = 2;
-				if (m_cursorSelectX == 3) m_stageSelectNum = 3;
-				if (m_cursorSelectX == 4) m_stageSelectNum = 4;
-				if (m_cursorSelectX == 5) m_stageSelectNum = 5;
+				if (cursorSelectX == 1)	stageSelectNum = 1;
+				if (cursorSelectX == 2) stageSelectNum = 2;
+				if (cursorSelectX == 3) stageSelectNum = 3;
+				if (cursorSelectX == 4) stageSelectNum = 4;
+				if (cursorSelectX == 5) stageSelectNum = 5;
 			}
-			if (m_cursorSelectY == 2)
+			if (cursorSelectY == 2)
 			{
-				if (m_cursorSelectX == 1)	m_stageSelectNum = 6;
-				if (m_cursorSelectX == 2) m_stageSelectNum = 7;
-				if (m_cursorSelectX == 3) m_stageSelectNum = 8;
-				if (m_cursorSelectX == 4) m_stageSelectNum = 9;
-				if (m_cursorSelectX == 5) m_stageSelectNum = 10;
+				if (cursorSelectX == 1)	stageSelectNum = 6;
+				if (cursorSelectX == 2) stageSelectNum = 7;
+				if (cursorSelectX == 3) stageSelectNum = 8;
+				if (cursorSelectX == 4) stageSelectNum = 9;
+				if (cursorSelectX == 5) stageSelectNum = 10;
 			}
-			if (m_cursorSelectY == 3)
+			if (cursorSelectY == 3)
 			{
-				if (m_cursorSelectX == 1)	m_stageSelectNum = 11;
-				if (m_cursorSelectX == 2) m_stageSelectNum = 12;
-				if (m_cursorSelectX == 3) m_stageSelectNum = 13;
-				if (m_cursorSelectX == 4) m_stageSelectNum = 14;
-				if (m_cursorSelectX == 5) m_stageSelectNum = 15;
+				if (cursorSelectX == 1)	stageSelectNum = 11;
+				if (cursorSelectX == 2) stageSelectNum = 12;
+				if (cursorSelectX == 3) stageSelectNum = 13;
+				if (cursorSelectX == 4) stageSelectNum = 14;
+				if (cursorSelectX == 5) stageSelectNum = 15;
 			}
-			if (m_cursorSelectY == 4)
+			if (cursorSelectY == 4)
 			{
-				if (m_cursorSelectX == 1)	m_stageSelectNum = 16;
-				if (m_cursorSelectX == 2) m_stageSelectNum = 17;
-				if (m_cursorSelectX == 3) m_stageSelectNum = 18;
-				if (m_cursorSelectX == 4) m_stageSelectNum = 19;
-				if (m_cursorSelectX == 5) m_stageSelectNum = 20;
+				if (cursorSelectX == 1)	stageSelectNum = 16;
+				if (cursorSelectX == 2) stageSelectNum = 17;
+				if (cursorSelectX == 3) stageSelectNum = 18;
+				if (cursorSelectX == 4) stageSelectNum = 19;
+				if (cursorSelectX == 5) stageSelectNum = 20;
 			}
 			return (new SceneStageBase);
 		}
@@ -227,80 +227,80 @@ SceneBase* SceneSelect::update()
 
 	if (Pad::isTrigger(PAD_INPUT_RIGHT))
 	{
-		m_cursorSelectX++;
+		cursorSelectX++;
 		PlaySoundMem(m_cursorSound, DX_PLAYTYPE_BACK, true);
 	}
 	if (Pad::isTrigger(PAD_INPUT_LEFT))
 	{
-		m_cursorSelectX--;
+		cursorSelectX--;
 		PlaySoundMem(m_cursorSound, DX_PLAYTYPE_BACK, true);
 	}
 	if (Pad::isTrigger(PAD_INPUT_UP))
 	{
-		m_cursorSelectY--;
+		cursorSelectY--;
 		PlaySoundMem(m_cursorSound, DX_PLAYTYPE_BACK, true);
 	}
 	if (Pad::isTrigger(PAD_INPUT_DOWN))
 	{
-		m_cursorSelectY++;
+		cursorSelectY++;
 		PlaySoundMem(m_cursorSound, DX_PLAYTYPE_BACK, true);
 	}
-	if (m_cursorSelectX <= 0)
+	if (cursorSelectX <= 0)
 	{
-		m_cursorSelectX = 5;
-		m_cursorSelectY--;
+		cursorSelectX = 5;
+		cursorSelectY--;
 	}
-	if (m_cursorSelectX >= 6)
+	if (cursorSelectX >= 6)
 	{
-		m_cursorSelectX = 1;
-		m_cursorSelectY++;
+		cursorSelectX = 1;
+		cursorSelectY++;
 	}
-	if (m_cursorSelectY <= 0)
+	if (cursorSelectY <= 0)
 	{
-		m_cursorSelectY = 4;
+		cursorSelectY = 4;
 	}
-	if (m_cursorSelectY >= 5)
+	if (cursorSelectY >= 5)
 	{
-		m_cursorSelectY = 1;
+		cursorSelectY = 1;
 	}
 
 	// カーソル移動
-	m_cursorPosX = (180 * (m_cursorSelectX - 1)) + 910;
+	m_cursorPosX = (180 * (cursorSelectX - 1)) + 910;
 	m_cursorPosW = m_cursorPosX + 160;
-	m_cursorPosY = (210 * (m_cursorSelectY - 1)) + 100;
+	m_cursorPosY = (210 * (cursorSelectY - 1)) + 100;
 	m_cursorPosH = m_cursorPosY + 150;
 
-	if (m_cursorSelectY == 1)
+	if (cursorSelectY == 1)
 	{
-		if (m_cursorSelectX == 1) m_centerStageH = m_stageH1;
-		if (m_cursorSelectX == 2) m_centerStageH = m_stageH2;
-		if (m_cursorSelectX == 3) m_centerStageH = m_stageH3;
-		if (m_cursorSelectX == 4) m_centerStageH = m_stageH4;
-		if (m_cursorSelectX == 5) m_centerStageH = m_stageH5;
+		if (cursorSelectX == 1) m_centerStageH = m_stageH1;
+		if (cursorSelectX == 2) m_centerStageH = m_stageH2;
+		if (cursorSelectX == 3) m_centerStageH = m_stageH3;
+		if (cursorSelectX == 4) m_centerStageH = m_stageH4;
+		if (cursorSelectX == 5) m_centerStageH = m_stageH5;
 	}
-	if (m_cursorSelectY == 2)
+	if (cursorSelectY == 2)
 	{
-		if (m_cursorSelectX == 1) m_centerStageH = m_stageH6;
-		if (m_cursorSelectX == 2) m_centerStageH = m_stageH7;
-		if (m_cursorSelectX == 3) m_centerStageH = m_stageH8;
-		if (m_cursorSelectX == 4) m_centerStageH = m_stageH9;
-		if (m_cursorSelectX == 5) m_centerStageH = m_stageH10;
+		if (cursorSelectX == 1) m_centerStageH = m_stageH6;
+		if (cursorSelectX == 2) m_centerStageH = m_stageH7;
+		if (cursorSelectX == 3) m_centerStageH = m_stageH8;
+		if (cursorSelectX == 4) m_centerStageH = m_stageH9;
+		if (cursorSelectX == 5) m_centerStageH = m_stageH10;
 	}
-	if (m_cursorSelectY == 3)
+	if (cursorSelectY == 3)
 	{
-		if (m_cursorSelectX == 1) m_centerStageH = m_stageH11;
-		if (m_cursorSelectX == 2) m_centerStageH = m_stageH12;
-		if (m_cursorSelectX == 3) m_centerStageH = m_stageH13;
-		if (m_cursorSelectX == 4) m_centerStageH = m_stageH14;
-		if (m_cursorSelectX == 5) m_centerStageH = m_stageH15;
+		if (cursorSelectX == 1) m_centerStageH = m_stageH11;
+		if (cursorSelectX == 2) m_centerStageH = m_stageH12;
+		if (cursorSelectX == 3) m_centerStageH = m_stageH13;
+		if (cursorSelectX == 4) m_centerStageH = m_stageH14;
+		if (cursorSelectX == 5) m_centerStageH = m_stageH15;
 	}
-	if (m_cursorSelectY == 4)
+	if (cursorSelectY == 4)
 	{
-		if (m_cursorSelectX == 1) m_centerStageH = m_stageH16;
-		if (m_cursorSelectX == 2) m_centerStageH = m_stageH17;
-		if (m_cursorSelectX == 3) m_centerStageH = m_stageH18;
-		if (m_cursorSelectX == 4) m_centerStageH = m_stageH19;
-		if (m_cursorSelectX == 5) m_centerStageH = m_stageH20;
+		if (cursorSelectX == 1) m_centerStageH = m_stageH16;
+		if (cursorSelectX == 2) m_centerStageH = m_stageH17;
+		if (cursorSelectX == 3) m_centerStageH = m_stageH18;
+		if (cursorSelectX == 4) m_centerStageH = m_stageH19;
+		if (cursorSelectX == 5) m_centerStageH = m_stageH20;
 	}
 
 	// タイトルへ戻るときのフラグ
@@ -453,7 +453,7 @@ void SceneSelect::draw()
 			2.0f, 0.0f, m_buttonHandle, true, false);
 	}
 	// ステージ１にカーソルを合わせたとき
-	if (m_cursorSelectX == 1 && m_cursorSelectY == 1)
+	if (cursorSelectX == 1 && cursorSelectY == 1)
 	{
 		m_pBack->drawTutorialText();
 	}
@@ -462,15 +462,15 @@ void SceneSelect::draw()
 
 void SceneSelect::cursorSave()
 {
-	if (m_stageSelectNum == 1 || m_stageSelectNum == 6 || m_stageSelectNum == 11 || m_stageSelectNum == 16) m_cursorSelectX = 1;
-	if (m_stageSelectNum == 2 || m_stageSelectNum == 7 || m_stageSelectNum == 12 || m_stageSelectNum == 17) m_cursorSelectX = 2;
-	if (m_stageSelectNum == 3 || m_stageSelectNum == 8 || m_stageSelectNum == 13 || m_stageSelectNum == 18) m_cursorSelectX = 3;
-	if (m_stageSelectNum == 4 || m_stageSelectNum == 9 || m_stageSelectNum == 14 || m_stageSelectNum == 19) m_cursorSelectX = 4;
-	if (m_stageSelectNum == 5 || m_stageSelectNum == 10 || m_stageSelectNum == 15 || m_stageSelectNum == 20) m_cursorSelectX = 5;
-	if (m_stageSelectNum >= 1 && m_stageSelectNum <= 5) m_cursorSelectY = 1;
-	if (m_stageSelectNum >= 6 && m_stageSelectNum <= 10) m_cursorSelectY = 2;
-	if (m_stageSelectNum >= 11 && m_stageSelectNum <= 15) m_cursorSelectY = 3;
-	if (m_stageSelectNum >= 16 && m_stageSelectNum <= 20) m_cursorSelectY = 4;
+	if (stageSelectNum == 1 || stageSelectNum == 6 || stageSelectNum == 11 || stageSelectNum == 16) cursorSelectX = 1;
+	if (stageSelectNum == 2 || stageSelectNum == 7 || stageSelectNum == 12 || stageSelectNum == 17) cursorSelectX = 2;
+	if (stageSelectNum == 3 || stageSelectNum == 8 || stageSelectNum == 13 || stageSelectNum == 18) cursorSelectX = 3;
+	if (stageSelectNum == 4 || stageSelectNum == 9 || stageSelectNum == 14 || stageSelectNum == 19) cursorSelectX = 4;
+	if (stageSelectNum == 5 || stageSelectNum == 10 || stageSelectNum == 15 || stageSelectNum == 20) cursorSelectX = 5;
+	if (stageSelectNum >= 1 && stageSelectNum <= 5) cursorSelectY = 1;
+	if (stageSelectNum >= 6 && stageSelectNum <= 10) cursorSelectY = 2;
+	if (stageSelectNum >= 11 && stageSelectNum <= 15) cursorSelectY = 3;
+	if (stageSelectNum >= 16 && stageSelectNum <= 20) cursorSelectY = 4;
 }
 
 // 難易度表示
@@ -485,62 +485,62 @@ void SceneSelect::difficultyDraw()
 	}
 
 	// ステージごとに難易度描画を変更
-	if (m_cursorSelectY == 1)
+	if (cursorSelectY == 1)
 	{
-		if (m_cursorSelectX == 1 || m_cursorSelectX == 2 || m_cursorSelectX == 3)
+		if (cursorSelectX == 1 || cursorSelectX == 2 || cursorSelectX == 3)
 		{
 			difficulty1Draw();
 		}
-		if (m_cursorSelectX == 4 || m_cursorSelectX == 5)
+		if (cursorSelectX == 4 || cursorSelectX == 5)
 		{
 			difficulty2Draw();
 		}
 	}
-	if (m_cursorSelectY == 2)
+	if (cursorSelectY == 2)
 	{
-		if (m_cursorSelectX == 1)
+		if (cursorSelectX == 1)
 		{
 			difficulty1Draw();
 		}
-		if (m_cursorSelectX == 2 || m_cursorSelectX == 3)
+		if (cursorSelectX == 2 || cursorSelectX == 3)
 		{
 			difficulty2Draw();
 		}
-		if (m_cursorSelectX == 4 || m_cursorSelectX == 5)
+		if (cursorSelectX == 4 || cursorSelectX == 5)
 		{
 			difficulty3Draw();
 		}
 	}
-	if (m_cursorSelectY == 3)
+	if (cursorSelectY == 3)
 	{
-		if (m_cursorSelectX == 1)
+		if (cursorSelectX == 1)
 		{
 			difficulty2Draw();
 		}
-		if (m_cursorSelectX == 2)
+		if (cursorSelectX == 2)
 		{
 			difficulty3Draw();
 		}
-		if (m_cursorSelectX == 3 || m_cursorSelectX == 4)
+		if (cursorSelectX == 3 || cursorSelectX == 4)
 		{
 			difficulty4Draw();
 		}
-		if (m_cursorSelectX == 5)
+		if (cursorSelectX == 5)
 		{
 			difficulty5Draw();
 		}
 	}
-	if (m_cursorSelectY == 4)
+	if (cursorSelectY == 4)
 	{
-		if (m_cursorSelectX == 1)
+		if (cursorSelectX == 1)
 		{
 			difficulty3Draw();
 		}
-		if (m_cursorSelectX == 2 || m_cursorSelectX == 3)
+		if (cursorSelectX == 2 || cursorSelectX == 3)
 		{
 			difficulty5Draw();
 		}
-		if (m_cursorSelectX == 4 || m_cursorSelectX == 5)
+		if (cursorSelectX == 4 || cursorSelectX == 5)
 		{
 			difficulty6Draw();
 		}

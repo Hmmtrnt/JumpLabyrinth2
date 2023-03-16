@@ -62,7 +62,7 @@ void ScenePause::init()
 	m_posClearTextX = -1150;
 	m_pauseCursorNum = 495;
 	
-	m_isStage20 = m_stageSelectNum == 20;
+	m_isStage20 = stageSelectNum == 20;
 	
 	m_clearCursorNum = 395;
 	m_posClearTextY1 = 400;

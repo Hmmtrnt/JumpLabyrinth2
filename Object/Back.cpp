@@ -220,9 +220,11 @@ void Back::drawMenuGuide()
 
 void Back::drawCloseGuide()
 {
-	DrawFormatStringToHandle(150, 50, kColor::White, m_textHandle, kGuideCloseText);
+	DrawFormatStringToHandle(150, 50, kColor::White, 
+		m_textHandle, kGuideCloseText);
 	// ƒ{ƒ^ƒ“•`‰æ
-	drawButton();
+	drawButton(100, 50);
+	drawPushButton(m_buttonHandleTopNum);
 }
 
 void Back::drawOpenGuide()
@@ -231,8 +233,8 @@ void Back::drawOpenGuide()
 		m_textHandle, kGuideOpenText);
 
 	// ƒ{ƒ^ƒ“•`‰æ
-	drawButton();
-
+	drawButton(100, 50);
+	drawPushButton(m_buttonHandleTopNum);
 	drawMenuGuide();
 }
 
@@ -412,10 +414,10 @@ void Back::drawExplanShotTrap(int posXHandle, int posYHandle,
 		kExplanGimmickArrow);
 }
 
-void Back::drawButton()
+void Back::drawButton(int x, int y)
 {
 	// ƒ{ƒ^ƒ“•`‰æ
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 4; i++)
 	{
 		draw::MyDrawRectRotaGraph(m_buttonHandleX, m_buttonHandleY,
 			m_buttonHandleLeftNum * kLengthHandle, m_buttonHandleTopNum * kLengthHandle,
@@ -423,36 +425,38 @@ void Back::drawButton()
 			2.0f, 0.0f, m_buttonHandle, true, false);
 		if (i == 0)
 		{
-			m_buttonHandleX = 100 + 25;
-			m_buttonHandleY = 50 + 25;
+			m_buttonHandleX = x + 25;
+			m_buttonHandleY = y + 25;
 			m_buttonHandleTopNum = 22;
 		}
 		if (i == 1)
 		{
-			m_buttonHandleX = 100 - 25;
-			m_buttonHandleY = 50 + 25;
+			m_buttonHandleX = x - 25;
+			m_buttonHandleY = y + 25;
 			m_buttonHandleTopNum = 19;
 		}
 		if (i == 2)
 		{
-			m_buttonHandleX = 100;
-			m_buttonHandleY = 50 + 50;
+			m_buttonHandleX = x;
+			m_buttonHandleY = y + 50;
 			m_buttonHandleTopNum = 20;
 		}
+		if (i == 3)
+		{
+			m_buttonHandleX = x;
+			m_buttonHandleY = y;
+			m_buttonHandleTopNum = 21;
+		}
 	}
+}
 
+void Back::drawPushButton(int handleNum)
+{
 	// ‰Ÿ‚·‚×‚«ƒ{ƒ^ƒ“•`‰æ
 	if (m_buttonHandleTime <= m_buttohHandleDisplayTime)
 	{
-		draw::MyDrawRectRotaGraph(m_buttonHandleX + 2, m_buttonHandleY - 50,
-			m_buttonHandleLeftNum + 4 * kLengthHandle, (m_buttonHandleTopNum + 1) * kLengthHandle,
-			kLengthHandle, kLengthHandle,
-			2.0f, 0.0f, m_buttonHandle, true, false);
-	}
-	else
-	{
-		draw::MyDrawRectRotaGraph(m_buttonHandleX, m_buttonHandleY - 50,
-			m_buttonHandleLeftNum * kLengthHandle, (m_buttonHandleTopNum + 1) * kLengthHandle,
+		draw::MyDrawRectRotaGraph(m_buttonHandleX + 2, m_buttonHandleY,
+			m_buttonHandleLeftNum + 4 * kLengthHandle, handleNum * kLengthHandle,
 			kLengthHandle, kLengthHandle,
 			2.0f, 0.0f, m_buttonHandle, true, false);
 	}
