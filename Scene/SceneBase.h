@@ -19,7 +19,7 @@ public:
 	bool isFadingOut() const;// フェードアウト中
 	bool isFading() const { return isFadingIn() || isFadingOut(); }// フェードインorアウト中
 
-	void startFadeOut();		// フェードアウト開始
+	void startFadeOut();// フェードアウト開始
 
 protected:
 	// フェード関連処理
