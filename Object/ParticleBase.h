@@ -12,7 +12,7 @@ public:
 	virtual void update();// 更新
 	virtual void draw();// 描画
 
-	// 開始	とりあえず初期位置のみ設定	他のは個別設定
+	// パーティクル開始
 	void start(Vec2 pos);
 
 	// 設定可能な項目
@@ -21,16 +21,16 @@ public:
 	void setRadius(float r) { m_radius = r; }// ランダム
 	void setColor(unsigned int color) { m_color = color; }// 色
 	void setGravity(float gravity) { m_gravity = gravity; }// 重力
-	void setAlphaDec(int dec) { m_alphaDec = dec; }// アルファブレンド
-	void setRadiusAcc(float acc) { m_radiusAcc = acc; }
-	void setAlpha(int alpha) { m_alpha = alpha; }
+	void setAlphaDec(int dec) { m_alphaDec = dec; }// フェードアウト速度
+	void setRadiusAcc(float acc) { m_radiusAcc = acc; }// 円の半径
+	void setAlpha(int alpha) { m_alpha = alpha; }// アルファブレンド
 
 	bool isExist() const { return m_isExist; }// 存在しているかどうか
 
 protected:
 	Vec2 m_pos;// 座標
 	Vec2 m_vec;// 移動
-	float m_radius;// ランダム
+	float m_radius;// 円の半径
 	unsigned int m_color;// 色
 	int m_alpha;// アルファブレンド
 	bool m_isExist;// 存在しているかどうか

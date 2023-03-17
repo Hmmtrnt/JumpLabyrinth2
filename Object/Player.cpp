@@ -409,6 +409,7 @@ void Player::particle(int x, int y, float rota)
 			if (m_particleFrame > 1 && m_landing) pParticle->start(pos);
 			pParticle->setVec(vec);
 			pParticle->setColor(kColor::Brown);
+			pParticle->setAlphaDec(20);
 			count++;
 			if (count >= 4)
 			{
