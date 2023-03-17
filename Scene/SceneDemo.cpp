@@ -4,6 +4,7 @@
 
 namespace
 {
+	// テキスト
 	const char* const kDemotext = "DEMO PLAY...";
 }
 
@@ -20,6 +21,7 @@ SceneDemo::~SceneDemo()
 
 void SceneDemo::init()
 {
+	// 映像ファイル
 	m_demoMoveHandle = draw::MyLoadGraph("Move/demoMove.mp4");
 	m_fontHandle = CreateFontToHandle("Silver", 120, -1, 3);
 	m_waitingTime = 60 * 23;
@@ -68,6 +70,7 @@ SceneBase* SceneDemo::update()
 
 void SceneDemo::draw()
 {
+	// 映像描画
 	DrawExtendGraph(0, 0, Game::kScreenWidth, Game::kScreenHeight, m_demoMoveHandle, false);
 	DrawStringToHandle(1450, 900, kDemotext, kColor::RedBlack, m_fontHandle);
 	SceneBase::drawFade();
