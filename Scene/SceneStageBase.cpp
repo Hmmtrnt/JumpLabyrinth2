@@ -126,6 +126,11 @@ void SceneStageBase::end()
 	m_pShot->end();
 	DeleteGraph(m_screenHandle);
 	DeleteSoundMem(m_backGroundSound);
+	DeleteSoundMem(m_burnSound);
+	DeleteSoundMem(m_needleSound);
+	DeleteSoundMem(m_inflateSound);
+	DeleteSoundMem(m_arrowSound);
+	DeleteFontToHandle(m_fontHandle);
 }
 
 SceneBase* SceneStageBase::update()
@@ -217,15 +222,9 @@ void SceneStageBase::draw()
 	}
 
 	m_pManager->draw();
-	drawGuide();// ステージギミック説明
-
-	SetDrawScreen(DX_SCREEN_BACK);
-	DrawGraph(static_cast<int>(m_quakeX), 0, m_screenHandle, false);
 
 	// 現在のステージ数
 	DrawFormatStringToHandle(1500, 900, kColor::White, m_fontHandle, "%d/20 stage", stageSelectNum);
-
-	printfDx("stageSelectNum = %d\n", stageSelectNum);
 
 	// クリアにかかる時間
 	if (!m_pManager->GameClear)
@@ -236,6 +235,11 @@ void SceneStageBase::draw()
 	{
 		m_pTimer->drawResult(m_fontHandle);
 	}
+
+	drawGuide();// ステージギミック説明
+
+	SetDrawScreen(DX_SCREEN_BACK);
+	DrawGraph(static_cast<int>(m_quakeX), 0, m_screenHandle, false);
 
 	SceneBase::drawFade();
 }
