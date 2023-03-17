@@ -7,17 +7,16 @@ public:
 	SceneBase();
 	virtual ~SceneBase(){}
 
-	virtual void init() = 0;			// 初期化
-	virtual void end() = 0;				// 終了処理
-	virtual SceneBase* update() { return this; }		// 更新処理
-	virtual void draw() = 0;			// 描画
+	virtual void init() = 0;// 初期化
+	virtual void end() = 0;// 終了処理
+	virtual SceneBase* update() { return this; }// 更新処理
+	virtual void draw() = 0;// 描画
 
 	// フェード関連
-	void updateFade(int sound);			// フェード更新
-	void drawFade() const;		// フェード描画
-
-	bool isFadingIn() const;	// フェードイン中
-	bool isFadingOut() const;	// フェードアウト中
+	void updateFade(int sound);// フェード更新
+	void drawFade() const;// フェード描画
+	bool isFadingIn() const;// フェードイン中
+	bool isFadingOut() const;// フェードアウト中
 	bool isFading() const { return isFadingIn() || isFadingOut(); }// フェードインorアウト中
 
 	void startFadeOut();		// フェードアウト開始
