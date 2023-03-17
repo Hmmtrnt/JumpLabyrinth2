@@ -29,6 +29,7 @@ Player::Player() :
 	m_jumpSound(0),
 	m_landingSound(0),
 	m_rota(0.0f),
+	m_reverse(false),
 	m_sound(false),
 	m_showerFrame(0),
 	m_particleFrame(0),
@@ -59,6 +60,7 @@ void Player::initCommon()
 	m_handle2 = draw::MyLoadGraph("data/moveChar2.png");// 移動中
 	m_jumpSound = LoadSoundMem("sound/jumpSound.mp3");// ジャンプした音
 	m_landingSound = LoadSoundMem("sound/landingSound.mp3");// 着地した音
+	m_reverse = false;
 	m_sound = true;
 
 	ChangeVolumeSoundMem(kVolumeBgm, m_landingSound);
@@ -155,13 +157,13 @@ void Player::DrawTitle(int posX, int posY)
 	if (m_frameCount <= 0 && m_verXPlayer != 1)
 	{
 		m_verXPlayer = 1;
-		m_verYPlayer = 0;
+		//m_verYPlayer = 0;
 		m_frameCount = motionCount;
 	}
 	else if (m_frameCount <= 0 && m_verXPlayer != 0)
 	{
 		m_verXPlayer = 0;
-		m_verYPlayer = 0;
+		//m_verYPlayer = 0;
 		m_frameCount = motionCount;
 	}
 
@@ -264,25 +266,22 @@ void Player::operation(bool colL, bool colR, bool colUp, bool colDown)
 // プレイヤーの描画
 void Player::playerDraw(int x, int y)
 {
+	// 左の壁に張り付いている間は画像が反転する
 	if (m_rota == PI / 2 && m_speedX == 0 && m_speedY == 0)
 	{
-		draw::MyDrawRectRotaGraph(kVariable::DrawPosition + (m_frameX + (x * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
-								  (m_frameY + (y * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
-								  m_verXPlayer * 32, m_verYPlayer * 32,
-								  32, 32,
-								  2.2f, m_rota,
-								  m_handle, true, true);
-
+		m_reverse = true;
 	}
 	else if (m_speedX == 0 && m_speedY == 0)
 	{
-		draw::MyDrawRectRotaGraph(kVariable::DrawPosition + (m_frameX + (x * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
-								  (m_frameY + (y * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
-								  m_verXPlayer * 32, m_verYPlayer * 32,
-								  32, 32,
-								  2.2f, m_rota,
-								  m_handle, true, false);
+		m_reverse = false;
 	}
+
+	draw::MyDrawRectRotaGraph(kVariable::DrawPosition + (m_frameX + (x * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
+		(m_frameY + (y * kVariable::DrawWidth)) + (kVariable::DrawWidth / 2),
+		m_verXPlayer * 32, m_verYPlayer * 32,
+		32, 32,
+		2.2f, m_rota,
+		m_handle, true, m_reverse);
 	
 	// パーティクル表示タイマー
 	particleTime();
@@ -315,13 +314,13 @@ void Player::motion(int x, int y)
 		if (m_frameCount <= 0 && m_verXPlayer != 1)
 		{
 			m_verXPlayer = 1;
-			m_verYPlayer = 0;
+			//m_verYPlayer = 0;
 			m_frameCount = motionCount;
 		}
 		else if (m_frameCount <= 0 && m_verXPlayer != 0)
 		{
 			m_verXPlayer = 0;
-			m_verYPlayer = 0;
+			//m_verYPlayer = 0;
 			m_frameCount = motionCount;
 		}
 	}
@@ -329,11 +328,6 @@ void Player::motion(int x, int y)
 
 void Player::particleTime()
 {
-
-	bool upLanding = m_rota == PI / 1 && Pad::isTrigger(PAD_INPUT_UP);// 上
-	bool downLanding = m_rota == 0 && Pad::isTrigger(PAD_INPUT_DOWN);// 下
-	bool rightLanding = m_rota == PI / -2 && Pad::isTrigger(PAD_INPUT_RIGHT);// 右
-	bool leftLanding = m_rota == PI / 2 && Pad::isTrigger(PAD_INPUT_LEFT);// 左
 	// パーティクル表示するタイマー
 	if (m_speedX == 0 && m_speedY == 0)	m_landing = true;
 	if (m_speedX != 0 || m_speedY != 0)

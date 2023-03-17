@@ -224,6 +224,9 @@ void SceneStageBase::draw()
 
 	// 現在のステージ数
 	DrawFormatStringToHandle(1500, 900, kColor::White, m_fontHandle, "%d/20 stage", stageSelectNum);
+
+	printfDx("stageSelectNum = %d\n", stageSelectNum);
+
 	// クリアにかかる時間
 	if (!m_pManager->GameClear)
 	{

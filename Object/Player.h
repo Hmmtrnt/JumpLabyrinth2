@@ -58,9 +58,16 @@ private:
 	// モーション
 	void motion(int x, int y);
 	// プレイヤーパーティクル
-	void particleTime();						// 発生インターバル
-	void particle(int x, int y, float rota);	// 動き:プレイヤーとは反対方向に
-	void drawParticle();						// 表示
+	void particleTime();// 発生インターバル
+
+	/// <summary>
+	/// パーティクルの動き
+	/// </summary>
+	/// <param name="x">X座標</param>
+	/// <param name="y">Y座標</param>
+	/// <param name="rota">プレイヤーの傾き</param>
+	void particle(int x, int y, float rota);
+	void drawParticle();// 表示
 
 	// プレイヤーハンドル
 	int m_handle;		// 静止
@@ -80,6 +87,8 @@ private:
 	// プレイヤーの回転
 	float m_rota;
 
+	// プレイヤーの描画反転
+	bool m_reverse;
 	// 音が鳴ったかどうかの真偽
 	bool m_sound;
 
