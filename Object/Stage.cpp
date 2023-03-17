@@ -19,6 +19,7 @@ Stage::Stage() :
 	m_handleGoal(0),
 	m_verX(0),
 	m_verY(0),
+	m_sizeGimmick(0),
 	m_idxGoalX(0),
 	m_idxGoalY(0),
 	m_GoalFrame(0),
@@ -55,6 +56,8 @@ void Stage::initCommon()
 	// ステージ切り取り
 	m_verX = 0;
 	m_verY = 0;
+
+	m_sizeGimmick = kStageSize;
 
 	m_idxGoalX = 0;
 	m_idxGoalY = 0;
@@ -146,26 +149,20 @@ void Stage::stageDraw(int x, int y)
 		{
 			m_verX = 3;
 			m_verY = 0;
-			draw::MyDrawRectRotaGraph(kVariable::DrawPosition + (x * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
-				(y * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
-				m_verX * 32, m_verY * 32,
-				32, 32,
-				kStageSize, 0.0f,
-				m_handleWall, true, false);
-
+			m_sizeGimmick = kStageSize;
 		}
 		if (m_gimmickFrame > m_inflate)
 		{
 			m_verX = 2;
 			m_verY = 0;
-			draw::MyDrawRectRotaGraph(kVariable::DrawPosition + (x * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
-				(y * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
-				m_verX * 32, m_verY * 32,
-				32, 32,
-				kStageSize + 4.0f, 0.0f,
-				m_handleWall, true, false);
-
+			m_sizeGimmick = kStageSize + 4.0f;
 		}
+		draw::MyDrawRectRotaGraph(kVariable::DrawPosition + (x * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
+			(y * kVariable::DrawWidth) + (kVariable::DrawWidth / 2),
+			m_verX * 32, m_verY * 32,
+			32, 32,
+			m_sizeGimmick, 0.0f,
+			m_handleWall, true, false);
 	}
 	// 6:即死判定
 	else if (m_stage[y][x] == 6)

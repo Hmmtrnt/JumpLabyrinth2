@@ -13,11 +13,11 @@ public:
 	Stage();
 	virtual ~Stage();
 
-	void initCommon();	// 共通の初期化
-	void initStage(const int stage[][kVariable::StageWidth], int stageHeight, int stageWidth);	// 実験用初期化
-	void end();			// 終了
-	void update();		// 更新
-	void draw();		// 描画
+	void initCommon();// 共通の初期化
+	void initStage(const int stage[][kVariable::StageWidth], int stageHeight, int stageWidth);// 実験用初期化
+	void end();// 終了
+	void update();// 更新
+	void draw();// 描画
 
 	int m_stage[kVariable::StageWidth][kVariable::StageWidth];// ステージ
 
@@ -27,8 +27,8 @@ private:
 	// 針の描画
 	void needleDraw(int x, int y);
 	// ゴールのパーティクル
-	void particle(int x, int y);	// 動き
-	void drawParticle();			// 描画
+	void particle(int x, int y);// 動き
+	void drawParticle();// 描画
 
 	// ギミックの描画が変わる時間
 	int m_gimmickFrame;
@@ -46,6 +46,8 @@ private:
 	// 切り取る左上の頂点
 	int m_verX;
 	int m_verY;
+	// 膨らんだら即死判定の大きさ
+	int m_sizeGimmick;
 
 	// ゴールの左上頂点
 	int m_idxGoalX;
@@ -58,7 +60,7 @@ private:
 
 	// パーティクル
 	std::array<std::shared_ptr<ParticleBase>, kParticle::ParticleNum> m_particle;
-	int m_showerFrame;		// 描画するフレーム
-	int m_particleFrame;	// 表示する時間
-	int m_auraFrame;		// エリア
+	int m_showerFrame;// 描画するフレーム
+	int m_particleFrame;// 表示する時間
+	int m_auraFrame;// エリア
 };
