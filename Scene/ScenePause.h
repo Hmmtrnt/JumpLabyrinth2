@@ -14,15 +14,15 @@ public:
 	ScenePause();
 	virtual ~ScenePause();
 
-	void init();			// 初期化
-	void end();				// 終了
-	void updatePause();		// ポーズ更新
-	void drawPause();		// ポーズ表示
+	void init();// 初期化
+	void end();// 終了
+	void updatePause();// ポーズ更新
+	void drawPause();// ポーズ表示
 
 	void updateClearPause();// クリアポーズ更新
-	void drawClearPause();	// クリアポーズ表示
+	void drawClearPause();// クリアポーズ表示
 
-	void movePause();		// ポーズ画面移動
+	void movePause();// ポーズ画面移動
 
 	// 押した回数の情報取得
 	int GetPushNum(){ return m_pushNum; }
@@ -38,33 +38,33 @@ private:
 	// テキストハンドル
 	int m_textHandle;
 	// 矢印の位置
-	int m_posCursorX;		// ポーズ画面のカーソル位置
-	int m_posCursorY;
+	int m_posCursorX;// ポーズ画面のカーソル位置 X軸
+	int m_posCursorY;// ポーズ画面のカーソル位置 Y軸
 
-	int m_posClearCursorX;	// クリアポーズ画面のカーソル位置
-	int m_posClearCursorY;	
+	int m_posClearCursorX;// クリアポーズ画面のカーソル位置 X軸
+	int m_posClearCursorY;// クリアポーズ画面のカーソル位置 Y軸
 	// 押した回数
 	int m_pushNum;
 	// クリア時のポーズ位置
-	int m_posClearPauseX;		// 左上座標
-	int m_posClearPauseY;
-	int m_sizeClearPauseX;		// サイズ座標
-	int m_sizeClearPauseY;
-	int m_posClearTextX;		// クリアポーズ画面のテキスト座標
-	int m_pauseCursorNum;		// ポーズ画面のカーソル位置
-	int m_clearCursorNum;		// クリア画面のカーソル位置
-	int m_posClearTextY1;		// 項目1
-	int m_posClearTextY2;		// 2
-	int m_posClearTextY3;		// 3
-	int m_itemNum;				// 選択できる範囲
-	int m_CursorPosX;			// カーソル座標	X座標
-	int m_CursorPosY;			// カーソル座標	Y座標
-	int m_movePosX;				// 動く座標
-	int m_vecPauseX;			// ポーズ画面の動く速さ
+	int m_posClearPauseX;// 左上 X座標
+	int m_posClearPauseY;// 左上 Y座標
+	int m_sizeClearPauseX;// サイズ X座標
+	int m_sizeClearPauseY;// サイズ Y座標
+	int m_posClearTextX;// クリアポーズ画面のテキスト座標
+	int m_pauseCursorNum;// ポーズ画面のカーソル位置
+	int m_clearCursorNum;// クリア画面のカーソル位置
+	int m_posClearTextY1;// 項目1
+	int m_posClearTextY2;// 項目2
+	int m_posClearTextY3;// 項目3
+	int m_itemNum;// 選択できる範囲
+	int m_CursorPosX;// カーソル座標 X座標
+	int m_CursorPosY;// カーソル座標 Y座標
+	int m_movePosX;// 動く座標
+	int m_vecPauseX;// ポーズ画面の動く速さ
 
 	// 音ハンドル
-	int m_cursorSound;		// カーソル移動音
-	int m_cursorNotSound;	// カーソル移動できない音
+	int m_cursorSound;// カーソル移動音
+	int m_cursorNotSound;// カーソル移動できない音
 
 	// カーソルを初期化したかどうか
 	bool m_isCursorInit;
