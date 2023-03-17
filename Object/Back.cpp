@@ -152,6 +152,7 @@ void Back::init()
 	m_D_padPosX = kUpButtonHandleX;// 十字キー描画X座標
 	m_D_padPosY = kUpButtonHandleY;// 十字キー描画Y座標
 
+
 	// 背景配列のサイズ取得
 	for (int y = 0; y < kVariable::BackHeight; y++)
 	{
@@ -193,24 +194,18 @@ void Back::draw()
 			{
 				m_verX = 4;
 				m_verY = 1;
-				draw::MyDrawRectRotaGraph((x * kVariable::DrawBackWidth) + (kVariable::DrawBackWidth / 2),
-					(y * kVariable::DrawBackWidth) + (kVariable::DrawBackWidth / 2),
-					m_verX * 32, m_verY * 32,
-					32, 32,
-					kSize, 0.0f,
-					m_handle, true, false);
 			}
 			if (m_back[y][x] == 1)
 			{
 				m_verX = 0;
 				m_verY = 1;
-				draw::MyDrawRectRotaGraph((x * kVariable::DrawBackWidth) + (kVariable::DrawBackWidth / 2),
-					(y * kVariable::DrawBackWidth) + (kVariable::DrawBackWidth / 2),
-					m_verX * 32, m_verY * 32,
-					32, 32,
-					kSize, 0.0f,
-					m_handle, true, false);
 			}
+			draw::MyDrawRectRotaGraph((x * kVariable::DrawBackWidth) + (kVariable::DrawBackWidth / 2),
+				(y * kVariable::DrawBackWidth) + (kVariable::DrawBackWidth / 2),
+				m_verX * 32, m_verY * 32,
+				32, 32,
+				kSize, 0.0f,
+				m_handle, true, false);
 		}
 	}
 }
