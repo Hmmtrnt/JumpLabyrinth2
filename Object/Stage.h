@@ -47,7 +47,7 @@ private:
 	int m_verX;
 	int m_verY;
 	// –c‚ç‚ñ‚¾‚ç‘¦€”»’è‚Ì‘å‚«‚³
-	int m_sizeGimmick;
+	float m_sizeGimmick;
 
 	// ƒS[ƒ‹‚Ì¶ã’¸“_
 	int m_idxGoalX;

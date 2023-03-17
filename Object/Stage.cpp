@@ -19,7 +19,7 @@ Stage::Stage() :
 	m_handleGoal(0),
 	m_verX(0),
 	m_verY(0),
-	m_sizeGimmick(0),
+	m_sizeGimmick(0.0f),
 	m_idxGoalX(0),
 	m_idxGoalY(0),
 	m_GoalFrame(0),
