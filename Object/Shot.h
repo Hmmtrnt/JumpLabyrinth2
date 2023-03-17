@@ -8,31 +8,31 @@ public:
 	Shot();
 	virtual ~Shot();
 
-	void init();		// ‰Šú‰»(‰Šú‰»)
-	void end();			// I—¹
-	void update();		// XV
+	void init();// ‰Šú‰»
+	void end();// I—¹
+	void update();// XV
 	// ’e‚Ì•`‰æ
-	void drawR(int &posX, int &posY);		// ‰EŒü‚«•`‰æ
-	void drawL(int& posX, int& posY);		// ¶Œü‚«•`‰æ
-	void drawU(int& posX, int& posY);		// ãŒü‚«•`‰æ
-	void drawB(int& posX, int& posY);		// ‰ºŒü‚«•`‰æ
-	void drawR2(int& posX, int& posY);		// ‰EŒü‚«•`‰æ‡A
-	void drawL2(int& posX, int& posY);		// ¶Œü‚«•`‰æ‡A
-	void drawB2(int& posX, int& posY);		// ‰ºŒü‚«•`‰æ‡B
+	void drawR(int &posX, int &posY);// ‰EŒü‚«•`‰æ
+	void drawL(int& posX, int& posY);// ¶Œü‚«•`‰æ
+	void drawU(int& posX, int& posY);// ãŒü‚«•`‰æ
+	void drawB(int& posX, int& posY);// ‰ºŒü‚«•`‰æ
+	void drawR2(int& posX, int& posY);// ‰EŒü‚«•`‰æ‡A
+	void drawL2(int& posX, int& posY);// ¶Œü‚«•`‰æ‡A
+	void drawB2(int& posX, int& posY);// ‰ºŒü‚«•`‰æ‡B
 
 	// •Ï”‚ÌŠm”F
 	void drawTest(int& posX, int& posY, float& rota);
 
 	// Ëü
-	void shotRight(int &posX, int &stagePosX);			// ‰E
-	void shotLeft(int &posX, int &stagePosX);			// ¶
-	void shotUp(int &posY, int &stagePosY);				// ã
-	void shotBottom(int &posY, int &stagePosY);			// ‰º
+	void shotRight(int &posX, int &stagePosX);// ‰E
+	void shotLeft(int &posX, int &stagePosX);// ¶
+	void shotUp(int &posY, int &stagePosY);// ã
+	void shotBottom(int &posY, int &stagePosY);// ‰º
 
 	// Ëü‡A
-	void shotRight2(int& posX, int& stagePosX);			// ‰E
-	void shotLeft2(int& posX, int& stagePosX);			// ¶
-	void shotBottom2(int& posY, int& stagePosY);		// ‰º
+	void shotRight2(int& posX, int& stagePosX);// ‰E
+	void shotLeft2(int& posX, int& stagePosX);// ¶
+	void shotBottom2(int& posY, int& stagePosY);// ‰º
 
 private:
 	// ’e‚Ì‘¬‚³

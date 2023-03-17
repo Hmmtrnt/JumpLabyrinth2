@@ -53,7 +53,8 @@ void Shot::end()
 
 void Shot::update()
 {
-	if (Pad::isTrigger(PAD_INPUT_R) == 1)
+	// ƒƒjƒ…[‚ğŠJ‚¢‚½‚çˆ—‚ğ~‚ß‚é
+	if (Pad::isTrigger(PAD_INPUT_R))
 	{
 		if (m_pushPause == false)
 		{
