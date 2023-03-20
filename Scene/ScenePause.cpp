@@ -7,8 +7,11 @@
 namespace
 {
 	// 座標
-	constexpr int kWidthText = 850;		// テキスト
-	constexpr int kWidthCursor = 750;	// カーソル
+	constexpr int kStageSelectWidthText = 760;// ステージセレクトテキスト
+	constexpr int kWidthText = 850;// リトライテキスト
+	constexpr int kWidthCursor = 750;// カーソル
+	// 音量
+	constexpr int kVolumeSE = 150;
 }
 
 ScenePause::ScenePause() :
@@ -78,6 +81,7 @@ void ScenePause::init()
 	m_vecPauseX = 100;
 	m_cursorSound = LoadSoundMem("sound/cursorSound.mp3");
 	m_cursorNotSound = LoadSoundMem("sound/landingSound.mp3");
+	ChangeVolumeSoundMem(kVolumeSE, m_cursorNotSound);
 
 	for (auto& pParticle : m_particle)
 	{
@@ -158,34 +162,34 @@ void ScenePause::drawPause()
 	DrawStringToHandle(850 + 2, 402, "PAUSE", kColor::Black, m_textHandle);
 	DrawStringToHandle(850, 400, "PAUSE", kColor::White, m_textHandle);
 
-	m_posCursorX = 800;
+	m_posCursorX = 740;
 	m_posCursorY = m_pauseCursorNum;
 	for (int y = 0; y < 5; y++)
 	{
-		DrawBox(m_posCursorX, m_posCursorY, m_posCursorX + 250, m_posCursorY + 70, kColor::Black, m_FillBox);
+		DrawBox(m_posCursorX, m_posCursorY, m_posCursorX + 370, m_posCursorY + 70, kColor::Black, m_FillBox);
 		m_posCursorX++;
 		m_posCursorY++;
 	}
 
-	int posX = 800;
+	int posX = 740;
 	int posY = 495;
 	for (int y = 0; y < 2; y++)
 	{
 		for (int x = 0; x < 2; x++)
 		{
-			DrawBox(posX, posY, posX + 250, posY + 70, kColor::Black, false);
+			DrawBox(posX, posY, posX + 370, posY + 70, kColor::Black, false);
 			posX++;
 			posY++;
 		}
-		posX = 800;
+		posX = 740;
 		posY -= 2;
 		posY += 100;
 	}
 
-	DrawStringToHandle(kWidthText + 2, 502, "RETIRE", kColor::Black, m_textHandle);
+	DrawStringToHandle(kStageSelectWidthText + 2, 502, "STAGE SELECT", kColor::Black, m_textHandle);
 	if (m_FillBox && m_pushNum == 0)
 	{
-		DrawStringToHandle(kWidthText, 500, "RETIRE", kColor::White, m_textHandle);
+		DrawStringToHandle(kStageSelectWidthText, 500, "STAGE SELECT", kColor::White, m_textHandle);
 	}
 	DrawStringToHandle(kWidthText + 12, 602, "RETRY", kColor::Black, m_textHandle);
 	if (m_FillBox && m_pushNum == 1)

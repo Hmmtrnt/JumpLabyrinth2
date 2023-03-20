@@ -10,8 +10,7 @@
 namespace
 {
 	// ‰¹—Ê
-	constexpr int kBackVolumeSound = 255; // Bgm
-	constexpr int kGoalVolumeSound = 150; // ƒS[ƒ‹‰¹
+	constexpr int kGoalVolumeSound = 100; // ƒS[ƒ‹‰¹
 }
 
 GameManager::GameManager() :
@@ -83,7 +82,6 @@ void GameManager::initCommon()
 	colBottom = false;
 	m_playSound = false;
 
-	ChangeVolumeSoundMem(kBackVolumeSound, m_goalSound);
 	ChangeVolumeSoundMem(kGoalVolumeSound, m_goalSound);
 	m_pPause->init();
 	

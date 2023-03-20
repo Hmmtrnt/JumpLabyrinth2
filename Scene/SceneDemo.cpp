@@ -26,6 +26,7 @@ void SceneDemo::init()
 	m_fontHandle = CreateFontToHandle("Silver", 120, -1, 3);
 	m_waitingTime = 60 * 23;
 	PlayMovieToGraph(m_demoMoveHandle);// ƒ€[ƒr[‚ğÄ¶ó‘Ô
+	SetMovieVolumeToGraph(8000, m_demoMoveHandle);
 }
 
 void SceneDemo::end()

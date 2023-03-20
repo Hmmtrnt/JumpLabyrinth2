@@ -4,19 +4,19 @@ namespace
 {
 	// 開発者のタイム
 	// ステージ1
-	constexpr int kStage1Msec = 46;// ミリ秒
+	constexpr int kStage1Msec = 55;// ミリ秒
 	constexpr int kStage1Second = 1;// 秒
 	constexpr int kStage1Minute = 0;// 分
 	// ステージ2
-	constexpr int kStage2Msec = 18;// ミリ秒
+	constexpr int kStage2Msec = 40;// ミリ秒
 	constexpr int kStage2Second = 3;// 秒
 	constexpr int kStage2Minute = 0;// 分
 	// ステージ3
-	constexpr int kStage3Msec = 34;// ミリ秒
+	constexpr int kStage3Msec = 54;// ミリ秒
 	constexpr int kStage3Second = 3;// 秒
 	constexpr int kStage3Minute = 0;// 分
 	// ステージ4
-	constexpr int kStage4Msec = 40;// ミリ秒
+	constexpr int kStage4Msec = 55;// ミリ秒
 	constexpr int kStage4Second = 2;// 秒
 	constexpr int kStage4Minute = 0;// 分
 	// ステージ5
@@ -24,31 +24,31 @@ namespace
 	constexpr int kStage5Second = 2;// 秒
 	constexpr int kStage5Minute = 0;// 分
 	// ステージ6
-	constexpr int kStage6Msec = 33;// ミリ秒
+	constexpr int kStage6Msec = 43;// ミリ秒
 	constexpr int kStage6Second = 3;// 秒
 	constexpr int kStage6Minute = 0;// 分
 	// ステージ7
-	constexpr int kStage7Msec = 25;// ミリ秒
+	constexpr int kStage7Msec = 32;// ミリ秒
 	constexpr int kStage7Second = 3;// 秒
 	constexpr int kStage7Minute = 0;// 分
 	// ステージ8
-	constexpr int kStage8Msec = 0;// ミリ秒
+	constexpr int kStage8Msec = 31;// ミリ秒
 	constexpr int kStage8Second = 4;// 秒
 	constexpr int kStage8Minute = 0;// 分
 	// ステージ9
-	constexpr int kStage9Msec = 8;// ミリ秒
+	constexpr int kStage9Msec = 23;// ミリ秒
 	constexpr int kStage9Second = 2;// 秒
 	constexpr int kStage9Minute = 0;// 分
 	// ステージ10
-	constexpr int kStage10Msec = 23;// ミリ秒
+	constexpr int kStage10Msec = 33;// ミリ秒
 	constexpr int kStage10Second = 3;// 秒
 	constexpr int kStage10Minute = 0;// 分
 	// ステージ11
-	constexpr int kStage11Msec = 53;// ミリ秒
+	constexpr int kStage11Msec = 59;// ミリ秒
 	constexpr int kStage11Second = 3;// 秒
 	constexpr int kStage11Minute = 0;// 分
 	// ステージ12
-	constexpr int kStage12Msec = 12;// ミリ秒
+	constexpr int kStage12Msec = 21;// ミリ秒
 	constexpr int kStage12Second = 7;// 秒
 	constexpr int kStage12Minute = 0;// 分
 	// ステージ13
@@ -56,31 +56,31 @@ namespace
 	constexpr int kStage13Second = 7;// 秒
 	constexpr int kStage13Minute = 0;// 分
 	// ステージ14
-	constexpr int kStage14Msec = 10;// ミリ秒
+	constexpr int kStage14Msec = 11;// ミリ秒
 	constexpr int kStage14Second = 6;// 秒
 	constexpr int kStage14Minute = 0;// 分
 	// ステージ15
-	constexpr int kStage15Msec = 58;// ミリ秒
-	constexpr int kStage15Second = 3;// 秒
+	constexpr int kStage15Msec = 0;// ミリ秒
+	constexpr int kStage15Second = 4;// 秒
 	constexpr int kStage15Minute = 0;// 分
 	// ステージ16
-	constexpr int kStage16Msec = 55;// ミリ秒
-	constexpr int kStage16Second = 3;// 秒
+	constexpr int kStage16Msec = 0;// ミリ秒
+	constexpr int kStage16Second = 4;// 秒
 	constexpr int kStage16Minute = 0;// 分
 	// ステージ17
-	constexpr int kStage17Msec = 34;// ミリ秒
+	constexpr int kStage17Msec = 44;// ミリ秒
 	constexpr int kStage17Second = 5;// 秒
 	constexpr int kStage17Minute = 0;// 分
 	// ステージ18
-	constexpr int kStage18Msec = 55;// ミリ秒
-	constexpr int kStage18Second = 10;// 秒
+	constexpr int kStage18Msec = 0;// ミリ秒
+	constexpr int kStage18Second = 11;// 秒
 	constexpr int kStage18Minute = 0;// 分
 	// ステージ19
 	constexpr int kStage19Msec = 52;// ミリ秒
 	constexpr int kStage19Second = 8;// 秒
 	constexpr int kStage19Minute = 0;// 分
 	// ステージ20
-	constexpr int kStage20Msec = 24;// ミリ秒
+	constexpr int kStage20Msec = 30;// ミリ秒
 	constexpr int kStage20Second = 10;// 秒
 	constexpr int kStage20Minute = 0;// 分
 }
@@ -248,7 +248,7 @@ void StageTimer::timeAssignment()
 
 void StageTimer::drawTime(int font)
 {
-	DrawFormatStringToHandle(100, 900, kColor::White, font, "%d:%d.%d", m_timeMinute, m_timeSecond, m_timeMsec);
+	DrawFormatStringToHandle(1500, 800, kColor::White, font, "%d:%d.%d", m_timeMinute, m_timeSecond, m_timeMsec);
 }
 
 void StageTimer::drawResult(int font)

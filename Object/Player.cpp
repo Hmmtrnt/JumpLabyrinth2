@@ -9,7 +9,7 @@ namespace
 	// 速さ
 	constexpr int speed = 68;
 	// BGMの音量
-	constexpr int kVolumeBgm = 255;
+	constexpr int kVolumeSE = 150;
 }
 
 Player::Player() :
@@ -26,7 +26,6 @@ Player::Player() :
 	m_handleEffect(-1),
 	m_handlenumX(-1),
 	m_frameCount(0),
-	m_jumpSound(0),
 	m_landingSound(0),
 	m_rota(0.0f),
 	m_reverse(false),
@@ -58,13 +57,11 @@ void Player::initCommon()
 	// プレイヤー描画
 	m_handle = draw::MyLoadGraph("data/AnimationSheet_Character.png");// 立つモーション
 	m_handle2 = draw::MyLoadGraph("data/moveChar2.png");// 移動中
-	m_jumpSound = LoadSoundMem("sound/jumpSound.mp3");// ジャンプした音
 	m_landingSound = LoadSoundMem("sound/landingSound.mp3");// 着地した音
 	m_reverse = false;
 	m_sound = true;
 
-	ChangeVolumeSoundMem(kVolumeBgm, m_landingSound);
-	ChangeVolumeSoundMem(kVolumeBgm, m_jumpSound);
+	ChangeVolumeSoundMem(kVolumeSE, m_landingSound);
 
 	// プレイヤーの配列
 	for (int y = 0; y < kVariable::PlayerWidth; y++)
@@ -104,7 +101,6 @@ void Player::end()
 	DeleteGraph(m_handle);
 	DeleteGraph(m_handle2);
 	DeleteGraph(m_handleEffect);
-	DeleteSoundMem(m_jumpSound);
 	DeleteSoundMem(m_landingSound);
 }
 

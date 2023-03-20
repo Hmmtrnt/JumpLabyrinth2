@@ -64,7 +64,11 @@ void SceneTitle::init()
 	m_pPlayer->initTitle();
 	PlaySoundMem(m_backGroundSound, DX_PLAYTYPE_LOOP, true);
 	stageSelectNum = 1;
+#ifdef _DEBUG
+	m_waitingTime = 60 * 5;// ˆê•bŠÔ‚ÌƒtƒŒ[ƒ€*•b”
+#else
 	m_waitingTime = 60 * 15;// ˆê•bŠÔ‚ÌƒtƒŒ[ƒ€*•b”
+#endif
 }
 
 void SceneTitle::end()

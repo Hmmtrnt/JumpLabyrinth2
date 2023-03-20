@@ -81,7 +81,6 @@ private:
 	int m_frameCount;
 
 	// 音ハンドル
-	int m_jumpSound;	// ジャンプ
 	int m_landingSound;	// 着地
 
 	// プレイヤーの回転
