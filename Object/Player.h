@@ -20,13 +20,11 @@ public:
 	void end();// 終了
 	void endTitle();// タイトル画面の終了
 	void update();// 更新
-	void updateTitle();// タイトル画面の更新
 	void updateInCollision(int &frameX, int &frameY);// キャラクターの当たり判定入り更新
 
 	// 描画
 	void DrawGamePlay();		// プレイ中
 	void DrawTitle(int posX, int posY);// タイトル描画
-	void DrawMotionTitle();
 
 	// プレイヤー操作
 	void operation(bool colL,bool colR, bool colUp, bool colDown);
@@ -75,17 +73,6 @@ private:
 	
 	// プレイヤーのモーションフレームカウント
 	int m_frameCount;
-
-	// タイトル画面のモーション
-	int m_TframeCount;// フレームカウント
-	int m_TposX;// X座標
-	int m_TposY;// Y座標
-	int m_TspeedX;// 移動X座標
-	int m_TspeedY;// 移動Y座標
-	int m_TverX;// 切り取りX座標
-	int m_TverY;// 切り取りY座標
-	int m_TlandingCount;// 着地している時間
-	int m_Trota;// 描画の回転率
 
 	// 音ハンドル
 	int m_landingSound;	// 着地

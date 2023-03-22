@@ -19,12 +19,6 @@ Stage::Stage() :
 	m_handleGoal(0),
 	m_verX(0),
 	m_verY(0),
-	m_TposX(0),
-	m_TposY(0),
-	m_TverX(0),
-	m_TverY(0),
-	m_TverGoalX(0),
-	m_TverGoalY(0),
 	m_sizeGimmick(0.0f),
 	m_idxGoalX(0),
 	m_idxGoalY(0),
@@ -92,17 +86,6 @@ void Stage::initStage(const int stage[][kVariable::StageWidth], int stageHeight,
 	}
 }
 
-void Stage::initTitle()
-{
-	initCommon();
-	m_TposX = 450;
-	m_TposY = 850;
-	m_TverX = 4;
-	m_TverY = 0;
-	m_TverGoalX = 0;
-	m_TverGoalY = 0;
-}
-
 void Stage::end()
 {
 	DeleteGraph(m_handleWall);
@@ -141,44 +124,6 @@ void Stage::draw()
 
 	// パーティクル描画
 	drawParticle();
-}
-
-void Stage::drawTitle()
-{
-	for (int i = 0; i < 4; i++)
-	{
-		draw::MyDrawRectRotaGraph(m_TposX, m_TposY,
-			m_TverX * 32, m_TverY * 32,
-			32, 32,
-			3.2f, 0.0f,
-			m_handleWall, true, false);
-		if (i == 0)
-		{
-			m_TposX = 450;
-			m_TposY = 850;
-		}
-		if (i == 1)
-		{
-			m_TposX = 550;
-			m_TposY = 750;
-		}
-		if (i == 2)
-		{
-			m_TposX = 450;
-			m_TposY = 450;
-		}
-		if (i == 3)
-		{
-			m_TposX = 1550;
-			m_TposY = 550;
-		}
-	}
-
-	draw::MyDrawRectRotaGraph(1450, 850,
-		m_TverGoalX * 40, m_TverGoalY * 40,
-		40, 40,
-		2.4f, 0.0f,
-		m_handleGoal, true, false);
 }
 
 void Stage::stageDraw(int x, int y)

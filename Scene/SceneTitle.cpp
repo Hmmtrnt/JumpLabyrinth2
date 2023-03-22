@@ -3,7 +3,6 @@
 #include "SceneDemo.h"
 #include "../Object/Back.h"
 #include "../Object/Player.h"
-#include "../Object/Stage.h"
 #include "../Util/Pad.h"
 
 namespace
@@ -28,14 +27,12 @@ SceneTitle::SceneTitle() :
 {
 	m_pBack = new Back;
 	m_pPlayer = new Player;
-	m_pStage = new Stage;
 }
 
 SceneTitle::~SceneTitle()
 {
 	delete m_pBack;
 	delete m_pPlayer;
-	delete m_pStage;
 }
 
 void SceneTitle::init()
@@ -65,7 +62,6 @@ void SceneTitle::init()
 	m_backGroundSound = LoadSoundMem("sound/titleSound.mp3");
 	m_pBack->init();
 	m_pPlayer->initTitle();
-	m_pStage->initTitle();
 	PlaySoundMem(m_backGroundSound, DX_PLAYTYPE_LOOP, true);
 	stageSelectNum = 1;
 #ifdef _DEBUG
@@ -84,7 +80,6 @@ void SceneTitle::end()
 	DeleteSoundMem(m_backGroundSound);
 	m_pBack->end();
 	m_pPlayer->endTitle();
-	m_pStage->end();
 }
 
 SceneBase* SceneTitle::update()
@@ -114,6 +109,7 @@ SceneBase* SceneTitle::update()
 		m_textFlashCount = 0;
 	}
 
+
 	if (!isFading())
 	{
 		if (Pad::isTrigger(PAD_INPUT_1) || Pad::isTrigger(PAD_INPUT_2) || Pad::isTrigger(PAD_INPUT_3) || 
@@ -141,9 +137,6 @@ void SceneTitle::draw()
 	// 背景
 	m_pBack->draw();
 
-	// タイトルの地面描画
-	//m_pStage->drawTitle();
-
 	// タイトル
 	DrawStringToHandle(505, 205, kTitleText, kColor::RedBlack, m_fontTitle);
 	DrawStringToHandle(500, 200, kTitleText, kColor::White, m_fontTitle);
@@ -156,7 +149,6 @@ void SceneTitle::draw()
 	}
 	// タイトル画面のプレイヤー描画
 	m_pPlayer->DrawTitle(m_posX, m_posY);
-	//m_pPlayer->DrawMotionTitle();
 
 	SceneBase::drawFade();
 }

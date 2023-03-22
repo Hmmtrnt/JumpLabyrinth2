@@ -26,15 +26,6 @@ Player::Player() :
 	m_handleEffect(-1),
 	m_handlenumX(-1),
 	m_frameCount(0),
-	m_TframeCount(0),
-	m_TposX(0),
-	m_TposY(0),
-	m_TspeedX(0),
-	m_TspeedY(0),
-	m_TverX(0),
-	m_TverY(0),
-	m_TlandingCount(0),
-	m_Trota(0),
 	m_landingSound(0),
 	m_rota(0.0f),
 	m_reverse(false),
@@ -103,14 +94,6 @@ void Player::initPlayer(int posX, int posY, int frameX, int frameY)
 void Player::initTitle()
 {
 	m_handle = draw::MyLoadGraph("data/AnimationSheet_Character.png");
-	m_TframeCount = motionCount;
-	m_TposX = 450;
-	m_TposY = 750;
-	m_TspeedX = 0;
-	m_TspeedY = 0;
-	m_TverX = 0;
-	m_TverY = 0;
-	m_TlandingCount = 0;
 }
 
 // 終了
@@ -134,15 +117,6 @@ void Player::update()
 	m_posX = m_frameX / kVariable::DrawWidth;
 	m_frameY += m_speedY;
 	m_posY = m_frameY / kVariable::DrawWidth;
-}
-
-void Player::updateTitle()
-{
-	// キャラクターの動き
-	m_TposX += m_TspeedX;
-	m_TposY += m_TspeedY;
-
-	//if (m_TposX == )
 }
 
 void Player::updateInCollision(int& frameX, int& frameY)
@@ -193,50 +167,6 @@ void Player::DrawTitle(int posX, int posY)
 		32, 32,
 		3.0f, m_rota,
 		m_handle, true, false);
-}
-
-void Player::DrawMotionTitle()
-{
-	// 立っているモーション
-	m_TframeCount--;
-	if (m_TframeCount <= 0 && m_TverX != 1)
-	{
-		m_TverX = 1;
-		m_TframeCount = motionCount;
-	}
-	else if (m_TframeCount <= 0 && m_TverX != 0)
-	{
-		m_TverX = 0;
-		m_TframeCount = motionCount;
-	}
-
-	// 動いている方向に回転率を変える
-	if (m_TspeedX != 0)
-	{
-		m_Trota = PI / 2;
-	}
-	else if (m_TspeedY != 0)
-	{
-		m_Trota = 0;
-	}
-
-	// 動いている時といないとき
-	if (m_TspeedX == 0 && m_TspeedY == 0)
-	{
-		draw::MyDrawRectRotaGraph(m_TposX, m_TposY,
-			m_TverX * 32, m_TverY * 32,
-			32, 32,
-			3.0f, m_rota,
-			m_handle, true, false);
-	}
-	else
-	{
-		draw::MyDrawRectRotaGraph(m_TposX, m_TposY,
-			0, 0,
-			40, 40,
-			2.3f, m_Trota,
-			m_handleMove, true, false);
-	}
 }
 
 // プレイヤーの操作処理
