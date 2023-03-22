@@ -22,10 +22,19 @@ Player::Player() :
 	m_verXPlayer(0),
 	m_verYPlayer(0),
 	m_handle(-1),
-	m_handle2(-1),
+	m_handleMove(-1),
 	m_handleEffect(-1),
 	m_handlenumX(-1),
 	m_frameCount(0),
+	m_TframeCount(0),
+	m_TposX(0),
+	m_TposY(0),
+	m_TspeedX(0),
+	m_TspeedY(0),
+	m_TverX(0),
+	m_TverY(0),
+	m_TlandingCount(0),
+	m_Trota(0),
 	m_landingSound(0),
 	m_rota(0.0f),
 	m_reverse(false),
@@ -53,10 +62,11 @@ void Player::initCommon()
 	m_verXPlayer = 0;
 	m_verYPlayer = 0;
 	m_frameCount = motionCount;
+	
 	m_rota = 0.0f;
 	// プレイヤー描画
 	m_handle = draw::MyLoadGraph("data/AnimationSheet_Character.png");// 立つモーション
-	m_handle2 = draw::MyLoadGraph("data/moveChar2.png");// 移動中
+	m_handleMove = draw::MyLoadGraph("data/moveChar2.png");// 移動中
 	m_landingSound = LoadSoundMem("sound/landingSound.mp3");// 着地した音
 	m_reverse = false;
 	m_sound = true;
@@ -93,13 +103,21 @@ void Player::initPlayer(int posX, int posY, int frameX, int frameY)
 void Player::initTitle()
 {
 	m_handle = draw::MyLoadGraph("data/AnimationSheet_Character.png");
+	m_TframeCount = motionCount;
+	m_TposX = 450;
+	m_TposY = 750;
+	m_TspeedX = 0;
+	m_TspeedY = 0;
+	m_TverX = 0;
+	m_TverY = 0;
+	m_TlandingCount = 0;
 }
 
 // 終了
 void Player::end()
 {
 	DeleteGraph(m_handle);
-	DeleteGraph(m_handle2);
+	DeleteGraph(m_handleMove);
 	DeleteGraph(m_handleEffect);
 	DeleteSoundMem(m_landingSound);
 }
@@ -116,6 +134,15 @@ void Player::update()
 	m_posX = m_frameX / kVariable::DrawWidth;
 	m_frameY += m_speedY;
 	m_posY = m_frameY / kVariable::DrawWidth;
+}
+
+void Player::updateTitle()
+{
+	// キャラクターの動き
+	m_TposX += m_TspeedX;
+	m_TposY += m_TspeedY;
+
+	//if (m_TposX == )
 }
 
 void Player::updateInCollision(int& frameX, int& frameY)
@@ -153,22 +180,63 @@ void Player::DrawTitle(int posX, int posY)
 	if (m_frameCount <= 0 && m_verXPlayer != 1)
 	{
 		m_verXPlayer = 1;
-		//m_verYPlayer = 0;
 		m_frameCount = motionCount;
 	}
 	else if (m_frameCount <= 0 && m_verXPlayer != 0)
 	{
 		m_verXPlayer = 0;
-		//m_verYPlayer = 0;
 		m_frameCount = motionCount;
 	}
 
-	draw::MyDrawRectRotaGraph(posX,
-		posY,
+	draw::MyDrawRectRotaGraph(posX, posY,
 		m_verXPlayer * 32, m_verYPlayer * 32,
 		32, 32,
 		3.0f, m_rota,
 		m_handle, true, false);
+}
+
+void Player::DrawMotionTitle()
+{
+	// 立っているモーション
+	m_TframeCount--;
+	if (m_TframeCount <= 0 && m_TverX != 1)
+	{
+		m_TverX = 1;
+		m_TframeCount = motionCount;
+	}
+	else if (m_TframeCount <= 0 && m_TverX != 0)
+	{
+		m_TverX = 0;
+		m_TframeCount = motionCount;
+	}
+
+	// 動いている方向に回転率を変える
+	if (m_TspeedX != 0)
+	{
+		m_Trota = PI / 2;
+	}
+	else if (m_TspeedY != 0)
+	{
+		m_Trota = 0;
+	}
+
+	// 動いている時といないとき
+	if (m_TspeedX == 0 && m_TspeedY == 0)
+	{
+		draw::MyDrawRectRotaGraph(m_TposX, m_TposY,
+			m_TverX * 32, m_TverY * 32,
+			32, 32,
+			3.0f, m_rota,
+			m_handle, true, false);
+	}
+	else
+	{
+		draw::MyDrawRectRotaGraph(m_TposX, m_TposY,
+			0, 0,
+			40, 40,
+			2.3f, m_Trota,
+			m_handleMove, true, false);
+	}
 }
 
 // プレイヤーの操作処理
@@ -300,7 +368,7 @@ void Player::motion(int x, int y)
 			0, 0,
 			40, 40,
 			2.0f, m_rota,
-			m_handle2, true, false);
+			m_handleMove, true, false);
 		m_frameCount = motionCount;
 	}
 

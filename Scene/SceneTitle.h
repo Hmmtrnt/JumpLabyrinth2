@@ -5,6 +5,7 @@
 
 class Back;
 class Player;
+class Stage;
 
 class SceneTitle : public SceneBase
 {
@@ -42,5 +43,6 @@ private:
 
 	Back* m_pBack;
 	Player* m_pPlayer;
+	Stage* m_pStage;
 };
 

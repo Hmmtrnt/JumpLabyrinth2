@@ -14,10 +14,15 @@ public:
 	virtual ~Stage();
 
 	void initCommon();// 共通の初期化
-	void initStage(const int stage[][kVariable::StageWidth], int stageHeight, int stageWidth);// 実験用初期化
+	void initStage(const int stage[][kVariable::StageWidth], int stageHeight, int stageWidth);// 初期化
+
+	void initTitle();
+
 	void end();// 終了
 	void update();// 更新
 	void draw();// 描画
+
+	void drawTitle();// タイトル画面の描画
 
 	int m_stage[kVariable::StageWidth][kVariable::StageWidth];// ステージ
 
@@ -46,6 +51,16 @@ private:
 	// 切り取る左上の頂点
 	int m_verX;
 	int m_verY;
+
+	// タイトル描画の変数
+	int m_TposX;// X座標
+	int m_TposY;// Y座標
+	int m_TverX;// 左上X座標
+	int m_TverY;// 左上Y座標
+	// ゴール
+	int m_TverGoalX;// 左上X座標
+	int m_TverGoalY;// 左上Y座標
+
 	// 膨らんだら即死判定の大きさ
 	float m_sizeGimmick;
 

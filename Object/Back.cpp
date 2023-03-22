@@ -16,26 +16,26 @@ namespace
 	// ステージギミックの説明描画座標
 	// 即死
 	constexpr int kTrapDeathHandleX = 200;		// 画像
-	constexpr int kTrapDeathHandleY = 200;
+	constexpr int kTrapDeathHandleY = 100;
 	constexpr int kTrapDeathTextX = 50;			// テキスト
-	constexpr int kTrapDeathTextY = 300;
+	constexpr int kTrapDeathTextY = 200;
 	// 時間差罠
 	constexpr int kTrapLagHandleX = 200;		// 画像
-	constexpr int kTrapLagHandleY = 650;
+	constexpr int kTrapLagHandleY = 330;
 	constexpr int kTrapLagTextX = 50;			// テキスト
-	constexpr int kTrapLagTextY = 750;
+	constexpr int kTrapLagTextY = 400;
 	// 膨らむ罠
-	constexpr int kTrapInflateHandleX = 1750;	// 画像
-	constexpr int kTrapInflateHandleY = 200;
-	constexpr int kTrapInflateHandleX2 = 1600;
-	constexpr int kTrapInflateHandleY2 = 200;
-	constexpr int kTrapInflateTextX = 1550;		// テキスト
-	constexpr int kTrapInflateTextY = 300;
+	constexpr int kTrapInflateHandleX = 250;	// 画像
+	constexpr int kTrapInflateHandleY = 600;
+	constexpr int kTrapInflateHandleX2 = 100;
+	constexpr int kTrapInflateHandleY2 = 600;
+	constexpr int kTrapInflateTextX = 50;		// テキスト
+	constexpr int kTrapInflateTextY = 700;
 	// ショット
-	constexpr int kTrapShotHandleX = 1700;		// 画像
-	constexpr int kTrapShotHandleY = 650;
-	constexpr int kTrapShotTextX = 1550;		// テキスト
-	constexpr int kTrapShotTextY = 750;
+	constexpr int kTrapShotHandleX = 200;		// 画像
+	constexpr int kTrapShotHandleY = 850;
+	constexpr int kTrapShotTextX = 50;		// テキスト
+	constexpr int kTrapShotTextY = 920;
 
 	// チュートリアル描画の座標
 	// 上ボタン
@@ -221,20 +221,20 @@ void Back::drawMenuGuide()
 
 void Back::drawCloseGuide()
 {
-	DrawFormatStringToHandle(150, 50, kColor::White, 
+	DrawFormatStringToHandle(1600, 160, kColor::White, 
 		m_textHandle, kGuideCloseText);
 	// ボタン描画
-	drawButton(100, 50);
+	drawButton(1550, 150);
 	drawPushButton(2, 0, m_buttonHandleTopNum);
 }
 
 void Back::drawOpenGuide()
 {
-	DrawFormatStringToHandle(150, 50, kColor::White, 
+	DrawFormatStringToHandle(1600, 160, kColor::White, 
 		m_textHandle, kGuideOpenText);
 
 	// ボタン描画
-	drawButton(100, 50);
+	drawButton(1550, 150);
 	drawPushButton(2, 0, m_buttonHandleTopNum);
 	drawMenuGuide();
 }
@@ -244,8 +244,8 @@ void Back::drawExplan2_5()
 	drawMenuGuide();
 	drawCloseGuide();
 
-	drawExplanDeath(kTrapDeathHandleX, kTrapDeathHandleY, 
-		kTrapDeathTextX, kTrapDeathTextY);
+	drawExplanDeath(kTrapOnlyHandleX, kTrapOnlyHandleY,
+		kTrapOnlyTextX, kTrapOnlyTextY);
 }
 
 void Back::drawExplan6And10()
@@ -275,7 +275,7 @@ void Back::drawExplan11()
 
 	drawExplanInflateTrap(kTrapOnlyInflateHandleX, kTrapOnlyInflateHandleY,
 		kTrapOnlyInflateHandleX2, kTrapOnlyInflateHandleY2,
-		kTrapOnlyTextX, kTrapDeathTextY);
+		kTrapOnlyTextX, kTrapOnlyTextY);
 }
 
 void Back::drawExplan12_15()

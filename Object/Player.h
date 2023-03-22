@@ -15,22 +15,18 @@ public:
 
 	// 初期化一覧
 	void initCommon();// 共通の初期化
-
 	void initPlayer(int posX, int posY, int frameX, int frameY);// 実験用初期化
-
 	void initTitle();// タイトルの初期化
-	
 	void end();// 終了
-
 	void endTitle();// タイトル画面の終了
-
 	void update();// 更新
-
-	void updateInCollision(int &frameX, int &frameY);	// キャラクターの当たり判定入り更新
+	void updateTitle();// タイトル画面の更新
+	void updateInCollision(int &frameX, int &frameY);// キャラクターの当たり判定入り更新
 
 	// 描画
 	void DrawGamePlay();		// プレイ中
 	void DrawTitle(int posX, int posY);// タイトル描画
+	void DrawMotionTitle();
 
 	// プレイヤー操作
 	void operation(bool colL,bool colR, bool colUp, bool colDown);
@@ -71,14 +67,25 @@ private:
 
 	// プレイヤーハンドル
 	int m_handle;		// 静止
-	int m_handle2;		// 動いてる
+	int m_handleMove;		// 動いてる
 	int m_handleEffect;	// エフェクト
 
 	// プレイヤー画像の番号
 	int m_handlenumX;
 	
-	// フレームカウント
+	// プレイヤーのモーションフレームカウント
 	int m_frameCount;
+
+	// タイトル画面のモーション
+	int m_TframeCount;// フレームカウント
+	int m_TposX;// X座標
+	int m_TposY;// Y座標
+	int m_TspeedX;// 移動X座標
+	int m_TspeedY;// 移動Y座標
+	int m_TverX;// 切り取りX座標
+	int m_TverY;// 切り取りY座標
+	int m_TlandingCount;// 着地している時間
+	int m_Trota;// 描画の回転率
 
 	// 音ハンドル
 	int m_landingSound;	// 着地
