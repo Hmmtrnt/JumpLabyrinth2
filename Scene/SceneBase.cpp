@@ -39,9 +39,9 @@ void SceneBase::updateFade(int sound)
 		}
 	}
 	m_volume += m_volumeSpeed;
-	if (m_volume >= 150)
+	if (m_volume >= 255)
 	{
-		m_volume = 150;
+		m_volume = 200;
 		if (m_volumeSpeed > 0)
 		{
 			m_volumeSpeed = 0;

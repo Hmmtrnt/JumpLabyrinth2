@@ -85,7 +85,7 @@ void SceneTitle::end()
 SceneBase* SceneTitle::update()
 {
 	// 操作していない時間
-	//m_waitingTime--;
+	m_waitingTime--;
 	// フェード処理
 	if (isFading())
 	{

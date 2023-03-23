@@ -26,7 +26,7 @@ void ParticleBase::init()
 	m_alpha = 255;
 	m_isExist = false;
 	m_gravity = 0.0f;
-	m_alphaDec = 8;
+	m_alphaDec = 5;
 	m_radiusAcc = 0.0f;
 }
 
